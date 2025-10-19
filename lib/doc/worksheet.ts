@@ -330,7 +330,7 @@ class Worksheet {
     value.forEach(defn => {
       const column = new Column(this, count++, false as any);
       columns.push(column);
-      column.defn_fn(defn);
+      column.defn = defn;
     });
   }
 
@@ -405,15 +405,15 @@ class Worksheet {
     const nEnd = this._columns ? this._columns.length : 0;
     if (nExpand < 0) {
       for (let i = start + inserts.length; i <= nEnd; i++) {
-        this.getColumn(i).defn_fn(this.getColumn(i - nExpand).defn_fn());
+        this.getColumn(i).defn = this.getColumn(i - nExpand).defn;
       }
     } else if (nExpand > 0) {
       for (let i = nEnd; i >= nKeep; i--) {
-        this.getColumn(i + nExpand).defn_fn(this.getColumn(i).defn_fn());
+        this.getColumn(i + nExpand).defn = this.getColumn(i).defn;
       }
     }
     for (let i = start; i < start + inserts.length; i++) {
-      this.getColumn(i).defn_fn(null as any);
+      this.getColumn(i).defn = null as any;
     }
 
     // account for defined names

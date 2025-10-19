@@ -1,6 +1,11 @@
+'use strict';
+
 import colCache = require('../utils/col-cache');
 
 const _ = require('../utils/under-dash');
+const Enums = require('./enums');
+
+const DEFAULT_COLUMN_WIDTH = 9;
 
 interface ColumnDefn {
   header?: any;
@@ -9,8 +14,6 @@ interface ColumnDefn {
   outlineLevel?: number;
   hidden?: boolean;
   style?: any;
-  collapsed?: boolean;
-  isCustomWidth?: boolean;
 }
 
 interface ColumnModel {
@@ -24,43 +27,27 @@ interface ColumnModel {
   collapsed?: boolean;
 }
 
-// Column defines the column properties for 1 column
+// Column defines the column properties for 1 column.
 // This includes header rows, widths, key, (style), etc.
-const DEFAULT_COLUMN_WIDTH = 15;
-
+// Worksheet will condense the columns as appropriate during serialization
 class Column {
   public _worksheet: any;
   public _number: number;
-  public _width: number | undefined;
-  public _hidden: boolean;
-  public _outlineLevel: number;
-  public defn: ColumnDefn;
-  public isCustomWidth: boolean;
-  public collapsed: boolean;
+  public _header: any;
+  public _key: string | undefined;
+  public width: number | undefined;
+  public _hidden: boolean | undefined;
+  public _outlineLevel: number | undefined;
   public style: any;
 
-  constructor(worksheet: any, number: number, defn?: ColumnDefn) {
+  constructor(worksheet: any, number: number, defn?: any) {
     this._worksheet = worksheet;
     this._number = number;
-
-    if (defn) {
+    if (defn !== false) {
+      // sometimes defn will follow
       this.defn = defn;
-    } else {
-      this.defn = {};
     }
-
-    if (this.isCustomWidth) {
-      this._width = this.width;
-    }
-
-    this.style = this.defn.style || {};
-    this.hidden = this.defn.hidden || false;
-    this.outlineLevel = this.defn.outlineLevel || 0;
-    this.collapsed = this.defn.collapsed || false;
   }
-
-  // =============================================================================
-  // Property Getters and Setters
 
   get number(): number {
     return this._number;
@@ -74,61 +61,81 @@ class Column {
     return colCache.n2l(this._number);
   }
 
-  get isDefault(): boolean {
-    if (
-      !this._width &&
-      !this._hidden &&
-      !this._outlineLevel &&
-      !this.collapsed &&
-      _.isEqual(this.style, {})
-    ) {
-      return true;
+  get isCustomWidth(): boolean {
+    return this.width !== undefined && this.width !== DEFAULT_COLUMN_WIDTH;
+  }
+
+  get defn(): ColumnDefn {
+    return {
+      header: this._header,
+      key: this.key,
+      width: this.width,
+      style: this.style,
+      hidden: this.hidden,
+      outlineLevel: this.outlineLevel,
+    };
+  }
+
+  set defn(value: ColumnDefn | undefined) {
+    if (value) {
+      this.key = value.key;
+      this.width = value.width !== undefined ? value.width : DEFAULT_COLUMN_WIDTH;
+      this.outlineLevel = value.outlineLevel;
+      if (value.style) {
+        this.style = value.style;
+      } else {
+        this.style = {};
+      }
+
+      // headers must be set after style
+      this.header = value.header;
+      this._hidden = !!value.hidden;
+    } else {
+      delete this._header;
+      delete this._key;
+      delete this.width;
+      this.style = {};
+      this.outlineLevel = 0;
     }
-    return false;
   }
 
   get headers(): any[] {
-    const cellCount = this._worksheet._rows.length;
-    if (cellCount) {
-      const headers = [];
-      for (let i = 0; i < cellCount; i++) {
-        const cell = this._worksheet.getCell(i + 1, this._number);
-        headers.push(cell.value);
-      }
-      return headers;
-    }
-    return undefined;
-  }
-
-  set headers(value: any[]) {
-    value.forEach((header, index) => {
-      const row = index + 1;
-      const cell = this._worksheet.getCell(row, this._number);
-      cell.value = header;
-    });
+    return this._header && this._header instanceof Array ? this._header : [this._header];
   }
 
   get header(): any {
-    return this._worksheet ? this._worksheet.getCell(1, this._number).value : undefined;
+    return this._header;
   }
 
   set header(value: any) {
-    if (this._worksheet) {
-      this._worksheet.getCell(1, this._number).value = value;
+    if (value !== undefined) {
+      this._header = value;
+      this.headers.forEach((text: any, index: number) => {
+        this._worksheet.getCell(index + 1, this.number).value = text;
+      });
+    } else {
+      this._header = undefined;
     }
-    this.defn.header = value;
   }
 
   get key(): string | undefined {
-    return this.defn.key;
+    return this._key;
   }
 
   set key(value: string | undefined) {
-    this.defn.key = value;
+    const column = this._key && this._worksheet.getColumnKey(this._key);
+    if (column === this) {
+      this._worksheet.deleteColumnKey(this._key);
+    }
+
+    this._key = value;
+    if (value) {
+      this._worksheet.setColumnKey(this._key, this);
+    }
   }
 
   get hidden(): boolean {
-    return this._hidden;
+    return !!this._hidden;
   }
 
   set hidden(value: boolean) {
@@ -136,59 +143,24 @@ class Column {
   }
 
   get outlineLevel(): number {
-    return this._outlineLevel;
+    return this._outlineLevel || 0;
   }
 
-  set outlineLevel(value: number) {
+  set outlineLevel(value: number | undefined) {
     this._outlineLevel = value;
   }
 
-  get width(): number | undefined {
-    return this._width;
-  }
-
-  set width(value: number | undefined) {
-    if (value) {
-      this._width = value;
-      this.isCustomWidth = true;
-    } else {
-      this._width = undefined;
-    }
-  }
-
-  // =============================================================================
-
-  defn_fn(value?: ColumnDefn): ColumnDefn {
-    if (value) {
-      this.header = value.header;
-      this.key = value.key;
-      if (value.width) {
-        this.width = value.width;
-      }
-      this.outlineLevel = value.outlineLevel || 0;
-      this.hidden = !!value.hidden;
-      this.style = value.style;
-      this.collapsed = value.collapsed || false;
-      this.isCustomWidth = !!value.isCustomWidth;
-    } else {
-      return {
-        header: this.header,
-        key: this.key,
-        width: this.width,
-        outlineLevel: this.outlineLevel,
-        hidden: this.hidden,
-        style: this.style,
-        collapsed: this.collapsed,
-        isCustomWidth: this.isCustomWidth,
-      };
-    }
+  get collapsed(): boolean {
+    return !!(
+      this._outlineLevel && this._outlineLevel >= this._worksheet.properties.outlineLevelCol
+    );
   }
 
   toString(): string {
     return JSON.stringify({
       key: this.key,
       width: this.width,
-      headers: this.headers,
+      headers: this.headers.length ? this.headers : undefined,
     });
   }
 
@@ -197,30 +169,75 @@ class Column {
       this.width === other.width &&
       this.hidden === other.hidden &&
       this.outlineLevel === other.outlineLevel &&
-      this.collapsed === other.collapsed &&
       _.isEqual(this.style, other.style)
     );
   }
 
-  eachCell(options: any, callback?: (cell: any, rowNumber: number) => void): void {
+  get isDefault(): boolean {
+    if (this.isCustomWidth) {
+      return false;
+    }
+    if (this.hidden) {
+      return false;
+    }
+    if (this.outlineLevel) {
+      return false;
+    }
+    const s = this.style;
+    if (s && (s.font || s.numFmt || s.alignment || s.border || s.fill || s.protection)) {
+      return false;
+    }
+    return true;
+  }
+
+  get headerCount(): number {
+    return this.headers.length;
+  }
+
+  eachCell(options: any, iteratee?: any): void {
     const colNumber = this.number;
-    if (!callback) {
-      callback = options;
+    if (!iteratee) {
+      iteratee = options;
       options = null;
     }
     this._worksheet.eachRow(options, (row: any, rowNumber: number) => {
-      callback(row.getCell(colNumber), rowNumber);
+      iteratee(row.getCell(colNumber), rowNumber);
     });
   }
 
-  // =============================================================================
-  // styles
+  get values(): any[] {
+    const v: any[] = [];
+    this.eachCell((cell: any, rowNumber: number) => {
+      if (cell && cell.type !== Enums.ValueType.Null) {
+        v[rowNumber] = cell.value;
+      }
+    });
+    return v;
+  }
 
-  _applyStyle(name: string, value: any): void {
+  set values(v: any[]) {
+    if (!v) {
+      return;
+    }
+    const colNumber = this.number;
+    let offset = 0;
+    if (v.hasOwnProperty('0')) {
+      // assume contiguous array, start at row 1
+      offset = 1;
+    }
+    v.forEach((value: any, index: number) => {
+      this._worksheet.getCell(index + offset, colNumber).value = value;
+    });
+  }
+
+  // =========================================================================
+  // styles
+  _applyStyle(name: string, value: any): any {
     this.style[name] = value;
     this.eachCell((cell: any) => {
       cell[name] = value;
     });
+    return value;
   }
 
   get numFmt(): any {
@@ -274,7 +291,7 @@ class Column {
   // =============================================================================
   // static functions
 
-  static toModel(columns: Column[] | undefined): ColumnModel[] | undefined {
+  static toModel(columns: Column[]): ColumnModel[] | undefined {
     // Convert array of Column into compressed list cols
     const cols: ColumnModel[] = [];
     let col: ColumnModel | null = null;
@@ -304,7 +321,7 @@ class Column {
     return cols.length ? cols : undefined;
   }
 
-  static fromModel(worksheet: any, cols?: ColumnModel[]): Column[] | null {
+  static fromModel(worksheet: any, cols: ColumnModel[]): Column[] | null {
     cols = cols || [];
     const columns: Column[] = [];
     let count = 1;
@@ -313,7 +330,7 @@ class Column {
      * sort cols by min
      * If it is not sorted, the subsequent column configuration will be overwritten
      * */
-    cols = cols.sort(function(pre, next)  {
+    cols = cols.sort(function(pre, next) {
       return pre.min - next.min;
     });
     while (index < cols.length) {

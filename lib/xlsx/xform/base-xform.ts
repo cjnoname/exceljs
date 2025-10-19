@@ -11,7 +11,6 @@ interface ParseEvent {
 
 // Base class for Xforms
 class BaseXform {
-  public model: any;
   public map?: {[key: string]: any};
 
   // ============================================================
@@ -44,7 +43,7 @@ class BaseXform {
   // ============================================================
   reset(): void {
     // to make sure parses don't bleed to next iteration
-    this.model = null;
+    (this as any).model = null;
 
     // if we have a map - reset them too
     if (this.map) {
@@ -60,7 +59,7 @@ class BaseXform {
 
   mergeModel(obj: any): void {
     // set obj's props to this.model
-    this.model = Object.assign(this.model || {}, obj);
+    (this as any).model = Object.assign((this as any).model || {}, obj);
   }
 
   async parse(saxParser: AsyncIterable<ParseEvent[]>): Promise<any> {
@@ -72,12 +71,12 @@ class BaseXform {
           this.parseText(value);
         } else if (eventType === 'closetag') {
           if (!this.parseClose(value.name)) {
-            return this.model;
+            return (this as any).model;
           }
         }
       }
     }
-    return this.model;
+    return (this as any).model;
   }
 
   async parseStream(stream: any): Promise<any> {
@@ -87,7 +86,7 @@ class BaseXform {
   get xml(): string {
     // convenience function to get the xml of this.model
     // useful for manager types that are built during the prepare phase
-    return this.toXml(this.model);
+    return this.toXml((this as any).model);
   }
 
   toXml(model: any): string {

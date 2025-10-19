@@ -44,7 +44,6 @@ class Row {
   public _number: number;
   public _cells: any[];
   public style: any;
-  public outlineLevel: number;
   public _hidden?: boolean;
   public _outlineLevel?: number;
   public height?: number;
@@ -356,6 +355,14 @@ class Row {
 
   set hidden(value: boolean) {
     this._hidden = value;
+  }
+
+  get outlineLevel(): number {
+    return this._outlineLevel || 0;
+  }
+
+  set outlineLevel(value: number) {
+    this._outlineLevel = value;
   }
 
   get collapsed(): boolean {

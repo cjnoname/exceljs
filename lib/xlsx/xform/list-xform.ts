@@ -21,6 +21,7 @@ class ListXform extends BaseXform {
   public childXform: any;
   public maxItems?: number;
   public parser: any;
+  public model: any[];
 
   constructor(options: ListXformOptions) {
     super();

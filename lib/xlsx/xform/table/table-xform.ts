@@ -6,13 +6,13 @@ import TableColumnXform = require('./table-column-xform');
 import TableStyleInfoXform = require('./table-style-info-xform');
 
 interface TableModel {
-  id: number;
+  id?: number;
   name: string;
   displayName?: string;
   tableRef: string;
   totalsRow?: boolean;
   headerRow?: boolean;
-  columns: any[];
+  columns?: any[];
   autoFilterRef?: string;
   style?: any;
 }
@@ -82,13 +82,11 @@ class TableXform extends BaseXform {
       case this.tag:
         this.reset();
         this.model = {
-          id: 0,
           name: attributes.name,
           displayName: attributes.displayName || attributes.name,
           tableRef: attributes.ref,
           totalsRow: attributes.totalsRowCount === '1',
           headerRow: attributes.headerRowCount === '1',
-          columns: [],
         };
         break;
       default:

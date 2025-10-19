@@ -4,13 +4,6 @@ import BaseXform = require('../base-xform');
 
 class TextXform extends BaseXform {
   private _text: string[];
-  public model: string;
-
-  constructor() {
-    super();
-    this._text = [];
-    this.model = '';
-  }
 
   get tag(): string {
     return 't';
@@ -25,7 +18,7 @@ class TextXform extends BaseXform {
     xmlStream.closeNode();
   }
 
-  private getModel(): string {
+  get model(): string {
     return this._text
       .join('')
       .replace(/_x([0-9A-F]{4})_/g, ($0, $1) => String.fromCharCode(parseInt($1, 16)));
@@ -46,9 +39,9 @@ class TextXform extends BaseXform {
   }
 
   parseClose(): boolean {
-    this.model = this.getModel();
     return false;
   }
 }
 
 export = TextXform;
+
