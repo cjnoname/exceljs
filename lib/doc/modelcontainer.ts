@@ -1,0 +1,21 @@
+'use strict';
+
+import XLSX = require('../xlsx/xlsx');
+
+class ModelContainer {
+  model: any;
+  private _xlsx?: XLSX;
+
+  constructor(model: any) {
+    this.model = model;
+  }
+
+  get xlsx(): XLSX {
+    if (!this._xlsx) {
+      this._xlsx = new XLSX(this);
+    }
+    return this._xlsx;
+  }
+}
+
+export = ModelContainer;
