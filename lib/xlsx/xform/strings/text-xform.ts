@@ -18,16 +18,11 @@ class TextXform extends BaseXform {
     xmlStream.closeNode();
   }
 
-  get model(): string {
-    return this._text
-      .join('')
-      .replace(/_x([0-9A-F]{4})_/g, ($0, $1) => String.fromCharCode(parseInt($1, 16)));
-  }
-
   parseOpen(node: any): boolean {
     switch (node.name) {
       case 't':
         this._text = [];
+        this.model = ''; // Initialize model to empty string
         return true;
       default:
         return false;
@@ -36,6 +31,10 @@ class TextXform extends BaseXform {
 
   parseText(text: string): void {
     this._text.push(text);
+    // Update model immediately after receiving text
+    this.model = this._text
+      .join('')
+      .replace(/_x([0-9A-F]{4})_/g, ($0, $1) => String.fromCharCode(parseInt($1, 16)));
   }
 
   parseClose(): boolean {

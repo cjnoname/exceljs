@@ -48,6 +48,10 @@ class ZipWriter extends events.EventEmitter {
     }
   }
 
+  push(chunk: any): boolean {
+    return this.stream.push(chunk);
+  }
+
   async _finalize(): Promise<void> {
     const content = await this.zip.generateAsync(this.options as any);
     if (content) {

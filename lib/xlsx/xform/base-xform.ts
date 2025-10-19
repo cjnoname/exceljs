@@ -12,6 +12,7 @@ interface ParseEvent {
 // Base class for Xforms
 class BaseXform {
   public map?: {[key: string]: any};
+  public model?: any;
 
   // ============================================================
   // Virtual Interface
