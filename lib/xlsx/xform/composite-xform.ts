@@ -1,4 +1,4 @@
-import BaseXform = require('./base-xform');
+import BaseXform from './base-xform';
 
 /* 'virtual' methods used as a form of documentation */
 /* eslint-disable class-methods-use-this */
@@ -59,4 +59,4 @@ class CompositeXform extends BaseXform {
   }
 }
 
-export = CompositeXform;
+export default CompositeXform;

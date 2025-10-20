@@ -1,5 +1,5 @@
-import utils = require('../../../utils/utils');
-import BaseXform = require('../base-xform');
+import utils from '../../../utils/utils';
+import BaseXform from '../base-xform';
 
 interface SheetModel {
   id: number;
@@ -38,4 +38,4 @@ class WorksheetXform extends BaseXform {
   }
 }
 
-export = WorksheetXform;
+export default WorksheetXform;

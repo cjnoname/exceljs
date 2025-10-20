@@ -1,10 +1,10 @@
-import ColorXform = require('./color-xform');
-import BooleanXform = require('../simple/boolean-xform');
-import IntegerXform = require('../simple/integer-xform');
-import StringXform = require('../simple/string-xform');
-import UnderlineXform = require('./underline-xform');
-import _ = require('../../../utils/under-dash');
-import BaseXform = require('../base-xform');
+import ColorXform from './color-xform';
+import BooleanXform from '../simple/boolean-xform';
+import IntegerXform from '../simple/integer-xform';
+import StringXform from '../simple/string-xform';
+import UnderlineXform from './underline-xform';
+import _ from '../../../utils/under-dash';
+import BaseXform from '../base-xform';
 
 interface FontModel {
   bold?: boolean;
@@ -123,4 +123,4 @@ class FontXform extends BaseXform {
   };
 }
 
-export = FontXform;
+export default FontXform;

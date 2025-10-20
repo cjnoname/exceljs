@@ -1,8 +1,8 @@
-import XmlStream = require('../../../utils/xml-stream');
-import BaseXform = require('../base-xform');
-import DateXform = require('../simple/date-xform');
-import StringXform = require('../simple/string-xform');
-import IntegerXform = require('../simple/integer-xform');
+import XmlStream from '../../../utils/xml-stream';
+import BaseXform from '../base-xform';
+import DateXform from '../simple/date-xform';
+import StringXform from '../simple/string-xform';
+import IntegerXform from '../simple/integer-xform';
 
 interface CoreModel {
   creator?: string;
@@ -156,4 +156,4 @@ class CoreXform extends BaseXform {
   };
 }
 
-export = CoreXform;
+export default CoreXform;

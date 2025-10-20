@@ -1,29 +1,29 @@
 /* eslint-disable import/no-extraneous-dependencies,node/no-unpublished-require */
-require('core-js/modules/es.promise');
-require('core-js/modules/es.promise.finally');
-require('core-js/modules/es.object.assign');
-require('core-js/modules/es.object.keys');
-require('core-js/modules/es.object.values');
-require('core-js/modules/es.symbol');
-require('core-js/modules/es.symbol.async-iterator');
+import 'core-js/modules/es.promise';
+import 'core-js/modules/es.promise.finally';
+import 'core-js/modules/es.object.assign';
+import 'core-js/modules/es.object.keys';
+import 'core-js/modules/es.object.values';
+import 'core-js/modules/es.symbol';
+import 'core-js/modules/es.symbol.async-iterator';
 // required by core-js/modules/es.promise Promise.all
-require('core-js/modules/es.array.iterator');
+import 'core-js/modules/es.array.iterator';
 // required by node_modules/saxes/saxes.js SaxesParser.captureTo
-require('core-js/modules/es.array.includes');
+import 'core-js/modules/es.array.includes';
 // required by lib/doc/workbook.js Workbook.model
-require('core-js/modules/es.array.find-index');
+import 'core-js/modules/es.array.find-index';
 // required by lib/doc/workbook.js Workbook.addWorksheet and Workbook.getWorksheet
-require('core-js/modules/es.array.find');
+import 'core-js/modules/es.array.find';
 // required by node_modules/saxes/saxes.js SaxesParser.getCode10
-require('core-js/modules/es.string.from-code-point');
+import 'core-js/modules/es.string.from-code-point';
 // required by lib/xlsx/xform/sheet/data-validations-xform.js DataValidationsXform.parseClose
-require('core-js/modules/es.string.includes');
+import 'core-js/modules/es.string.includes';
 // required by lib/utils/utils.js utils.validInt and lib/csv/csv.js CSV.read
-require('core-js/modules/es.number.is-nan');
-require('regenerator-runtime/runtime');
+import 'core-js/modules/es.number.is-nan';
+import 'regenerator-runtime/runtime';
 
-import Workbook = require('./doc/workbook');
-import Enums = require('./doc/enums');
+import Workbook from './doc/workbook';
+import Enums from './doc/enums';
 
 const ExcelJS: any = {
   Workbook,
@@ -34,4 +34,4 @@ Object.keys(Enums).forEach(key => {
   ExcelJS[key] = (Enums as any)[key];
 });
 
-export = ExcelJS;
+export default ExcelJS;

@@ -1,4 +1,4 @@
-import BaseXform = require('../base-xform');
+import BaseXform from '../base-xform';
 
 type UnderlineType = boolean | 'single' | 'double' | 'singleAccounting' | 'doubleAccounting';
 
@@ -45,4 +45,4 @@ class UnderlineXform extends BaseXform {
   }
 }
 
-export = UnderlineXform;
+export default UnderlineXform;

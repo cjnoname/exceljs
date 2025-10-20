@@ -1,8 +1,8 @@
-import Range = require('../../../doc/range');
-import colCache = require('../../../utils/col-cache');
-import Enums = require('../../../doc/enums');
+import Range from '../../../doc/range';
+import colCache from '../../../utils/col-cache';
+import Enums from '../../../doc/enums';
 
-const _ = require('../../../utils/under-dash');
+import _ from '../../../utils/under-dash';
 
 interface MergeData {
   address: string;
@@ -61,4 +61,4 @@ class Merges {
   }
 }
 
-export = Merges;
+export default Merges;

@@ -1,6 +1,6 @@
-import BaseXform = require('../base-xform');
-import VmlTextboxXform = require('./vml-textbox-xform');
-import VmlClientDataXform = require('./vml-client-data-xform');
+import BaseXform from '../base-xform';
+import VmlTextboxXform from './vml-textbox-xform';
+import VmlClientDataXform from './vml-client-data-xform';
 
 interface ShapeModel {
   note: {
@@ -106,4 +106,4 @@ class VmlShapeXform extends BaseXform {
   });
 }
 
-export = VmlShapeXform;
+export default VmlShapeXform;

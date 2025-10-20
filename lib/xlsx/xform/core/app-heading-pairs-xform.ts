@@ -1,4 +1,4 @@
-import BaseXform = require('../base-xform');
+import BaseXform from '../base-xform';
 
 class AppHeadingPairsXform extends BaseXform {
   render(xmlStream: any, model: any[]): void {
@@ -29,4 +29,4 @@ class AppHeadingPairsXform extends BaseXform {
   }
 }
 
-export = AppHeadingPairsXform;
+export default AppHeadingPairsXform;

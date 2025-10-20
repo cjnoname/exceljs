@@ -1,9 +1,9 @@
-import XmlStream = require('../../../utils/xml-stream');
-import BaseXform = require('../base-xform');
-import ListXform = require('../list-xform');
-import AutoFilterXform = require('./auto-filter-xform');
-import TableColumnXform = require('./table-column-xform');
-import TableStyleInfoXform = require('./table-style-info-xform');
+import XmlStream from '../../../utils/xml-stream';
+import BaseXform from '../base-xform';
+import ListXform from '../list-xform';
+import AutoFilterXform from './auto-filter-xform';
+import TableColumnXform from './table-column-xform';
+import TableStyleInfoXform from './table-style-info-xform';
 
 interface TableModel {
   id?: number;
@@ -158,4 +158,4 @@ class TableXform extends BaseXform {
   };
 }
 
-export = TableXform;
+export default TableXform;

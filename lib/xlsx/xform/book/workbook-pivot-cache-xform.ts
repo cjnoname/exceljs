@@ -1,4 +1,4 @@
-import BaseXform = require('../base-xform');
+import BaseXform from '../base-xform';
 
 interface PivotCacheModel {
   cacheId: string;
@@ -31,4 +31,4 @@ class WorkbookPivotCacheXform extends BaseXform {
   }
 }
 
-export = WorkbookPivotCacheXform;
+export default WorkbookPivotCacheXform;

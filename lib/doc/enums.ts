@@ -52,3 +52,12 @@ export const ErrorValue = {
 } as const;
 
 export type ErrorValueType = typeof ErrorValue[keyof typeof ErrorValue];
+
+export default {
+  ValueType,
+  FormulaType,
+  RelationshipType,
+  DocumentType,
+  ReadingOrder,
+  ErrorValue,
+};

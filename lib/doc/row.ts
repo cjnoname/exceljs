@@ -1,8 +1,8 @@
-const _ = require('../utils/under-dash');
+import _ from '../utils/under-dash';
 
-import Enums = require('./enums');
-import colCache = require('../utils/col-cache');
-import Cell = require('./cell');
+import Enums from './enums';
+import colCache from '../utils/col-cache';
+import Cell from './cell';
 
 interface CellAddress {
   address: string;
@@ -454,4 +454,4 @@ class Row {
   }
 }
 
-export = Row;
+export default Row;

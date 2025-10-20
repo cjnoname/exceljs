@@ -1,4 +1,4 @@
-import BaseXform = require('../base-xform');
+import BaseXform from '../base-xform';
 
 interface TableColumnModel {
   id?: number;
@@ -55,4 +55,4 @@ class TableColumnXform extends BaseXform {
   }
 }
 
-export = TableColumnXform;
+export default TableColumnXform;

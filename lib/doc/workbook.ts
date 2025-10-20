@@ -1,7 +1,7 @@
-import Worksheet = require('./worksheet');
-import DefinedNames = require('./defined-names');
-import XLSX = require('../xlsx/xlsx');
-import CSV = require('../csv/csv');
+import Worksheet from './worksheet';
+import DefinedNames from './defined-names';
+import XLSX from '../xlsx/xlsx';
+import CSV from '../csv/csv';
 
 interface WorksheetModel {
   id: number;
@@ -290,4 +290,4 @@ class Workbook {
   }
 }
 
-export = Workbook;
+export default Workbook;

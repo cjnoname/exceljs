@@ -1,9 +1,9 @@
 'use strict';
 
-import colCache = require('../utils/col-cache');
+import colCache from '../utils/col-cache';
 
-const _ = require('../utils/under-dash');
-const Enums = require('./enums');
+import _ from '../utils/under-dash';
+import Enums from './enums';
 
 const DEFAULT_COLUMN_WIDTH = 9;
 
@@ -346,4 +346,4 @@ class Column {
   }
 }
 
-export = Column;
+export default Column;

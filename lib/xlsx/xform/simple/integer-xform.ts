@@ -1,4 +1,4 @@
-import BaseXform = require('../base-xform');
+import BaseXform from '../base-xform';
 
 interface IntegerXformOptions {
   tag: string;
@@ -68,4 +68,4 @@ class IntegerXform extends BaseXform {
   }
 }
 
-export = IntegerXform;
+export default IntegerXform;

@@ -1,9 +1,9 @@
-import BaseXform = require('../base-xform');
-import StaticXform = require('../static-xform');
-import BlipFillXform = require('./blip-fill-xform');
-import NvPicPrXform = require('./nv-pic-pr-xform');
+import BaseXform from '../base-xform';
+import StaticXform from '../static-xform';
+import BlipFillXform from './blip-fill-xform';
+import NvPicPrXform from './nv-pic-pr-xform';
 
-const spPrJSON = require('./sp-pr');
+import spPrJSON from './sp-pr';
 
 interface PicModel {
   index?: number;
@@ -82,4 +82,4 @@ class PicXform extends BaseXform {
   }
 }
 
-export = PicXform;
+export default PicXform;

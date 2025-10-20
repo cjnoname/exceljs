@@ -1,6 +1,6 @@
-import BaseXform = require('../base-xform');
+import BaseXform from '../base-xform';
 
-const utils = require('../../../utils/utils');
+import utils from '../../../utils/utils';
 
 interface ColModel {
   min: number;
@@ -96,4 +96,4 @@ class ColXform extends BaseXform {
   }
 }
 
-export = ColXform;
+export default ColXform;

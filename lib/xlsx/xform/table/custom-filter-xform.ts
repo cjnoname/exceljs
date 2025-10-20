@@ -1,4 +1,4 @@
-import BaseXform = require('../base-xform');
+import BaseXform from '../base-xform';
 
 interface CustomFilterModel {
   val: string;
@@ -42,4 +42,4 @@ class CustomFilterXform extends BaseXform {
   }
 }
 
-export = CustomFilterXform;
+export default CustomFilterXform;

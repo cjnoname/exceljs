@@ -1,7 +1,7 @@
-import BaseXform = require('../base-xform');
-import ColorXform = require('../style/color-xform');
-import PageSetupPropertiesXform = require('./page-setup-properties-xform');
-import OutlinePropertiesXform = require('./outline-properties-xform');
+import BaseXform from '../base-xform';
+import ColorXform from '../style/color-xform';
+import PageSetupPropertiesXform from './page-setup-properties-xform';
+import OutlinePropertiesXform from './outline-properties-xform';
 
 interface SheetPropertiesModel {
   tabColor?: any;
@@ -96,4 +96,4 @@ class SheetPropertiesXform extends BaseXform {
   }
 }
 
-export = SheetPropertiesXform;
+export default SheetPropertiesXform;

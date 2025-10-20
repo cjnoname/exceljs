@@ -1,6 +1,6 @@
-import BaseXform = require('../base-xform');
-import CNvPrXform = require('./c-nv-pr-xform');
-import CNvPicPrXform = require('./c-nv-pic-pr-xform');
+import BaseXform from '../base-xform';
+import CNvPrXform from './c-nv-pr-xform';
+import CNvPicPrXform from './c-nv-pic-pr-xform';
 
 class NvPicPrXform extends BaseXform {
   public map: {[key: string]: any};
@@ -66,4 +66,4 @@ class NvPicPrXform extends BaseXform {
   }
 }
 
-export = NvPicPrXform;
+export default NvPicPrXform;

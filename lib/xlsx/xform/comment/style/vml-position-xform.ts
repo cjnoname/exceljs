@@ -1,4 +1,4 @@
-import BaseXform = require('../../base-xform');
+import BaseXform from '../../base-xform';
 
 class VmlPositionXform extends BaseXform {
   private _model: {tag?: string};
@@ -40,4 +40,4 @@ class VmlPositionXform extends BaseXform {
   }
 }
 
-export = VmlPositionXform;
+export default VmlPositionXform;

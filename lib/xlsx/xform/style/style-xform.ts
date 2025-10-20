@@ -1,6 +1,6 @@
-import BaseXform = require('../base-xform');
-import AlignmentXform = require('./alignment-xform');
-import ProtectionXform = require('./protection-xform');
+import BaseXform from '../base-xform';
+import AlignmentXform from './alignment-xform';
+import ProtectionXform from './protection-xform';
 
 // <xf numFmtId="[numFmtId]" fontId="[fontId]" fillId="[fillId]" borderId="[xf.borderId]" xfId="[xfId]">
 //   Optional <alignment>
@@ -139,4 +139,4 @@ class StyleXform extends BaseXform {
   }
 }
 
-export = StyleXform;
+export default StyleXform;

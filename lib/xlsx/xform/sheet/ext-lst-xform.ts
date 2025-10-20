@@ -1,6 +1,6 @@
 /* eslint-disable max-classes-per-file */
-import CompositeXform = require('../composite-xform');
-import ConditionalFormattingsExt = require('./cf-ext/conditional-formattings-ext-xform');
+import CompositeXform from '../composite-xform';
+import ConditionalFormattingsExt from './cf-ext/conditional-formattings-ext-xform';
 
 class ExtXform extends CompositeXform {
   public map!: {[key: string]: any};
@@ -22,8 +22,8 @@ class ExtXform extends CompositeXform {
     return this.conditionalFormattings.hasContent(model.conditionalFormattings);
   }
 
-  prepare(model: any, options: any): void {
-    this.conditionalFormattings.prepare(model.conditionalFormattings, options);
+  prepare(model: any): void {
+    this.conditionalFormattings.prepare(model.conditionalFormattings);
   }
 
   render(xmlStream: any, model: any): void {
@@ -63,8 +63,8 @@ class ExtLstXform extends CompositeXform {
     return 'extLst';
   }
 
-  prepare(model: any, options: any): void {
-    this.ext.prepare(model, options);
+  prepare(model: any, _options?: any): void {
+    this.ext.prepare(model);
   }
 
   hasContent(model: any): boolean {
@@ -90,4 +90,4 @@ class ExtLstXform extends CompositeXform {
   }
 }
 
-export = ExtLstXform;
+export default ExtLstXform;

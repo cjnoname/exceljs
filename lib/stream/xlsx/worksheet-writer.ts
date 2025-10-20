@@ -1,39 +1,39 @@
-import _ = require('../../utils/under-dash');
+import _ from '../../utils/under-dash';
 
-import RelType = require('../../xlsx/rel-type');
+import RelType from '../../xlsx/rel-type';
 
-import colCache = require('../../utils/col-cache');
-import Encryptor = require('../../utils/encryptor');
-import Dimensions = require('../../doc/range');
-import StringBuf = require('../../utils/string-buf');
+import colCache from '../../utils/col-cache';
+import Encryptor from '../../utils/encryptor';
+import Dimensions from '../../doc/range';
+import StringBuf from '../../utils/string-buf';
 
-import Row = require('../../doc/row');
-import Column = require('../../doc/column');
+import Row from '../../doc/row';
+import Column from '../../doc/column';
 
-import SheetRelsWriter = require('./sheet-rels-writer');
-import SheetCommentsWriter = require('./sheet-comments-writer');
-import DataValidations = require('../../doc/data-validations');
+import SheetRelsWriter from './sheet-rels-writer';
+import SheetCommentsWriter from './sheet-comments-writer';
+import DataValidations from '../../doc/data-validations';
 
 const xmlBuffer = new StringBuf();
 
 // ============================================================================================
 // Xforms
-import ListXform = require('../../xlsx/xform/list-xform');
-import DataValidationsXform = require('../../xlsx/xform/sheet/data-validations-xform');
-import SheetPropertiesXform = require('../../xlsx/xform/sheet/sheet-properties-xform');
-import SheetFormatPropertiesXform = require('../../xlsx/xform/sheet/sheet-format-properties-xform');
-import ColXform = require('../../xlsx/xform/sheet/col-xform');
-import RowXform = require('../../xlsx/xform/sheet/row-xform');
-import HyperlinkXform = require('../../xlsx/xform/sheet/hyperlink-xform');
-import SheetViewXform = require('../../xlsx/xform/sheet/sheet-view-xform');
-import SheetProtectionXform = require('../../xlsx/xform/sheet/sheet-protection-xform');
-import PageMarginsXform = require('../../xlsx/xform/sheet/page-margins-xform');
-import PageSetupXform = require('../../xlsx/xform/sheet/page-setup-xform');
-import AutoFilterXform = require('../../xlsx/xform/sheet/auto-filter-xform');
-import PictureXform = require('../../xlsx/xform/sheet/picture-xform');
-import ConditionalFormattingsXform = require('../../xlsx/xform/sheet/cf/conditional-formattings-xform');
-import HeaderFooterXform = require('../../xlsx/xform/sheet/header-footer-xform');
-import RowBreaksXform = require('../../xlsx/xform/sheet/row-breaks-xform');
+import ListXform from '../../xlsx/xform/list-xform';
+import DataValidationsXform from '../../xlsx/xform/sheet/data-validations-xform';
+import SheetPropertiesXform from '../../xlsx/xform/sheet/sheet-properties-xform';
+import SheetFormatPropertiesXform from '../../xlsx/xform/sheet/sheet-format-properties-xform';
+import ColXform from '../../xlsx/xform/sheet/col-xform';
+import RowXform from '../../xlsx/xform/sheet/row-xform';
+import HyperlinkXform from '../../xlsx/xform/sheet/hyperlink-xform';
+import SheetViewXform from '../../xlsx/xform/sheet/sheet-view-xform';
+import SheetProtectionXform from '../../xlsx/xform/sheet/sheet-protection-xform';
+import PageMarginsXform from '../../xlsx/xform/sheet/page-margins-xform';
+import PageSetupXform from '../../xlsx/xform/sheet/page-setup-xform';
+import AutoFilterXform from '../../xlsx/xform/sheet/auto-filter-xform';
+import PictureXform from '../../xlsx/xform/sheet/picture-xform';
+import ConditionalFormattingsXform from '../../xlsx/xform/sheet/cf/conditional-formattings-xform';
+import HeaderFooterXform from '../../xlsx/xform/sheet/header-footer-xform';
+import RowBreaksXform from '../../xlsx/xform/sheet/row-breaks-xform';
 
 // since prepare and render are functional, we can use singletons
 const xform: any = {
@@ -759,4 +759,4 @@ class WorksheetWriter {
   }
 }
 
-export = WorksheetWriter;
+export default WorksheetWriter;

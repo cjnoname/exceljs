@@ -1,5 +1,5 @@
-import _ = require('./under-dash');
-import utils = require('./utils');
+import _ from './under-dash';
+import utils from './utils';
 
 // constants
 const OPEN_ANGLE = '<';
@@ -183,4 +183,4 @@ class XmlStream {
   };
 }
 
-export = XmlStream;
+export default XmlStream;

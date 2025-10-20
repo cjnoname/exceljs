@@ -1,6 +1,6 @@
-import XmlStream = require('../../../utils/xml-stream');
-import BaseXform = require('../base-xform');
-import CommentXform = require('./comment-xform');
+import XmlStream from '../../../utils/xml-stream';
+import BaseXform from '../base-xform';
+import CommentXform from './comment-xform';
 
 interface CommentsModel {
   comments: any[];
@@ -86,4 +86,4 @@ class CommentsXform extends BaseXform {
   };
 }
 
-export = CommentsXform;
+export default CommentsXform;

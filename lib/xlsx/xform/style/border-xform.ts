@@ -1,7 +1,7 @@
 /* eslint-disable max-classes-per-file */
-import BaseXform = require('../base-xform');
-import utils = require('../../../utils/utils');
-import ColorXform = require('./color-xform');
+import BaseXform from '../base-xform';
+import utils from '../../../utils/utils';
+import ColorXform from './color-xform';
 
 interface EdgeModel {
   style?: string;
@@ -228,4 +228,4 @@ class BorderXform extends BaseXform {
   }
 }
 
-export = BorderXform;
+export default BorderXform;

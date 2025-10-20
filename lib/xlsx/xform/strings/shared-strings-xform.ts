@@ -1,6 +1,6 @@
-import XmlStream = require('../../../utils/xml-stream');
-import BaseXform = require('../base-xform');
-import SharedStringXform = require('./shared-string-xform');
+import XmlStream from '../../../utils/xml-stream';
+import BaseXform from '../base-xform';
+import SharedStringXform from './shared-string-xform';
 
 interface SharedStringsModel {
   values: any[];
@@ -135,4 +135,4 @@ class SharedStringsXform extends BaseXform {
   }
 }
 
-export = SharedStringsXform;
+export default SharedStringsXform;

@@ -1,8 +1,8 @@
-import BaseXform = require('../base-xform');
+import BaseXform from '../base-xform';
 
-import VmlAnchorXform = require('./vml-anchor-xform');
-import VmlProtectionXform = require('./style/vml-protection-xform');
-import VmlPositionXform = require('./style/vml-position-xform');
+import VmlAnchorXform from './vml-anchor-xform';
+import VmlProtectionXform from './style/vml-protection-xform';
+import VmlPositionXform from './style/vml-position-xform';
 
 const POSITION_TYPE = ['twoCells', 'oneCells', 'absolute'];
 
@@ -119,4 +119,4 @@ class VmlClientDataXform extends BaseXform {
   }
 }
 
-export = VmlClientDataXform;
+export default VmlClientDataXform;

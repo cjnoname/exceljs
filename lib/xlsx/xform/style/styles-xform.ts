@@ -1,15 +1,15 @@
 /* eslint-disable max-classes-per-file */
-import Enums = require('../../../doc/enums');
-import XmlStream = require('../../../utils/xml-stream');
-import BaseXform = require('../base-xform');
-import StaticXform = require('../static-xform');
-import ListXform = require('../list-xform');
-import FontXform = require('./font-xform');
-import FillXform = require('./fill-xform');
-import BorderXform = require('./border-xform');
-import NumFmtXform = require('./numfmt-xform');
-import StyleXform = require('./style-xform');
-import DxfXform = require('./dxf-xform');
+import Enums from '../../../doc/enums';
+import XmlStream from '../../../utils/xml-stream';
+import BaseXform from '../base-xform';
+import StaticXform from '../static-xform';
+import ListXform from '../list-xform';
+import FontXform from './font-xform';
+import FillXform from './fill-xform';
+import BorderXform from './border-xform';
+import NumFmtXform from './numfmt-xform';
+import StyleXform from './style-xform';
+import DxfXform from './dxf-xform';
 
 // custom numfmt ids start here
 const NUMFMT_BASE = 164;
@@ -557,4 +557,4 @@ class StylesXformMock extends StylesXform {
 // Assign Mock after class declaration to avoid "used before declaration" error
 StylesXform.Mock = StylesXformMock;
 
-export = StylesXform;
+export default StylesXform;

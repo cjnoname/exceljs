@@ -1,6 +1,6 @@
 'use strict';
 
-import XLSX = require('../xlsx/xlsx');
+import XLSX from '../xlsx/xlsx';
 
 class ModelContainer {
   model: any;
@@ -18,4 +18,4 @@ class ModelContainer {
   }
 }
 
-export = ModelContainer;
+export default ModelContainer;

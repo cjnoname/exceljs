@@ -1,4 +1,4 @@
-import BaseXform = require('../base-xform');
+import BaseXform from '../base-xform';
 
 interface WorkbookPropertiesModel {
   date1904?: boolean;
@@ -30,4 +30,4 @@ class WorksheetPropertiesXform extends BaseXform {
   }
 }
 
-export = WorksheetPropertiesXform;
+export default WorksheetPropertiesXform;

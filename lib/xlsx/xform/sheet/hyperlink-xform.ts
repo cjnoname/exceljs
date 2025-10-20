@@ -1,4 +1,4 @@
-import BaseXform = require('../base-xform');
+import BaseXform from '../base-xform';
 
 interface HyperlinkModel {
   address: string;
@@ -58,4 +58,4 @@ class HyperlinkXform extends BaseXform {
   }
 }
 
-export = HyperlinkXform;
+export default HyperlinkXform;

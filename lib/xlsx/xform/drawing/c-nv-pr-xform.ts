@@ -1,6 +1,6 @@
-import BaseXform = require('../base-xform');
-import HLinkClickXform = require('./hlink-click-xform');
-import ExtLstXform = require('./ext-lst-xform');
+import BaseXform from '../base-xform';
+import HLinkClickXform from './hlink-click-xform';
+import ExtLstXform from './ext-lst-xform';
 
 interface CNvPrModel {
   index: number;
@@ -73,4 +73,4 @@ class CNvPrXform extends BaseXform {
   }
 }
 
-export = CNvPrXform;
+export default CNvPrXform;

@@ -1,5 +1,5 @@
-import RichTextXform = require('../strings/rich-text-xform');
-import BaseXform = require('../base-xform');
+import RichTextXform from '../strings/rich-text-xform';
+import BaseXform from '../base-xform';
 
 interface NoteText {
   font?: any;
@@ -102,4 +102,4 @@ class CommentXform extends BaseXform {
   }
 }
 
-export = CommentXform;
+export default CommentXform;

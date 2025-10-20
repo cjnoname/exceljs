@@ -1,5 +1,5 @@
-import colCache = require('../utils/col-cache');
-import Anchor = require('./anchor');
+import colCache from '../utils/col-cache';
+import Anchor from './anchor';
 
 interface ImageHyperlinks {
   [key: string]: any;
@@ -106,4 +106,4 @@ class Image {
   }
 }
 
-export = Image;
+export default Image;

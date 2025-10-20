@@ -1,6 +1,6 @@
-import TextXform = require('./text-xform');
-import RichTextXform = require('./rich-text-xform');
-import BaseXform = require('../base-xform');
+import TextXform from './text-xform';
+import RichTextXform from './rich-text-xform';
+import BaseXform from '../base-xform';
 
 // <rPh sb="0" eb="1">
 //   <t>(its pronounciation in KATAKANA)</t>
@@ -104,4 +104,4 @@ class PhoneticTextXform extends BaseXform {
   }
 }
 
-export = PhoneticTextXform;
+export default PhoneticTextXform;

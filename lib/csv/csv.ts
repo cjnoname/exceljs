@@ -1,14 +1,16 @@
-import fs = require('fs');
-import StreamBuf = require('../utils/stream-buf');
+import fs from 'fs';
+import StreamBuf from '../utils/stream-buf';
 
-const fastCsv = require('fast-csv');
-const customParseFormat = require('dayjs/plugin/customParseFormat');
-const utc = require('dayjs/plugin/utc');
-const dayjs = require('dayjs').extend(customParseFormat).extend(utc);
+import fastCsv from 'fast-csv';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
+import utc from 'dayjs/plugin/utc';
+import dayjs from 'dayjs';
+import utils from '../utils/utils';
 
-const {
-  fs: {exists},
-} = require('../utils/utils');
+dayjs.extend(customParseFormat);
+dayjs.extend(utc);
+
+const {fs: {exists}} = utils;
 
 interface ReadOptions {
   sheetName?: string;
@@ -210,4 +212,4 @@ class CSV {
   }
 }
 
-export = CSV;
+export default CSV;

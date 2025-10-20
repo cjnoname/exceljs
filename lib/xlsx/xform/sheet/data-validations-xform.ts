@@ -1,9 +1,9 @@
-import BaseXform = require('../base-xform');
-import Range = require('../../../doc/range');
+import BaseXform from '../base-xform';
+import Range from '../../../doc/range';
 
-const _ = require('../../../utils/under-dash');
-const utils = require('../../../utils/utils');
-const colCache = require('../../../utils/col-cache');
+import _ from '../../../utils/under-dash';
+import utils from '../../../utils/utils';
+import colCache from '../../../utils/col-cache';
 
 function assign(definedName: any, attributes: any, name: string, defaultValue?: any): void {
   const value = attributes[name];
@@ -44,7 +44,7 @@ function optimiseDataValidations(model: any): any[] {
   return dvList
     .map(dv => {
       if (!dv.marked) {
-        const addr = colCache.decodeEx(dv.address);
+        const addr: any = colCache.decodeEx(dv.address);
         if (addr.dimensions) {
           dvMap[addr.dimensions].marked = true;
           return {
@@ -260,4 +260,4 @@ class DataValidationsXform extends BaseXform {
   }
 }
 
-export = DataValidationsXform;
+export default DataValidationsXform;

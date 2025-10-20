@@ -1,4 +1,4 @@
-import BaseXform = require('../base-xform');
+import BaseXform from '../base-xform';
 
 abstract class BaseCellAnchorXform extends BaseXform {
   public map: {[key: string]: any};
@@ -51,4 +51,4 @@ abstract class BaseCellAnchorXform extends BaseXform {
   }
 }
 
-export = BaseCellAnchorXform;
+export default BaseCellAnchorXform;

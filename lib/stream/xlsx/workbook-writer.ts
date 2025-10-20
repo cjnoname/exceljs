@@ -1,23 +1,23 @@
-import fs = require('fs');
-import Archiver = require('archiver');
+import fs from 'fs';
+import Archiver from 'archiver';
 
-import StreamBuf = require('../../utils/stream-buf');
+import StreamBuf from '../../utils/stream-buf';
 
-import RelType = require('../../xlsx/rel-type');
-import StylesXform = require('../../xlsx/xform/style/styles-xform');
-import SharedStrings = require('../../utils/shared-strings');
-import DefinedNames = require('../../doc/defined-names');
+import RelType from '../../xlsx/rel-type';
+import StylesXform from '../../xlsx/xform/style/styles-xform';
+import SharedStrings from '../../utils/shared-strings';
+import DefinedNames from '../../doc/defined-names';
 
-import CoreXform = require('../../xlsx/xform/core/core-xform');
-import RelationshipsXform = require('../../xlsx/xform/core/relationships-xform');
-import ContentTypesXform = require('../../xlsx/xform/core/content-types-xform');
-import AppXform = require('../../xlsx/xform/core/app-xform');
-import WorkbookXform = require('../../xlsx/xform/book/workbook-xform');
-import SharedStringsXform = require('../../xlsx/xform/strings/shared-strings-xform');
+import CoreXform from '../../xlsx/xform/core/core-xform';
+import RelationshipsXform from '../../xlsx/xform/core/relationships-xform';
+import ContentTypesXform from '../../xlsx/xform/core/content-types-xform';
+import AppXform from '../../xlsx/xform/core/app-xform';
+import WorkbookXform from '../../xlsx/xform/book/workbook-xform';
+import SharedStringsXform from '../../xlsx/xform/strings/shared-strings-xform';
 
-import WorksheetWriter = require('./worksheet-writer');
+import WorksheetWriter from './worksheet-writer';
 
-const theme1Xml = require('../../xlsx/xml/theme1.js');
+import theme1Xml from '../../xlsx/xml/theme1.js';
 
 interface WorkbookWriterOptions {
   created?: Date;
@@ -372,4 +372,4 @@ class WorkbookWriter {
   }
 }
 
-export = WorkbookWriter;
+export default WorkbookWriter;

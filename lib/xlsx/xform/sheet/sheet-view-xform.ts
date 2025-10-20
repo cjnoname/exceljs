@@ -1,5 +1,5 @@
-import colCache = require('../../../utils/col-cache');
-import BaseXform = require('../base-xform');
+import colCache from '../../../utils/col-cache';
+import BaseXform from '../base-xform';
 
 const VIEW_STATES: {[key: string]: string} = {
   frozen: 'frozen',
@@ -222,4 +222,4 @@ class SheetViewXform extends BaseXform {
   reconcile(): void {}
 }
 
-export = SheetViewXform;
+export default SheetViewXform;

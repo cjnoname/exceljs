@@ -1,6 +1,6 @@
-import BaseXform = require('../base-xform');
+import BaseXform from '../base-xform';
 
-const _ = require('../../../utils/under-dash');
+import _ from '../../../utils/under-dash';
 
 interface SheetFormatPropertiesModel {
   defaultRowHeight: number;
@@ -61,4 +61,4 @@ class SheetFormatPropertiesXform extends BaseXform {
   }
 }
 
-export = SheetFormatPropertiesXform;
+export default SheetFormatPropertiesXform;

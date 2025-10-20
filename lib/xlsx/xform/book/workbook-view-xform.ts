@@ -1,4 +1,4 @@
-import BaseXform = require('../base-xform');
+import BaseXform from '../base-xform';
 
 interface WorkbookViewModel {
   x?: number;
@@ -60,4 +60,4 @@ class WorkbookViewXform extends BaseXform {
   }
 }
 
-export = WorkbookViewXform;
+export default WorkbookViewXform;

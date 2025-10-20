@@ -1,5 +1,5 @@
-import parseSax = require('../../utils/parse-sax');
-import XmlStream = require('../../utils/xml-stream');
+import parseSax from '../../utils/parse-sax';
+import XmlStream from '../../utils/xml-stream';
 
 /* 'virtual' methods used as a form of documentation */
 /* eslint-disable class-methods-use-this */
@@ -149,4 +149,4 @@ class BaseXform {
   }
 }
 
-export = BaseXform;
+export default BaseXform;

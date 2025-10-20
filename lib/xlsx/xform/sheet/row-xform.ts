@@ -1,7 +1,7 @@
-import BaseXform = require('../base-xform');
-import CellXform = require('./cell-xform');
+import BaseXform from '../base-xform';
+import CellXform from './cell-xform';
 
-const utils = require('../../../utils/utils');
+import utils from '../../../utils/utils';
 
 interface RowXformOptions {
   maxItems?: number;
@@ -164,4 +164,4 @@ class RowXform extends BaseXform {
   }
 }
 
-export = RowXform;
+export default RowXform;

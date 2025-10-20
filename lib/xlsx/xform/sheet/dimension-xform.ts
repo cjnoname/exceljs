@@ -1,4 +1,4 @@
-import BaseXform = require('../base-xform');
+import BaseXform from '../base-xform';
 
 class DimensionXform extends BaseXform {
   public model: any;
@@ -28,4 +28,4 @@ class DimensionXform extends BaseXform {
   }
 }
 
-export = DimensionXform;
+export default DimensionXform;

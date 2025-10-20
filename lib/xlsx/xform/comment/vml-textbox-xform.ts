@@ -1,4 +1,4 @@
-import BaseXform = require('../base-xform');
+import BaseXform from '../base-xform';
 
 interface Margins {
   inset?: number[] | string;
@@ -81,4 +81,4 @@ class VmlTextboxXform extends BaseXform {
   }
 }
 
-export = VmlTextboxXform;
+export default VmlTextboxXform;

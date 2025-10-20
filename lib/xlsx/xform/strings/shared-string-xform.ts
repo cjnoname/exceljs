@@ -1,7 +1,7 @@
-import TextXform = require('./text-xform');
-import RichTextXform = require('./rich-text-xform');
-import PhoneticTextXform = require('./phonetic-text-xform');
-import BaseXform = require('../base-xform');
+import TextXform from './text-xform';
+import RichTextXform from './rich-text-xform';
+import PhoneticTextXform from './phonetic-text-xform';
+import BaseXform from '../base-xform';
 
 // <si>
 //   <r></r><r></r>...
@@ -103,4 +103,4 @@ class SharedStringXform extends BaseXform {
   }
 }
 
-export = SharedStringXform;
+export default SharedStringXform;

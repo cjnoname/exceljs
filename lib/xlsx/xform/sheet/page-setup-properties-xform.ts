@@ -1,4 +1,4 @@
-import BaseXform = require('../base-xform');
+import BaseXform from '../base-xform';
 
 interface PageSetupPropertiesModel {
   fitToPage: boolean;
@@ -36,4 +36,4 @@ class PageSetupPropertiesXform extends BaseXform {
   }
 }
 
-export = PageSetupPropertiesXform;
+export default PageSetupPropertiesXform;

@@ -1,4 +1,4 @@
-import BaseXform = require('../base-xform');
+import BaseXform from '../base-xform';
 
 interface RelationshipModel {
   Id?: string;
@@ -29,4 +29,4 @@ class RelationshipXform extends BaseXform {
   }
 }
 
-export = RelationshipXform;
+export default RelationshipXform;

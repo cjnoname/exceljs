@@ -1,4 +1,4 @@
-import BaseXform = require('../base-xform');
+import BaseXform from '../base-xform';
 
 const validation = {
   boolean(value: boolean | undefined, dflt: boolean): boolean {
@@ -62,4 +62,4 @@ class ProtectionXform extends BaseXform {
   }
 }
 
-export = ProtectionXform;
+export default ProtectionXform;

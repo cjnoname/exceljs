@@ -1,8 +1,8 @@
-import XmlStream = require('../../../utils/xml-stream');
-import BaseXform = require('../base-xform');
-import StringXform = require('../simple/string-xform');
-import AppHeadingPairsXform = require('./app-heading-pairs-xform');
-import AppTitleOfPartsXform = require('./app-titles-of-parts-xform');
+import XmlStream from '../../../utils/xml-stream';
+import BaseXform from '../base-xform';
+import StringXform from '../simple/string-xform';
+import AppHeadingPairsXform from './app-heading-pairs-xform';
+import AppTitleOfPartsXform from './app-titles-of-parts-xform';
 
 interface AppModel {
   worksheets: any[];
@@ -105,4 +105,4 @@ class AppXform extends BaseXform {
   };
 }
 
-export = AppXform;
+export default AppXform;

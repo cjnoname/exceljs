@@ -1,4 +1,4 @@
-import BaseXform = require('../base-xform');
+import BaseXform from '../base-xform';
 
 interface BlipModel {
   rId: string;
@@ -50,4 +50,4 @@ class BlipXform extends BaseXform {
   }
 }
 
-export = BlipXform;
+export default BlipXform;

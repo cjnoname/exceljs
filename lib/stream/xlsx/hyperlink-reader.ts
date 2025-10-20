@@ -1,8 +1,8 @@
 import {EventEmitter} from 'events';
-import parseSax = require('../../utils/parse-sax');
+import parseSax from '../../utils/parse-sax';
 
-import Enums = require('../../doc/enums');
-import RelType = require('../../xlsx/rel-type');
+import Enums from '../../doc/enums';
+import RelType from '../../xlsx/rel-type';
 
 interface HyperlinkReaderOptions {
   workbook: any;
@@ -104,4 +104,4 @@ class HyperlinkReader extends EventEmitter {
   }
 }
 
-export = HyperlinkReader;
+export default HyperlinkReader;

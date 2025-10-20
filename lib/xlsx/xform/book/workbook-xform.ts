@@ -1,15 +1,15 @@
-import _ = require('../../../utils/under-dash');
-import colCache = require('../../../utils/col-cache');
-import XmlStream = require('../../../utils/xml-stream');
-import BaseXform = require('../base-xform');
-import StaticXform = require('../static-xform');
-import ListXform = require('../list-xform');
-import DefinedNameXform = require('./defined-name-xform');
-import SheetXform = require('./sheet-xform');
-import WorkbookViewXform = require('./workbook-view-xform');
-import WorkbookPropertiesXform = require('./workbook-properties-xform');
-import WorkbookCalcPropertiesXform = require('./workbook-calc-properties-xform');
-import WorkbookPivotCacheXform = require('./workbook-pivot-cache-xform');
+import _ from '../../../utils/under-dash';
+import colCache from '../../../utils/col-cache';
+import XmlStream from '../../../utils/xml-stream';
+import BaseXform from '../base-xform';
+import StaticXform from '../static-xform';
+import ListXform from '../list-xform';
+import DefinedNameXform from './defined-name-xform';
+import SheetXform from './sheet-xform';
+import WorkbookViewXform from './workbook-view-xform';
+import WorkbookPropertiesXform from './workbook-properties-xform';
+import WorkbookCalcPropertiesXform from './workbook-calc-properties-xform';
+import WorkbookPivotCacheXform from './workbook-pivot-cache-xform';
 
 class WorkbookXform extends BaseXform {
   public map: {[key: string]: any};
@@ -261,4 +261,4 @@ class WorkbookXform extends BaseXform {
   };
 }
 
-export = WorkbookXform;
+export default WorkbookXform;

@@ -1,7 +1,7 @@
-import BaseXform = require('../base-xform');
-import ListXform = require('../list-xform');
-import CustomFilterXform = require('./custom-filter-xform');
-import FilterXform = require('./filter-xform');
+import BaseXform from '../base-xform';
+import ListXform from '../list-xform';
+import CustomFilterXform from './custom-filter-xform';
+import FilterXform from './filter-xform';
 
 interface FilterColumnModel {
   colId?: string;
@@ -102,4 +102,4 @@ class FilterColumnXform extends BaseXform {
   }
 }
 
-export = FilterColumnXform;
+export default FilterColumnXform;

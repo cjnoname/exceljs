@@ -1,4 +1,4 @@
-import BaseXform = require('../base-xform');
+import BaseXform from '../base-xform';
 
 //   <t xml:space="preserve"> is </t>
 
@@ -42,5 +42,5 @@ class TextXform extends BaseXform {
   }
 }
 
-export = TextXform;
+export default TextXform;
 

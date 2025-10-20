@@ -1,4 +1,4 @@
-import BaseXform = require('../base-xform');
+import BaseXform from '../base-xform';
 
 interface HeaderFooterModel {
   differentFirst?: boolean;
@@ -156,4 +156,4 @@ class HeaderFooterXform extends BaseXform {
   }
 }
 
-export = HeaderFooterXform;
+export default HeaderFooterXform;

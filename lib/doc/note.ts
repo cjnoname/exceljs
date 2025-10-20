@@ -1,4 +1,4 @@
-import _ = require('../utils/under-dash');
+import _ from '../utils/under-dash';
 
 interface NoteText {
   text: string;
@@ -88,4 +88,4 @@ class Note {
   }
 }
 
-export = Note;
+export default Note;

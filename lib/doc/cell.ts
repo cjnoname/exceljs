@@ -1,10 +1,10 @@
 /* eslint-disable max-classes-per-file */
-import colCache = require('../utils/col-cache');
-import Enums = require('./enums');
-import Note = require('./note');
+import colCache from '../utils/col-cache';
+import Enums from './enums';
+import Note from './note';
 
-const _ = require('../utils/under-dash');
-const {slideFormula} = require('../utils/shared-formula');
+import _ from '../utils/under-dash';
+import {slideFormula} from '../utils/shared-formula';
 
 interface HyperlinkValueData {
   text?: string;
@@ -1194,4 +1194,4 @@ const Value = {
   },
 };
 
-export = Cell;
+export default Cell;

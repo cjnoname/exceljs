@@ -1,6 +1,6 @@
-import XmlStream = require('../../../utils/xml-stream');
-import BaseXform = require('../base-xform');
-import VmlShapeXform = require('./vml-shape-xform');
+import XmlStream from '../../../utils/xml-stream';
+import BaseXform from '../base-xform';
+import VmlShapeXform from './vml-shape-xform';
 
 interface VmlNotesModel {
   comments: any[];
@@ -113,4 +113,4 @@ class VmlNotesXform extends BaseXform {
   };
 }
 
-export = VmlNotesXform;
+export default VmlNotesXform;

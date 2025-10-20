@@ -1,9 +1,9 @@
 'use strict';
 
-import _ = require('../utils/under-dash');
-import colCache = require('../utils/col-cache');
-import CellMatrix = require('../utils/cell-matrix');
-import Range = require('./range');
+import _ from '../utils/under-dash';
+import colCache from '../utils/col-cache';
+import CellMatrix from '../utils/cell-matrix';
+import Range from './range';
 
 const rangeRegexp = /[$](\w+)[$](\d+)(:[$](\w+)[$](\d+))?/;
 
@@ -208,4 +208,4 @@ class DefinedNames {
   }
 }
 
-export = DefinedNames;
+export default DefinedNames;

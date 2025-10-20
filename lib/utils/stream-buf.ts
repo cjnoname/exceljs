@@ -1,7 +1,7 @@
 /* eslint-disable max-classes-per-file */
 import {Duplex} from 'readable-stream';
-import utils = require('./utils');
-import StringBuf = require('./string-buf');
+import utils from './utils';
+import StringBuf from './string-buf';
 
 // =============================================================================
 // data chunks - encapsulating incoming data
@@ -380,4 +380,4 @@ utils.inherits(StreamBuf, Duplex as any, {
   },
 });
 
-export = StreamBuf;
+export default StreamBuf;

@@ -1,4 +1,4 @@
-import BaseXform = require('../base-xform');
+import BaseXform from '../base-xform';
 
 class CNvPicPrXform extends BaseXform {
   get tag(): string {
@@ -35,4 +35,4 @@ class CNvPicPrXform extends BaseXform {
   }
 }
 
-export = CNvPicPrXform;
+export default CNvPicPrXform;

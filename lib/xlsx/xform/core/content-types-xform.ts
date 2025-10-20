@@ -1,5 +1,5 @@
-import XmlStream = require('../../../utils/xml-stream');
-import BaseXform = require('../base-xform');
+import XmlStream from '../../../utils/xml-stream';
+import BaseXform from '../base-xform';
 
 // used for rendering the [Content_Types].xml file
 // not used for parsing
@@ -133,4 +133,4 @@ class ContentTypesXform extends BaseXform {
   };
 }
 
-export = ContentTypesXform;
+export default ContentTypesXform;

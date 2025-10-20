@@ -1,5 +1,5 @@
-import BaseXform = require('../base-xform');
-import FilterColumnXform = require('./filter-column-xform');
+import BaseXform from '../base-xform';
+import FilterColumnXform from './filter-column-xform';
 
 interface AutoFilterModel {
   autoFilterRef: string;
@@ -86,4 +86,4 @@ class AutoFilterXform extends BaseXform {
   }
 }
 
-export = AutoFilterXform;
+export default AutoFilterXform;

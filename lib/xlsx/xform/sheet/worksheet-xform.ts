@@ -1,35 +1,35 @@
-import _ = require('../../../utils/under-dash');
+import _ from '../../../utils/under-dash';
 
-import colCache = require('../../../utils/col-cache');
-import XmlStream = require('../../../utils/xml-stream');
+import colCache from '../../../utils/col-cache';
+import XmlStream from '../../../utils/xml-stream';
 
-import RelType = require('../../rel-type');
+import RelType from '../../rel-type';
 
-import Merges = require('./merges');
+import Merges from './merges';
 
-import BaseXform = require('../base-xform');
-import ListXform = require('../list-xform');
-import RowXform = require('./row-xform');
-import ColXform = require('./col-xform');
-import DimensionXform = require('./dimension-xform');
-import HyperlinkXform = require('./hyperlink-xform');
-import MergeCellXform = require('./merge-cell-xform');
-import DataValidationsXform = require('./data-validations-xform');
-import SheetPropertiesXform = require('./sheet-properties-xform');
-import SheetFormatPropertiesXform = require('./sheet-format-properties-xform');
-import SheetViewXform = require('./sheet-view-xform');
-import SheetProtectionXform = require('./sheet-protection-xform');
-import PageMarginsXform = require('./page-margins-xform');
-import PageSetupXform = require('./page-setup-xform');
-import PrintOptionsXform = require('./print-options-xform');
-import AutoFilterXform = require('./auto-filter-xform');
-import PictureXform = require('./picture-xform');
-import DrawingXform = require('./drawing-xform');
-import TablePartXform = require('./table-part-xform');
-import RowBreaksXform = require('./row-breaks-xform');
-import HeaderFooterXform = require('./header-footer-xform');
-import ConditionalFormattingsXform = require('./cf/conditional-formattings-xform');
-import ExtListXform = require('./ext-lst-xform');
+import BaseXform from '../base-xform';
+import ListXform from '../list-xform';
+import RowXform from './row-xform';
+import ColXform from './col-xform';
+import DimensionXform from './dimension-xform';
+import HyperlinkXform from './hyperlink-xform';
+import MergeCellXform from './merge-cell-xform';
+import DataValidationsXform from './data-validations-xform';
+import SheetPropertiesXform from './sheet-properties-xform';
+import SheetFormatPropertiesXform from './sheet-format-properties-xform';
+import SheetViewXform from './sheet-view-xform';
+import SheetProtectionXform from './sheet-protection-xform';
+import PageMarginsXform from './page-margins-xform';
+import PageSetupXform from './page-setup-xform';
+import PrintOptionsXform from './print-options-xform';
+import AutoFilterXform from './auto-filter-xform';
+import PictureXform from './picture-xform';
+import DrawingXform from './drawing-xform';
+import TablePartXform from './table-part-xform';
+import RowBreaksXform from './row-breaks-xform';
+import HeaderFooterXform from './header-footer-xform';
+import ConditionalFormattingsXform from './cf/conditional-formattings-xform';
+import ExtListXform from './ext-lst-xform';
 
 const mergeRule = (rule, extRule) => {
   Object.keys(extRule).forEach(key => {
@@ -552,4 +552,4 @@ WorkSheetXform.WORKSHEET_ATTRIBUTES = {
   'xmlns:x14ac': 'http://schemas.microsoft.com/office/spreadsheetml/2009/9/ac',
 };
 
-export = WorkSheetXform;
+export default WorkSheetXform;

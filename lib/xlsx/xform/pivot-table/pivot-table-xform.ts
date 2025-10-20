@@ -1,5 +1,5 @@
-import XmlStream = require('../../../utils/xml-stream');
-import BaseXform = require('../base-xform');
+import XmlStream from '../../../utils/xml-stream';
+import BaseXform from '../base-xform';
 
 interface PivotTableModel {
   rows: number[];
@@ -198,4 +198,4 @@ function renderPivotField(fieldType: string | null, sharedItems: string[] | null
   `;
 }
 
-export = PivotTableXform;
+export default PivotTableXform;

@@ -1,9 +1,9 @@
-import utils = require('../../../utils/utils');
-import BaseXform = require('../base-xform');
-import Range = require('../../../doc/range');
-import Enums = require('../../../doc/enums');
+import utils from '../../../utils/utils';
+import BaseXform from '../base-xform';
+import Range from '../../../doc/range';
+import Enums from '../../../doc/enums';
 
-import RichTextXform = require('../strings/rich-text-xform');
+import RichTextXform from '../strings/rich-text-xform';
 
 function getValueType(v) {
   if (v === null || v === undefined) {
@@ -500,4 +500,4 @@ class CellXform extends BaseXform {
   }
 }
 
-export = CellXform;
+export default CellXform;

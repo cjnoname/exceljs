@@ -1,6 +1,6 @@
-import _ = require('../../../utils/under-dash');
-import defaultNumFormats = require('../../defaultnumformats');
-import BaseXform = require('../base-xform');
+import _ from '../../../utils/under-dash';
+import defaultNumFormats from '../../defaultnumformats';
+import BaseXform from '../base-xform';
 
 interface NumFmtModel {
   id: number;
@@ -67,4 +67,4 @@ class NumFmtXform extends BaseXform {
   }
 }
 
-export = NumFmtXform;
+export default NumFmtXform;

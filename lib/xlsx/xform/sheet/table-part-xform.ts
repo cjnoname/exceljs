@@ -1,4 +1,4 @@
-import BaseXform = require('../base-xform');
+import BaseXform from '../base-xform';
 
 interface TablePartModel {
   rId: string;
@@ -34,4 +34,4 @@ class TablePartXform extends BaseXform {
   }
 }
 
-export = TablePartXform;
+export default TablePartXform;

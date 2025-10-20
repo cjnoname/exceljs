@@ -13,16 +13,20 @@ const basePath = (function() {
     require('core-js/modules/es.symbol');
     require('core-js/modules/es.symbol.async-iterator');
     require('regenerator-runtime/runtime');
-    libs.exceljs = require('../../dist/es5');
+    const mod = require('../../dist/es5');
+    libs.exceljs = mod.default || mod;
     return '../../dist/es5/';
   }
-  libs.exceljs = require('../../lib/exceljs.nodejs');
+  const mod = require('../../lib/exceljs.nodejs');
+  libs.exceljs = mod.default || mod;
   return '../../lib/';
 })();
 
 module.exports = function verquire(path) {
   if (!libs[path]) {
-    libs[path] = require(basePath + path);
+    const mod = require(basePath + path);
+    // Handle ES6 default exports
+    libs[path] = mod.default || mod;
   }
   return libs[path];
 };

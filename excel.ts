@@ -10,4 +10,4 @@ if (parseInt(process.versions.node.split('.')[0], 10) < 10) {
   );
 }
 
-export = require('./lib/exceljs.nodejs');
+export {default} from './lib/exceljs.nodejs';

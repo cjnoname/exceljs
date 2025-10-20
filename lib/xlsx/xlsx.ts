@@ -1,31 +1,32 @@
-import fs = require('fs');
-import JSZip = require('jszip');
+import fs from 'fs';
+import JSZip from 'jszip';
 import {PassThrough} from 'readable-stream';
-import ZipStream = require('../utils/zip-stream');
-import StreamBuf = require('../utils/stream-buf');
+import * as ZipStream from '../utils/zip-stream';
+import StreamBuf from '../utils/stream-buf';
 
-import utils = require('../utils/utils');
-import XmlStream = require('../utils/xml-stream');
+import utils from '../utils/utils';
+import XmlStream from '../utils/xml-stream';
 import {bufferToString} from '../utils/browser-buffer-decode';
 
-import StylesXform = require('./xform/style/styles-xform');
+import StylesXform from './xform/style/styles-xform';
 
-import CoreXform = require('./xform/core/core-xform');
-import SharedStringsXform = require('./xform/strings/shared-strings-xform');
-import RelationshipsXform = require('./xform/core/relationships-xform');
-import ContentTypesXform = require('./xform/core/content-types-xform');
-import AppXform = require('./xform/core/app-xform');
-import WorkbookXform = require('./xform/book/workbook-xform');
-import WorksheetXform = require('./xform/sheet/worksheet-xform');
-import DrawingXform = require('./xform/drawing/drawing-xform');
-import TableXform = require('./xform/table/table-xform');
-import PivotCacheRecordsXform = require('./xform/pivot-table/pivot-cache-records-xform');
-import PivotCacheDefinitionXform = require('./xform/pivot-table/pivot-cache-definition-xform');
-import PivotTableXform = require('./xform/pivot-table/pivot-table-xform');
-import CommentsXform = require('./xform/comment/comments-xform');
-import VmlNotesXform = require('./xform/comment/vml-notes-xform');
+import CoreXform from './xform/core/core-xform';
+import SharedStringsXform from './xform/strings/shared-strings-xform';
+import RelationshipsXform from './xform/core/relationships-xform';
+import ContentTypesXform from './xform/core/content-types-xform';
+import AppXform from './xform/core/app-xform';
+import WorkbookXform from './xform/book/workbook-xform';
+import WorksheetXform from './xform/sheet/worksheet-xform';
+import DrawingXform from './xform/drawing/drawing-xform';
+import TableXform from './xform/table/table-xform';
+import PivotCacheRecordsXform from './xform/pivot-table/pivot-cache-records-xform';
+import PivotCacheDefinitionXform from './xform/pivot-table/pivot-cache-definition-xform';
+import PivotTableXform from './xform/pivot-table/pivot-table-xform';
+import CommentsXform from './xform/comment/comments-xform';
+import VmlNotesXform from './xform/comment/vml-notes-xform';
 
-const theme1Xml = require('./xml/theme1');
+import theme1Xml from './xml/theme1';
+import RelType from './rel-type';
 
 function fsReadFileAsync(filename: string, options?: any): Promise<Buffer> {
   return new Promise((resolve, reject) => {
@@ -732,7 +733,7 @@ class XLSX {
     return stream.read();
   }
 
-  static RelType = require('./rel-type');
+  static RelType = RelType;
 }
 
-export = XLSX;
+export default XLSX;

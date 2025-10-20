@@ -1,6 +1,6 @@
-import XmlStream = require('../../../utils/xml-stream');
-import BaseXform = require('../base-xform');
-import RelationshipXform = require('./relationship-xform');
+import XmlStream from '../../../utils/xml-stream';
+import BaseXform from '../base-xform';
+import RelationshipXform from './relationship-xform';
 
 class RelationshipsXform extends BaseXform {
   public map: {Relationship: RelationshipXform};
@@ -73,4 +73,4 @@ class RelationshipsXform extends BaseXform {
   };
 }
 
-export = RelationshipsXform;
+export default RelationshipsXform;

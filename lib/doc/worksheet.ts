@@ -1,17 +1,17 @@
-const _ = require('../utils/under-dash');
+import _ from '../utils/under-dash';
 
-import colCache = require('../utils/col-cache');
-import Range = require('./range');
-import Row = require('./row');
-import Column = require('./column');
-import Enums = require('./enums');
-import Image = require('./image');
-import Table = require('./table');
-import DataValidations = require('./data-validations');
-import Encryptor = require('../utils/encryptor');
+import colCache from '../utils/col-cache';
+import Range from './range';
+import Row from './row';
+import Column from './column';
+import Enums from './enums';
+import Image from './image';
+import Table from './table';
+import DataValidations from './data-validations';
+import Encryptor from '../utils/encryptor';
 
-const {makePivotTable} = require('./pivot-table');
-const {copyStyle} = require('../utils/copy-style');
+import {makePivotTable} from './pivot-table';
+import {copyStyle} from '../utils/copy-style';
 
 interface WorksheetOptions {
   workbook?: any;
@@ -1063,4 +1063,4 @@ Please leave feedback at https://github.com/exceljs/exceljs/discussions/2575`
   }
 }
 
-export = Worksheet;
+export default Worksheet;

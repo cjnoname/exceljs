@@ -1,4 +1,4 @@
-import BaseXform = require('../base-xform');
+import BaseXform from '../base-xform';
 
 interface DrawingModel {
   rId: string;
@@ -34,4 +34,4 @@ class DrawingXform extends BaseXform {
   }
 }
 
-export = DrawingXform;
+export default DrawingXform;

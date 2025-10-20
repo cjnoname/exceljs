@@ -1,18 +1,18 @@
-import fs = require('fs');
+import fs from 'fs';
 import {EventEmitter} from 'events';
 import {PassThrough, Readable} from 'readable-stream';
-import nodeStream = require('stream');
-import unzip = require('unzipper');
-import tmp = require('tmp');
-import iterateStream = require('../../utils/iterate-stream');
-import parseSax = require('../../utils/parse-sax');
+import nodeStream from 'stream';
+import unzip from 'unzipper';
+import tmp from 'tmp';
+import iterateStream from '../../utils/iterate-stream';
+import parseSax from '../../utils/parse-sax';
 
-import StyleManager = require('../../xlsx/xform/style/styles-xform');
-import WorkbookXform = require('../../xlsx/xform/book/workbook-xform');
-import RelationshipsXform = require('../../xlsx/xform/core/relationships-xform');
+import StyleManager from '../../xlsx/xform/style/styles-xform';
+import WorkbookXform from '../../xlsx/xform/book/workbook-xform';
+import RelationshipsXform from '../../xlsx/xform/core/relationships-xform';
 
-import WorksheetReader = require('./worksheet-reader');
-import HyperlinkReader = require('./hyperlink-reader');
+import WorksheetReader from './worksheet-reader';
+import HyperlinkReader from './hyperlink-reader';
 
 tmp.setGracefulCleanup();
 
@@ -360,4 +360,4 @@ namespace WorkbookReader {
   };
 }
 
-export = WorkbookReader;
+export default WorkbookReader;

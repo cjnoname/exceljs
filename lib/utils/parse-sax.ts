@@ -34,4 +34,4 @@ async function* parseSax(iterable: any): AsyncGenerator<SaxEvent[]> {
   }
 }
 
-export = parseSax;
+export default parseSax;

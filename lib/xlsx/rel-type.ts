@@ -1,4 +1,4 @@
-export = {
+export default {
   OfficeDocument: 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument',
   Worksheet: 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet',
   CalcChain: 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/calcChain',

@@ -1,5 +1,5 @@
-import colCache = require('../../../utils/col-cache');
-import BaseXform = require('../base-xform');
+import colCache from '../../../utils/col-cache';
+import BaseXform from '../base-xform';
 
 class AutoFilterXform extends BaseXform {
   public model: any;
@@ -37,4 +37,4 @@ class AutoFilterXform extends BaseXform {
   }
 }
 
-export = AutoFilterXform;
+export default AutoFilterXform;

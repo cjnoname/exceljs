@@ -57,4 +57,4 @@ function once(eventEmitter: EventEmitter, type: string): Promise<void> {
   });
 }
 
-export = iterateStream;
+export default iterateStream;

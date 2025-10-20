@@ -1,5 +1,5 @@
-import BaseXform = require('../base-xform');
-import BlipXform = require('./blip-xform');
+import BaseXform from '../base-xform';
+import BlipXform from './blip-xform';
 
 class BlipFillXform extends BaseXform {
   public map: {[key: string]: BlipXform};
@@ -72,4 +72,4 @@ class BlipFillXform extends BaseXform {
   }
 }
 
-export = BlipFillXform;
+export default BlipFillXform;

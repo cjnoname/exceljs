@@ -1,13 +1,13 @@
 import {EventEmitter} from 'events';
-import parseSax = require('../../utils/parse-sax');
+import parseSax from '../../utils/parse-sax';
 
-import _ = require('../../utils/under-dash');
-import utils = require('../../utils/utils');
-import colCache = require('../../utils/col-cache');
-import Dimensions = require('../../doc/range');
+import _ from '../../utils/under-dash';
+import utils from '../../utils/utils';
+import colCache from '../../utils/col-cache';
+import Dimensions from '../../doc/range';
 
-import Row = require('../../doc/row');
-import Column = require('../../doc/column');
+import Row from '../../doc/row';
+import Column from '../../doc/column';
 
 interface WorksheetReaderOptions {
   workbook: any;
@@ -389,4 +389,4 @@ class WorksheetReader extends EventEmitter {
   }
 }
 
-export = WorksheetReader;
+export default WorksheetReader;

@@ -1,6 +1,6 @@
 /* eslint-disable max-classes-per-file */
-import utils = require('../../utils/utils');
-import RelType = require('../../xlsx/rel-type');
+import utils from '../../utils/utils';
+import RelType from '../../xlsx/rel-type';
 
 interface Hyperlink {
   address: string;
@@ -141,4 +141,4 @@ class SheetRelsWriter {
   }
 }
 
-export = SheetRelsWriter;
+export default SheetRelsWriter;

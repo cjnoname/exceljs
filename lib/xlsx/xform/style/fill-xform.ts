@@ -1,6 +1,6 @@
 /* eslint-disable max-classes-per-file */
-import BaseXform = require('../base-xform');
-import ColorXform = require('./color-xform');
+import BaseXform from '../base-xform';
+import ColorXform from './color-xform';
 
 interface StopModel {
   position: number;
@@ -387,4 +387,4 @@ class FillXform extends BaseXform {
   static GradientFillXform = GradientFillXform;
 }
 
-export = FillXform;
+export default FillXform;

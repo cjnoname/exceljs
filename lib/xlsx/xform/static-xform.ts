@@ -1,5 +1,5 @@
-import BaseXform = require('./base-xform');
-import XmlStream = require('../../utils/xml-stream');
+import BaseXform from './base-xform';
+import XmlStream from '../../utils/xml-stream';
 
 interface StaticModel {
   tag: string;
@@ -71,4 +71,4 @@ class StaticXform extends BaseXform {
   }
 }
 
-export = StaticXform;
+export default StaticXform;

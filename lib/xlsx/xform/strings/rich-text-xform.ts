@@ -1,6 +1,6 @@
-import TextXform = require('./text-xform');
-import FontXform = require('../style/font-xform');
-import BaseXform = require('../base-xform');
+import TextXform from './text-xform';
+import FontXform from '../style/font-xform';
+import BaseXform from '../base-xform';
 
 // <r>
 //   <rPr>
@@ -106,4 +106,4 @@ class RichTextXform extends BaseXform {
   };
 }
 
-export = RichTextXform;
+export default RichTextXform;

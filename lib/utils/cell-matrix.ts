@@ -1,5 +1,5 @@
-import _ = require('./under-dash');
-import colCache = require('./col-cache');
+import _ from './under-dash';
+import colCache from './col-cache';
 
 interface CellAddress {
   sheetName?: string;
@@ -181,4 +181,4 @@ class CellMatrix {
   }
 }
 
-export = CellMatrix;
+export default CellMatrix;

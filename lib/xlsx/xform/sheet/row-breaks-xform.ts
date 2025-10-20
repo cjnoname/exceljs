@@ -1,7 +1,7 @@
 'use strict';
 
-import PageBreaksXform = require('./page-breaks-xform');
-import ListXform = require('../list-xform');
+import PageBreaksXform from './page-breaks-xform';
+import ListXform from '../list-xform';
 
 class RowBreaksXform extends ListXform {
   constructor() {
@@ -35,4 +35,4 @@ class RowBreaksXform extends ListXform {
   }
 }
 
-export = RowBreaksXform;
+export default RowBreaksXform;

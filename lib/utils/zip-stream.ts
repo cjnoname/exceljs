@@ -1,6 +1,6 @@
 import * as events from 'events';
-import JSZip = require('jszip');
-import StreamBuf = require('./stream-buf');
+import JSZip from 'jszip';
+import StreamBuf from './stream-buf';
 import {stringToBuffer} from './browser-buffer-encode';
 
 interface ZipWriterOptions {

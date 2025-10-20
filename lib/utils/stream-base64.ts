@@ -83,4 +83,4 @@ class StreamBase64 extends Duplex {
   }
 }
 
-export = StreamBase64;
+export default StreamBase64;

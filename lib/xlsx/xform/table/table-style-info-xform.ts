@@ -1,4 +1,4 @@
-import BaseXform = require('../base-xform');
+import BaseXform from '../base-xform';
 
 interface TableStyleModel {
   theme?: string | null;
@@ -58,4 +58,4 @@ class TableStyleInfoXform extends BaseXform {
   }
 }
 
-export = TableStyleInfoXform;
+export default TableStyleInfoXform;

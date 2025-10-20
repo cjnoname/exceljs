@@ -1,6 +1,6 @@
-import BaseXform = require('../base-xform');
+import BaseXform from '../base-xform';
 
-const _ = require('../../../utils/under-dash');
+import _ from '../../../utils/under-dash';
 
 interface PageMarginsModel {
   left?: number;
@@ -58,4 +58,4 @@ class PageMarginsXform extends BaseXform {
   }
 }
 
-export = PageMarginsXform;
+export default PageMarginsXform;

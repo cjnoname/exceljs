@@ -1,4 +1,4 @@
-import BaseXform = require('../base-xform');
+import BaseXform from '../base-xform';
 
 interface CalcPropertiesModel {
   fullCalcOnLoad?: boolean;
@@ -27,4 +27,4 @@ class WorkbookCalcPropertiesXform extends BaseXform {
   }
 }
 
-export = WorkbookCalcPropertiesXform;
+export default WorkbookCalcPropertiesXform;

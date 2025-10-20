@@ -1,4 +1,4 @@
-import BaseXform = require('../base-xform');
+import BaseXform from '../base-xform';
 
 interface ColorModel {
   argb?: string;
@@ -69,4 +69,4 @@ class ColorXform extends BaseXform {
   }
 }
 
-export = ColorXform;
+export default ColorXform;

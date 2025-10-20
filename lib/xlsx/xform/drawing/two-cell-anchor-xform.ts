@@ -1,7 +1,7 @@
-import BaseCellAnchorXform = require('./base-cell-anchor-xform');
-import StaticXform = require('../static-xform');
-import CellPositionXform = require('./cell-position-xform');
-import PicXform = require('./pic-xform');
+import BaseCellAnchorXform from './base-cell-anchor-xform';
+import StaticXform from '../static-xform';
+import CellPositionXform from './cell-position-xform';
+import PicXform from './pic-xform';
 
 interface TwoCellModel {
   range: {
@@ -67,4 +67,4 @@ class TwoCellAnchorXform extends BaseCellAnchorXform {
   }
 }
 
-export = TwoCellAnchorXform;
+export default TwoCellAnchorXform;

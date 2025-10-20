@@ -50,4 +50,4 @@ const Encryptor = {
     return crypto.randomBytes(size);
   },
 };
-export = Encryptor;
+export default Encryptor;

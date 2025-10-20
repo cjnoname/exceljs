@@ -212,4 +212,21 @@ const utils = {
   },
 };
 
-export = utils;
+export default utils;
+
+// Named exports for convenient destructuring
+export const promiseImmediate = utils.promiseImmediate;
+export {inherits};
+export const dateToExcel = utils.dateToExcel;
+export const excelToDate = utils.excelToDate;
+export const parsePath = utils.parsePath;
+export const getRelsPath = utils.getRelsPath;
+export const xmlEncode = utils.xmlEncode;
+export const xmlDecode = utils.xmlDecode;
+export const validInt = utils.validInt;
+export const isDateFmt = utils.isDateFmt;
+export const toIsoDateString = utils.toIsoDateString;
+export const parseBoolean = utils.parseBoolean;
+export const range = utils.range;
+export const toSortedArray = utils.toSortedArray;
+export const objectFromProps = utils.objectFromProps;

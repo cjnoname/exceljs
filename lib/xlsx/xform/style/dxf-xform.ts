@@ -1,10 +1,10 @@
-import BaseXform = require('../base-xform');
-import AlignmentXform = require('./alignment-xform');
-import BorderXform = require('./border-xform');
-import FillXform = require('./fill-xform');
-import FontXform = require('./font-xform');
-import NumFmtXform = require('./numfmt-xform');
-import ProtectionXform = require('./protection-xform');
+import BaseXform from '../base-xform';
+import AlignmentXform from './alignment-xform';
+import BorderXform from './border-xform';
+import FillXform from './fill-xform';
+import FontXform from './font-xform';
+import NumFmtXform from './numfmt-xform';
+import ProtectionXform from './protection-xform';
 
 // <xf numFmtId="[numFmtId]" fontId="[fontId]" fillId="[fillId]" borderId="[xf.borderId]" xfId="[xfId]">
 //   Optional <alignment>
@@ -120,4 +120,4 @@ class DxfXform extends BaseXform {
   }
 }
 
-export = DxfXform;
+export default DxfXform;

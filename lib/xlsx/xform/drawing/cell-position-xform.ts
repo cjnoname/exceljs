@@ -1,5 +1,5 @@
-import BaseXform = require('../base-xform');
-import IntegerXform = require('../simple/integer-xform');
+import BaseXform from '../base-xform';
+import IntegerXform from '../simple/integer-xform';
 
 interface PositionModel {
   nativeCol: number;
@@ -87,4 +87,4 @@ class CellPositionXform extends BaseXform {
   }
 }
 
-export = CellPositionXform;
+export default CellPositionXform;

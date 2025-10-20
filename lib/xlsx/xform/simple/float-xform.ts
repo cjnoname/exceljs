@@ -1,4 +1,4 @@
-import BaseXform = require('../base-xform');
+import BaseXform from '../base-xform';
 
 interface FloatXformOptions {
   tag: string;
@@ -60,4 +60,4 @@ class FloatXform extends BaseXform {
   }
 }
 
-export = FloatXform;
+export default FloatXform;

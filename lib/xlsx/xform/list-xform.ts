@@ -1,4 +1,4 @@
-import BaseXform = require('./base-xform');
+import BaseXform from './base-xform';
 
 interface ListXformOptions {
   tag: string;
@@ -114,4 +114,4 @@ class ListXform extends BaseXform {
   }
 }
 
-export = ListXform;
+export default ListXform;

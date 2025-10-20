@@ -1,8 +1,8 @@
-import XmlStream = require('../../utils/xml-stream');
-import RelType = require('../../xlsx/rel-type');
-import colCache = require('../../utils/col-cache');
-import CommentXform = require('../../xlsx/xform/comment/comment-xform');
-import VmlShapeXform = require('../../xlsx/xform/comment/vml-shape-xform');
+import XmlStream from '../../utils/xml-stream';
+import RelType from '../../xlsx/rel-type';
+import colCache from '../../utils/col-cache';
+import CommentXform from '../../xlsx/xform/comment/comment-xform';
+import VmlShapeXform from '../../xlsx/xform/comment/vml-shape-xform';
 
 interface SheetCommentsWriterOptions {
   id: number;
@@ -133,4 +133,4 @@ class SheetCommentsWriter {
   }
 }
 
-export = SheetCommentsWriter;
+export default SheetCommentsWriter;

@@ -1,4 +1,4 @@
-import BaseXform = require('../base-xform');
+import BaseXform from '../base-xform';
 
 class MergeCellXform extends BaseXform {
   get tag(): string {
@@ -24,4 +24,4 @@ class MergeCellXform extends BaseXform {
   }
 }
 
-export = MergeCellXform;
+export default MergeCellXform;

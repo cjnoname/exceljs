@@ -1,6 +1,6 @@
 'use strict';
 
-import colCache = require('../utils/col-cache');
+import colCache from '../utils/col-cache';
 
 interface AnchorModel {
   nativeCol: number;
@@ -115,4 +115,4 @@ class Anchor {
   }
 }
 
-export = Anchor;
+export default Anchor;

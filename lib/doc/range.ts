@@ -1,4 +1,4 @@
-import colCache = require('../utils/col-cache');
+import colCache from '../utils/col-cache';
 
 interface RangeModel {
   top: number;
@@ -274,4 +274,4 @@ class Range {
   }
 }
 
-export = Range;
+export default Range;
