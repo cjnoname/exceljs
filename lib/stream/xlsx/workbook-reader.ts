@@ -189,10 +189,9 @@ class WorkbookReader extends EventEmitter {
     this._emitEntry({type: 'workbook'});
 
     const workbook = new WorkbookXform();
-    await workbook.parseStream(iterateStream(entry));
+    this.model = await workbook.parseStream(iterateStream(entry));
 
     this.properties = workbook.map.workbookPr;
-    this.model = workbook.model;
   }
 
   async *_parseSharedStrings(entry: any): AsyncIterableIterator<{index: number; text: any}> {

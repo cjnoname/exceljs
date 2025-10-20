@@ -177,7 +177,7 @@ class XLSX {
     model.worksheetRels[sheetNo] = relationships;
   }
 
-  async _processMediaEntry(entry: any, model: any, filename: string): Promise<void> {
+  async _processMediaEntry(stream: any, model: any, filename: string): Promise<void> {
     const lastDot = filename.lastIndexOf('.');
     // if we can't determine extension, ignore it
     if (lastDot >= 1) {
@@ -197,10 +197,10 @@ class XLSX {
           model.media.push(medium);
           resolve();
         });
-        entry.on('error', (error: Error) => {
+        stream.on('error', (error: Error) => {
           reject(error);
         });
-        entry.pipe(streamBuf);
+        stream.pipe(streamBuf);
       });
     }
   }
@@ -223,17 +223,17 @@ class XLSX {
     model.vmlDrawings[`../drawings/${name}.vml`] = vmlDrawing;
   }
 
-  async _processThemeEntry(entry: any, model: any, name: string): Promise<void> {
+  async _processThemeEntry(stream: any, model: any, name: string): Promise<void> {
     await new Promise<void>((resolve, reject) => {
       // TODO: stream entry into buffer and store the xml in the model.themes[]
-      const stream = new StreamBuf();
-      entry.on('error', reject);
+      const streamBuf = new StreamBuf();
       stream.on('error', reject);
-      stream.on('finish', () => {
-        model.themes[name] = stream.read().toString();
+      streamBuf.on('error', reject);
+      streamBuf.on('finish', () => {
+        model.themes[name] = streamBuf.read().toString();
         resolve();
       });
-      entry.pipe(stream);
+      stream.pipe(streamBuf);
     });
   }
 
@@ -317,30 +317,39 @@ class XLSX {
             case '_rels/.rels':
               model.globalRels = await this.parseRels(stream);
               break;
-            case 'xl/workbook.xml':
-              model.sheets = await this.parseWorkbook(stream);
+            case 'xl/workbook.xml': {
+              const workbook = await this.parseWorkbook(stream);
+              model.sheets = workbook.sheets;
+              model.definedNames = workbook.definedNames;
+              model.views = workbook.views;
+              model.properties = workbook.properties;
+              model.calcProperties = workbook.calcProperties;
               break;
+            }
             case 'xl/sharedStrings.xml':
-              model.sharedStrings = await this.parseSharedStrings(stream);
+              model.sharedStrings = new SharedStringsXform();
+              await model.sharedStrings.parseStream(stream);
               break;
             case 'xl/_rels/workbook.xml.rels':
               model.workbookRels = await this.parseRels(stream);
               break;
             case 'docProps/app.xml': {
-              const xform = new AppXform();
-              model.properties = await xform.parseStream(stream);
+              const appXform = new AppXform();
+              const appProperties = await appXform.parseStream(stream);
+              model.company = appProperties.company;
+              model.manager = appProperties.manager;
               break;
             }
             case 'docProps/core.xml': {
-              const xform = new CoreXform();
-              Object.assign(model.properties, await xform.parseStream(stream));
+              const coreXform = new CoreXform();
+              const coreProperties = await coreXform.parseStream(stream);
+              Object.assign(model, coreProperties);
               break;
             }
-            case 'xl/styles.xml': {
-              const xform = new StylesXform();
-              model.styles = await xform.parseStream(stream);
+            case 'xl/styles.xml':
+              model.styles = new StylesXform();
+              await model.styles.parseStream(stream);
               break;
-            }
             default: {
               match = entryName.match(/xl\/worksheets\/_rels\/sheet(\d+)[.]xml[.]rels/);
               if (match) {
@@ -350,7 +359,7 @@ class XLSX {
               }
               match = entryName.match(/xl\/media\/([a-zA-Z0-9]+[.][a-zA-Z0-9]{3,4})$/);
               if (match) {
-                await this._processMediaEntry(entry, model, match[1]);
+                await this._processMediaEntry(stream, model, match[1]);
                 break;
               }
               match = entryName.match(/xl\/drawings\/(drawing\d+)[.]xml/);
@@ -380,7 +389,7 @@ class XLSX {
               }
               match = entryName.match(/xl\/theme\/([a-zA-Z0-9]+)[.]xml/);
               if (match) {
-                await this._processThemeEntry(entry, model, match[1]);
+                await this._processThemeEntry(stream, model, match[1]);
                 break;
               }
             }
@@ -416,8 +425,13 @@ class XLSX {
     zip.append(xform.toXml(model), {name: 'docProps/core.xml'});
   }
 
-  async addThemes(zip: any, _model: any): Promise<void> {
-    zip.append(theme1Xml, {name: 'xl/theme/theme1.xml'});
+  async addThemes(zip: any, model: any): Promise<void> {
+    const themes = model.themes || {theme1: theme1Xml};
+    Object.keys(themes).forEach(name => {
+      const xml = themes[name];
+      const path = `xl/theme/${name}.xml`;
+      zip.append(xml, {name: path});
+    });
   }
 
   async addOfficeRels(zip: any, _model: any): Promise<void> {
@@ -436,16 +450,18 @@ class XLSX {
       {Id: `rId${count++}`, Type: XLSX.RelType.Styles, Target: 'styles.xml'},
       {Id: `rId${count++}`, Type: XLSX.RelType.Theme, Target: 'theme/theme1.xml'},
     ];
-    if (model.sharedStrings && model.sharedStrings.count) {
+    if (model.sharedStrings.count) {
       relationships.push({
         Id: `rId${count++}`,
         Type: XLSX.RelType.SharedStrings,
         Target: 'sharedStrings.xml',
       });
     }
-    if (model.pivotTables.length) {
+    if ((model.pivotTables || []).length) {
+      const pivotTable = model.pivotTables[0];
+      pivotTable.rId = `rId${count++}`;
       relationships.push({
-        Id: `rId${count++}`,
+        Id: pivotTable.rId,
         Type: XLSX.RelType.PivotCacheDefinition,
         Target: 'pivotCache/pivotCacheDefinition1.xml',
       });
@@ -595,8 +611,16 @@ class XLSX {
 
     // pivot table
     xml = pivotTableXform.toXml(pivotTable);
-    const pivotTableName = pivotTable.name;
-    zip.append(xml, {name: `xl/pivotTables/${pivotTableName}.xml`});
+    zip.append(xml, {name: 'xl/pivotTables/pivotTable1.xml'});
+
+    xml = relsXform.toXml([
+      {
+        Id: 'rId1',
+        Type: XLSX.RelType.PivotCacheDefinition,
+        Target: '../pivotCache/pivotCacheDefinition1.xml',
+      },
+    ]);
+    zip.append(xml, {name: 'xl/pivotTables/_rels/pivotTable1.xml.rels'});
   }
 
   _finalize(zip: any): Promise<XLSX> {

@@ -9,10 +9,12 @@ interface TableModel {
   id?: number;
   name: string;
   displayName?: string;
+  ref?: string;
   tableRef: string;
   totalsRow?: boolean;
   headerRow?: boolean;
   columns?: any[];
+  rows?: any[];
   autoFilterRef?: string;
   style?: any;
 }
@@ -130,6 +132,14 @@ class TableXform extends BaseXform {
   }
 
   reconcile(model: TableModel, options: any): void {
+    // Map tableRef to ref for Table constructor compatibility
+    if (model.tableRef && !model.ref) {
+      model.ref = model.tableRef;
+    }
+    // Add empty rows array if not present (tables loaded from file don't have row data)
+    if (!model.rows) {
+      model.rows = [];
+    }
     // fetch the dfxs from styles
     model.columns.forEach(column => {
       if (column.dxfId !== undefined) {
