@@ -17,4 +17,4 @@ const ExcelJS = {
 
 Object.assign(ExcelJS, Enums);
 
-export default ExcelJS;
+export = ExcelJS;

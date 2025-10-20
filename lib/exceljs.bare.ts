@@ -11,4 +11,4 @@ Object.keys(Enums).forEach(key => {
   ExcelJS[key] = (Enums as any)[key];
 });
 
-export default ExcelJS;
+export = ExcelJS;
