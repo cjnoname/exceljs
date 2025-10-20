@@ -34,7 +34,7 @@ class BaseXform {
 
   parseClose(_name: string): boolean {
     // XML node closed
-    return true;
+    return false;
   }
 
   reconcile(_model: any, _options?: any): void {
