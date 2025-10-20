@@ -36,6 +36,9 @@
     "test:all": "npm run test:native && npm run test:es5",
     "test:native": "npm run test:full",
     "test:unit": "mocha --require spec/config/setup --require spec/config/setup-unit spec/unit --recursive",
+    "test:vitest": "vitest run",
+    "test:vitest:watch": "vitest",
+    "test:vitest:ui": "vitest --ui",
     "test:integration": "mocha --require spec/config/setup spec/integration --recursive",
     "test:end-to-end": "mocha --require spec/config/setup spec/end-to-end --recursive",
     "test:browser": "if [ ! -f .disable-test-browser ]; then npm run build && npm run test:jasmine; fi",
@@ -45,7 +48,7 @@
     "test:end-to-end:es5": "export EXCEL_BUILD=es5 && npm run test:end-to-end",
     "test:dist": "mocha --require spec/config/setup spec/dist --recursive",
     "test:manual": "node spec/manual/app.js",
-    "test:typescript": "mocha -r ts-node/register spec/typescript/**/*.spec.ts",
+    "test:typescript": "mocha -r ts-node/register 'spec/typescript/exceljs.spec.ts'",
     "clean-build": "npm run clean && npm run build",
     "lint": "eslint --format node_modules/eslint-friendly-formatter .",
     "lint:fix": "prettier-eslint --write $(pwd)'/**/*.js'",
@@ -117,6 +120,7 @@
     "@types/tmp": "^0.2.6",
     "@types/unzipper": "^0.10.11",
     "@types/uuid": "^11.0.0",
+    "@vitest/ui": "^3.2.4",
     "babelify": "^10.0.0",
     "browserify": "^16.5.2",
     "chai": "^4.2.0",
@@ -149,6 +153,8 @@
     "regenerator-runtime": "^0.13.7",
     "sax": "^1.2.4",
     "ts-node": "^8.10.2",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "vite-tsconfig-paths": "^5.1.4",
+    "vitest": "^3.2.4"
   }
 }
