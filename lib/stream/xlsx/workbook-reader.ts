@@ -108,9 +108,11 @@ class WorkbookReader extends EventEmitter {
     // worksheets, deferred for parsing after shared strings reading
     const waitingWorkSheets: WaitingWorksheet[] = [];
 
-    for await (const entry of iterateStream(zip)) {
+    for await (const entry of zip) {
       let match;
       let sheetNo;
+      let entryConsumed = false; // Track if entry stream was consumed
+      
       switch (entry.path) {
         case '_rels/.rels':
           break;
@@ -136,6 +138,7 @@ class WorkbookReader extends EventEmitter {
               yield* this._parseWorksheet(iterateStream(entry), sheetNo);
             } else {
               // create temp file for each worksheet
+              entryConsumed = true; // Entry will be consumed manually
               await new Promise<void>((resolve, reject) => {
                 tmp.file((err: any, path: string, fd: number, tempFileCleanupCallback: () => void) => {
                   if (err) {
@@ -145,10 +148,12 @@ class WorkbookReader extends EventEmitter {
 
                   const tempStream = fs.createWriteStream(path);
                   tempStream.on('error', reject);
-                  entry.pipe(tempStream);
-                  return tempStream.on('finish', () => {
-                    return resolve();
-                  });
+                  tempStream.on('finish', resolve);
+                  
+                  // Manually consume entry instead of using pipe
+                  entry.on('data', (chunk: any) => tempStream.write(chunk));
+                  entry.on('end', () => tempStream.end());
+                  entry.on('error', reject);
                 });
               });
             }
@@ -159,7 +164,9 @@ class WorkbookReader extends EventEmitter {
           }
           break;
       }
-      entry.autodrain();
+      if (!entryConsumed) {
+        entry.autodrain();
+      }
     }
 
     for (const {sheetNo, path, tempFileCleanupCallback} of waitingWorkSheets) {

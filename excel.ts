@@ -10,4 +10,5 @@ if (parseInt(process.versions.node.split('.')[0], 10) < 10) {
   );
 }
 
-export {default} from './lib/exceljs.nodejs';
+import ExcelJS from './lib/exceljs.nodejs';
+export = ExcelJS;

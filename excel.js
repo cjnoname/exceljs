@@ -7,11 +7,9 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = void 0;
 if (parseInt(process.versions.node.split('.')[0], 10) < 10) {
     throw new Error('For node versions older than 10, please use the ES5 Import: https://github.com/exceljs/exceljs#es5-imports');
 }
-var exceljs_nodejs_1 = require("./lib/exceljs.nodejs");
-Object.defineProperty(exports, "default", { enumerable: true, get: function () { return __importDefault(exceljs_nodejs_1).default; } });
+const exceljs_nodejs_1 = __importDefault(require("./lib/exceljs.nodejs"));
+module.exports = exceljs_nodejs_1.default;
 //# sourceMappingURL=excel.js.map
