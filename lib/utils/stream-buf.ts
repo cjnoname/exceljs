@@ -163,6 +163,12 @@ interface StreamBufOptions {
 // Note: Not sure why but StreamBuf does not like JS "class" sugar. It fails the
 // integration tests
 const StreamBuf = function(this: any, options?: StreamBufOptions) {
+  if (!(this instanceof StreamBuf)) {
+    return new (StreamBuf as any)(options);
+  }
+  
+  Duplex.call(this, options);
+  
   options = options || {};
   this.bufSize = options.bufSize || 1024 * 1024;
   this.buffers = [];
@@ -358,12 +364,13 @@ utils.inherits(StreamBuf, Duplex as any, {
   isPaused(this: any): boolean {
     return !!this.paused;
   },
-  pipe(this: any, destination: any): void {
+  pipe(this: any, destination: any): any {
     // add destination to pipe list & write current buffer
     this.pipes.push(destination);
     if (!this.paused && this.buffers.length) {
       this.end();
     }
+    return destination;
   },
   unpipe(this: any, destination: any): void {
     // remove destination from pipe list
