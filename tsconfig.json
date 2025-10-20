@@ -5,13 +5,19 @@
     "lib": ["ESNext"],
     "sourceMap": true,
     "types": [
+      "node",
       "vitest/globals"
     ],
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "skipLibCheck": true
   },
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "spec",
+    "vitest.config.ts",
+    "**/*.spec.ts",
+    "**/*.test.ts"
   ]
 }
