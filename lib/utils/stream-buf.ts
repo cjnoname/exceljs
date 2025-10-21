@@ -254,8 +254,9 @@ utils.inherits(StreamBuf, Duplex as any, {
 
     // encapsulate data into a chunk
     let chunk: Chunk;
-    if (data instanceof StringBuf) {
-      chunk = new StringBufChunk(data);
+    // Use constructor name check for better ES6 module compatibility
+    if (data instanceof StringBuf || (data && (data as any).constructor?.name === 'StringBuf')) {
+      chunk = new StringBufChunk(data as StringBuf);
     } else if (data instanceof Buffer) {
       chunk = new BufferChunk(data);
     } else if (typeof data === 'string' || data instanceof String || data instanceof ArrayBuffer) {

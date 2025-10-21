@@ -22,9 +22,9 @@ describe('StreamBuf', () => {
     expect(chunk.toString('UTF8')).toBe('Hello, World!');
   });
 
-  // FIXME: This test passes in Mocha but fails in Vitest due to instanceof check
-  // The StringBuf class imported via ES6 modules doesn't match instanceof check in stream-buf
-  it.skip('writes StringBuf chunks', async () => {
+  // Note: Using async/await here because our ES6 module fix requires it
+  // Original test worked synchronously due to CommonJS instanceof check succeeding
+  it('writes StringBuf chunks', async () => {
     const stream = new StreamBuf();
     const strBuf = new StringBuf({size: 64});
     strBuf.addText('Hello, World!');
