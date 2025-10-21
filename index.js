@@ -33,6 +33,6 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-const ExcelJS = __importStar(require("./dist/es5"));
+const ExcelJS = __importStar(require("./lib/exceljs.nodejs"));
 exports.default = ExcelJS;
 //# sourceMappingURL=index.js.map

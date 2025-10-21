@@ -7,9 +7,6 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-/* eslint-disable */
-
-module.exports = require('./lib/exceljs.nodejs');
 const exceljs_nodejs_1 = __importDefault(require("./lib/exceljs.nodejs"));
 module.exports = exceljs_nodejs_1.default;
 //# sourceMappingURL=excel.js.map
