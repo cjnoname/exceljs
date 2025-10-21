@@ -176,65 +176,25 @@ npm install exceljs
 const ExcelJS = require('exceljs');
 ```
 
-## ES5 导入[⬆](#目录)<!-- Link generated with jump2header -->
+## 运行要求[⬆](#目录)<!-- Link generated with jump2header -->
 
-要使用 ES5 编译代码，请使用 *dist/es5* 路径。
+ExcelJS 要求 **Node.js >= 12.0.0**（ES2019 支持）。
 
-```javascript
-const ExcelJS = require('exceljs/dist/es5');
-```
-
-**注意：**ES5 版本对许多 polyfill 都具有隐式依赖，而 exceljs 不再明确添加。
-您需要在依赖项中添加 `core-js` 和 `regenerator-runtime`，并在导入 `exceljs` 之前在代码中包含以下引用：
-
-```javascript
-// exceljs 所需的 polyfills
-require('core-js/modules/es.promise');
-require('core-js/modules/es.string.includes');
-require('core-js/modules/es.object.assign');
-require('core-js/modules/es.object.keys');
-require('core-js/modules/es.symbol');
-require('core-js/modules/es.symbol.async-iterator');
-require('regenerator-runtime/runtime');
-
-const ExcelJS = require('exceljs/dist/es5');
-```
-
-对于 IE 11，您还需要一个 polyfill 以支持 unicode regex 模式。 例如，
-
-```js
-const rewritePattern = require('regexpu-core');
-const {generateRegexpuOptions} = require('@babel/helper-create-regexp-features-plugin/lib/util');
-
-const {RegExp} = global;
-try {
-  new RegExp('a', 'u');
-} catch (err) {
-  global.RegExp = function(pattern, flags) {
-    if (flags && flags.includes('u')) {
-      return new RegExp(rewritePattern(pattern, flags, generateRegexpuOptions({flags, pattern})));
-    }
-    return new RegExp(pattern, flags);
-  };
-  global.RegExp.prototype = RegExp.prototype;
-}
-```
+对于浏览器支持，需要支持 ES2019 的现代浏览器：
+- Chrome >= 73
+- Firefox >= 65
+- Safari >= 12.1
+- Edge >= 79
 
 ## 浏览器端[⬆](#目录)<!-- Link generated with jump2header -->
 
-ExcelJS 在 *dist/* 文件夹内发布了两个支持浏览器的包：
+ExcelJS 在 `build/` 文件夹内发布了支持浏览器的包：
 
-一个是隐式依赖 `core-js` polyfills 的...
 ```html
-<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.js"></script>
-<script src="exceljs.js"></script>
+<script src="exceljs.browser.js"></script>
 ```
 
-另一个则没有...
-```html
-<script src="--your-project's-pollyfills-here--"></script>
-<script src="exceljs.bare.js"></script>
-```
+**注意：** ExcelJS 目标是支持 ES2019 的现代浏览器。支持的浏览器不需要 polyfills。
 
 
 # 接口[⬆](#目录)<!-- Link generated with jump2header -->
