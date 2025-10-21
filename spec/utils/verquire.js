@@ -1,26 +1,14 @@
-// this module allows the specs to switch between source code and
-// transpiled code depending on the environment variable EXCEL_BUILD
+// this module allows the specs to load source code from lib/ directory
 
 /* eslint-disable import/no-dynamic-require */
 
 const libs = {};
-const basePath = (function() {
-  const nodeMajorVersion = parseInt(process.versions.node.split('.')[0], 10);
-  if (process.env.EXCEL_BUILD === 'es5' || nodeMajorVersion < 10) {
-    require('core-js/modules/es.promise');
-    require('core-js/modules/es.object.assign');
-    require('core-js/modules/es.object.keys');
-    require('core-js/modules/es.symbol');
-    require('core-js/modules/es.symbol.async-iterator');
-    require('regenerator-runtime/runtime');
-    const mod = require('../../dist/es5');
-    libs.exceljs = mod.default || mod;
-    return '../../dist/es5/';
-  }
-  const mod = require('../../lib/exceljs.nodejs');
-  libs.exceljs = mod.default || mod;
-  return '../../lib/';
-})();
+const basePath = '../../lib/';
+
+// Always load from lib/ directory (ES6+ source)
+const mainMod = require('../../lib/exceljs.nodejs');
+
+libs.exceljs = mainMod.default || mainMod;
 
 module.exports = function verquire(path) {
   if (!libs[path]) {

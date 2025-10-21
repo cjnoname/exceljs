@@ -114,8 +114,6 @@ module.exports = function(grunt) {
     copy: {
       dist: {
         files: [
-          {expand: true, src: ['**'], cwd: './build/lib', dest: './dist/es5'},
-          {src: './build/lib/exceljs.nodejs.js', dest: './dist/es5/index.js'},
           {src: './LICENSE', dest: './dist/LICENSE'},
         ],
       },
