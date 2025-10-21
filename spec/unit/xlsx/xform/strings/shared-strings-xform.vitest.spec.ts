@@ -25,7 +25,7 @@ const expectations = [
     get parsedModel() {
       return this.preparedModel;
     },
-    tests: ['parse'], // Only test parse due to XML formatting differences (whitespace)
+    tests: ['render', 'renderIn', 'parse'],
   },
 ];
 

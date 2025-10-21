@@ -41,10 +41,10 @@ interface Expectation {
   title: string;
   create(): any;
   initialModel?: any;
-  preparedModel: any;
+  preparedModel?: any;
   parsedModel?: any;
   reconciledModel?: any;
-  xml: string;
+  xml?: string;
   tests: string[];
   options?: any;
 }
@@ -84,7 +84,7 @@ const its: {[key: string]: (expectation: Expectation) => (() => Promise<void>)} 
       const xmlStream = new XmlStream();
       xform.render(xmlStream, model, 0);
 
-      expect(normalizeXml(xmlStream.xml)).toBe(normalizeXml(result));
+      expect(normalizeXml(xmlStream.xml)).toBe(normalizeXml(result!));
     };
   },
 
@@ -100,7 +100,7 @@ const its: {[key: string]: (expectation: Expectation) => (() => Promise<void>)} 
       xform.prepare(model, expectation.options);
       xform.render(xmlStream, model);
 
-      expect(normalizeXml(xmlStream.xml)).toBe(normalizeXml(result));
+      expect(normalizeXml(xmlStream.xml)).toBe(normalizeXml(result!));
     };
   },
 
@@ -219,3 +219,6 @@ export default function testXform(expectations: Expectation[]) {
     });
   });
 }
+
+// Export normalizeXml for use in custom tests
+export { normalizeXml };
