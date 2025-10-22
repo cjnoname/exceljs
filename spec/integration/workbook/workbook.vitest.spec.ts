@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import testUtils from '../../utils/index';
 
-import ExcelJS from '../../../excel.js';
+import ExcelJS from '../../../index.js';
 import { ValueType } from '../../../lib/doc/enums';
 
 const TEST_XLSX_FILE_NAME = './spec/out/workbook.test.xlsx';

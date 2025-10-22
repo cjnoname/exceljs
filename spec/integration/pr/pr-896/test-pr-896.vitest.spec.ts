@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeAll, afterAll, beforeEach, afterEach } from 'vitest';
-import ExcelJS from '../../../../excel.js';
+import ExcelJS from '../../../../index.js';
 import tools from '../../../utils/tools';
 import sheetProperties from '../../../utils/data/sheet-properties.json' assert { type: 'json' };
 import pageSetup from '../../../utils/data/page-setup.json' assert { type: 'json' };

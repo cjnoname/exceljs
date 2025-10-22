@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeAll, afterAll, beforeEach, afterEach } from 'vitest';
-import ExcelJS from '../../../excel.js';
+import ExcelJS from '../../../index.js';
 
 describe('github issues', () => {
   it('issue 163 - Error while using xslx readFile method', () => {

@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeAll, afterAll, beforeEach, afterEach } from 'vitest';
-import ExcelJS from '../../../excel.js';
+import ExcelJS from '../../../index.js';
 
 describe('github issues', () => {
   describe('pull request 1487 - lastColumn with an empty column', () => {

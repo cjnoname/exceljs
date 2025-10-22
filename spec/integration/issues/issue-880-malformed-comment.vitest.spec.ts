@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeAll, afterAll, beforeEach, afterEach } from 'vitest';
 import fs from 'fs';
 
-import ExcelJS from '../../../excel.js';
+import ExcelJS from '../../../index.js';
 
 // this file to contain integration tests created from github issues
 const TEST_XLSX_FILE_NAME = './spec/out/wb-issue-880.test.xlsx';
@@ -23,5 +23,5 @@ describe('github issues', () => {
             wstream.end();
           });
       });
-  }, { timeout: 6000 });
+  }, 6000);
 });

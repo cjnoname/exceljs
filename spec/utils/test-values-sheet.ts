@@ -1,5 +1,5 @@
 import tools from './tools';
-import ExcelJS from '../../excel.js';
+import ExcelJS from '../../index.js';
 import testValuesJson from './data/sheet-values.json' with { type: 'json' };
 import stylesJson from './data/styles.json' with { type: 'json' };
 import propertiesJson from './data/sheet-properties.json' with { type: 'json' };

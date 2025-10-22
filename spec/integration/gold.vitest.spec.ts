@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeAll, afterAll, beforeEach, afterEach } from 'vitest';
-import ExcelJS from '../../excel.js';
+import ExcelJS from '../../index.js';
 
 // =============================================================================
 // This spec is based around a gold standard Excel workbook 'gold.xlsx'

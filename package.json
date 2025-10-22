@@ -21,9 +21,9 @@
   "exports": {
     ".": {
       "types": "./dist/types/index.d.ts",
+      "browser": "./lib/exceljs.browser.js",
       "import": "./index.js",
       "require": "./dist/cjs/index.js",
-      "browser": "./lib/exceljs.browser.js",
       "default": "./index.js"
     },
     "./package.json": "./package.json"
