@@ -9,7 +9,6 @@ import json from '@rollup/plugin-json';
 
 const banner = `/*! ExcelJS ${new Date().toLocaleDateString('en-GB').replace(/\//g, '-')} */`;
 
-// 共享的插件配置
 const getPlugins = (minify = false) => {
   const plugins = [
     alias({
@@ -54,39 +53,19 @@ const getPlugins = (minify = false) => {
 };
 
 export default [
-  // Bundle: exceljs.js (full bundle)
-  {
-    input: './lib/exceljs.browser.js',
-    output: {
-      file: './dist/exceljs.js',
-      format: 'umd',
-      name: 'ExcelJS',
-      sourcemap: true,
-      banner,
-    },
-    plugins: getPlugins(false),
-  },
-  // Bundle: exceljs.min.js (minified)
-  {
-    input: './lib/exceljs.browser.js',
-    output: {
-      file: './dist/exceljs.min.js',
-      format: 'umd',
-      name: 'ExcelJS',
-      sourcemap: true,
-      banner,
-    },
-    plugins: getPlugins(true),
-  },
-  // Bare: exceljs.bare.js
+  // Browser: exceljs.js (for development/debugging with <script> tag)
   {
     input: './lib/exceljs.bare.js',
+    external: ['fs'],
     output: {
-      file: './dist/exceljs.bare.js',
-      format: 'umd',
+      file: './dist/exceljs.js',
+      format: 'iife',
       name: 'ExcelJS',
       sourcemap: true,
       banner,
+      globals: {
+        fs: '{}', // Stub fs for browser
+      },
     },
     plugins: [
       ...getPlugins(false),
@@ -96,15 +75,19 @@ export default [
       }),
     ],
   },
-  // Bare: exceljs.bare.min.js (minified)
+  // Browser: exceljs.min.js (for production with <script> tag)
   {
     input: './lib/exceljs.bare.js',
+    external: ['fs'],
     output: {
-      file: './dist/exceljs.bare.min.js',
-      format: 'umd',
+      file: './dist/exceljs.min.js',
+      format: 'iife',
       name: 'ExcelJS',
       sourcemap: true,
       banner,
+      globals: {
+        fs: '{}', // Stub fs for browser
+      },
     },
     plugins: getPlugins(true),
   },

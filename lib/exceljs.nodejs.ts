@@ -18,3 +18,6 @@ const ExcelJS = {
 Object.assign(ExcelJS, Enums);
 
 export default ExcelJS;
+
+export { Workbook, ModelContainer, WorkbookWriter, WorkbookReader };
+export * from './doc/enums.js';

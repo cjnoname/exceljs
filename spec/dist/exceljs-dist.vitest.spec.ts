@@ -17,13 +17,5 @@ describe('ExcelJS', () => {
     it('should include exceljs.min.js', async () => {
       expect(await exists('./dist/exceljs.min.js')).toBe(true);
     });
-    
-    it('should include exceljs.bare.js', async () => {
-      expect(await exists('./dist/exceljs.bare.js')).toBe(true);
-    });
-    
-    it('should include exceljs.bare.min.js', async () => {
-      expect(await exists('./dist/exceljs.bare.min.js')).toBe(true);
-    });
   });
 });

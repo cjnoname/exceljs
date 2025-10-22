@@ -2,13 +2,16 @@
 import Workbook from './doc/workbook.js';
 import Enums from './doc/enums.js';
 
-const ExcelJS: any = {
+const ExcelJS = {
   Workbook,
 };
 
 // Object.assign mono-fill
 Object.keys(Enums).forEach(key => {
-  ExcelJS[key] = (Enums as any)[key];
+  ExcelJS[key] = Enums[key];
 });
 
 export default ExcelJS;
+
+export { Workbook };
+export * from './doc/enums.js';

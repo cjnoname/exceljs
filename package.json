@@ -17,11 +17,11 @@
     "node": ">=12.0.0"
   },
   "main": "./excel.js",
-  "browser": "./dist/exceljs.min.js",
-  "types": "./index.d.ts",
+  "types": "./dist/types/index.d.ts",
   "exports": {
     ".": {
-      "types": "./index.d.ts",
+      "types": "./dist/types/index.d.ts",
+      "browser": "./lib/exceljs.browser.js",
       "node": "./excel.js",
       "default": "./excel.js"
     },
@@ -34,8 +34,7 @@
     "LICENSE",
     "README.md",
     "README_zh.md",
-    "index.ts",
-    "index.d.ts"
+    "index.ts"
   ],
   "scripts": {
     "test": "npm run test:vitest",
@@ -56,7 +55,9 @@
     "clean": "rm -rf build/ && rm -rf dist",
     "benchmark": "node --expose-gc benchmark",
     "benchmark:debug": "node --expose-gc --inspect-brk --trace-deopt benchmark",
-    "build": "rollup -c rollup.config.js",
+    "build:types": "tsc",
+    "build:bundle": "rollup -c rollup.config.js",
+    "build": "npm run build:types && npm run build:bundle",
     "install-build": "npm install && npm run build",
     "preversion": "npm run clean && npm run build && npm run test:version",
     "postversion": "git push --no-verify && git push --tags --no-verify"

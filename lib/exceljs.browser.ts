@@ -25,13 +25,18 @@ import 'regenerator-runtime/runtime';
 import Workbook from './doc/workbook.js';
 import Enums from './doc/enums.js';
 
-const ExcelJS: any = {
+const ExcelJS = {
   Workbook,
 };
 
 // Object.assign mono-fill
 Object.keys(Enums).forEach(key => {
-  ExcelJS[key] = (Enums as any)[key];
+  ExcelJS[key] = Enums[key];
 });
 
+// 默认导出（兼容旧代码）
 export default ExcelJS;
+
+// 命名导出（新推荐方式）
+export { Workbook };
+export * from './doc/enums.js';
