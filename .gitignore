@@ -11,6 +11,16 @@ pids
 dist/*
 build/*
 
+# TypeScript compiled outputs (keep source .ts files only)
+lib/**/*.js
+lib/**/*.js.map
+*.js.map
+!excel.js
+!index.js
+!rollup.config.js
+!benchmark.js
+!vitest.*.js
+
 # Test Output Folder
 out/*
 spec/out/*

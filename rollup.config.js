@@ -6,11 +6,20 @@ import copy from 'rollup-plugin-copy';
 import inject from '@rollup/plugin-inject';
 import alias from '@rollup/plugin-alias';
 import json from '@rollup/plugin-json';
+import typescript from '@rollup/plugin-typescript';
 
 const banner = `/*! ExcelJS ${new Date().toLocaleDateString('en-GB').replace(/\//g, '-')} */`;
 
 const getPlugins = (minify = false) => {
   const plugins = [
+    typescript({
+      tsconfig: './tsconfig.json',
+      declaration: false,
+      declarationMap: false,
+      sourceMap: true,
+      outDir: undefined, // Let Rollup handle output
+      exclude: ['**/*.spec.ts', '**/*.test.ts'],
+    }),
     alias({
       entries: {
         events: 'events',
@@ -55,7 +64,7 @@ const getPlugins = (minify = false) => {
 export default [
   // Browser: exceljs.js (for development/debugging with <script> tag)
   {
-    input: './lib/exceljs.bare.js',
+    input: './lib/exceljs.bare.ts',
     external: ['fs'],
     output: {
       file: './dist/exceljs.js',
@@ -77,7 +86,7 @@ export default [
   },
   // Browser: exceljs.min.js (for production with <script> tag)
   {
-    input: './lib/exceljs.bare.js',
+    input: './lib/exceljs.bare.ts',
     external: ['fs'],
     output: {
       file: './dist/exceljs.min.js',
