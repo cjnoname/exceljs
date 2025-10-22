@@ -283,7 +283,7 @@ class WorkbookWriter {
         { Id: 'rId2', Type: RelType.CoreProperties, Target: 'docProps/core.xml' },
         { Id: 'rId3', Type: RelType.ExtenderProperties, Target: 'docProps/app.xml' },
       ]);
-      this._addFile(xml, '/_rels/.rels');
+      this._addFile(xml, '_rels/.rels');
       resolve();
     });
   }
@@ -360,7 +360,7 @@ class WorkbookWriter {
       return new Promise(resolve => {
         const sharedStringsXform = new SharedStringsXform();
         const xml = sharedStringsXform.toXml(this.sharedStrings);
-        this._addFile(xml, '/xl/sharedStrings.xml');
+        this._addFile(xml, 'xl/sharedStrings.xml');
         resolve();
       });
     }
@@ -393,7 +393,7 @@ class WorkbookWriter {
     return new Promise(resolve => {
       const xform = new RelationshipsXform();
       const xml = xform.toXml(relationships);
-      this._addFile(xml, '/xl/_rels/workbook.xml.rels');
+      this._addFile(xml, 'xl/_rels/workbook.xml.rels');
       resolve();
     });
   }
@@ -410,7 +410,7 @@ class WorkbookWriter {
     return new Promise(resolve => {
       const xform = new WorkbookXform();
       xform.prepare(model);
-      this._addFile(xform.toXml(model), '/xl/workbook.xml');
+      this._addFile(xform.toXml(model), 'xl/workbook.xml');
       resolve();
     });
   }

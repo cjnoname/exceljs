@@ -25,6 +25,7 @@ interface WaitingWorksheet {
   sheetNo: string;
   path: string;
   tempFileCleanupCallback: () => void;
+  writePromise: Promise<void>;
 }
 
 class WorkbookReader extends EventEmitter {
@@ -116,7 +117,6 @@ class WorkbookReader extends EventEmitter {
         let sheetNo;
         // Normalize path: remove leading slash if present
         const normalizedPath = entry.path.startsWith('/') ? entry.path.slice(1) : entry.path;
-        // console.log('Entry path:', entry.path, '-> normalized:', normalizedPath);
         switch (normalizedPath) {
           case '_rels/.rels':
             break;
@@ -141,26 +141,22 @@ class WorkbookReader extends EventEmitter {
               if (this.sharedStrings && this.workbookRels) {
                 yield* this._parseWorksheet(iterateStream(entry), sheetNo);
               } else {
-                // create temp file for each worksheet
-                await new Promise<void>((resolve, reject) => {
-                  fs.mkdtemp(pathJoin(os.tmpdir(), 'exceljs-'), (err, tmpDir) => {
-                    if (err) {
-                      return reject(err);
-                    }
-                    const path = pathJoin(tmpDir, `sheet${sheetNo}.xml`);
-                    const tempFileCleanupCallback = () => {
-                      fs.rm(tmpDir, { recursive: true, force: true }, () => {});
-                    };
-                    waitingWorkSheets.push({ sheetNo, path, tempFileCleanupCallback });
-
-                    const tempStream = fs.createWriteStream(path);
-                    tempStream.on('error', reject);
-                    entry.pipe(tempStream);
-                    return tempStream.on('finish', () => {
-                      return resolve();
-                    });
-                  });
+                // Worksheet arrives before sharedStrings - write to temp file asynchronously
+                const tmpDir = fs.mkdtempSync(pathJoin(os.tmpdir(), 'exceljs-'));
+                const path = pathJoin(tmpDir, `sheet${sheetNo}.xml`);
+                const tempFileCleanupCallback = () => {
+                  fs.rm(tmpDir, { recursive: true, force: true }, () => {});
+                };
+                
+                const writePromise = new Promise<void>((resolve, reject) => {
+                  const tempStream = fs.createWriteStream(path);
+                  tempStream.on('error', reject);
+                  tempStream.on('finish', resolve);
+                  entry.pipe(tempStream);
                 });
+                
+                waitingWorkSheets.push({ sheetNo, path, tempFileCleanupCallback, writePromise });
+                continue; // Skip autodrain for piped entries
               }
             } else if (normalizedPath.match(/xl\/worksheets\/_rels\/sheet\d+[.]xml.rels/)) {
               match = normalizedPath.match(/xl\/worksheets\/_rels\/sheet(\d+)[.]xml.rels/);
@@ -172,21 +168,22 @@ class WorkbookReader extends EventEmitter {
         entry.autodrain();
       }
 
-      for (const { sheetNo, path, tempFileCleanupCallback } of waitingWorkSheets) {
-        let fileStream: any = fs.createReadStream(path);
+      for (const worksheet of waitingWorkSheets) {
+        await worksheet.writePromise;
+        let fileStream: any = fs.createReadStream(worksheet.path);
         try {
           // TODO: Remove once node v8 is deprecated
           // Detect and upgrade old fileStreams
           if (!fileStream[Symbol.asyncIterator]) {
             fileStream = fileStream.pipe(new PassThrough());
           }
-          yield* this._parseWorksheet(fileStream, sheetNo);
+          yield* this._parseWorksheet(fileStream, worksheet.sheetNo);
         } finally {
           // Ensure stream is closed before cleanup
           if (fileStream.close) {
             fileStream.close();
           }
-          tempFileCleanupCallback();
+          worksheet.tempFileCleanupCallback();
         }
       }
     } catch (error) {

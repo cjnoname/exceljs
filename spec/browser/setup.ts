@@ -4,7 +4,7 @@ import { beforeAll } from 'vitest';
 beforeAll(async () => {
   // 通过 script 标签加载 ExcelJS UMD bundle
   const script = document.createElement('script');
-  script.src = '/dist/exceljs.js';
+  script.src = '/dist/exceljs.iife.js';
 
   await new Promise((resolve, reject) => {
     script.onload = resolve;
