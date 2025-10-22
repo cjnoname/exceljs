@@ -1,5 +1,3 @@
-'use strict';
-
 export enum ValueType {
   Null = 0,
   Merge = 1,

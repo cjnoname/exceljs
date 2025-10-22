@@ -1,4 +1,4 @@
-import * as fs from 'fs';
+import fs from 'fs';
 
 // useful stuff
 const inherits = function<T extends new (...args: any[]) => any, S extends new (...args: any[]) => any>(

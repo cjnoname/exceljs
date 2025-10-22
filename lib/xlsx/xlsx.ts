@@ -1,7 +1,7 @@
 import fs from 'fs';
 import JSZip from 'jszip';
 import {PassThrough} from 'readable-stream';
-import * as ZipStream from '../utils/zip-stream.js';
+import {ZipWriter} from '../utils/zip-stream.js';
 import StreamBuf from '../utils/stream-buf.js';
 
 import utils from '../utils/utils.js';
@@ -685,7 +685,7 @@ class XLSX {
   async write(stream: any, options?: any): Promise<XLSX> {
     options = options || {};
     const {model} = this.workbook;
-    const zip = new ZipStream.ZipWriter(options.zip);
+    const zip = new ZipWriter(options.zip);
     zip.pipe(stream);
 
     this.prepareModel(model, options);

@@ -1,4 +1,4 @@
-import * as events from 'events';
+import events from 'events';
 import JSZip from 'jszip';
 import StreamBuf from './stream-buf.js';
 import {stringToBuffer} from './browser-buffer-encode.js';

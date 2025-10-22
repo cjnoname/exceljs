@@ -1,5 +1,3 @@
-'use strict';
-
 import XLSX from '../xlsx/xlsx.js';
 
 class ModelContainer {

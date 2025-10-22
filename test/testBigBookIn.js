@@ -1,5 +1,3 @@
-'use strict';
-
 const utils = require('./utils/utils');
 const HrStopwatch = require('./utils/hr-stopwatch');
 const ColumnSum = require('./utils/column-sum');

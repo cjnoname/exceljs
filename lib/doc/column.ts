@@ -1,5 +1,3 @@
-'use strict';
-
 import colCache from '../utils/col-cache.js';
 
 import _ from '../utils/under-dash.js';

@@ -1,5 +1,3 @@
-'use strict';
-
 const HrStopwatch = require('./utils/hr-stopwatch');
 const Excel = require('../excel');
 

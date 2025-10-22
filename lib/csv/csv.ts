@@ -1,7 +1,7 @@
 import fs from 'fs';
 import StreamBuf from '../utils/stream-buf.js';
 
-import * as fastCsv from 'fast-csv';
+import {format, parse} from 'fast-csv';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import utc from 'dayjs/plugin/utc';
 import dayjs from 'dayjs';
@@ -106,8 +106,7 @@ class CSV {
           return datum;
         };
 
-      const csvStream = fastCsv
-        .parse(options.parserOptions)
+      const csvStream = parse(options.parserOptions)
         .on('data', (data: any[]) => {
           worksheet.addRow(data.map(map));
         })
@@ -139,7 +138,7 @@ class CSV {
 
       const worksheet = this.workbook.getWorksheet(options.sheetName || options.sheetId);
 
-      const csvStream = fastCsv.format(options.formatterOptions);
+      const csvStream = format(options.formatterOptions);
       stream.on('finish', () => {
         resolve();
       });

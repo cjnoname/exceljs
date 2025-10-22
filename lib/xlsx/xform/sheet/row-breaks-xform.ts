@@ -1,5 +1,3 @@
-'use strict';
-
 import PageBreaksXform from './page-breaks-xform.js';
 import ListXform from '../list-xform.js';
 
