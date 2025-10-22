@@ -8,7 +8,6 @@
     "rootDir": "."
   },
   "include": [
-    "excel.ts",
     "index.ts",
     "lib/exceljs.nodejs.ts",
     "lib/exceljs.browser.ts",

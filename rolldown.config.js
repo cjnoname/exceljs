@@ -88,4 +88,16 @@ export default defineConfig([
     },
     plugins: getPlugins(true),
   },
+  // Node.js: CJS bundle for CommonJS projects
+  {
+    input: './lib/exceljs.nodejs.ts',
+    output: {
+      file: './dist/cjs/index.js',
+      format: 'cjs',
+      sourcemap: true,
+      banner,
+      exports: 'named',
+    },
+    plugins: getPlugins(false),
+  },
 ]);

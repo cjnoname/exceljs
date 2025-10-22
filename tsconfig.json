@@ -25,7 +25,6 @@
   },
   "include": [
     "index.ts",
-    "excel.ts",
     "lib/**/*.ts"
   ],
   "exclude": [
