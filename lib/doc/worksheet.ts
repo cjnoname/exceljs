@@ -958,20 +958,6 @@ Please leave feedback at https://github.com/exceljs/exceljs/discussions/2575`
   }
 
   // ===========================================================================
-  // Deprecated
-  get tabColor(): any {
-    // eslint-disable-next-line no-console
-    console.trace('worksheet.tabColor property is now deprecated. Please use worksheet.properties.tabColor');
-    return this.properties.tabColor;
-  }
-
-  set tabColor(value: any) {
-    // eslint-disable-next-line no-console
-    console.trace('worksheet.tabColor property is now deprecated. Please use worksheet.properties.tabColor');
-    this.properties.tabColor = value;
-  }
-
-  // ===========================================================================
   // Model
 
   get model(): WorksheetModel {

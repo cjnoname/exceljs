@@ -2,13 +2,9 @@ import fs from 'fs';
 import StreamBuf from '../utils/stream-buf.js';
 
 import {format, parse} from 'fast-csv';
-import customParseFormat from 'dayjs/plugin/customParseFormat';
-import utc from 'dayjs/plugin/utc';
-import dayjs from 'dayjs';
+import {format as formatDate, formatISO, isValid, parse as parseDate} from 'date-fns';
+import {toZonedTime} from 'date-fns-tz';
 import utils from '../utils/utils.js';
-
-dayjs.extend(customParseFormat);
-dayjs.extend(utc);
 
 const {fs: {exists}} = utils;
 
@@ -71,10 +67,14 @@ class CSV {
       const worksheet = this.workbook.addWorksheet(options.sheetName);
 
       const dateFormats = options.dateFormats || [
-        'YYYY-MM-DD[T]HH:mm:ssZ',
-        'YYYY-MM-DD[T]HH:mm:ss',
-        'MM-DD-YYYY',
-        'YYYY-MM-DD',
+        "yyyy-MM-dd'T'HH:mm:ssXXX",
+        "yyyy-MM-dd'T'HH:mm:ss",
+        'MM/dd/yyyy',
+        'MM-dd-yyyy',
+        'dd/MM/yyyy',
+        'dd-MM-yyyy',
+        'yyyy-MM-dd',
+        'yyyy/MM/dd',
       ];
       const map =
         options.map ||
@@ -90,14 +90,18 @@ class CSV {
             if (matchingDate) {
               return matchingDate;
             }
-            const dayjsObj = dayjs(datum, currentDateFormat, true);
-            if (dayjsObj.isValid()) {
-              return dayjsObj;
+            try {
+              const parsedDate = parseDate(datum, currentDateFormat, new Date());
+              if (isValid(parsedDate)) {
+                return parsedDate;
+              }
+            } catch {
+              // Invalid format, try next
             }
             return null;
           }, null);
           if (dt) {
-            return new Date(dt.valueOf());
+            return dt;
           }
           const special = SpecialValues[datum];
           if (special !== undefined) {
@@ -118,15 +122,6 @@ class CSV {
 
       stream.pipe(csvStream);
     });
-  }
-
-  /**
-   * @deprecated since version 4.0. You should use `CSV#read` instead. Please follow upgrade instruction: https://github.com/exceljs/exceljs/blob/master/UPGRADE-4.0.md
-   */
-  createInputStream(): void {
-    throw new Error(
-      '`CSV#createInputStream` is deprecated. You should use `CSV#read` instead. This method will be removed in version 5.0. Please follow upgrade instruction: https://github.com/exceljs/exceljs/blob/master/UPGRADE-4.0.md'
-    );
   }
 
   write(stream: any, options?: WriteOptions): Promise<void> {
@@ -159,10 +154,10 @@ class CSV {
             if (value instanceof Date) {
               if (dateFormat) {
                 return dateUTC
-                  ? dayjs.utc(value).format(dateFormat)
-                  : dayjs(value).format(dateFormat);
+                  ? formatDate(toZonedTime(value, 'UTC'), dateFormat)
+                  : formatDate(value, dateFormat);
               }
-              return dateUTC ? dayjs.utc(value).format() : dayjs(value).format();
+              return dateUTC ? formatISO(toZonedTime(value, 'UTC')) : formatISO(value);
             }
             if (value.error) {
               return value.error;

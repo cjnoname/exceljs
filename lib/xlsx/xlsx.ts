@@ -241,21 +241,7 @@ class XLSX {
     });
   }
 
-  /**
-   * @deprecated since version 4.0. You should use `#read` instead. Please follow upgrade instruction: https://github.com/exceljs/exceljs/blob/master/UPGRADE-4.0.md
-   */
-  createInputStream(): never {
-    throw new Error(
-      '`XLSX#createInputStream` is deprecated. You should use `XLSX#read` instead. This method will be removed in version 5.0. Please follow upgrade instruction: https://github.com/exceljs/exceljs/blob/master/UPGRADE-4.0.md'
-    );
-  }
-
   async read(stream: any, options?: any): Promise<any> {
-    // TODO: Remove once node v8 is deprecated
-    // Detect and upgrade old streams
-    if (!stream[Symbol.asyncIterator] && stream.pipe) {
-      stream = stream.pipe(new PassThrough());
-    }
     const chunks: Buffer[] = [];
     for await (const chunk of stream) {
       chunks.push(chunk);

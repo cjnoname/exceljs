@@ -259,7 +259,7 @@ describe('WorkbookReader', () => {
       process.removeListener('unhandledRejection', unhandledRejectionHandler);
     });
 
-    it('should reject the promise with the sax error', () => {
+    it('should reject the promise with the XML parse error', () => {
       const workbook = new Workbook();
       return workbook.xlsx
         .readFile('./spec/integration/data/invalid-xml.xlsx')

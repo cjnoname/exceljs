@@ -469,7 +469,7 @@ describe('Workbook', () => {
     it('CSV file and its configuration', function() {
 
       const writeOptions = {
-        dateFormat: 'DD/MM/YYYY HH:mm:ss',
+        dateFormat: 'dd/MM/yyyy HH:mm:ss',
         dateUTC: false,
         encoding: 'utf-8',
         includeEmptyRows: false,
@@ -480,7 +480,7 @@ describe('Workbook', () => {
         },
       };
       const readOptions = {
-        dateFormats: ['DD/MM/YYYY HH:mm:ss'],
+        dateFormats: ['dd/MM/yyyy HH:mm:ss'],
         sheetName: 'sheet1',
         parserOptions: {
           delimiter: '\t',

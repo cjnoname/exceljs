@@ -1,6 +1,6 @@
 import fs from 'fs';
 import {EventEmitter} from 'events';
-import {PassThrough, Readable} from 'readable-stream';
+import {Readable} from 'readable-stream';
 import nodeStream from 'stream';
 import {Unzip, UnzipFile, UnzipInflate} from 'fflate';
 import tmp from 'tmp';
@@ -244,12 +244,7 @@ class WorkbookReader extends EventEmitter {
     }
 
     for (const {sheetNo, path, tempFileCleanupCallback} of waitingWorkSheets) {
-      let fileStream: any = fs.createReadStream(path);
-      // TODO: Remove once node v8 is deprecated
-      // Detect and upgrade old fileStreams
-      if (!fileStream[Symbol.asyncIterator]) {
-        fileStream = fileStream.pipe(new PassThrough());
-      }
+      const fileStream = fs.createReadStream(path);
       yield* this._parseWorksheet(fileStream, sheetNo);
       tempFileCleanupCallback();
     }

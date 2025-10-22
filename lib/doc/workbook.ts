@@ -42,9 +42,6 @@ interface AddWorksheetOptions {
   views?: any[];
   pageSetup?: any;
   headerFooter?: any;
-  argb?: string;
-  theme?: any;
-  indexed?: any;
   [key: string]: any;
 }
 
@@ -120,33 +117,8 @@ class Workbook {
     return this._worksheets.length || 1;
   }
 
-  addWorksheet(name?: string, options?: AddWorksheetOptions | string): Worksheet {
+  addWorksheet(name?: string, options?: AddWorksheetOptions): Worksheet {
     const id = this.nextId;
-
-    // if options is a color, call it tabColor (and signal deprecated message)
-    if (options) {
-      if (typeof options === 'string') {
-        // eslint-disable-next-line no-console
-        console.trace(
-          'tabColor argument is now deprecated. Please use workbook.addWorksheet(name, {properties: { tabColor: { argb: "rbg value" } }'
-        );
-        options = {
-          properties: {
-            tabColor: {argb: options},
-          },
-        };
-      } else if (options.argb || options.theme || options.indexed) {
-        // eslint-disable-next-line no-console
-        console.trace(
-          'tabColor argument is now deprecated. Please use workbook.addWorksheet(name, {properties: { tabColor: { ... } }'
-        );
-        options = {
-          properties: {
-            tabColor: options,
-          },
-        };
-      }
-    }
 
     const lastOrderNo = this._worksheets.reduce((acc, ws) => ((ws && ws.orderNo) > acc ? ws.orderNo : acc), 0);
     const worksheetOptions = Object.assign({}, options, {
