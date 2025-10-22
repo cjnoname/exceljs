@@ -22,8 +22,8 @@ import 'core-js/modules/es.string.includes';
 import 'core-js/modules/es.number.is-nan';
 import 'regenerator-runtime/runtime';
 
-import Workbook from './doc/workbook';
-import Enums from './doc/enums';
+import Workbook from './doc/workbook.js';
+import Enums from './doc/enums.js';
 
 const ExcelJS: any = {
   Workbook,
@@ -34,4 +34,4 @@ Object.keys(Enums).forEach(key => {
   ExcelJS[key] = (Enums as any)[key];
 });
 
-export = ExcelJS;
+export default ExcelJS;

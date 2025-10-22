@@ -1,17 +1,17 @@
-import _ from '../utils/under-dash';
+import _ from '../utils/under-dash.js';
 
-import colCache from '../utils/col-cache';
-import Range from './range';
-import Row from './row';
-import Column from './column';
-import Enums from './enums';
-import Image from './image';
-import Table from './table';
-import DataValidations from './data-validations';
-import Encryptor from '../utils/encryptor';
+import colCache from '../utils/col-cache.js';
+import Range from './range.js';
+import Row from './row.js';
+import Column from './column.js';
+import Enums from './enums.js';
+import Image from './image.js';
+import Table from './table.js';
+import DataValidations from './data-validations.js';
+import Encryptor from '../utils/encryptor.js';
 
-import {makePivotTable} from './pivot-table';
-import {copyStyle} from '../utils/copy-style';
+import {makePivotTable} from './pivot-table.js';
+import {copyStyle} from '../utils/copy-style.js';
 
 interface WorksheetOptions {
   workbook?: any;

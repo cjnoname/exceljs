@@ -1,6 +1,6 @@
-import _ from '../../../utils/under-dash';
-import defaultNumFormats from '../../defaultnumformats';
-import BaseXform from '../base-xform';
+import _ from '../../../utils/under-dash.js';
+import defaultNumFormats from '../../defaultnumformats.js';
+import BaseXform from '../base-xform.js';
 
 interface NumFmtModel {
   id: number;

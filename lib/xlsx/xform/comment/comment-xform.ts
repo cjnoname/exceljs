@@ -1,5 +1,5 @@
 import RichTextXform from '../strings/rich-text-xform';
-import BaseXform from '../base-xform';
+import BaseXform from '../base-xform.js';
 
 interface NoteText {
   font?: any;

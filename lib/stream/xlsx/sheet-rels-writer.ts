@@ -1,6 +1,6 @@
 /* eslint-disable max-classes-per-file */
-import utils from '../../utils/utils';
-import RelType from '../../xlsx/rel-type';
+import utils from '../../utils/utils.js';
+import RelType from '../../xlsx/rel-type.js';
 
 interface Hyperlink {
   address: string;

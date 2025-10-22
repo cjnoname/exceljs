@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeAll, afterAll, beforeEach, afterEach } from 'vitest';
-const {join} = require('path');
-const {readFileSync} = require('fs');
+import {join} from 'path';
+import {readFileSync} from 'fs';
 
 import ExcelJS from '../../../excel.js';
 

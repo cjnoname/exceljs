@@ -1,4 +1,4 @@
-import BaseXform from '../base-xform';
+import BaseXform from '../base-xform.js';
 
 class AppHeadingPairsXform extends BaseXform {
   render(xmlStream: any, model: any[]): void {

@@ -1,21 +1,21 @@
 import fs from 'fs';
 import Archiver from 'archiver';
 
-import StreamBuf from '../../utils/stream-buf';
+import StreamBuf from '../../utils/stream-buf.js';
 
-import RelType from '../../xlsx/rel-type';
-import StylesXform from '../../xlsx/xform/style/styles-xform';
-import SharedStrings from '../../utils/shared-strings';
-import DefinedNames from '../../doc/defined-names';
+import RelType from '../../xlsx/rel-type.js';
+import StylesXform from '../../xlsx/xform/style/styles-xform.js';
+import SharedStrings from '../../utils/shared-strings.js';
+import DefinedNames from '../../doc/defined-names.js';
 
-import CoreXform from '../../xlsx/xform/core/core-xform';
-import RelationshipsXform from '../../xlsx/xform/core/relationships-xform';
-import ContentTypesXform from '../../xlsx/xform/core/content-types-xform';
-import AppXform from '../../xlsx/xform/core/app-xform';
-import WorkbookXform from '../../xlsx/xform/book/workbook-xform';
-import SharedStringsXform from '../../xlsx/xform/strings/shared-strings-xform';
+import CoreXform from '../../xlsx/xform/core/core-xform.js';
+import RelationshipsXform from '../../xlsx/xform/core/relationships-xform.js';
+import ContentTypesXform from '../../xlsx/xform/core/content-types-xform.js';
+import AppXform from '../../xlsx/xform/core/app-xform.js';
+import WorkbookXform from '../../xlsx/xform/book/workbook-xform.js';
+import SharedStringsXform from '../../xlsx/xform/strings/shared-strings-xform.js';
 
-import WorksheetWriter from './worksheet-writer';
+import WorksheetWriter from './worksheet-writer.js';
 
 import theme1Xml from '../../xlsx/xml/theme1.js';
 

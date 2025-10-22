@@ -1,4 +1,4 @@
-import _ from '../utils/under-dash';
+import _ from '../utils/under-dash.js';
 
 interface NoteText {
   text: string;

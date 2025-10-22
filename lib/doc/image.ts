@@ -1,5 +1,5 @@
-import colCache from '../utils/col-cache';
-import Anchor from './anchor';
+import colCache from '../utils/col-cache.js';
+import Anchor from './anchor.js';
 
 interface ImageHyperlinks {
   [key: string]: any;

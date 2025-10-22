@@ -12,12 +12,21 @@
     "type": "git",
     "url": "https://github.com/exceljs/exceljs.git"
   },
+  "type": "module",
   "engines": {
     "node": ">=12.0.0"
   },
   "main": "./excel.js",
   "browser": "./dist/exceljs.min.js",
   "types": "./index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "node": "./excel.js",
+      "default": "./excel.js"
+    },
+    "./package.json": "./package.json"
+  },
   "files": [
     "dist",
     "lib",

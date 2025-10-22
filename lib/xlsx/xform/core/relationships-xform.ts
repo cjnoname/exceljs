@@ -1,6 +1,6 @@
-import XmlStream from '../../../utils/xml-stream';
-import BaseXform from '../base-xform';
-import RelationshipXform from './relationship-xform';
+import XmlStream from '../../../utils/xml-stream.js';
+import BaseXform from '../base-xform.js';
+import RelationshipXform from './relationship-xform.js';
 
 class RelationshipsXform extends BaseXform {
   public map: {Relationship: RelationshipXform};

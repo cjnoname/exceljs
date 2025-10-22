@@ -1,5 +1,5 @@
-import BaseXform from '../base-xform';
-import colCache from '../../../utils/col-cache';
+import BaseXform from '../base-xform.js';
+import colCache from '../../../utils/col-cache.js';
 
 interface DefinedNameModel {
   name: string;

@@ -1,15 +1,15 @@
 import { describe, it, expect } from 'vitest';
-const stream = require('readable-stream');
 import testUtils from '../../utils/index';
 
-import ExcelJS from '../../../excel.js';
+import ExcelJS from '../../../excel';
 
 const TEST_XLSX_FILE_NAME = './spec/out/workbook-styles.test.xlsx';
 
 // =============================================================================
 // Sample Data
-const richTextSample = require('../data/rich-text-sample');
-const richTextSampleA1 = require('../data/rich-text-sample-a1.json');
+import richTextSample from '../data/rich-text-sample';
+import richTextSampleA1 from '../data/rich-text-sample-a1.json';
+import { PassThrough } from 'stream';
 
 // =============================================================================
 // Tests
@@ -95,7 +95,7 @@ describe('Workbook', () => {
       const testData = Buffer.from(richTextSample, 'base64');
 
       // Initiate the source
-      const bufferStream = new stream.PassThrough();
+      const bufferStream = new PassThrough();
 
       // Write your buffer
       bufferStream.write(testData);

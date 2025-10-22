@@ -1,8 +1,8 @@
-import XmlStream from '../../../utils/xml-stream';
-import BaseXform from '../base-xform';
-import DateXform from '../simple/date-xform';
-import StringXform from '../simple/string-xform';
-import IntegerXform from '../simple/integer-xform';
+import XmlStream from '../../../utils/xml-stream.js';
+import BaseXform from '../base-xform.js';
+import DateXform from '../simple/date-xform.js';
+import StringXform from '../simple/string-xform.js';
+import IntegerXform from '../simple/integer-xform.js';
 
 interface CoreModel {
   creator?: string;

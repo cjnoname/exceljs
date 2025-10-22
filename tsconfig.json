@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
-    "target": "es2019",
+    "module": "ESNext",
+    "target": "ES2020",
     "lib": ["ESNext"],
     "sourceMap": true,
     "types": [
@@ -10,11 +10,13 @@
     ],
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "skipLibCheck": true,
     "useUnknownInCatchVariables": false,
     "noImplicitAny": false,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "allowImportingTsExtensions": false
   },
   "exclude": [
     "node_modules",

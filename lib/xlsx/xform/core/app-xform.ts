@@ -1,8 +1,8 @@
-import XmlStream from '../../../utils/xml-stream';
-import BaseXform from '../base-xform';
-import StringXform from '../simple/string-xform';
-import AppHeadingPairsXform from './app-heading-pairs-xform';
-import AppTitleOfPartsXform from './app-titles-of-parts-xform';
+import XmlStream from '../../../utils/xml-stream.js';
+import BaseXform from '../base-xform.js';
+import StringXform from '../simple/string-xform.js';
+import AppHeadingPairsXform from './app-heading-pairs-xform.js';
+import AppTitleOfPartsXform from './app-titles-of-parts-xform.js';
 
 interface AppModel {
   worksheets: any[];

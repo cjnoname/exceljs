@@ -1,13 +1,8 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const config_1 = require("vitest/config");
-const vite_tsconfig_paths_1 = __importDefault(require("vite-tsconfig-paths"));
-const buffer_1 = require("buffer");
-exports.default = (0, config_1.defineConfig)({
-    plugins: [(0, vite_tsconfig_paths_1.default)()],
+import { defineConfig } from 'vitest/config';
+import tsconfigPaths from 'vite-tsconfig-paths';
+import { Buffer } from 'buffer';
+export default defineConfig({
+    plugins: [tsconfigPaths()],
     resolve: {
         extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
         alias: {
@@ -22,7 +17,7 @@ exports.default = (0, config_1.defineConfig)({
     },
     define: {
         global: 'globalThis', // 在浏览器中 global 等同于 globalThis
-        'global.Buffer': buffer_1.Buffer,
+        'global.Buffer': Buffer,
         require: '(m => m)', // 简单的 require polyfill
     },
     test: {

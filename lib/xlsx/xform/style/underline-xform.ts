@@ -1,4 +1,4 @@
-import BaseXform from '../base-xform';
+import BaseXform from '../base-xform.js';
 
 type UnderlineType = boolean | 'single' | 'double' | 'singleAccounting' | 'doubleAccounting';
 

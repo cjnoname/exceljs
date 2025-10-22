@@ -1,8 +1,8 @@
-import Workbook from './doc/workbook';
-import ModelContainer from './doc/modelcontainer';
-import WorkbookWriter from './stream/xlsx/workbook-writer';
-import WorkbookReader from './stream/xlsx/workbook-reader';
-import Enums from './doc/enums';
+import Workbook from './doc/workbook.js';
+import ModelContainer from './doc/modelcontainer.js';
+import WorkbookWriter from './stream/xlsx/workbook-writer.js';
+import WorkbookReader from './stream/xlsx/workbook-reader.js';
+import Enums from './doc/enums.js';
 
 const ExcelJS = {
   Workbook,
@@ -17,4 +17,4 @@ const ExcelJS = {
 
 Object.assign(ExcelJS, Enums);
 
-export = ExcelJS;
+export default ExcelJS;

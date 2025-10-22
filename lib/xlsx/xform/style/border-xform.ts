@@ -1,7 +1,7 @@
 /* eslint-disable max-classes-per-file */
-import BaseXform from '../base-xform';
-import utils from '../../../utils/utils';
-import ColorXform from './color-xform';
+import BaseXform from '../base-xform.js';
+import utils from '../../../utils/utils.js';
+import ColorXform from './color-xform.js';
 
 interface EdgeModel {
   style?: string;

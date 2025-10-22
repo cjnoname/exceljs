@@ -1,6 +1,6 @@
 /* eslint-disable max-classes-per-file */
-import CompositeXform from '../composite-xform';
-import ConditionalFormattingsExt from './cf-ext/conditional-formattings-ext-xform';
+import CompositeXform from '../composite-xform.js';
+import ConditionalFormattingsExt from './cf-ext/conditional-formattings-ext-xform.js';
 
 class ExtXform extends CompositeXform {
   public map!: {[key: string]: any};

@@ -1,4 +1,4 @@
-import BaseXform from '../../base-xform';
+import BaseXform from '../../base-xform.js';
 
 class CfvoXform extends BaseXform {
   get tag(): string {

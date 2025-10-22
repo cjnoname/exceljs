@@ -1,5 +1,5 @@
-import CompositeXform from '../../composite-xform';
-import CfRuleXform from './cf-rule-xform';
+import CompositeXform from '../../composite-xform.js';
+import CfRuleXform from './cf-rule-xform.js';
 
 class ConditionalFormattingXform extends CompositeXform {
   constructor() {

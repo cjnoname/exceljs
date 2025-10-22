@@ -1,6 +1,6 @@
-import BaseXform from '../base-xform';
+import BaseXform from '../base-xform.js';
 
-import _ from '../../../utils/under-dash';
+import _ from '../../../utils/under-dash.js';
 
 function booleanToXml(model: boolean): string | undefined {
   return model ? '1' : undefined;

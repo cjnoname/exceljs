@@ -1,9 +1,9 @@
-import BaseXform from '../base-xform';
-import Range from '../../../doc/range';
+import BaseXform from '../base-xform.js';
+import Range from '../../../doc/range.js';
 
-import _ from '../../../utils/under-dash';
-import utils from '../../../utils/utils';
-import colCache from '../../../utils/col-cache';
+import _ from '../../../utils/under-dash.js';
+import utils from '../../../utils/utils.js';
+import colCache from '../../../utils/col-cache.js';
 
 function assign(definedName: any, attributes: any, name: string, defaultValue?: any): void {
   const value = attributes[name];

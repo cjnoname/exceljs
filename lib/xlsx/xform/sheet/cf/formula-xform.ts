@@ -1,4 +1,4 @@
-import BaseXform from '../../base-xform';
+import BaseXform from '../../base-xform.js';
 
 class FormulaXform extends BaseXform {
   get tag(): string {

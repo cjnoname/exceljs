@@ -1,4 +1,4 @@
-import BaseXform from '../base-xform';
+import BaseXform from '../base-xform.js';
 
 abstract class BaseCellAnchorXform extends BaseXform {
   public map: {[key: string]: any};

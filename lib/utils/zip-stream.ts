@@ -1,7 +1,7 @@
 import * as events from 'events';
 import JSZip from 'jszip';
-import StreamBuf from './stream-buf';
-import {stringToBuffer} from './browser-buffer-encode';
+import StreamBuf from './stream-buf.js';
+import {stringToBuffer} from './browser-buffer-encode.js';
 
 interface ZipWriterOptions {
   type?: string;

@@ -1,7 +1,7 @@
-import utils from '../../../utils/utils';
-import BaseXform from '../base-xform';
-import Range from '../../../doc/range';
-import Enums from '../../../doc/enums';
+import utils from '../../../utils/utils.js';
+import BaseXform from '../base-xform.js';
+import Range from '../../../doc/range.js';
+import Enums from '../../../doc/enums.js';
 
 import RichTextXform from '../strings/rich-text-xform';
 

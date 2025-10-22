@@ -1,5 +1,5 @@
-import _ from './under-dash';
-import colCache from './col-cache';
+import _ from './under-dash.js';
+import colCache from './col-cache.js';
 
 interface CellAddress {
   sheetName?: string;

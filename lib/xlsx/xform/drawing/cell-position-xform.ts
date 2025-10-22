@@ -1,5 +1,5 @@
-import BaseXform from '../base-xform';
-import IntegerXform from '../simple/integer-xform';
+import BaseXform from '../base-xform.js';
+import IntegerXform from '../simple/integer-xform.js';
 
 interface PositionModel {
   nativeCol: number;

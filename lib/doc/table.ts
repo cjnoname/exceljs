@@ -1,5 +1,5 @@
 /* eslint-disable max-classes-per-file */
-import colCache from '../utils/col-cache';
+import colCache from '../utils/col-cache.js';
 
 interface ColumnModel {
   name: string;

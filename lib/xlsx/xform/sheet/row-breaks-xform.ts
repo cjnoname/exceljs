@@ -1,7 +1,7 @@
 'use strict';
 
-import PageBreaksXform from './page-breaks-xform';
-import ListXform from '../list-xform';
+import PageBreaksXform from './page-breaks-xform.js';
+import ListXform from '../list-xform.js';
 
 class RowBreaksXform extends ListXform {
   constructor() {

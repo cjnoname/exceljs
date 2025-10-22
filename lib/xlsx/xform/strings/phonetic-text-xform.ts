@@ -1,6 +1,6 @@
-import TextXform from './text-xform';
+import TextXform from './text-xform.js';
 import RichTextXform from './rich-text-xform';
-import BaseXform from '../base-xform';
+import BaseXform from '../base-xform.js';
 
 // <rPh sb="0" eb="1">
 //   <t>(its pronounciation in KATAKANA)</t>

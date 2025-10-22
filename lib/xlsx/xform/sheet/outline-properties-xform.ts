@@ -1,4 +1,4 @@
-import BaseXform from '../base-xform';
+import BaseXform from '../base-xform.js';
 
 const isDefined = (attr: any): boolean => typeof attr !== 'undefined';
 

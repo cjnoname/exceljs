@@ -1,8 +1,8 @@
-import Range from '../../../doc/range';
-import colCache from '../../../utils/col-cache';
-import Enums from '../../../doc/enums';
+import Range from '../../../doc/range.js';
+import colCache from '../../../utils/col-cache.js';
+import Enums from '../../../doc/enums.js';
 
-import _ from '../../../utils/under-dash';
+import _ from '../../../utils/under-dash.js';
 
 interface MergeData {
   address: string;

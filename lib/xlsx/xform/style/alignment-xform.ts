@@ -1,5 +1,5 @@
-import BaseXform from '../base-xform';
-import utils from '../../../utils/utils';
+import BaseXform from '../base-xform.js';
+import utils from '../../../utils/utils.js';
 
 const Enums = {
   ReadingOrder: {

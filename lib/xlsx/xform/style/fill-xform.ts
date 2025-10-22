@@ -1,6 +1,6 @@
 /* eslint-disable max-classes-per-file */
-import BaseXform from '../base-xform';
-import ColorXform from './color-xform';
+import BaseXform from '../base-xform.js';
+import ColorXform from './color-xform.js';
 
 interface StopModel {
   position: number;

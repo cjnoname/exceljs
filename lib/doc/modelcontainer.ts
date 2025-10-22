@@ -1,6 +1,6 @@
 'use strict';
 
-import XLSX from '../xlsx/xlsx';
+import XLSX from '../xlsx/xlsx.js';
 
 class ModelContainer {
   model: any;

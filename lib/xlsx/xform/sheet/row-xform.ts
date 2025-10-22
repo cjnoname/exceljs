@@ -1,7 +1,7 @@
-import BaseXform from '../base-xform';
-import CellXform from './cell-xform';
+import BaseXform from '../base-xform.js';
+import CellXform from './cell-xform.js';
 
-import utils from '../../../utils/utils';
+import utils from '../../../utils/utils.js';
 
 interface RowXformOptions {
   maxItems?: number;

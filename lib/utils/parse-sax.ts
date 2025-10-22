@@ -1,6 +1,6 @@
 import {SaxesParser, SaxesTag} from 'saxes';
 import {PassThrough} from 'readable-stream';
-import {bufferToString} from './browser-buffer-decode';
+import {bufferToString} from './browser-buffer-decode.js';
 
 interface SaxEvent {
   eventType: 'opentag' | 'text' | 'closetag';

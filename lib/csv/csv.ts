@@ -1,11 +1,11 @@
 import fs from 'fs';
-import StreamBuf from '../utils/stream-buf';
+import StreamBuf from '../utils/stream-buf.js';
 
 import * as fastCsv from 'fast-csv';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import utc from 'dayjs/plugin/utc';
 import dayjs from 'dayjs';
-import utils from '../utils/utils';
+import utils from '../utils/utils.js';
 
 dayjs.extend(customParseFormat);
 dayjs.extend(utc);

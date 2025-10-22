@@ -1,4 +1,4 @@
-import BaseXform from '../../base-xform';
+import BaseXform from '../../base-xform.js';
 
 class FExtXform extends BaseXform {
   get tag() {

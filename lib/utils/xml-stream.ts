@@ -1,5 +1,5 @@
-import _ from './under-dash';
-import utils from './utils';
+import _ from './under-dash.js';
+import utils from './utils.js';
 
 // constants
 const OPEN_ANGLE = '<';

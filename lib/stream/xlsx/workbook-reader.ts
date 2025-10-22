@@ -4,15 +4,15 @@ import {PassThrough, Readable} from 'readable-stream';
 import nodeStream from 'stream';
 import unzip from 'unzipper';
 import tmp from 'tmp';
-import iterateStream from '../../utils/iterate-stream';
-import parseSax from '../../utils/parse-sax';
+import iterateStream from '../../utils/iterate-stream.js';
+import parseSax from '../../utils/parse-sax.js';
 
-import StyleManager from '../../xlsx/xform/style/styles-xform';
-import WorkbookXform from '../../xlsx/xform/book/workbook-xform';
-import RelationshipsXform from '../../xlsx/xform/core/relationships-xform';
+import StyleManager from '../../xlsx/xform/style/styles-xform.js';
+import WorkbookXform from '../../xlsx/xform/book/workbook-xform.js';
+import RelationshipsXform from '../../xlsx/xform/core/relationships-xform.js';
 
-import WorksheetReader from './worksheet-reader';
-import HyperlinkReader from './hyperlink-reader';
+import WorksheetReader from './worksheet-reader.js';
+import HyperlinkReader from './hyperlink-reader.js';
 
 tmp.setGracefulCleanup();
 

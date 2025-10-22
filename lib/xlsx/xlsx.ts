@@ -1,32 +1,32 @@
 import fs from 'fs';
 import JSZip from 'jszip';
 import {PassThrough} from 'readable-stream';
-import * as ZipStream from '../utils/zip-stream';
-import StreamBuf from '../utils/stream-buf';
+import * as ZipStream from '../utils/zip-stream.js';
+import StreamBuf from '../utils/stream-buf.js';
 
-import utils from '../utils/utils';
-import XmlStream from '../utils/xml-stream';
-import {bufferToString} from '../utils/browser-buffer-decode';
+import utils from '../utils/utils.js';
+import XmlStream from '../utils/xml-stream.js';
+import {bufferToString} from '../utils/browser-buffer-decode.js';
 
-import StylesXform from './xform/style/styles-xform';
+import StylesXform from './xform/style/styles-xform.js';
 
-import CoreXform from './xform/core/core-xform';
-import SharedStringsXform from './xform/strings/shared-strings-xform';
-import RelationshipsXform from './xform/core/relationships-xform';
-import ContentTypesXform from './xform/core/content-types-xform';
-import AppXform from './xform/core/app-xform';
-import WorkbookXform from './xform/book/workbook-xform';
-import WorksheetXform from './xform/sheet/worksheet-xform';
-import DrawingXform from './xform/drawing/drawing-xform';
-import TableXform from './xform/table/table-xform';
-import PivotCacheRecordsXform from './xform/pivot-table/pivot-cache-records-xform';
-import PivotCacheDefinitionXform from './xform/pivot-table/pivot-cache-definition-xform';
-import PivotTableXform from './xform/pivot-table/pivot-table-xform';
-import CommentsXform from './xform/comment/comments-xform';
-import VmlNotesXform from './xform/comment/vml-notes-xform';
+import CoreXform from './xform/core/core-xform.js';
+import SharedStringsXform from './xform/strings/shared-strings-xform.js';
+import RelationshipsXform from './xform/core/relationships-xform.js';
+import ContentTypesXform from './xform/core/content-types-xform.js';
+import AppXform from './xform/core/app-xform.js';
+import WorkbookXform from './xform/book/workbook-xform.js';
+import WorksheetXform from './xform/sheet/worksheet-xform.js';
+import DrawingXform from './xform/drawing/drawing-xform.js';
+import TableXform from './xform/table/table-xform.js';
+import PivotCacheRecordsXform from './xform/pivot-table/pivot-cache-records-xform.js';
+import PivotCacheDefinitionXform from './xform/pivot-table/pivot-cache-definition-xform.js';
+import PivotTableXform from './xform/pivot-table/pivot-table-xform.js';
+import CommentsXform from './xform/comment/comments-xform.js';
+import VmlNotesXform from './xform/comment/vml-notes-xform.js';
 
-import theme1Xml from './xml/theme1';
-import RelType from './rel-type';
+import theme1Xml from './xml/theme1.js';
+import RelType from './rel-type.js';
 
 function fsReadFileAsync(filename: string, options?: any): Promise<Buffer> {
   return new Promise((resolve, reject) => {

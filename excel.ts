@@ -4,5 +4,5 @@
  * or https://github.com/exceljs/exceljs/blob/master/LICENSE
  */
 
-import ExcelJS from './lib/exceljs.nodejs';
-export = ExcelJS;
+import ExcelJS from './lib/exceljs.nodejs.js';
+export default ExcelJS;

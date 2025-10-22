@@ -1,5 +1,5 @@
-import XmlStream from '../../../utils/xml-stream';
-import BaseXform from '../base-xform';
+import XmlStream from '../../../utils/xml-stream.js';
+import BaseXform from '../base-xform.js';
 
 // used for rendering the [Content_Types].xml file
 // not used for parsing

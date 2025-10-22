@@ -1,6 +1,6 @@
-import BaseXform from '../base-xform';
+import BaseXform from '../base-xform.js';
 
-import utils from '../../../utils/utils';
+import utils from '../../../utils/utils.js';
 
 interface ColModel {
   min: number;

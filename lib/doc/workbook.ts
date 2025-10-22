@@ -1,7 +1,7 @@
-import Worksheet from './worksheet';
-import DefinedNames from './defined-names';
-import XLSX from '../xlsx/xlsx';
-import CSV from '../csv/csv';
+import Worksheet from './worksheet.js';
+import DefinedNames from './defined-names.js';
+import XLSX from '../xlsx/xlsx.js';
+import CSV from '../csv/csv.js';
 
 interface WorksheetModel {
   id: number;

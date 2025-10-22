@@ -1,5 +1,5 @@
-import utils from '../../../utils/utils';
-import BaseXform from '../base-xform';
+import utils from '../../../utils/utils.js';
+import BaseXform from '../base-xform.js';
 
 interface SheetModel {
   id: number;

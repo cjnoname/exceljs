@@ -1,7 +1,7 @@
 /* eslint-disable max-classes-per-file */
 import {Duplex} from 'readable-stream';
-import utils from './utils';
-import StringBuf from './string-buf';
+import utils from './utils.js';
+import StringBuf from './string-buf.js';
 
 // =============================================================================
 // data chunks - encapsulating incoming data

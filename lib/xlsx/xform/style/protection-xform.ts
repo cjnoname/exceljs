@@ -1,4 +1,4 @@
-import BaseXform from '../base-xform';
+import BaseXform from '../base-xform.js';
 
 const validation = {
   boolean(value: boolean | undefined, dflt: boolean): boolean {

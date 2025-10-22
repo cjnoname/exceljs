@@ -1,7 +1,7 @@
-import CompositeXform from '../../composite-xform';
+import CompositeXform from '../../composite-xform.js';
 
-import SqRefExtXform from './sqref-ext-xform';
-import CfRuleExtXform from './cf-rule-ext-xform';
+import SqRefExtXform from './sqref-ext-xform.js';
+import CfRuleExtXform from './cf-rule-ext-xform.js';
 
 class ConditionalFormattingExtXform extends CompositeXform {
   sqRef: SqRefExtXform;

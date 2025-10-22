@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeAll, afterAll, beforeEach, afterEach } from 'vitest';
 import fs from 'fs';
-const {promisify} = require('util');
+import {promisify} from 'util';
 
 import testUtils from '../../utils/index';
 

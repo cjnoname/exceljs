@@ -1,4 +1,4 @@
-import {objectFromProps, range, toSortedArray} from '../utils/utils';
+import {objectFromProps, range, toSortedArray} from '../utils/utils.js';
 
 interface PivotTableModel {
   sourceSheet: any;
