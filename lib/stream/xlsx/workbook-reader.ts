@@ -103,14 +103,7 @@ class WorkbookReader extends EventEmitter {
     if (options) this.options = options;
     const stream = (this.stream = this._getStream(input || this.input));
     
-    // Collect all chunks from the input stream
-    const chunks: Buffer[] = [];
-    for await (const chunk of stream) {
-      chunks.push(chunk);
-    }
-    const buffer = Buffer.concat(chunks);
-
-    // Use fflate's Unzip to extract all files
+    // Use fflate's Unzip for streaming decompression
     const allFiles: Record<string, Uint8Array> = {};
     
     await new Promise<void>((resolve, reject) => {
@@ -139,14 +132,22 @@ class WorkbookReader extends EventEmitter {
             totalLength += data.length;
           }
           if (final) {
-            // Concatenate all chunks efficiently
-            const fullData = new Uint8Array(totalLength);
-            let offset = 0;
-            for (const chunk of fileChunks) {
-              fullData.set(chunk, offset);
-              offset += chunk.length;
+            // Optimize for single chunk case (common for small files)
+            if (fileChunks.length === 1) {
+              allFiles[file.name] = fileChunks[0];
+            } else if (fileChunks.length > 1) {
+              // Concatenate all chunks efficiently for multiple chunks
+              const fullData = new Uint8Array(totalLength);
+              let offset = 0;
+              for (const chunk of fileChunks) {
+                fullData.set(chunk, offset);
+                offset += chunk.length;
+              }
+              allFiles[file.name] = fullData;
+            } else {
+              // Empty file
+              allFiles[file.name] = new Uint8Array(0);
             }
-            allFiles[file.name] = fullData;
             filesProcessed++;
             // Clear chunks array to help GC
             fileChunks.length = 0;
@@ -159,9 +160,18 @@ class WorkbookReader extends EventEmitter {
       // Register deflate decompressor (compression type 8)
       unzipper.register(UnzipInflate);
       
-      unzipper.push(buffer, true);
-      zipEnded = true;
-      checkCompletion();
+      // Stream chunks directly to unzipper without buffering entire file
+      stream.on('data', (chunk: Buffer) => {
+        unzipper.push(chunk);
+      });
+      
+      stream.on('end', () => {
+        unzipper.push(new Uint8Array(0), true);
+        zipEnded = true;
+        checkCompletion();
+      });
+      
+      stream.on('error', reject);
     });
 
     // worksheets, deferred for parsing after shared strings reading
@@ -229,7 +239,8 @@ class WorkbookReader extends EventEmitter {
                   const tempStream = fs.createWriteStream(tmpPath);
                   tempStream.on('error', reject);
                   tempStream.on('finish', resolve);
-                  tempStream.write(Buffer.from(data));
+                  // data is already a Uint8Array, no need to convert
+                  tempStream.write(data);
                   tempStream.end();
                 });
               });

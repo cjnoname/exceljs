@@ -116,20 +116,15 @@ class WorkbookWriter {
     // Now we need to manually pipe data to fflate
     
     // Pipe stream data to zipFile
-    const onData = (chunk: Buffer) => {
+    stream.on('data', (chunk: Buffer) => {
       zipFile.push(chunk);
-    };
+    });
     
-    const onFinish = () => {
+    // Use once for automatic cleanup
+    stream.once('finish', () => {
       zipFile.push(new Uint8Array(0), true); // Signal end
-      // Clean up event listeners to prevent memory leaks
-      stream.removeListener('data', onData);
-      stream.removeListener('finish', onFinish);
       stream.emit('zipped');
-    };
-    
-    stream.on('data', onData);
-    stream.on('finish', onFinish);
+    });
     
     return stream;
   }

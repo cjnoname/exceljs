@@ -1,5 +1,5 @@
 import fs from 'fs';
-import {unzipSync} from 'fflate';
+import {Unzip, UnzipFile, UnzipInflate} from 'fflate';
 import {PassThrough} from 'stream';
 import {ZipWriter} from '../utils/zip-stream.js';
 import StreamBuf from '../utils/stream-buf.js';
@@ -242,21 +242,98 @@ class XLSX {
   }
 
   async read(stream: any, options?: any): Promise<any> {
-    const chunks: Buffer[] = [];
-    for await (const chunk of stream) {
-      chunks.push(chunk);
-    }
-    return this.load(Buffer.concat(chunks), options);
+    // Use streaming unzip with fflate
+    const allFiles: Record<string, Uint8Array> = {};
+    
+    await new Promise<void>((resolve, reject) => {
+      let filesProcessed = 0;
+      let zipEnded = false;
+      let filesStarted = 0;
+      
+      const checkCompletion = () => {
+        if (zipEnded && filesProcessed === filesStarted) {
+          resolve();
+        }
+      };
+      
+      const unzipper = new Unzip((file: UnzipFile) => {
+        filesStarted++;
+        const fileChunks: Uint8Array[] = [];
+        let totalLength = 0;
+        
+        file.ondata = (err, data, final) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+          if (data) {
+            fileChunks.push(data);
+            totalLength += data.length;
+          }
+          if (final) {
+            // Optimize for single chunk case
+            if (fileChunks.length === 1) {
+              allFiles[file.name] = fileChunks[0];
+            } else if (fileChunks.length > 1) {
+              const fullData = new Uint8Array(totalLength);
+              let offset = 0;
+              for (const chunk of fileChunks) {
+                fullData.set(chunk, offset);
+                offset += chunk.length;
+              }
+              allFiles[file.name] = fullData;
+            } else {
+              allFiles[file.name] = new Uint8Array(0);
+            }
+            filesProcessed++;
+            fileChunks.length = 0;
+            checkCompletion();
+          }
+        };
+        file.start();
+      });
+      
+      unzipper.register(UnzipInflate);
+      
+      stream.on('data', (chunk: Buffer) => {
+        unzipper.push(chunk);
+      });
+      
+      stream.on('end', () => {
+        unzipper.push(new Uint8Array(0), true);
+        zipEnded = true;
+        checkCompletion();
+      });
+      
+      stream.on('error', reject);
+    });
+
+    return this.loadFromFiles(allFiles, options);
   }
 
   async load(data: any, options?: any): Promise<any> {
     let buffer: Buffer;
+    
+    // Validate input type
+    if (!data || (typeof data === 'object' && !Buffer.isBuffer(data) && !(data instanceof Uint8Array) && !(data instanceof ArrayBuffer))) {
+      throw new Error("Can't read the data of 'the loaded zip file'. Is it in a supported JavaScript type (String, Blob, ArrayBuffer, etc) ?");
+    }
+    
     if (options && options.base64) {
       buffer = Buffer.from(data.toString(), 'base64');
     } else {
       buffer = data;
     }
 
+    // Create a fake stream from buffer for consistency
+    const PassThroughStream = PassThrough;
+    const stream = new PassThroughStream();
+    stream.end(buffer);
+    
+    return this.read(stream, options);
+  }
+
+  async loadFromFiles(zipData: Record<string, Uint8Array>, options?: any): Promise<any> {
     const model: any = {
       worksheets: [],
       worksheetHash: {},
@@ -270,15 +347,6 @@ class XLSX {
       tables: {},
       vmlDrawings: {},
     };
-
-    // Unzip the buffer using fflate
-    let zipData;
-    try {
-      zipData = unzipSync(new Uint8Array(buffer));
-    } catch (error) {
-      // Wrap fflate errors to match JSZip error messages for compatibility
-      throw new Error("Can't read the data of 'the loaded zip file'. Is it in a supported JavaScript type (String, Blob, ArrayBuffer, etc) ?");
-    }
     
     // Convert fflate format to JSZip-like structure for compatibility
     const entries = Object.keys(zipData).map(name => ({

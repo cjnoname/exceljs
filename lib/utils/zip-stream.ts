@@ -1,5 +1,5 @@
 import events from 'events';
-import {zipSync} from 'fflate';
+import {Zip, ZipPassThrough} from 'fflate';
 import StreamBuf from './stream-buf.js';
 import {stringToBuffer} from './browser-buffer-encode.js';
 
@@ -15,7 +15,7 @@ interface AppendOptions {
 
 interface ZipFile {
   data: Uint8Array;
-  base64?: boolean;
+  isStream?: boolean;
 }
 
 // =============================================================================
@@ -25,6 +25,8 @@ class ZipWriter extends events.EventEmitter {
   options: ZipWriterOptions;
   files: Record<string, ZipFile>;
   stream: any;
+  zip: Zip;
+  finalized: boolean;
 
   constructor(options?: ZipWriterOptions) {
     super();
@@ -38,6 +40,19 @@ class ZipWriter extends events.EventEmitter {
 
     this.files = {};
     this.stream = new StreamBuf();
+    this.finalized = false;
+    
+    // Create fflate Zip instance for streaming compression
+    this.zip = new Zip((err, data, final) => {
+      if (err) {
+        this.stream.emit('error', err);
+      } else {
+        this.stream.write(Buffer.from(data));
+        if (final) {
+          this.stream.end();
+        }
+      }
+    });
   }
 
   append(data: any, options: AppendOptions): void {
@@ -47,10 +62,12 @@ class ZipWriter extends events.EventEmitter {
       // Use Buffer.from for efficient base64 decoding
       const base64Data = typeof data === 'string' ? data : data.toString();
       if ((process as any).browser) {
-        // Browser fallback: use atob but convert more efficiently
+        // Browser: use atob with optimized Uint8Array conversion
         const binaryString = atob(base64Data);
-        buffer = new Uint8Array(binaryString.length);
-        for (let i = 0; i < binaryString.length; i++) {
+        const len = binaryString.length;
+        buffer = new Uint8Array(len);
+        // Use a single loop with cached length for better performance
+        for (let i = 0; i < len; i++) {
           buffer[i] = binaryString.charCodeAt(i);
         }
       } else {
@@ -72,7 +89,10 @@ class ZipWriter extends events.EventEmitter {
       }
     }
     
-    this.files[options.name] = {data: buffer};
+    // Add file to zip using streaming API
+    const zipFile = new ZipPassThrough(options.name);
+    this.zip.add(zipFile);
+    zipFile.push(buffer, true); // true = final chunk
   }
 
   push(chunk: any): boolean {
@@ -80,23 +100,14 @@ class ZipWriter extends events.EventEmitter {
   }
 
   async finalize(): Promise<void> {
-    // Convert files object to fflate format
-    const fflateFiles: Record<string, Uint8Array> = {};
-    for (const [name, file] of Object.entries(this.files)) {
-      fflateFiles[name] = file.data;
+    if (this.finalized) {
+      return;
     }
+    this.finalized = true;
     
-    // Use zipSync to create the zip buffer
-    const zipBuffer = zipSync(fflateFiles, {
-      level: 6, // Compression level (0-9)
-    });
+    // End the zip stream
+    this.zip.end();
     
-    // Clear files to free memory
-    this.files = {};
-    
-    // Convert Uint8Array to Buffer if needed
-    const content = Buffer.from(zipBuffer);
-    this.stream.end(content);
     this.emit('finish');
   }
 
