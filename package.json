@@ -51,7 +51,6 @@
     "test:vitest:ui": "vitest --ui",
     "test:vitest:browser": "vitest run --config vitest.browser.config.ts",
     "test:vitest:browser:ui": "vitest --config vitest.browser.config.ts --ui",
-    "test:manual": "node spec/manual/app.js",
     "clean-build": "npm run clean && npm run build",
     "lint": "oxlint",
     "type": "tsgo --noEmit",
