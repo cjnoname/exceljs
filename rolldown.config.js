@@ -14,7 +14,6 @@ export default defineConfig([
   // Browser: exceljs.js (for development/debugging with <script> tag)
   {
     input: './lib/exceljs.bare.ts',
-    external: ['fs'],
     output: {
       file: './dist/exceljs.js',
       format: 'iife',
@@ -22,12 +21,10 @@ export default defineConfig([
       sourcemap: true,
       banner,
       exports: 'named',
-      globals: {
-        fs: '{}', // Stub fs for browser
-      },
     },
     resolve: {
       alias: {
+        fs: 'memfs',
         events: 'events',
         stream: 'stream-browserify',
         buffer: 'buffer',
@@ -58,7 +55,6 @@ export default defineConfig([
   // Browser: exceljs.min.js (for production with <script> tag)
   {
     input: './lib/exceljs.bare.ts',
-    external: ['fs'],
     output: {
       file: './dist/exceljs.min.js',
       format: 'iife',
@@ -66,13 +62,11 @@ export default defineConfig([
       sourcemap: true,
       banner,
       exports: 'named',
-      globals: {
-        fs: '{}', // Stub fs for browser
-      },
       minify: true,
     },
     resolve: {
       alias: {
+        fs: 'memfs',
         events: 'events',
         stream: 'stream-browserify',
         buffer: 'buffer',
@@ -100,6 +94,7 @@ export default defineConfig([
     },
     resolve: {
       alias: {
+        fs: 'memfs',
         events: 'events',
         stream: 'stream-browserify',
         buffer: 'buffer',
