@@ -1,3 +1,5 @@
+import underDash from '../../lib/utils/under-dash.js';
+
 const _ = Object.assign(
   {
     get: function get(obj, path, dflt) {
@@ -43,7 +45,7 @@ const _ = Object.assign(
       return clone;
     },
   },
-  verquire('utils/under-dash').default || verquire('utils/under-dash')
+  underDash
 );
 
-module.exports = _;
+export default _;

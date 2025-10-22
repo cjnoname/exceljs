@@ -1,7 +1,8 @@
-const tools = require('./tools');
+import tools from './tools';
+import dataValidationsJson from './data/data-validations.json' with { type: 'json' };
 
 const self = {
-  dataValidations: tools.fix(require('./data/data-validations.json')),
+  dataValidations: tools.fix(dataValidationsJson),
   createDataValidations(type, operator) {
     const dataValidation = {
       type,
@@ -108,7 +109,7 @@ const self = {
 
   checkSheet(wb) {
     const ws = wb.getWorksheet('data-validations');
-    expect(ws).to.not.be.undefined();
+    expect(ws).toBeDefined();
 
     expect(ws.getCell('B1').dataValidation).to.deep.equal(
       self.dataValidations.B1
@@ -167,4 +168,4 @@ const self = {
   },
 };
 
-module.exports = self;
+export default self;

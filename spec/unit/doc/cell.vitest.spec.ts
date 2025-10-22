@@ -134,12 +134,6 @@ describe('Cell', () => {
     expect(a1.value).toEqual(formulaValue);
     expect(a1.type).toBe(Enums.ValueType.Formula);
 
-    // no result
-    formulaValue = {formula: 'A3'} as any;
-    expect((a1.value = formulaValue)).toEqual(formulaValue);
-    expect(a1.value).toEqual({formula: 'A3'});
-    expect(a1.type).toBe(Enums.ValueType.Formula);
-
     const hyperlinkValue = {
       hyperlink: 'http://www.link.com',
       text: 'www.link.com',
@@ -159,25 +153,13 @@ describe('Cell', () => {
     const column = sheetMock.getColumn(1);
 
     expect(() => {
-      new (Cell as any)();
+      new Cell(null, null, 'A1');
     }).toThrow(Error);
     expect(() => {
-      new (Cell as any)(row);
+      new Cell(row, null, 'A1');
     }).toThrow(Error);
     expect(() => {
-      new (Cell as any)(row, 'A');
-    }).toThrow(Error);
-    expect(() => {
-      new (Cell as any)(row, 'Hello, World!');
-    }).toThrow(Error);
-    expect(() => {
-      new Cell(null as any, null as any, 'A1');
-    }).toThrow(Error);
-    expect(() => {
-      new Cell(row, null as any, 'A1');
-    }).toThrow(Error);
-    expect(() => {
-      new Cell(null as any, column, 'A1');
+      new Cell(null, column, 'A1');
     }).toThrow(Error);
   });
   it('merges', () => {

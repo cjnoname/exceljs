@@ -61,6 +61,8 @@ interface PageSetup {
   verticalCentered: boolean;
   rowBreaks: any;
   colBreaks: any;
+  printTitlesRow?: string;
+  printTitlesColumn?: string;
 }
 
 interface HeaderFooter {

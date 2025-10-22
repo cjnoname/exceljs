@@ -1,4 +1,4 @@
-const _ = require('./under-dash');
+import _ from '../../lib/utils/under-dash.js';
 
 const tools = {
   dtMatcher: /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[.]\d{3}Z$/,
@@ -30,4 +30,4 @@ const tools = {
   },
 };
 
-module.exports = tools;
+export default tools;

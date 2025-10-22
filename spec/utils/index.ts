@@ -1,18 +1,27 @@
-const verquire = require('./verquire');
-
-const _ = require('./under-dash');
-const tools = require('./tools');
-
-const testWorkbookReader = require('./test-workbook-reader');
-
-const Row = verquire('doc/row');
-const Column = verquire('doc/column');
+// @ts-nocheck
+import _ from './under-dash-custom';
+import tools from './tools';
+import Row from '../../lib/doc/row.js';
+import Column from '../../lib/doc/column.js';
+import testWorkbookReader from './test-workbook-reader';
+import dataValidations from './test-data-validation-sheet';
+import conditionalFormatting from './test-conditional-formatting-sheet';
+import values from './test-values-sheet';
+import splice from './test-spliced-sheet';
+import views from './data/views.json' with { type: 'json' };
+import testValues from './data/sheet-values.json' with { type: 'json' };
+import styles from './data/styles.json' with { type: 'json' };
+import properties from './data/sheet-properties.json' with { type: 'json' };
+import pageSetup from './data/page-setup.json' with { type: 'json' };
+import conditionalFormattingData from './data/conditional-formatting.json' with { type: 'json' };
+import headerFooter from './data/header-footer.json' with { type: 'json' };
+import { expect } from 'vitest';
 
 const testSheets = {
-  dataValidations: require('./test-data-validation-sheet'),
-  conditionalFormatting: require('./test-conditional-formatting-sheet'),
-  values: require('./test-values-sheet'),
-  splice: require('./test-spliced-sheet'),
+  dataValidations,
+  conditionalFormatting,
+  values,
+  splice,
 };
 
 function getOptions(docType, options) {
@@ -48,16 +57,14 @@ function getOptions(docType, options) {
   return Object.assign(result, options);
 }
 
-module.exports = {
-  views: tools.fix(require('./data/views.json')),
-  testValues: tools.fix(require('./data/sheet-values.json')),
-  styles: tools.fix(require('./data/styles.json')),
-  properties: tools.fix(require('./data/sheet-properties.json')),
-  pageSetup: tools.fix(require('./data/page-setup.json')),
-  conditionalFormatting: tools.fix(
-    require('./data/conditional-formatting.json')
-  ),
-  headerFooter: tools.fix(require('./data/header-footer.json')),
+const testUtils = {
+  views: tools.fix(views),
+  testValues: tools.fix(testValues),
+  styles: tools.fix(styles),
+  properties: tools.fix(properties),
+  pageSetup: tools.fix(pageSetup),
+  conditionalFormatting: tools.fix(conditionalFormattingData),
+  headerFooter: tools.fix(headerFooter),
 
   createTestBook(workbook, docType, sheets) {
     const options = getOptions(docType);
@@ -79,10 +86,10 @@ module.exports = {
     options = getOptions(docType, options);
     sheets = sheets || ['values'];
 
-    expect(workbook).to.not.be.undefined();
+    expect(workbook).toBeDefined();
 
     if (options.checkViews) {
-      expect(workbook.views).to.deep.equal([
+      expect(workbook.views).toEqual([
         {
           x: 1,
           y: 2,
@@ -169,3 +176,5 @@ module.exports = {
     };
   },
 };
+
+export default testUtils;

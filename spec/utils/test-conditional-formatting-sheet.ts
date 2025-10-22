@@ -1,7 +1,9 @@
-const tools = require('./tools');
+import tools from './tools';
+import conditionalFormattingJson from './data/conditional-formatting' with { type: 'json' };
+import { expect } from 'vitest';
 
 const self = {
-  conditionalFormattings: tools.fix(require('./data/conditional-formatting')),
+  conditionalFormattings: tools.fix(conditionalFormattingJson),
   getConditionalFormatting(type) {
     return self.conditionalFormattings[type] || null;
   },
@@ -18,19 +20,19 @@ const self = {
 
   checkSheet(wb) {
     const ws = wb.getWorksheet('conditional-formatting');
-    expect(ws).to.not.be.undefined();
-    expect(ws.conditionalFormattings).to.not.be.undefined();
+    expect(ws).toBeDefined();
+    expect(ws.conditionalFormattings).toBeDefined();
     (ws.conditionalFormattings && ws.conditionalFormattings).forEach(item => {
       const type = item.rules && item.rules[0].type;
       const conditionalFormatting = self.getConditionalFormatting(type);
-      expect(item).to.have.property('ref');
-      expect(item).to.have.property('rules');
-      expect(self.conditionalFormattings[type]).to.have.property('ref');
-      expect(self.conditionalFormattings[type]).to.have.property('rules');
-      expect(item.ref).to.deep.equal(conditionalFormatting.ref);
-      expect(item.rules.length).to.equal(conditionalFormatting.rules.length);
+      expect(item).toHaveProperty('ref');
+      expect(item).toHaveProperty('rules');
+      expect(self.conditionalFormattings[type]).toHaveProperty('ref');
+      expect(self.conditionalFormattings[type]).toHaveProperty('rules');
+      expect(item.ref).toEqual(conditionalFormatting.ref);
+      expect(item.rules.length).toBe(conditionalFormatting.rules.length);
     });
   },
 };
 
-module.exports = self;
+export default self;

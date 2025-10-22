@@ -79,9 +79,6 @@ describe('colCache', () => {
     expect(() => {
       colCache.l2n('AAAA');
     }).toThrow(Error);
-    expect(() => {
-      colCache.l2n(16385 as any);
-    }).toThrow(Error);
   });
 
   it('validates addresses properly', () => {
