@@ -193,10 +193,10 @@ For browser support, modern browsers with ES2019 compatibility are required:
 
 ## Browserify[⬆](#contents)<!-- Link generated with jump2header -->
 
-ExcelJS publishes browserified bundles inside the `build/` folder for use in browsers.
+ExcelJS publishes browserified bundles inside the `dist/` folder for use in browsers.
 
 ```html
-<script src="exceljs.browser.js"></script>
+<script src="exceljs.js"></script>
 ```
 
 **Note:** ExcelJS targets modern browsers with ES2019 support. No polyfills are required for supported browsers.

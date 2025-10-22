@@ -188,7 +188,7 @@ ExcelJS 要求 **Node.js >= 12.0.0**（ES2019 支持）。
 
 ## 浏览器端[⬆](#目录)<!-- Link generated with jump2header -->
 
-ExcelJS 在 `build/` 文件夹内发布了支持浏览器的包：
+ExcelJS 在 `dist/` 文件夹内发布了支持浏览器的包：
 
 ```html
 <script src="exceljs.browser.js"></script>

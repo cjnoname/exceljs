@@ -1,0 +1,18 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "declaration": false,
+    "declarationMap": false,
+    "emitDeclarationOnly": false,
+    "outDir": ".",
+    "rootDir": "."
+  },
+  "include": [
+    "excel.ts",
+    "index.ts",
+    "lib/exceljs.nodejs.ts",
+    "lib/exceljs.browser.ts",
+    "lib/exceljs.bare.ts"
+  ],
+  "exclude": []
+}

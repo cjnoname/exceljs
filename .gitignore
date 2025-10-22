@@ -9,7 +9,6 @@ pids
 
 # Generated files
 dist/*
-build/*
 
 # TypeScript compiled outputs (keep source .ts files only)
 lib/**/*.js
@@ -17,6 +16,9 @@ lib/**/*.js.map
 *.js.map
 !excel.js
 !index.js
+!lib/exceljs.nodejs.js
+!lib/exceljs.browser.js
+!lib/exceljs.bare.js
 !rollup.config.js
 !benchmark.js
 !vitest.*.js
@@ -48,9 +50,6 @@ coverage
 
 # node-waf configuration
 .lock-wscript
-
-# Compiled binary addons (http://nodejs.org/api/addons.html)
-build/Release
 
 # Dependency directory
 # https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git-
