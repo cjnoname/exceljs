@@ -35,7 +35,7 @@
     "test:all": "npm run test:full",
     "test:native": "npm run test:full",
     "test:unit": "mocha --require spec/config/setup --require spec/config/setup-unit spec/unit --recursive --exclude 'spec/**/*.vitest.spec.ts'",
-    "test:vitest": "vitest run",
+    "test:vitest": "vitest run && vitest run --config vitest.browser.config.ts",
     "test:vitest:watch": "vitest",
     "test:vitest:ui": "vitest --ui",
     "test:vitest:browser": "vitest run --config vitest.browser.config.ts",
