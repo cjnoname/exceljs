@@ -3,7 +3,7 @@ import BaseXform from '../base-xform.js';
 import Range from '../../../doc/range.js';
 import Enums from '../../../doc/enums.js';
 
-import RichTextXform from '../strings/rich-text-xform';
+import RichTextXform from '../strings/rich-text-xform.js';
 
 function getValueType(v) {
   if (v === null || v === undefined) {

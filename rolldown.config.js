@@ -100,4 +100,15 @@ export default defineConfig([
     },
     plugins: getPlugins(false),
   },
+  // Node.js: ESM bundle for ES modules projects
+  {
+    input: './lib/exceljs.nodejs.ts',
+    output: {
+      file: './dist/esm/index.js',
+      format: 'esm',
+      sourcemap: true,
+      banner,
+    },
+    plugins: getPlugins(false),
+  },
 ]);

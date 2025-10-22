@@ -1,5 +1,5 @@
 import TextXform from './text-xform.js';
-import RichTextXform from './rich-text-xform';
+import RichTextXform from './rich-text-xform.js';
 import BaseXform from '../base-xform.js';
 
 // <rPh sb="0" eb="1">

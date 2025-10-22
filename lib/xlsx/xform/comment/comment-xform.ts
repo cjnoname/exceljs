@@ -1,4 +1,4 @@
-import RichTextXform from '../strings/rich-text-xform';
+import RichTextXform from '../strings/rich-text-xform.js';
 import BaseXform from '../base-xform.js';
 
 interface NoteText {
