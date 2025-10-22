@@ -26,9 +26,13 @@ export default defineConfig({
     setupFiles: ['./spec/browser/setup.ts'],
     browser: {
       enabled: true,
-      name: 'chromium',
       provider: 'playwright',
       headless: true,
+      instances: [
+        {
+          browser: 'chromium',
+        },
+      ],
     },
     include: ['spec/browser/**/*.vitest.spec.ts'],
   },

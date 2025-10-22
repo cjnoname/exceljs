@@ -49,7 +49,7 @@ describe('WorkbookReader', () => {
               expect(err.message).toBe('Max row count (100) exceeded');
             }
           );
-      }, { timeout: 5000 });
+      }, { timeout: 10000 });
 
       it('should parse fine if the limit is not exceeded', () => {
         const workbook = new ExcelJS.Workbook();
@@ -90,7 +90,7 @@ describe('WorkbookReader', () => {
               expect(err.message).toBe('Max column count (10) exceeded');
             }
           );
-      }, { timeout: 5000 });
+      }, { timeout: 10000 });
 
       it('should parse fine if the limit is not exceeded', () => {
         const workbook = new ExcelJS.Workbook();

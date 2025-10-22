@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 
-// ExcelJS 作为全局变量由 build/web/exceljs.js 提供
+// ExcelJS 作为全局变量由 dist/exceljs.js 提供
 declare const ExcelJS: any;
 
 describe('ExcelJS Browser Tests', () => {
