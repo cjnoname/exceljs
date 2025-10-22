@@ -1,7 +1,6 @@
 import { describe, it, beforeAll, afterAll } from 'vitest';
-import { PassThrough } from 'stream';
+import { Readable } from 'stream';
 import express from 'express';
-import got from 'got';
 import testutils from '../utils/index';
 import ExcelJS from '../../excel';
 
@@ -29,12 +28,11 @@ describe('Express', () => {
   });
 
   it('downloads a workbook', async () => {
-    const res = got.stream('http://127.0.0.1:3003/workbook', {
-      decompress: false,
-    });
+    const response = await fetch('http://127.0.0.1:3003/workbook');
+    if (!response.body) throw new Error('No response body');
+    
     const wb2 = new ExcelJS.Workbook();
-    // TODO: Remove passThrough with got 10+ (requires node v10+)
-    await wb2.xlsx.read(res.pipe(new PassThrough()));
+    await wb2.xlsx.read(Readable.fromWeb(response.body as any));
     testutils.checkTestBook(wb2, 'xlsx', undefined, {});
   }, 5000);
 });

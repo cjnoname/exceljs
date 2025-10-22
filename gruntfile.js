@@ -4,7 +4,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-babel');
   grunt.loadNpmTasks('grunt-browserify');
   grunt.loadNpmTasks('grunt-terser');
-  grunt.loadNpmTasks('grunt-contrib-jasmine');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-exorcise');
 
@@ -116,19 +115,6 @@ module.exports = function(grunt) {
         files: [
           {src: './LICENSE', dest: './dist/LICENSE'},
         ],
-      },
-    },
-
-    jasmine: {
-      options: {
-        version: '3.8.0',
-        noSandbox: true,
-      },
-      dev: {
-        src: ['./dist/exceljs.js'],
-        options: {
-          specs: './build/web/exceljs.spec.js',
-        },
       },
     },
   });
