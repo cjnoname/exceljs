@@ -1,12 +1,12 @@
 import { describe, it, expect, beforeAll, afterAll, beforeEach, afterEach } from 'vitest';
-import ExcelJS from '../../../src/index.js';
+import { Workbook, WorkbookWriter, WorkbookReader } from '../../../src/index.js';
 
 const TEST_XLSX_FILE_NAME = './spec/out/pr-1334.test.xlsx';
 
 describe('github issues', () => {
   it('pull request 1334 - Fix the error that comment does not delete at spliceColumn', async () => {
     (async () => {
-      const wb = new ExcelJS.Workbook();
+      const wb = new Workbook();
       const ws = wb.addWorksheet('testSheet');
 
       ws.addRow(['test1', 'test2', 'test3', 'test4', 'test5', 'test6', 'test7', 'test8']);

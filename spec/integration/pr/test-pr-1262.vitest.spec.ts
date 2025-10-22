@@ -1,9 +1,9 @@
 import { describe, it, expect } from 'vitest';
-import ExcelJS from '../../../src/index.js';
+import { Workbook, WorkbookWriter, WorkbookReader } from '../../../src/index.js';
 
 describe('github issues', () => {
   it('pull request 1262 - protect should work with streaming workbook writer', async () => {
-    const workbook = new ExcelJS.WorkbookWriter({
+    const workbook = new WorkbookWriter({
       filename: './test.xlsx',
     });
 
@@ -22,7 +22,7 @@ describe('github issues', () => {
     await workbook.commit();
 
     // read in file and ensure sheetProtection is there:
-    const checkBook = new ExcelJS.Workbook();
+    const checkBook = new Workbook();
     await checkBook.xlsx.readFile('./test.xlsx');
 
     const checkSheet = checkBook.getWorksheet('data');

@@ -1,10 +1,10 @@
 import { describe, it, expect, beforeAll, afterAll, beforeEach, afterEach } from 'vitest';
-import ExcelJS from '../../../src/index.js';
+import { Workbook, WorkbookWriter, WorkbookReader } from '../../../src/index.js';
 
 describe('pull request  2244', () => {
   it('pull request 2244- Fix xlsx.writeFile() not catching error when error occurs', async () => {
     async function test() {
-      const workbook = new ExcelJS.Workbook();
+      const workbook = new Workbook();
       const worksheet = workbook.addWorksheet('sheet');
       const imageId1 = workbook.addImage({
         filename: 'path/to/image.jpg', // Non-existent file

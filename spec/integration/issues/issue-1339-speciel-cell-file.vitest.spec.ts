@@ -1,12 +1,12 @@
 import { describe, it, expect, beforeAll, afterAll, beforeEach, afterEach } from 'vitest';
-import ExcelJS from '../../../src/index.js';
+import { Workbook, WorkbookWriter, WorkbookReader } from '../../../src/index.js';
 
 // this file to contain integration tests created from github issues
 const TEST_XLSX_FILE_NAME = './spec/out/issue-1339.test.xlsx';
 
 describe('github issues', () => {
   it('issue 1339 - Special cell value results invalid file', async () => {
-    const wb = new ExcelJS.WorkbookWriter({
+    const wb = new WorkbookWriter({
       filename: TEST_XLSX_FILE_NAME,
       useStyles: true,
       useSharedStrings: true,
@@ -32,7 +32,7 @@ describe('github issues', () => {
       ws.getCell(`B${i + 1}`).value = value;
     }
     await wb.commit();
-    const wb2 = new ExcelJS.Workbook();
+    const wb2 = new Workbook();
     await wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
     const ws2 = wb2.getWorksheet('Sheet1');
     for (let i = 0, len = specialValues.length; i < len; i++) {

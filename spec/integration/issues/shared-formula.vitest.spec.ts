@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeAll, afterAll, beforeEach, afterEach } from 'vitest';
 import { ValueType } from '../../../src/doc/enums.js';
-import ExcelJS from '../../../src/index.js';
+import { Workbook, WorkbookWriter, WorkbookReader } from '../../../src/index.js';
 
 describe('github issues', () => {
   describe('Shared Formulas', () => {
@@ -8,7 +8,7 @@ describe('github issues', () => {
       const _explain =
         'this fails, although the cells look the same in excel. Both cells are created by copying A3:B3 to A4:F19. The first row in the new block work as espected, the rest only has values (when seen through exceljs)';
       it('copied cells should have the right formulas', () => {
-        const wb = new ExcelJS.Workbook();
+        const wb = new Workbook();
         return wb.xlsx.readFile('./spec/integration/data/fibonacci.xlsx').then(() => {
           const ws = wb.getWorksheet('fib');
           expect(ws.getCell('A4').value).toEqual({
@@ -22,7 +22,7 @@ describe('github issues', () => {
         });
       });
       it('copied cells should have the right types', () => {
-        const wb = new ExcelJS.Workbook();
+        const wb = new Workbook();
         return wb.xlsx.readFile('./spec/integration/data/fibonacci.xlsx').then(() => {
           const ws = wb.getWorksheet('fib');
           expect(ws.getCell('A4').type).toBe(ValueType.Formula);
@@ -31,7 +31,7 @@ describe('github issues', () => {
       });
       it('copied cells should have the same fields', () => {
         // to see if there are other fields on the object worth comparing
-        const wb = new ExcelJS.Workbook();
+        const wb = new Workbook();
         return wb.xlsx.readFile('./spec/integration/data/fibonacci.xlsx').then(() => {
           const ws = wb.getWorksheet('fib');
           const A4 = ws.getCell('A4');

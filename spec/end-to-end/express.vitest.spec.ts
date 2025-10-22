@@ -2,7 +2,7 @@ import { describe, it, beforeAll, afterAll } from 'vitest';
 import { Readable } from 'stream';
 import express from 'express';
 import testutils from '../utils/index';
-import ExcelJS from '../../src/index.js';
+import { Workbook, WorkbookWriter, WorkbookReader } from '../../src/index.js';
 
 describe('Express', () => {
   let server: any;
@@ -10,7 +10,7 @@ describe('Express', () => {
   beforeAll(() => {
     const app: any = express();
     app.get('/workbook', (req: any, res: any) => {
-      const wb = testutils.createTestBook(new ExcelJS.Workbook(), 'xlsx', undefined);
+      const wb = testutils.createTestBook(new Workbook(), 'xlsx', undefined);
       res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
       res.setHeader('Content-Disposition', 'attachment; filename=Report.xlsx');
       wb.xlsx.write(res).then(() => {
@@ -28,7 +28,7 @@ describe('Express', () => {
     const response = await fetch('http://127.0.0.1:3003/workbook');
     if (!response.body) throw new Error('No response body');
 
-    const wb2 = new ExcelJS.Workbook();
+    const wb2 = new Workbook();
     await wb2.xlsx.read(Readable.fromWeb(response.body as any));
     testutils.checkTestBook(wb2, 'xlsx', undefined, {});
   }, 5000);

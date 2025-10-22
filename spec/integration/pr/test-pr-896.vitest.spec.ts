@@ -1,12 +1,12 @@
 import { describe, it, expect, beforeAll, afterAll, beforeEach, afterEach } from 'vitest';
-import ExcelJS from '../../../src/index.js';
+import { Workbook, WorkbookWriter, WorkbookReader } from '../../../src/index.js';
 
 const TEST_XLSX_FILE_NAME = './spec/out/pr-896.test.xlsx';
 
 describe('pr related issues', () => {
   describe('pr 896 leading and trailing whitespace', () => {
     it('Should preserve leading and trailing whitespace', () => {
-      const wb = new ExcelJS.Workbook();
+      const wb = new Workbook();
       const ws = wb.addWorksheet('foo');
       ws.getCell('A1').value = ' leading';
       ws.getCell('A1').note = ' leading';
@@ -17,7 +17,7 @@ describe('pr related issues', () => {
       return wb.xlsx
         .writeFile(TEST_XLSX_FILE_NAME)
         .then(() => {
-          const wb2 = new ExcelJS.Workbook();
+          const wb2 = new Workbook();
           return wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
         })
         .then(wb2 => {
@@ -32,7 +32,7 @@ describe('pr related issues', () => {
     });
 
     it('Should preserve newlines', () => {
-      const wb = new ExcelJS.Workbook();
+      const wb = new Workbook();
       const ws = wb.addWorksheet('foo');
       ws.getCell('A1').value = 'Hello,\nWorld!';
       ws.getCell('A1').note = 'Later,\nAlligator!';
@@ -41,7 +41,7 @@ describe('pr related issues', () => {
       return wb.xlsx
         .writeFile(TEST_XLSX_FILE_NAME)
         .then(() => {
-          const wb2 = new ExcelJS.Workbook();
+          const wb2 = new Workbook();
           return wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
         })
         .then(wb2 => {

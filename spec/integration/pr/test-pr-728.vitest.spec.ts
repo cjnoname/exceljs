@@ -1,9 +1,9 @@
 import { describe, it, expect, beforeAll, afterAll, beforeEach, afterEach } from 'vitest';
-import ExcelJS from '../../../src/index.js';
+import { Workbook, WorkbookWriter, WorkbookReader } from '../../../src/index.js';
 
 describe('github issues', () => {
   it('pull request 728 - Read worksheet hidden state', () => {
-    const wb = new ExcelJS.Workbook();
+    const wb = new Workbook();
     return wb.xlsx.readFile('./spec/integration/data/test-pr-728.xlsx').then(() => {
       const expected = { 1: 'visible', 2: 'hidden', 3: 'visible' };
       wb.eachSheet((ws, sheetId) => {

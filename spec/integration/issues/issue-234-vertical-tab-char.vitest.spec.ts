@@ -1,12 +1,12 @@
 import { describe, it, expect, beforeAll, afterAll, beforeEach, afterEach } from 'vitest';
-import ExcelJS from '../../../src/index.js';
+import { Workbook, WorkbookWriter, WorkbookReader } from '../../../src/index.js';
 
 // this file to contain integration tests created from github issues
 const TEST_XLSX_FILE_NAME = './spec/out/issue-234.test.xlsx';
 
 describe('github issues', () => {
   it('issue 234 - Broken XLSX because of "vertical tab" ascii character in a cell', () => {
-    const wb = new ExcelJS.Workbook();
+    const wb = new Workbook();
     const ws = wb.addWorksheet('Sheet1');
 
     // Start of Heading
@@ -18,7 +18,7 @@ describe('github issues', () => {
     return wb.xlsx
       .writeFile(TEST_XLSX_FILE_NAME)
       .then(() => {
-        const wb2 = new ExcelJS.Workbook();
+        const wb2 = new Workbook();
         return wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
       })
       .then(wb2 => {

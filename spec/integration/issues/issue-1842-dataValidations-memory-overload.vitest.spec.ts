@@ -2,14 +2,14 @@ import { describe, it, expect, beforeAll, afterAll, beforeEach, afterEach } from
 import { join } from 'path';
 import { readFileSync } from 'fs';
 
-import ExcelJS from '../../../src/index.js';
+import { Workbook, WorkbookWriter, WorkbookReader } from '../../../src/index.js';
 
 const fileName = './spec/integration/data/test-issue-1842.xlsx';
 
 describe('github issues', () => {
   describe('issue 1842 - Memory overload when unnecessary dataValidations apply', () => {
     it('when using readFile', async () => {
-      const wb = new ExcelJS.Workbook();
+      const wb = new Workbook();
       await wb.xlsx.readFile(fileName, {
         ignoreNodes: ['dataValidations'],
       });
@@ -21,7 +21,7 @@ describe('github issues', () => {
     it('when loading an in memory buffer', async () => {
       const filePath = join(process.cwd(), fileName);
       const buffer = readFileSync(filePath);
-      const wb = new ExcelJS.Workbook();
+      const wb = new Workbook();
       await wb.xlsx.load(buffer, {
         ignoreNodes: ['dataValidations'],
       });

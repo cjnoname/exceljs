@@ -1,10 +1,10 @@
 import { describe, it, expect } from 'vitest';
-import Excel from '../../../src/index.js';
+import { Workbook, WorkbookWriter, WorkbookReader } from '../../../src/index.js';
 
 describe('Worksheet', () => {
   describe('Shared Formulae', () => {
     it('Fills formula using 2D array values', () => {
-      const wb = new Excel.Workbook();
+      const wb = new Workbook();
       const ws = wb.addWorksheet();
 
       ws.fillFormula('A1:B2', 'ROW()+COLUMN()', [
@@ -32,7 +32,7 @@ describe('Worksheet', () => {
     });
 
     it('Translates formulae to slave cells', () => {
-      const wb = new Excel.Workbook();
+      const wb = new Workbook();
       const ws = wb.addWorksheet();
 
       ws.getCell('A1').value = 1;
@@ -68,7 +68,7 @@ describe('Worksheet', () => {
     });
 
     it('Fills formula down using 1D array values', () => {
-      const wb = new Excel.Workbook();
+      const wb = new Workbook();
       const ws = wb.addWorksheet();
 
       ws.fillFormula('A1:A4', 'ROW()+COLUMN()', [2, 3, 4, 5]);
@@ -93,7 +93,7 @@ describe('Worksheet', () => {
     });
 
     it('Fills formula across using 1D array values', () => {
-      const wb = new Excel.Workbook();
+      const wb = new Workbook();
       const ws = wb.addWorksheet();
 
       ws.fillFormula('A1:D1', 'ROW()+COLUMN()', [2, 3, 4, 5]);
@@ -118,7 +118,7 @@ describe('Worksheet', () => {
     });
 
     it('Fills formula down and across using 1D array values', () => {
-      const wb = new Excel.Workbook();
+      const wb = new Workbook();
       const ws = wb.addWorksheet();
 
       ws.fillFormula('A1:B2', 'ROW()+COLUMN()', [2, 3, 3, 4]);
@@ -143,7 +143,7 @@ describe('Worksheet', () => {
     });
 
     it('Fills formula using function', () => {
-      const wb = new Excel.Workbook();
+      const wb = new Workbook();
       const ws = wb.addWorksheet();
 
       ws.fillFormula('A1:B2', 'ROW()+COLUMN()', (r, c) => r + c);

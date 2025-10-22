@@ -1,11 +1,11 @@
 import { describe, it, expect, beforeAll, afterAll, beforeEach, afterEach } from 'vitest';
-import ExcelJS from '../../../src/index.js';
+import { Workbook, WorkbookWriter, WorkbookReader } from '../../../src/index.js';
 
 const TEST_XLSX_FILE_NAME = './spec/out/pr-1157.test.xlsx';
 
 describe('github issues', () => {
   it('pull request 1204 - Read and write data validation should be successful', async () => {
-    const wb = new ExcelJS.Workbook();
+    const wb = new Workbook();
     await wb.xlsx.readFile('./spec/integration/data/test-pr-1204.xlsx');
     const expected = {
       E1: {

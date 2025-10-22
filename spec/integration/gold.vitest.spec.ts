@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeAll, afterAll, beforeEach, afterEach } from 'vitest';
-import ExcelJS from '../../src/index.js';
+import { Workbook, WorkbookWriter, WorkbookReader } from '../../src/index.js';
 
 // =============================================================================
 // This spec is based around a gold standard Excel workbook 'gold.xlsx'
@@ -8,7 +8,7 @@ describe('Gold Book', () => {
   describe('Read', () => {
     let wb;
     beforeAll(() => {
-      wb = new ExcelJS.Workbook();
+      wb = new Workbook();
       return wb.xlsx.readFile(`${__dirname}/data/gold.xlsx`);
     });
 

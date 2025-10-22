@@ -1,14 +1,14 @@
 /* eslint-disable no-sparse-arrays */
 import { describe, it, expect } from 'vitest';
 import { styles } from '../../utils/vitest-utils.js';
-import Excel from '../../../src/index.js';
+import { Workbook, WorkbookWriter, WorkbookReader } from '../../../src/index.js';
 import Enums from '../../../src/doc/enums.js';
 
 // =============================================================================
 // Helpers
 
 function createSimpleWorkbook() {
-  const wb = new Excel.Workbook();
+  const wb = new Workbook();
   const ws = wb.addWorksheet('blort');
 
   // plain number
@@ -60,7 +60,7 @@ function createSimpleWorkbook() {
 
 describe('Workbook', () => {
   it('stores shared string values properly', () => {
-    const wb = new Excel.Workbook();
+    const wb = new Workbook();
     const ws = wb.addWorksheet('blort');
 
     ws.getCell('A1').value = 'Hello, World!';
@@ -97,7 +97,7 @@ describe('Workbook', () => {
   });
 
   it('assigns rich text', () => {
-    const wb = new Excel.Workbook();
+    const wb = new Workbook();
     const ws = wb.addWorksheet('blort');
     ws.getCell('A1').value = {
       richText: [
@@ -193,19 +193,19 @@ describe('Workbook', () => {
   });
 
   it('returns undefined for non-existant sheet', () => {
-    const wb = new Excel.Workbook();
+    const wb = new Workbook();
     wb.addWorksheet('first');
     expect(wb.getWorksheet('w00t')).toBeUndefined();
   });
 
   it('returns undefined for sheet 0', () => {
-    const wb = new Excel.Workbook();
+    const wb = new Workbook();
     wb.addWorksheet('first');
     expect(wb.getWorksheet(0)).toBeUndefined();
   });
 
   it('returns undefined for sheet 0 after accessing wb.worksheets or wb.eachSheet ', () => {
-    const wb = new Excel.Workbook();
+    const wb = new Workbook();
     const sheet = wb.addWorksheet('first');
 
     wb.eachSheet(() => {});
@@ -218,7 +218,7 @@ describe('Workbook', () => {
 
   describe('duplicateRows', () => {
     it('inserts duplicates', () => {
-      const wb = new Excel.Workbook();
+      const wb = new Workbook();
       const ws = wb.addWorksheet('blort');
       ws.getCell('A1').value = '1.1';
       ws.getCell('A1').font = styles.fonts.arialBlackUI14;
@@ -258,7 +258,7 @@ describe('Workbook', () => {
     });
 
     it('overwrites with duplicates', () => {
-      const wb = new Excel.Workbook();
+      const wb = new Workbook();
       const ws = wb.addWorksheet('blort');
       ws.getCell('A1').value = '1.1';
       ws.getCell('A1').font = styles.fonts.arialBlackUI14;

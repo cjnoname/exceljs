@@ -1,11 +1,11 @@
 import { describe, it, expect, beforeAll, afterAll, beforeEach, afterEach } from 'vitest';
-import ExcelJS from '../../../src/index.js';
+import { Workbook, WorkbookWriter, WorkbookReader } from '../../../src/index.js';
 
 const TEST_XLSX_FILE_NAME = './spec/out/issue-1027.test.xlsx';
 
 describe('github issues', () => {
   it("issue 1027 - Broken due to Cannot set property 'marked' of undefined error", () => {
-    const wb = new ExcelJS.Workbook();
+    const wb = new Workbook();
     const ws = wb.addWorksheet('Sheet1');
 
     const range = 'A2:A1048576';

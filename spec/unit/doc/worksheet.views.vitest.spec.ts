@@ -1,10 +1,10 @@
 import { describe, it, expect } from 'vitest';
-import Excel from '../../../src/index.js';
+import { Workbook, WorkbookWriter, WorkbookReader } from '../../../src/index.js';
 
 describe('Worksheet', () => {
   describe('Views', () => {
     it('adjusts collapsed property of columns', () => {
-      const wb = new Excel.Workbook();
+      const wb = new Workbook();
       const ws = wb.addWorksheet('sheet1');
 
       const col1 = ws.getColumn(1);
@@ -33,7 +33,7 @@ describe('Worksheet', () => {
     });
 
     it('adjusts collapsed property of row', () => {
-      const wb = new Excel.Workbook();
+      const wb = new Workbook();
       const ws = wb.addWorksheet('sheet1');
 
       const row1 = ws.getRow(1);
@@ -62,7 +62,7 @@ describe('Worksheet', () => {
     });
 
     it('sets outline levels via column headers', () => {
-      const wb = new Excel.Workbook();
+      const wb = new Workbook();
       const ws = wb.addWorksheet('sheet1');
 
       ws.columns = [

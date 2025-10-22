@@ -1,11 +1,13 @@
 import { describe, it, expect } from 'vitest';
 
-// ExcelJS 作为全局变量由 dist/exceljs.js 提供
-declare const ExcelJS: any;
+declare const ExcelJS: {
+  Workbook: any;
+};
 
 describe('ExcelJS Browser Tests', () => {
   it('should read and write xlsx via binary buffer', async () => {
-    const wb = new ExcelJS.Workbook();
+    const { Workbook } = ExcelJS;
+    const wb = new Workbook();
     const ws = wb.addWorksheet('blort');
 
     ws.getCell('A1').value = 'Hello, World!';
@@ -13,7 +15,7 @@ describe('ExcelJS Browser Tests', () => {
 
     const buffer = await wb.xlsx.writeBuffer();
 
-    const wb2 = new ExcelJS.Workbook();
+    const wb2 = new Workbook();
     await wb2.xlsx.load(buffer);
 
     const ws2 = wb2.getWorksheet('blort');
@@ -23,10 +25,11 @@ describe('ExcelJS Browser Tests', () => {
   });
 
   it('should read and write xlsx via base64 buffer', async () => {
+    const { Workbook } = ExcelJS;
     const options = {
       base64: true,
     };
-    const wb = new ExcelJS.Workbook();
+    const wb = new Workbook();
     const ws = wb.addWorksheet('blort');
 
     ws.getCell('A1').value = 'Hello, World!';
@@ -34,7 +37,7 @@ describe('ExcelJS Browser Tests', () => {
 
     const buffer = await wb.xlsx.writeBuffer(options);
 
-    const wb2 = new ExcelJS.Workbook();
+    const wb2 = new Workbook();
     await wb2.xlsx.load(buffer.toString('base64'), options);
 
     const ws2 = wb2.getWorksheet('blort');
@@ -44,7 +47,8 @@ describe('ExcelJS Browser Tests', () => {
   });
 
   it('should write csv via buffer', async () => {
-    const wb = new ExcelJS.Workbook();
+    const { Workbook } = ExcelJS;
+    const wb = new Workbook();
     const ws = wb.addWorksheet('blort');
 
     ws.getCell('A1').value = 'Hello, World!';

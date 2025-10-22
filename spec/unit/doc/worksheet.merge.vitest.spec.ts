@@ -1,13 +1,13 @@
 import { describe, it, expect } from 'vitest';
 import { styles } from '../../utils/vitest-utils.js';
-import Excel from '../../../src/index.js';
+import { Workbook, WorkbookWriter, WorkbookReader } from '../../../src/index.js';
 import Dimensions from '../../../src/doc/range.js';
 import Enums from '../../../src/doc/enums.js';
 
 describe('Worksheet', () => {
   describe('Merge Cells', () => {
     it('references the same top-left value', () => {
-      const wb = new Excel.Workbook();
+      const wb = new Workbook();
       const ws = wb.addWorksheet('blort');
 
       // initial values
@@ -30,7 +30,7 @@ describe('Worksheet', () => {
     });
 
     it('does not allow overlapping merges', () => {
-      const wb = new Excel.Workbook();
+      const wb = new Workbook();
       const ws = wb.addWorksheet('blort');
 
       ws.mergeCells('B2:C3');
@@ -56,7 +56,7 @@ describe('Worksheet', () => {
     });
 
     it('merges and unmerges', () => {
-      const wb = new Excel.Workbook();
+      const wb = new Workbook();
       const ws = wb.addWorksheet('blort');
 
       const expectMaster = function (range: string, master: string | null) {
@@ -108,7 +108,7 @@ describe('Worksheet', () => {
     });
 
     it('does not allow overlapping merges', () => {
-      const wb = new Excel.Workbook();
+      const wb = new Workbook();
       const ws = wb.addWorksheet('blort');
 
       ws.mergeCells('B2:C3');
@@ -134,7 +134,7 @@ describe('Worksheet', () => {
     });
 
     it('merges styles', () => {
-      const wb = new Excel.Workbook();
+      const wb = new Workbook();
       const ws = wb.addWorksheet('blort');
 
       // initial value
@@ -175,7 +175,7 @@ describe('Worksheet', () => {
     });
 
     it('preserves merges after row inserts', function () {
-      const wb = new Excel.Workbook();
+      const wb = new Workbook();
       const ws = wb.addWorksheet('testMergeAfterInsert');
 
       ws.addRow([1, 2]);

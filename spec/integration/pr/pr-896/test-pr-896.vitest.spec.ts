@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeAll, afterAll, beforeEach, afterEach } from 'vitest';
-import ExcelJS from '../../../../src/index.js';
+import { Workbook, WorkbookWriter, WorkbookReader } from '../../../../src/index.js';
 import tools from '../../../utils/tools';
 import sheetProperties from '../../../utils/data/sheet-properties.json' assert { type: 'json' };
 import pageSetup from '../../../utils/data/page-setup.json' assert { type: 'json' };
@@ -26,7 +26,7 @@ describe('pr related issues', () => {
       const properties = tools.fix(sheetProperties);
       const pageSetup2 = tools.fix(pageSetup);
 
-      const wb = new ExcelJS.Workbook();
+      const wb = new Workbook();
       const ws = wb.addWorksheet('sheet1', {
         properties,
         pageSetup: pageSetup2,
@@ -40,7 +40,7 @@ describe('pr related issues', () => {
       return wb.xlsx
         .writeFile(TEST_XLSX_FILE_NAME)
         .then(() => {
-          const wb2 = new ExcelJS.Workbook();
+          const wb2 = new Workbook();
           return wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
         })
         .then(wb2 => {

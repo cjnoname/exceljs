@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeAll, afterAll, beforeEach, afterEach } from 'vitest';
-import ExcelJS from '../../../src/index.js';
+import { Workbook, WorkbookWriter, WorkbookReader } from '../../../src/index.js';
 import fs from 'fs';
 
 describe('github issues: Date field with cache style', () => {
@@ -7,7 +7,7 @@ describe('github issues: Date field with cache style', () => {
   beforeEach(
     () =>
       new Promise((resolve, reject) => {
-        const workbookReader = new ExcelJS.WorkbookReader(
+        const workbookReader = new WorkbookReader(
           fs.createReadStream('./spec/integration/data/dateIssue.xlsx'),
           {
             worksheets: 'emit',

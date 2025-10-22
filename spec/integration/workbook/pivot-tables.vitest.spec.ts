@@ -8,7 +8,7 @@ const fsReadFileAsync = promisify(fs.readFile);
 
 import { unzipSync } from 'fflate';
 
-import ExcelJS from '../../../src/index.js';
+import { Workbook, WorkbookWriter, WorkbookReader } from '../../../src/index.js';
 
 const PIVOT_TABLE_FILEPATHS = [
   'xl/pivotCache/pivotCacheRecords1.xml',
@@ -36,7 +36,7 @@ const TEST_DATA = [
 describe('Workbook', () => {
   describe('Pivot Tables', () => {
     it('if pivot table added, then certain xml and rels files are added', async () => {
-      const workbook = new ExcelJS.Workbook();
+      const workbook = new Workbook();
 
       const worksheet1 = workbook.addWorksheet('Sheet1');
       worksheet1.addRows(TEST_DATA);
@@ -60,7 +60,7 @@ describe('Workbook', () => {
     });
 
     it('if pivot table NOT added, then certain xml and rels files are not added', () => {
-      const workbook = new ExcelJS.Workbook();
+      const workbook = new Workbook();
 
       const worksheet1 = workbook.addWorksheet('Sheet1');
       worksheet1.addRows(TEST_DATA);

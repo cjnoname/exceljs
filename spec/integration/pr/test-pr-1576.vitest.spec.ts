@@ -1,10 +1,10 @@
 import { describe, it, expect, beforeAll, afterAll, beforeEach, afterEach } from 'vitest';
-import ExcelJS from '../../../src/index.js';
+import { Workbook, WorkbookWriter, WorkbookReader } from '../../../src/index.js';
 
 describe('github issues', () => {
   describe('pull request 1576 - inlineStr cell type support', () => {
     it('Reading test-issue-1575.xlsx', () => {
-      const wb = new ExcelJS.Workbook();
+      const wb = new Workbook();
       return wb.xlsx.readFile('./spec/integration/data/test-issue-1575.xlsx').then(() => {
         const ws = wb.getWorksheet('Sheet1');
         expect(ws.getCell('A1').value).toBe('A');

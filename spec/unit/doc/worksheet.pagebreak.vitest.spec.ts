@@ -1,10 +1,10 @@
 import { describe, it, expect } from 'vitest';
-import Excel from '../../../src/index.js';
+import { Workbook, WorkbookWriter, WorkbookReader } from '../../../src/index.js';
 
 describe('Worksheet', () => {
   describe('Page Breaks', () => {
     it('adds multiple row breaks', () => {
-      const wb = new Excel.Workbook();
+      const wb = new Workbook();
       const ws = wb.addWorksheet('blort');
 
       // initial values

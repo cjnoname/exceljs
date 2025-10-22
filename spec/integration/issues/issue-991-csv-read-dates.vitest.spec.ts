@@ -1,9 +1,9 @@
 import { describe, it, expect, beforeAll, afterAll, beforeEach, afterEach } from 'vitest';
-import ExcelJS from '../../../src/index.js';
+import { Workbook, WorkbookWriter, WorkbookReader } from '../../../src/index.js';
 
 describe('github issues', () => {
   it('issue 991 - differentiates between strings with leading numbers and dates when reading csv files', () => {
-    const wb = new ExcelJS.Workbook();
+    const wb = new Workbook();
     return wb.csv.readFile('./spec/integration/data/test-issue-991.csv').then(worksheet => {
       expect(worksheet.getCell('A1').value.toString()).toBe(new Date('2019-11-04T00:00:00').toString());
       expect(worksheet.getCell('A2').value.toString()).toBe(new Date('2019-11-04T00:00:00').toString());

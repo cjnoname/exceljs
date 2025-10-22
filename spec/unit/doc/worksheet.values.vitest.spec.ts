@@ -1,12 +1,12 @@
 /* eslint-disable no-sparse-arrays */
 import { describe, it, expect } from 'vitest';
-import Excel from '../../../src/index.js';
+import { Workbook, WorkbookWriter, WorkbookReader } from '../../../src/index.js';
 import Enums from '../../../src/doc/enums.js';
 
 describe('Worksheet', () => {
   describe('Values', () => {
     it('stores values properly', () => {
-      const wb = new Excel.Workbook();
+      const wb = new Workbook();
       const ws = wb.addWorksheet('blort');
 
       const now = new Date();
@@ -64,7 +64,7 @@ describe('Worksheet', () => {
     });
 
     it('stores shared string values properly', () => {
-      const wb = new Excel.Workbook();
+      const wb = new Workbook();
       const ws = wb.addWorksheet('blort');
 
       ws.getCell('A1').value = 'Hello, World!';
@@ -86,7 +86,7 @@ describe('Worksheet', () => {
     });
 
     it('assigns cell types properly', () => {
-      const wb = new Excel.Workbook();
+      const wb = new Workbook();
       const ws = wb.addWorksheet('blort');
 
       // plain number
@@ -131,7 +131,7 @@ describe('Worksheet', () => {
     });
 
     it('adds columns', () => {
-      const wb = new Excel.Workbook();
+      const wb = new Workbook();
       const ws = wb.addWorksheet('blort');
 
       ws.columns = [
@@ -157,7 +157,7 @@ describe('Worksheet', () => {
     });
 
     it('adds column headers', () => {
-      const wb = new Excel.Workbook();
+      const wb = new Workbook();
       const ws = wb.addWorksheet('blort');
 
       ws.columns = [
@@ -172,7 +172,7 @@ describe('Worksheet', () => {
     });
 
     it('adds column headers by number', () => {
-      const wb = new Excel.Workbook();
+      const wb = new Workbook();
       const ws = wb.addWorksheet('blort');
 
       // by defn
@@ -199,7 +199,7 @@ describe('Worksheet', () => {
     });
 
     it('adds column headers by letter', () => {
-      const wb = new Excel.Workbook();
+      const wb = new Workbook();
       const ws = wb.addWorksheet('blort');
 
       // by defn
@@ -226,7 +226,7 @@ describe('Worksheet', () => {
     });
 
     it('adds rows by object', () => {
-      const wb = new Excel.Workbook();
+      const wb = new Workbook();
       const ws = wb.addWorksheet('blort');
 
       // add columns to define column keys
@@ -263,7 +263,7 @@ describe('Worksheet', () => {
     });
 
     it('adds rows by contiguous array', () => {
-      const wb = new Excel.Workbook();
+      const wb = new Workbook();
       const ws = wb.addWorksheet('blort');
 
       const dateValue1 = new Date(1970, 1, 1);
@@ -285,7 +285,7 @@ describe('Worksheet', () => {
     });
 
     it('adds rows by sparse array', () => {
-      const wb = new Excel.Workbook();
+      const wb = new Workbook();
       const ws = wb.addWorksheet('blort');
 
       const dateValue1 = new Date(1970, 1, 1);
@@ -329,7 +329,7 @@ describe('Worksheet', () => {
     describe('Splice', () => {
       describe('Rows', () => {
         it('Remove only', () => {
-          const wb = new Excel.Workbook();
+          const wb = new Workbook();
           const ws = wb.addWorksheet('splice-row-remove-only');
 
           ws.addRow(['1,1', '1,2', '1,3']);
@@ -374,7 +374,7 @@ describe('Worksheet', () => {
           expect(ws.getCell('C5').type).toBe(Enums.ValueType.String);
         });
         it('Remove and insert fewer', () => {
-          const wb = new Excel.Workbook();
+          const wb = new Workbook();
           const ws = wb.addWorksheet('splice-row-insert-fewer');
 
           ws.addRow(['1,1', '1,2', '1,3']);
@@ -392,7 +392,7 @@ describe('Worksheet', () => {
           expect(ws.getRow(4).values).toEqual([, '5,1', '5,2', '5,3']);
         });
         it('Remove and insert same', () => {
-          const wb = new Excel.Workbook();
+          const wb = new Workbook();
           const ws = wb.addWorksheet('splice-row-insert-same');
 
           ws.addRow(['1,1', '1,2', '1,3']);
@@ -411,7 +411,7 @@ describe('Worksheet', () => {
           expect(ws.getRow(5).values).toEqual([, '5,1', '5,2', '5,3']);
         });
         it('Remove and insert more', () => {
-          const wb = new Excel.Workbook();
+          const wb = new Workbook();
           const ws = wb.addWorksheet('splice-row-insert-more');
 
           ws.addRow(['1,1', '1,2', '1,3']);
@@ -431,7 +431,7 @@ describe('Worksheet', () => {
           expect(ws.getRow(6).values).toEqual([, '5,1', '5,2', '5,3']);
         });
         it('Remove style', () => {
-          const wb = new Excel.Workbook();
+          const wb = new Workbook();
           const ws = wb.addWorksheet('splice-row-remove-style');
           ws.addRow(['1,1', '1,2', '1,3', '1,4']);
           ws.addRow(['2,1', '2,2', '2,3', '2,4']);
@@ -457,7 +457,7 @@ describe('Worksheet', () => {
           expect(ws.getRow(2).style).toEqual({ alignment: { horizontal: 'left', vertical: 'middle' } });
         });
         it('Insert style', () => {
-          const wb = new Excel.Workbook();
+          const wb = new Workbook();
           const ws = wb.addWorksheet('splice-row-insert-style');
 
           ws.addRow(['1,1', '1,2', '1,3']);
@@ -492,7 +492,7 @@ describe('Worksheet', () => {
           });
         });
         it('Replace style', () => {
-          const wb = new Excel.Workbook();
+          const wb = new Workbook();
           const ws = wb.addWorksheet('splice-row-replace-style');
           ws.addRow(['1,1', '1,2', '1,3', '1,4']);
           ws.addRow(['2,1', '2,2', '2,3', '2,4']);
@@ -522,7 +522,7 @@ describe('Worksheet', () => {
           expect(ws.getRow(3).style).toEqual({ alignment: { horizontal: 'right', vertical: 'bottom' } });
         });
         it('Remove defined names', () => {
-          const wb = new Excel.Workbook();
+          const wb = new Workbook();
           const wsSquare = wb.addWorksheet('splice-row-remove-name-square');
           wsSquare.addRow(['1,1', '1,2', '1,3', '1,4']);
           wsSquare.addRow(['2,1', '2,2', '2,3', '2,4']);
@@ -574,7 +574,7 @@ describe('Worksheet', () => {
           expect(wsSingles.getCell('D2').name).toBe('single-D4');
         });
         it('Insert defined names', () => {
-          const wb = new Excel.Workbook();
+          const wb = new Workbook();
           const wsSquare = wb.addWorksheet('splice-row-insert-name-square');
           wsSquare.addRow(['1,1', '1,2', '1,3', '1,4']);
           wsSquare.addRow(['2,1', '2,2', '2,3', '2,4']);
@@ -630,7 +630,7 @@ describe('Worksheet', () => {
           expect(wsSingles.getCell('D5').name).toBe('single-D4');
         });
         it('Replace defined names', () => {
-          const wb = new Excel.Workbook();
+          const wb = new Workbook();
           const wsSquare = wb.addWorksheet('splice-row-replace-name-square');
           wsSquare.addRow(['1,1', '1,2', '1,3', '1,4']);
           wsSquare.addRow(['2,1', '2,2', '2,3', '2,4']);
@@ -687,7 +687,7 @@ describe('Worksheet', () => {
       });
       describe('Columns', () => {
         it('splices columns', () => {
-          const wb = new Excel.Workbook();
+          const wb = new Workbook();
           const ws = wb.addWorksheet('splice-column-remove-only');
 
           ws.columns = [
@@ -720,7 +720,7 @@ describe('Worksheet', () => {
           expect(ws.getCell('C3').type).toBe(Enums.ValueType.Null);
         });
         it('Remove and insert fewer', () => {
-          const wb = new Excel.Workbook();
+          const wb = new Workbook();
           const ws = wb.addWorksheet('splice-column-insert-fewer');
 
           ws.addRow(['1,1', '1,2', '1,3', '1,4', '1,5']);
@@ -740,7 +740,7 @@ describe('Worksheet', () => {
           expect(ws.getRow(5).values).toEqual([, '5,1', 'five', '5,4', '5,5']);
         });
         it('Remove and insert same', () => {
-          const wb = new Excel.Workbook();
+          const wb = new Workbook();
           const ws = wb.addWorksheet('splice-column-insert-same');
 
           ws.addRow(['1,1', '1,2', '1,3', '1,4', '1,5']);
@@ -760,7 +760,7 @@ describe('Worksheet', () => {
           expect(ws.getRow(5).values).toEqual([, '5,1', 'five', 'cinq', '5,4', '5,5']);
         });
         it('Remove and insert more', () => {
-          const wb = new Excel.Workbook();
+          const wb = new Workbook();
           const ws = wb.addWorksheet('splice-column-insert-more');
 
           ws.addRow(['1,1', '1,2', '1,3', '1,4', '1,5']);
@@ -786,7 +786,7 @@ describe('Worksheet', () => {
           expect(ws.getRow(5).values).toEqual([, '5,1', 'five', 'cinq', 'cinque', '5,4', '5,5']);
         });
         it('handles column keys', () => {
-          const wb = new Excel.Workbook();
+          const wb = new Workbook();
           const ws = wb.addWorksheet('splice-column-insert-fewer');
           ws.columns = [
             { key: 'id', width: 10 },
@@ -822,7 +822,7 @@ describe('Worksheet', () => {
         });
 
         it('Splices to end', () => {
-          const wb = new Excel.Workbook();
+          const wb = new Workbook();
           const ws = wb.addWorksheet('splice-to-end');
           ws.columns = [
             { header: 'Col-1', width: 10 },
@@ -868,7 +868,7 @@ describe('Worksheet', () => {
           expect(ws.getColumn(6).header).toBeUndefined();
         });
         it('Splices past end', () => {
-          const wb = new Excel.Workbook();
+          const wb = new Workbook();
           const ws = wb.addWorksheet('splice-to-end');
           ws.columns = [
             { header: 'Col-1', width: 10 },
@@ -914,7 +914,7 @@ describe('Worksheet', () => {
           expect(ws.getColumn(6).header).toBeUndefined();
         });
         it('Splices almost to end', () => {
-          const wb = new Excel.Workbook();
+          const wb = new Workbook();
           const ws = wb.addWorksheet('splice-to-end');
           ws.columns = [
             { header: 'Col-1', width: 10 },
@@ -961,7 +961,7 @@ describe('Worksheet', () => {
         });
 
         it('Remove style', () => {
-          const wb = new Excel.Workbook();
+          const wb = new Workbook();
           const ws = wb.addWorksheet('splice-col-remove-style');
           ws.addRow(['1,1', '1,2', '1,3', '1,4']);
           ws.addRow(['2,1', '2,2', '2,3', '2,4']);
@@ -990,7 +990,7 @@ describe('Worksheet', () => {
           expect(ws.getCell('B4').style).toEqual({ alignment: { horizontal: 'left', vertical: 'middle' } });
         });
         it('Insert style', () => {
-          const wb = new Excel.Workbook();
+          const wb = new Workbook();
           const ws = wb.addWorksheet('splice-col-insert-style');
 
           ws.addRow(['1,1', '1,2', '1,3']);
@@ -1026,7 +1026,7 @@ describe('Worksheet', () => {
           });
         });
         it('Replace style', () => {
-          const wb = new Excel.Workbook();
+          const wb = new Workbook();
           const ws = wb.addWorksheet('splice-col-replace-style');
           ws.addRow(['1,1', '1,2', '1,3', '1,4']);
           ws.addRow(['2,1', '2,2', '2,3', '2,4']);
@@ -1059,7 +1059,7 @@ describe('Worksheet', () => {
           expect(ws.getColumn(3).style).toEqual({ alignment: { horizontal: 'right', vertical: 'bottom' } });
         });
         it('Remove defined names', () => {
-          const wb = new Excel.Workbook();
+          const wb = new Workbook();
           const wsSquare = wb.addWorksheet('splice-col-remove-name-square');
           wsSquare.addRow(['1,1', '1,2', '1,3', '1,4']);
           wsSquare.addRow(['2,1', '2,2', '2,3', '2,4']);
@@ -1113,7 +1113,7 @@ describe('Worksheet', () => {
           expect(wsSingles.getCell('B4').name).toBe('single-D4');
         });
         it('Insert defined names', () => {
-          const wb = new Excel.Workbook();
+          const wb = new Workbook();
           const wsSquare = wb.addWorksheet('splice-col-insert-name-square');
           wsSquare.addRow(['1,1', '1,2', '1,3', '1,4']);
           wsSquare.addRow(['2,1', '2,2', '2,3', '2,4']);
@@ -1167,7 +1167,7 @@ describe('Worksheet', () => {
           expect(wsSingles.getCell('E4').name).toBe('single-D4');
         });
         it('Replace defined names', () => {
-          const wb = new Excel.Workbook();
+          const wb = new Workbook();
           const wsSquare = wb.addWorksheet('splice-col-replace-name-square');
           wsSquare.addRow(['1,1', '1,2', '1,3', '1,4']);
           wsSquare.addRow(['2,1', '2,2', '2,3', '2,4']);
@@ -1224,7 +1224,7 @@ describe('Worksheet', () => {
     });
 
     it('iterates over rows', () => {
-      const wb = new Excel.Workbook();
+      const wb = new Workbook();
       const ws = wb.addWorksheet('blort');
 
       ws.getCell('A1').value = 1;
@@ -1243,7 +1243,7 @@ describe('Worksheet', () => {
     });
 
     it('iterates over collumn cells', () => {
-      const wb = new Excel.Workbook();
+      const wb = new Workbook();
       const ws = wb.addWorksheet('blort');
 
       ws.getCell('A1').value = 1;
@@ -1265,7 +1265,7 @@ describe('Worksheet', () => {
     });
 
     it('returns sheet values', () => {
-      const wb = new Excel.Workbook();
+      const wb = new Workbook();
       const ws = wb.addWorksheet();
 
       ws.getCell('A1').value = 11;
@@ -1284,7 +1284,7 @@ describe('Worksheet', () => {
     });
 
     it('calculates rowCount and actualRowCount', () => {
-      const wb = new Excel.Workbook();
+      const wb = new Workbook();
       const ws = wb.addWorksheet();
 
       ws.getCell('A1').value = 'A1';
@@ -1299,7 +1299,7 @@ describe('Worksheet', () => {
     });
 
     it('calculates columnCount and actualColumnCount', () => {
-      const wb = new Excel.Workbook();
+      const wb = new Workbook();
       const ws = wb.addWorksheet();
 
       ws.getCell('A1').value = 'A1';

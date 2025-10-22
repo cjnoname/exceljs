@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import colCache from '../../../src/utils/col-cache.js';
-import Excel from '../../../src/index.js';
+import { Workbook, WorkbookWriter, WorkbookReader } from '../../../src/index.js';
 
 const spliceArray = (a: any[], index: number, count: number, ...rest: any[]) => {
   const clone = [...a];
@@ -80,7 +80,7 @@ function checkTable(ref: string, ws: any, testValues: any[]) {
 describe('Worksheet', () => {
   describe('Table', () => {
     it('creates a table', () => {
-      const wb = new Excel.Workbook();
+      const wb = new Workbook();
       const ws = wb.addWorksheet('blort');
       addTable('A1', ws);
 
@@ -88,7 +88,7 @@ describe('Worksheet', () => {
     });
 
     it('removes header', () => {
-      const wb = new Excel.Workbook();
+      const wb = new Workbook();
       const ws = wb.addWorksheet('blort');
       const table = addTable('A1', ws);
 
@@ -100,7 +100,7 @@ describe('Worksheet', () => {
     });
 
     it('removes totals', () => {
-      const wb = new Excel.Workbook();
+      const wb = new Workbook();
       const ws = wb.addWorksheet('blort');
       const table = addTable('A1', ws);
 
@@ -112,7 +112,7 @@ describe('Worksheet', () => {
     });
 
     it('moves the table', () => {
-      const wb = new Excel.Workbook();
+      const wb = new Workbook();
       const ws = wb.addWorksheet('blort');
       const table = addTable('A1', ws);
 
@@ -123,7 +123,7 @@ describe('Worksheet', () => {
     });
 
     it('removes a row', () => {
-      const wb = new Excel.Workbook();
+      const wb = new Workbook();
       const ws = wb.addWorksheet('blort');
       const table = addTable('A1', ws);
 
@@ -135,7 +135,7 @@ describe('Worksheet', () => {
     });
 
     it('adds a row', () => {
-      const wb = new Excel.Workbook();
+      const wb = new Workbook();
       const ws = wb.addWorksheet('blort');
       const table = addTable('A1', ws);
 
@@ -147,7 +147,7 @@ describe('Worksheet', () => {
     });
 
     it('removes a column', () => {
-      const wb = new Excel.Workbook();
+      const wb = new Workbook();
       const ws = wb.addWorksheet('blort');
       const table = addTable('A1', ws);
 
@@ -159,7 +159,7 @@ describe('Worksheet', () => {
     });
 
     it('adds a column', () => {
-      const wb = new Excel.Workbook();
+      const wb = new Workbook();
       const ws = wb.addWorksheet('blort');
       const table = addTable('A1', ws);
 
@@ -182,7 +182,7 @@ describe('Worksheet', () => {
     });
 
     it('renames a column', () => {
-      const wb = new Excel.Workbook();
+      const wb = new Workbook();
       const ws = wb.addWorksheet('blort');
       const table = addTable('A1', ws);
 

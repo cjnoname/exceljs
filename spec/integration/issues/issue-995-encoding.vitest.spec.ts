@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeAll, afterAll, beforeEach, afterEach } from 'vitest';
-import ExcelJS from '../../../src/index.js';
+import { Workbook, WorkbookWriter, WorkbookReader } from '../../../src/index.js';
 
 const TEST_CSV_FILE_NAME = './spec/out/issue-995-encoding.test.csv';
 const HEBREW_TEST_STRING = 'משהו שכתוב בעברית';
@@ -8,7 +8,7 @@ describe('github issues', () => {
   it(
     'issue 995 - encoding option works fine',
     () => {
-      const wb = new ExcelJS.Workbook();
+      const wb = new Workbook();
       const ws = wb.addWorksheet('wheee');
       ws.getCell('A1').value = HEBREW_TEST_STRING;
 
@@ -18,7 +18,7 @@ describe('github issues', () => {
       return wb.csv
         .writeFile(TEST_CSV_FILE_NAME, options)
         .then(() => {
-          const ws2 = new ExcelJS.Workbook();
+          const ws2 = new Workbook();
           return ws2.csv.readFile(TEST_CSV_FILE_NAME);
         })
         .then(ws2 => {

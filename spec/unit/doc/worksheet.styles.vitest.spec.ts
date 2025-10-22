@@ -1,11 +1,11 @@
 import { describe, it, expect } from 'vitest';
 import { styles } from '../../utils/vitest-utils.js';
-import Excel from '../../../src/index.js';
+import { Workbook, WorkbookWriter, WorkbookReader } from '../../../src/index.js';
 
 describe('Worksheet', () => {
   describe('Styles', () => {
     it('sets row styles', () => {
-      const wb = new Excel.Workbook();
+      const wb = new Workbook();
       const ws = wb.addWorksheet('basket');
 
       ws.getCell('A1').value = 5;
@@ -46,7 +46,7 @@ describe('Worksheet', () => {
     });
 
     it('sets col styles', () => {
-      const wb = new Excel.Workbook();
+      const wb = new Workbook();
       const ws = wb.addWorksheet('basket');
 
       ws.getCell('A1').value = 5;

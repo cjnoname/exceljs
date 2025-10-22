@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeAll, afterAll, beforeEach, afterEach } from 'vitest';
-import ExcelJS from '../../../src/index.js';
+import { Workbook, WorkbookWriter, WorkbookReader } from '../../../src/index.js';
 
 describe('github issues', () => {
   it('pull request 1431 - streaming reader should handle rich text within shared strings', async () => {
@@ -13,7 +13,7 @@ describe('github issues', () => {
       'this should be the second shared string',
     ];
 
-    const workbook = new ExcelJS.WorkbookWriter({
+    const workbook = new WorkbookWriter({
       filename: './test.xlsx',
       useSharedStrings: true,
     });
@@ -25,7 +25,7 @@ describe('github issues', () => {
     await workbook.commit();
 
     return new Promise<void>((resolve, reject) => {
-      const workbookReader = new ExcelJS.WorkbookReader('./test.xlsx', {
+      const workbookReader = new WorkbookReader('./test.xlsx', {
         entries: 'emit',
         hyperlinks: 'cache',
         sharedStrings: 'cache',
