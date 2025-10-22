@@ -89,9 +89,37 @@ export default defineConfig([
     },
     plugins: getPlugins(true),
   },
+  // Browser: exceljs.esm.js (ESM for modern bundlers like Webpack/Vite)
+  {
+    input: './lib/exceljs.browser.ts',
+    output: {
+      file: './dist/exceljs.esm.js',
+      format: 'esm',
+      sourcemap: true,
+      banner,
+    },
+    resolve: {
+      alias: {
+        events: 'events',
+        stream: 'stream-browserify',
+        buffer: 'buffer',
+        process: 'process',
+        crypto: 'crypto-browserify',
+        util: 'util',
+      },
+    },
+    transform: {
+      inject: {
+        Buffer: ['buffer', 'Buffer'],
+        process: 'process',
+      },
+    },
+    plugins: getPlugins(false),
+  },
   // Node.js: CJS bundle for CommonJS projects
   {
     input: './lib/exceljs.nodejs.ts',
+    platform: 'node',
     output: {
       file: './dist/cjs/index.js',
       format: 'cjs',
@@ -104,6 +132,7 @@ export default defineConfig([
   // Node.js: ESM bundle for ES modules projects
   {
     input: './lib/exceljs.nodejs.ts',
+    platform: 'node',
     output: {
       file: './dist/esm/index.js',
       format: 'esm',
