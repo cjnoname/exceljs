@@ -2,7 +2,7 @@ import tools from './tools';
 import testValuesJson from './data/sheet-values.json' with { type: 'json' };
 const testValues = tools.fix(testValuesJson);
 import utils from '../../src/utils/utils.js';
-import { stream, ValueType } from '../../src/index.js';
+import { WorkbookReader, ValueType } from '../../src/index.js';
 
 function fillFormula(f) {
   return Object.assign({ formula: undefined }, f);
@@ -27,7 +27,7 @@ export default {
   pageSetup: tools.fix(pageSetupJson),
 
   checkBook(filename: string): Promise<void> {
-    const wb = new stream.xlsx.WorkbookReader({});
+    const wb = new WorkbookReader({});
 
     // expectations
     const dateAccuracy = 0.00001;

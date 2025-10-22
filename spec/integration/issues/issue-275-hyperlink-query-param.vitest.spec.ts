@@ -10,7 +10,7 @@ describe('github issues', () => {
       filename: TEST_XLSX_FILE_NAME,
       useStyles: true,
     };
-    const wb = new ExcelJS.stream.xlsx.WorkbookWriter(options);
+    const wb = new ExcelJS.WorkbookWriter(options);
     const ws = wb.addWorksheet('Sheet1');
 
     const hyperlink = {

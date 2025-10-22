@@ -1,14 +1,14 @@
 import { describe, it, expect, beforeAll, afterAll, beforeEach, afterEach } from 'vitest';
 import testutils from '../utils/index';
 
-import ExcelJS, { stream, ValueType } from '../../src/index.js';
+import ExcelJS, { WorkbookWriter, ValueType } from '../../src/index.js';
 
 const CONCATENATE_HELLO_WORLD = 'CONCATENATE("Hello", ", ", "World!")';
 
 describe('WorksheetWriter', () => {
   describe('Values', () => {
     it('stores values properly', () => {
-      const wb = new stream.xlsx.WorkbookWriter();
+      const wb = new WorkbookWriter();
       const ws = wb.addWorksheet('blort');
 
       const now = new Date();
@@ -66,7 +66,7 @@ describe('WorksheetWriter', () => {
     });
 
     it('stores shared string values properly', () => {
-      const wb = new stream.xlsx.WorkbookWriter({
+      const wb = new WorkbookWriter({
         useSharedStrings: true,
       });
       const ws = wb.addWorksheet('blort');
@@ -90,7 +90,7 @@ describe('WorksheetWriter', () => {
     });
 
     it('assigns cell types properly', () => {
-      const wb = new stream.xlsx.WorkbookWriter();
+      const wb = new WorkbookWriter();
       const ws = wb.addWorksheet('blort');
 
       // plain number
@@ -135,7 +135,7 @@ describe('WorksheetWriter', () => {
     });
 
     it('adds columns', () => {
-      const wb = new stream.xlsx.WorkbookWriter();
+      const wb = new WorkbookWriter();
       const ws = wb.addWorksheet('blort');
 
       ws.columns = [
@@ -161,7 +161,7 @@ describe('WorksheetWriter', () => {
     });
 
     it('adds column headers', () => {
-      const wb = new stream.xlsx.WorkbookWriter();
+      const wb = new WorkbookWriter();
       const ws = wb.addWorksheet('blort');
 
       ws.columns = [
@@ -176,7 +176,7 @@ describe('WorksheetWriter', () => {
     });
 
     it('adds column headers by number', () => {
-      const wb = new stream.xlsx.WorkbookWriter();
+      const wb = new WorkbookWriter();
       const ws = wb.addWorksheet('blort');
 
       // by defn
@@ -203,7 +203,7 @@ describe('WorksheetWriter', () => {
     });
 
     it('adds column headers by letter', () => {
-      const wb = new stream.xlsx.WorkbookWriter();
+      const wb = new WorkbookWriter();
       const ws = wb.addWorksheet('blort');
 
       // by defn
@@ -230,7 +230,7 @@ describe('WorksheetWriter', () => {
     });
 
     it('adds rows by object', () => {
-      const wb = new stream.xlsx.WorkbookWriter();
+      const wb = new WorkbookWriter();
       const ws = wb.addWorksheet('blort');
 
       // add columns to define column keys
@@ -259,7 +259,7 @@ describe('WorksheetWriter', () => {
     });
 
     it('adds rows by contiguous array', () => {
-      const wb = new stream.xlsx.WorkbookWriter();
+      const wb = new WorkbookWriter();
       const ws = wb.addWorksheet('blort');
 
       const dateValue1 = new Date(1970, 1, 1);
@@ -281,7 +281,7 @@ describe('WorksheetWriter', () => {
     });
 
     it('adds rows by sparse array', () => {
-      const wb = new stream.xlsx.WorkbookWriter();
+      const wb = new WorkbookWriter();
       const ws = wb.addWorksheet('blort');
 
       const dateValue1 = new Date(1970, 1, 1);
@@ -316,7 +316,7 @@ describe('WorksheetWriter', () => {
     });
 
     it('sets row styles', () => {
-      const wb = new stream.xlsx.WorkbookWriter();
+      const wb = new WorkbookWriter();
       const ws = wb.addWorksheet('basket');
 
       ws.getCell('A1').value = 5;
@@ -357,7 +357,7 @@ describe('WorksheetWriter', () => {
     });
 
     it('sets col styles', () => {
-      const wb = new stream.xlsx.WorkbookWriter();
+      const wb = new WorkbookWriter();
       const ws = wb.addWorksheet('basket');
 
       ws.getCell('A1').value = 5;
@@ -400,7 +400,7 @@ describe('WorksheetWriter', () => {
 
   describe('Merge Cells', () => {
     it('references the same top-left value', () => {
-      const wb = new stream.xlsx.WorkbookWriter();
+      const wb = new WorkbookWriter();
       const ws = wb.addWorksheet('blort');
 
       // initial values
@@ -423,7 +423,7 @@ describe('WorksheetWriter', () => {
     });
 
     it('does not allow overlapping merges', () => {
-      const wb = new stream.xlsx.WorkbookWriter();
+      const wb = new WorkbookWriter();
       const ws = wb.addWorksheet('blort');
 
       ws.mergeCells('B2:C3');
@@ -451,7 +451,7 @@ describe('WorksheetWriter', () => {
 
   describe('Page Breaks', () => {
     it('adds multiple row breaks', () => {
-      const wb = new stream.xlsx.WorkbookWriter();
+      const wb = new WorkbookWriter();
       const ws = wb.addWorksheet('blort');
 
       // initial values

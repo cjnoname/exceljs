@@ -1,25 +1,21 @@
-// Core exports - shared by all environments
+// Core exports
+export { default as Workbook } from './doc/workbook.js';
+export { default as ModelContainer } from './doc/modelcontainer.js';
+export { default as WorkbookWriter } from './stream/xlsx/workbook-writer.js';
+export { default as WorkbookReader } from './stream/xlsx/workbook-reader.js';
+export * from './doc/enums.js';
+
+// Default export for CommonJS compatibility
 import Workbook from './doc/workbook.js';
 import ModelContainer from './doc/modelcontainer.js';
 import WorkbookWriter from './stream/xlsx/workbook-writer.js';
 import WorkbookReader from './stream/xlsx/workbook-reader.js';
-import Enums from './doc/enums.js';
+import * as Enums from './doc/enums.js';
 
-const stream = {
-  xlsx: {
-    WorkbookWriter,
-    WorkbookReader,
-  },
-};
-
-const ExcelJS = {
+export default {
   Workbook,
   ModelContainer,
-  stream,
+  WorkbookWriter,
+  WorkbookReader,
+  ...Enums,
 };
-
-Object.assign(ExcelJS, Enums);
-
-export default ExcelJS;
-export { Workbook, ModelContainer, WorkbookWriter, WorkbookReader, stream };
-export * from './doc/enums.js';

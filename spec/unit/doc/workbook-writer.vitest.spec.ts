@@ -7,7 +7,7 @@ describe('Workbook Writer', () => {
     const stream = new Stream.Writable({
       write: function noop() {},
     });
-    const wb = new Excel.stream.xlsx.WorkbookWriter({
+    const wb = new Excel.WorkbookWriter({
       stream,
     });
     wb.addWorksheet('first');

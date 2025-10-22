@@ -12,7 +12,7 @@ const fsReadFileAsync = promisify(fs.readFile);
 
 describe('WorkbookWriter', () => {
   it('creates sheets with correct names', () => {
-    const wb = new ExcelJS.stream.xlsx.WorkbookWriter();
+    const wb = new ExcelJS.WorkbookWriter();
     const ws1 = wb.addWorksheet('Hello, World!');
     expect(ws1.name).toBe('Hello, World!');
 
@@ -26,7 +26,7 @@ describe('WorkbookWriter', () => {
         filename: TEST_XLSX_FILE_NAME,
         useStyles: true,
       };
-      const wb = testUtils.createTestBook(new ExcelJS.stream.xlsx.WorkbookWriter(options), 'xlsx');
+      const wb = testUtils.createTestBook(new ExcelJS.WorkbookWriter(options), 'xlsx');
 
       return wb
         .commit()
@@ -44,7 +44,7 @@ describe('WorkbookWriter', () => {
         filename: TEST_XLSX_FILE_NAME,
         useStyles: false,
       };
-      const wb = new ExcelJS.stream.xlsx.WorkbookWriter(options);
+      const wb = new ExcelJS.WorkbookWriter(options);
       const ws = wb.addWorksheet('Hello');
       ws.getCell('A1').value = {
         formula: 'ROW()+COLUMN()',
@@ -90,7 +90,7 @@ describe('WorkbookWriter', () => {
         filename: TEST_XLSX_FILE_NAME,
         useStyles: false,
       };
-      const wb = new ExcelJS.stream.xlsx.WorkbookWriter(options);
+      const wb = new ExcelJS.WorkbookWriter(options);
       const ws = wb.addWorksheet('Hello');
       ws.getCell('A1').value = 1;
       ws.getCell('B1').value = 1;
@@ -119,7 +119,7 @@ describe('WorkbookWriter', () => {
         filename: TEST_XLSX_FILE_NAME,
         useStyles: false,
       };
-      const wb = testUtils.createTestBook(new ExcelJS.stream.xlsx.WorkbookWriter(options), 'xlsx');
+      const wb = testUtils.createTestBook(new ExcelJS.WorkbookWriter(options), 'xlsx');
 
       return wb
         .commit()
@@ -139,7 +139,7 @@ describe('WorkbookWriter', () => {
         filename: TEST_XLSX_FILE_NAME,
         useStyles: true,
       };
-      const wb = new ExcelJS.stream.xlsx.WorkbookWriter(options);
+      const wb = new ExcelJS.WorkbookWriter(options);
       const ws = wb.addWorksheet('blort');
 
       const colStyle = {
@@ -196,7 +196,7 @@ describe('WorkbookWriter', () => {
         filename: TEST_XLSX_FILE_NAME,
         useStyles: true,
       };
-      const wb = new ExcelJS.stream.xlsx.WorkbookWriter(options);
+      const wb = new ExcelJS.WorkbookWriter(options);
       const ws = wb.addWorksheet('Hello');
 
       ws.getCell('A1').value = {
@@ -241,7 +241,7 @@ describe('WorkbookWriter', () => {
 
     it('A lot of sheets', function () {
       let i;
-      const wb = new ExcelJS.stream.xlsx.WorkbookWriter({
+      const wb = new ExcelJS.WorkbookWriter({
         filename: TEST_XLSX_FILE_NAME,
       });
       const numSheets = 90;
@@ -271,7 +271,7 @@ describe('WorkbookWriter', () => {
         useStyles: true,
         useSharedStrings: true,
       };
-      const workbook = new ExcelJS.stream.xlsx.WorkbookWriter(options);
+      const workbook = new ExcelJS.WorkbookWriter(options);
       const worksheet = workbook.addWorksheet('test');
       const newRow = worksheet.addRow(['hello']);
       newRow.commit();
@@ -280,7 +280,7 @@ describe('WorkbookWriter', () => {
     });
 
     it('defined names', () => {
-      const wb = new ExcelJS.stream.xlsx.WorkbookWriter({
+      const wb = new ExcelJS.WorkbookWriter({
         filename: TEST_XLSX_FILE_NAME,
       });
       const ws = wb.addWorksheet('blort');
@@ -322,7 +322,7 @@ describe('WorkbookWriter', () => {
     });
 
     it('does not escape special xml characters', () => {
-      const wb = new ExcelJS.stream.xlsx.WorkbookWriter({
+      const wb = new ExcelJS.WorkbookWriter({
         filename: TEST_XLSX_FILE_NAME,
         useSharedStrings: true,
       });
@@ -345,7 +345,7 @@ describe('WorkbookWriter', () => {
 
     it('serializes and deserializes dataValidations', () => {
       const options = { filename: TEST_XLSX_FILE_NAME };
-      const wb = testUtils.createTestBook(new ExcelJS.stream.xlsx.WorkbookWriter(options), 'xlsx', ['dataValidations']);
+      const wb = testUtils.createTestBook(new ExcelJS.WorkbookWriter(options), 'xlsx', ['dataValidations']);
 
       return wb
         .commit()
@@ -366,7 +366,7 @@ describe('WorkbookWriter', () => {
           zlib: { level: 9 }, // Sets the compression level.
         },
       };
-      const wb = testUtils.createTestBook(new ExcelJS.stream.xlsx.WorkbookWriter(options), 'xlsx', ['dataValidations']);
+      const wb = testUtils.createTestBook(new ExcelJS.WorkbookWriter(options), 'xlsx', ['dataValidations']);
 
       return wb
         .commit()
@@ -383,7 +383,7 @@ describe('WorkbookWriter', () => {
       const options = {
         filename: TEST_XLSX_FILE_NAME,
       };
-      const wb = new ExcelJS.stream.xlsx.WorkbookWriter(options);
+      const wb = new ExcelJS.WorkbookWriter(options);
       const ws = wb.addWorksheet('Hello');
       ws.getCell('B2').value = 5;
       ws.getCell('B2').note = 'five';
@@ -432,7 +432,7 @@ describe('WorkbookWriter', () => {
       const options = {
         filename: TEST_XLSX_FILE_NAME,
       };
-      const wb = new ExcelJS.stream.xlsx.WorkbookWriter(options);
+      const wb = new ExcelJS.WorkbookWriter(options);
       const ws = wb.addWorksheet('Hello');
       ws.getCell('B2').value = 5;
       ws.getCell('B2').note = 'five';
@@ -480,7 +480,7 @@ describe('WorkbookWriter', () => {
       const options = {
         filename: TEST_XLSX_FILE_NAME,
       };
-      const wb = new ExcelJS.stream.xlsx.WorkbookWriter(options);
+      const wb = new ExcelJS.WorkbookWriter(options);
       const ws = wb.addWorksheet('Hello');
 
       const imageId = wb.addImage({
@@ -506,7 +506,7 @@ describe('WorkbookWriter', () => {
       const options = {
         filename: TEST_XLSX_FILE_NAME,
       };
-      const wb = new ExcelJS.stream.xlsx.WorkbookWriter(options);
+      const wb = new ExcelJS.WorkbookWriter(options);
       const ws = wb.addWorksheet('Hello');
 
       const imageId = wb.addImage({
@@ -535,7 +535,7 @@ describe('WorkbookWriter', () => {
         useStyles: true,
         useSharedStrings: true,
       };
-      const wb = testUtils.createTestBook(new ExcelJS.stream.xlsx.WorkbookWriter(options), 'xlsx', [
+      const wb = testUtils.createTestBook(new ExcelJS.WorkbookWriter(options), 'xlsx', [
         'conditionalFormatting',
       ]);
 
@@ -555,7 +555,7 @@ describe('WorkbookWriter', () => {
       const options = { filename: TEST_XLSX_FILE_NAME, useStyles: true };
 
       // generate file with conditional formatting that contains styles with numFmt
-      const wb1 = new ExcelJS.stream.xlsx.WorkbookWriter(options);
+      const wb1 = new ExcelJS.WorkbookWriter(options);
       const ws1 = wb1.addWorksheet(sheet);
       const cf1 = testUtils.conditionalFormatting.abbreviation;
       ws1.addConditionalFormatting(cf1);

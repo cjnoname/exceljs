@@ -13,7 +13,7 @@ describe('github issues', () => {
       'this should be the second shared string',
     ];
 
-    const workbook = new ExcelJS.stream.xlsx.WorkbookWriter({
+    const workbook = new ExcelJS.WorkbookWriter({
       filename: './test.xlsx',
       useSharedStrings: true,
     });
@@ -25,7 +25,7 @@ describe('github issues', () => {
     await workbook.commit();
 
     return new Promise<void>((resolve, reject) => {
-      const workbookReader = new ExcelJS.stream.xlsx.WorkbookReader('./test.xlsx', {
+      const workbookReader = new ExcelJS.WorkbookReader('./test.xlsx', {
         entries: 'emit',
         hyperlinks: 'cache',
         sharedStrings: 'cache',

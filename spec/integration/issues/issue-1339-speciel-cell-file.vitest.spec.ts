@@ -6,7 +6,7 @@ const TEST_XLSX_FILE_NAME = './spec/out/issue-1339.test.xlsx';
 
 describe('github issues', () => {
   it('issue 1339 - Special cell value results invalid file', async () => {
-    const wb = new ExcelJS.stream.xlsx.WorkbookWriter({
+    const wb = new ExcelJS.WorkbookWriter({
       filename: TEST_XLSX_FILE_NAME,
       useStyles: true,
       useSharedStrings: true,
