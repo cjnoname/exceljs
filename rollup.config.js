@@ -6,7 +6,6 @@ import copy from 'rollup-plugin-copy';
 import inject from '@rollup/plugin-inject';
 import alias from '@rollup/plugin-alias';
 import json from '@rollup/plugin-json';
-import stdLibBrowser from 'node-stdlib-browser';
 
 const banner = `/*! ExcelJS ${new Date().toLocaleDateString('en-GB').replace(/\//g, '-')} */`;
 
@@ -14,7 +13,14 @@ const banner = `/*! ExcelJS ${new Date().toLocaleDateString('en-GB').replace(/\/
 const getPlugins = (minify = false) => {
   const plugins = [
     alias({
-      entries: stdLibBrowser,
+      entries: {
+        events: 'events',
+        stream: 'stream-browserify',
+        buffer: 'buffer',
+        process: 'process',
+        crypto: 'crypto-browserify',
+        util: 'util',
+      },
     }),
     nodeResolve({
       browser: true,
