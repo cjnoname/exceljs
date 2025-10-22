@@ -142,7 +142,7 @@ class WorkbookReader extends EventEmitter {
                 yield* this._parseWorksheet(iterateStream(entry), sheetNo);
               } else {
                 // Worksheet arrives before sharedStrings - write to temp file asynchronously
-                const tmpDir = fs.mkdtempSync(pathJoin(os.tmpdir(), 'exceljs-'));
+                const tmpDir = await fs.promises.mkdtemp(pathJoin(os.tmpdir(), 'exceljs-'));
                 const path = pathJoin(tmpDir, `sheet${sheetNo}.xml`);
                 const tempFileCleanupCallback = () => {
                   fs.rm(tmpDir, { recursive: true, force: true }, () => {});
