@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import colCache from '../../../lib/utils/col-cache.js';
-import Excel from '../../../index.js';
+import colCache from '../../../src/utils/col-cache.js';
+import Excel from '../../../src/index.js';
 
 const spliceArray = (a: any[], index: number, count: number, ...rest: any[]) => {
   const clone = [...a];

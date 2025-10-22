@@ -1,4 +1,4 @@
-import _ from '../../lib/utils/under-dash.js';
+import _ from '../../src/utils/under-dash.js';
 
 const tools = {
   dtMatcher: /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[.]\d{3}Z$/,

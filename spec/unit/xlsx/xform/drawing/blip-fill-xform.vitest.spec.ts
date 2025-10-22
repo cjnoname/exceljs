@@ -1,7 +1,7 @@
 import { describe } from 'vitest';
 import testXformHelper from '../test-xform-helper';
 
-import BlipFillXform from '../../../../../lib/xlsx/xform/drawing/blip-fill-xform.js';
+import BlipFillXform from '../../../../../src/xlsx/xform/drawing/blip-fill-xform.js';
 
 const expectations = [
   {

@@ -1,7 +1,7 @@
 import { describe } from 'vitest';
 import testXformHelper from '../test-xform-helper';
 
-import TableStyleInfoXform from '../../../../../lib/xlsx/xform/table/table-style-info-xform.js';
+import TableStyleInfoXform from '../../../../../src/xlsx/xform/table/table-style-info-xform.js';
 
 const expectations = [
   {

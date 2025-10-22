@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeAll, afterAll, beforeEach, afterEach } from 'vitest';
-import ExcelJS from '../../../index.js';
+import ExcelJS from '../../../src/index.js';
 
 describe('github issues', () => {
   it('issue 771 - Issue with dataValidation without type and with formula1 or formula2', () => {

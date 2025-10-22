@@ -1,8 +1,8 @@
 import { describe } from 'vitest';
 import testXformHelper from './test-xform-helper';
 
-import ListXform from '../../../../lib/xlsx/xform/list-xform.js';
-import IntegerXform from '../../../../lib/xlsx/xform/simple/integer-xform.js';
+import ListXform from '../../../../src/xlsx/xform/list-xform.js';
+import IntegerXform from '../../../../src/xlsx/xform/simple/integer-xform.js';
 
 const expectations = [
   {

@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { slideFormula } from '../../../lib/utils/shared-formula.js';
+import { slideFormula } from '../../../src/utils/shared-formula.js';
 
 describe('shared-formula', () => {
   describe('slideFormula', () => {

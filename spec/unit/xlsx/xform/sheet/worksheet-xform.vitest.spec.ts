@@ -4,11 +4,11 @@ import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 import testXformHelper from '../test-xform-helper';
 
-import Enums from '../../../../../lib/doc/enums.js';
-import XmlStream from '../../../../../lib/utils/xml-stream.js';
-import WorksheetXform from '../../../../../lib/xlsx/xform/sheet/worksheet-xform.js';
-import SharedStringsXform from '../../../../../lib/xlsx/xform/strings/shared-strings-xform.js';
-import StylesXform from '../../../../../lib/xlsx/xform/style/styles-xform.js';
+import Enums from '../../../../../src/doc/enums.js';
+import XmlStream from '../../../../../src/utils/xml-stream.js';
+import WorksheetXform from '../../../../../src/xlsx/xform/sheet/worksheet-xform.js';
+import SharedStringsXform from '../../../../../src/xlsx/xform/strings/shared-strings-xform.js';
+import StylesXform from '../../../../../src/xlsx/xform/style/styles-xform.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);

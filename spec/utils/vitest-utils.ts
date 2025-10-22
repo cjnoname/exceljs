@@ -1,6 +1,6 @@
 // Vitest-specific testUtils - ES6 module version
-import Row from '../../lib/doc/row.js';
-import Column from '../../lib/doc/column.js';
+import Row from '../../src/doc/row.js';
+import Column from '../../src/doc/column.js';
 
 // Local utility functions
 const _ = {

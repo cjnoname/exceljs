@@ -4,8 +4,8 @@ import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 import testXformHelper, { normalizeXml } from '../test-xform-helper';
 
-import StylesXform from '../../../../../lib/xlsx/xform/style/styles-xform.js';
-import XmlStream from '../../../../../lib/utils/xml-stream.js';
+import StylesXform from '../../../../../src/xlsx/xform/style/styles-xform.js';
+import XmlStream from '../../../../../src/utils/xml-stream.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);

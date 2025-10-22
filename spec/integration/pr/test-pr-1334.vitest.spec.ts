@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeAll, afterAll, beforeEach, afterEach } from 'vitest';
-import ExcelJS from '../../../index.js';
+import ExcelJS from '../../../src/index.js';
 
 const TEST_XLSX_FILE_NAME = './spec/out/pr-1334.test.xlsx';
 

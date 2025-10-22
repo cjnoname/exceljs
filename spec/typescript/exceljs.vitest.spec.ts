@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import ExcelJS from '../../index.js';
+import ExcelJS from '../../src/index.js';
 
 describe('typescript', () => {
   it('can create and buffer xlsx', async () => {

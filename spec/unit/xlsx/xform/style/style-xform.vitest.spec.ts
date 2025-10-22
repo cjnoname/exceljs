@@ -1,7 +1,7 @@
 import { describe } from 'vitest';
 import testXformHelper from '../test-xform-helper';
 
-import StyleXform from '../../../../../lib/xlsx/xform/style/style-xform.js';
+import StyleXform from '../../../../../src/xlsx/xform/style/style-xform.js';
 
 const expectations = [
   {

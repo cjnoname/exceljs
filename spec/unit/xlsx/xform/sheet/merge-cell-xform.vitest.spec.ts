@@ -1,7 +1,7 @@
 import { describe } from 'vitest';
 import testXformHelper from '../test-xform-helper';
 
-import MergeCellXform from '../../../../../lib/xlsx/xform/sheet/merge-cell-xform.js';
+import MergeCellXform from '../../../../../src/xlsx/xform/sheet/merge-cell-xform.js';
 
 const expectations = [
   {

@@ -1,9 +1,9 @@
 import { describe } from 'vitest';
 import testXformHelper from '../test-xform-helper';
 
-import RowXform from '../../../../../lib/xlsx/xform/sheet/row-xform.js';
-import SharedStringsXform from '../../../../../lib/xlsx/xform/strings/shared-strings-xform.js';
-import Enums from '../../../../../lib/doc/enums.js';
+import RowXform from '../../../../../src/xlsx/xform/sheet/row-xform.js';
+import SharedStringsXform from '../../../../../src/xlsx/xform/strings/shared-strings-xform.js';
+import Enums from '../../../../../src/doc/enums.js';
 
 const fakeStyles = {
   addStyleModel(style: any) {

@@ -1,7 +1,7 @@
 /* eslint-disable no-sparse-arrays */
 import { describe, it, expect } from 'vitest';
-import Excel from '../../../index.js';
-import Enums from '../../../lib/doc/enums.js';
+import Excel from '../../../src/index.js';
+import Enums from '../../../src/doc/enums.js';
 
 describe('Worksheet', () => {
   describe('Values', () => {

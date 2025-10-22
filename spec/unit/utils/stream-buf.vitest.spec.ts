@@ -3,8 +3,8 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
-import StreamBuf from '../../../lib/utils/stream-buf.js';
-import StringBuf from '../../../lib/utils/string-buf.js';
+import StreamBuf from '../../../src/utils/stream-buf.js';
+import StringBuf from '../../../src/utils/string-buf.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);

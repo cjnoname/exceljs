@@ -1,7 +1,7 @@
 import { describe } from 'vitest';
 import testXformHelper from '../test-xform-helper';
 
-import OutlinePropertiesXform from '../../../../../lib/xlsx/xform/sheet/outline-properties-xform.js';
+import OutlinePropertiesXform from '../../../../../src/xlsx/xform/sheet/outline-properties-xform.js';
 
 const expectations = [
   {

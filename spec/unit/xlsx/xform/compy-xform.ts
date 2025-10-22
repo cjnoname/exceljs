@@ -1,4 +1,4 @@
-import BaseXform from '../../../../lib/xlsx/xform/base-xform.js';
+import BaseXform from '../../../../src/xlsx/xform/base-xform.js';
 
 interface CompyXformOptions {
   tag: string;

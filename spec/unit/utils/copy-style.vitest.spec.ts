@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { copyStyle } from '../../../lib/utils/copy-style.js';
+import { copyStyle } from '../../../src/utils/copy-style.js';
 import { styles } from '../../utils/styles.js';
 
 const style1 = {

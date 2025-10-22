@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { createSheetMock } from '../../utils/vitest-utils.js';
-import Anchor from '../../../lib/doc/anchor.js';
+import Anchor from '../../../src/doc/anchor.js';
 
 describe('Anchor', () => {
   describe('colWidth', () => {

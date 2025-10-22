@@ -1,4 +1,4 @@
-import { ValueType } from '../../lib/doc/enums.js';
+import { ValueType } from '../../src/doc/enums.js';
 import { expect } from 'vitest';
 
 const Enums = { ValueType };

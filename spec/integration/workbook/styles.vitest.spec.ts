@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import testUtils from '../../utils/index';
 
-import ExcelJS from '../../../index.js';
+import ExcelJS from '../../../src/index.js';
 
 const TEST_XLSX_FILE_NAME = './spec/out/workbook-styles.test.xlsx';
 

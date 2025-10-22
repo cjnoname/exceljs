@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { styles } from '../../utils/vitest-utils.js';
-import Excel from '../../../index.js';
+import Excel from '../../../src/index.js';
 
 describe('Worksheet', () => {
   describe('Styles', () => {

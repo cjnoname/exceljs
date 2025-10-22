@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeAll, afterAll, beforeEach, afterEach } from 'vitest';
-import { ValueType } from '../../../lib/doc/enums.js';
-import ExcelJS from '../../../index.js';
+import { ValueType } from '../../../src/doc/enums.js';
+import ExcelJS from '../../../src/index.js';
 
 describe('github issues', () => {
   describe('Shared Formulas', () => {

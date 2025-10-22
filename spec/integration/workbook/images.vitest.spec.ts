@@ -2,7 +2,7 @@ import { describe, it, expect, beforeAll, afterAll, beforeEach, afterEach } from
 import fs from 'fs';
 import { promisify } from 'util';
 
-import ExcelJS from '../../../index.js';
+import ExcelJS from '../../../src/index.js';
 
 const IMAGE_FILENAME = `${__dirname}/../data/image.png`;
 const TEST_XLSX_FILE_NAME = './spec/out/workbook-images.test.xlsx';

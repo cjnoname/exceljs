@@ -4,7 +4,7 @@ import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 import testXformHelper from '../test-xform-helper';
 
-import AppXform from '../../../../../lib/xlsx/xform/core/app-xform.js';
+import AppXform from '../../../../../src/xlsx/xform/core/app-xform.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);

@@ -4,7 +4,7 @@ import { fileURLToPath } from 'url';
 import { describe } from 'vitest';
 import testXformHelper from '../test-xform-helper';
 
-import DrawingXform from '../../../../../lib/xlsx/xform/drawing/drawing-xform.js';
+import DrawingXform from '../../../../../src/xlsx/xform/drawing/drawing-xform.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);

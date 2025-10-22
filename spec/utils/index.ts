@@ -1,8 +1,8 @@
 // @ts-nocheck
 import _ from './under-dash-custom';
 import tools from './tools';
-import Row from '../../lib/doc/row.js';
-import Column from '../../lib/doc/column.js';
+import Row from '../../src/doc/row.js';
+import Column from '../../src/doc/column.js';
 import testWorkbookReader from './test-workbook-reader';
 import dataValidations from './test-data-validation-sheet';
 import conditionalFormatting from './test-conditional-formatting-sheet';

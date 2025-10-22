@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { createSheetMock } from '../../utils/vitest-utils.js';
-import Column from '../../../lib/doc/column.js';
+import Column from '../../../src/doc/column.js';
 
 describe('Column', () => {
   it('creates by defn', () => {

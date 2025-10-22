@@ -1,4 +1,4 @@
-import underDash from '../../lib/utils/under-dash.js';
+import underDash from '../../src/utils/under-dash.js';
 
 const _ = Object.assign(
   {

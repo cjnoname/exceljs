@@ -4,9 +4,9 @@ import { XMLParser } from 'fast-xml-parser';
 import underDash from '../../../utils/under-dash';
 import CompyXform from './compy-xform';
 
-import parseSax from '../../../../lib/utils/parse-sax.js';
-import XmlStream from '../../../../lib/utils/xml-stream.js';
-import BooleanXform from '../../../../lib/xlsx/xform/simple/boolean-xform.js';
+import parseSax from '../../../../src/utils/parse-sax.js';
+import XmlStream from '../../../../src/utils/xml-stream.js';
+import BooleanXform from '../../../../src/xlsx/xform/simple/boolean-xform.js';
 
 const { cloneDeep, each } = underDash;
 
