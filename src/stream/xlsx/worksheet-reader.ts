@@ -104,7 +104,7 @@ class WorksheetReader extends EventEmitter {
   }
 
   eachColumnKey(f: (column: any, key: string) => void): void {
-    Object.entries(this._keys).forEach(([key, value]) => f(value, key));
+    Object.keys(this._keys).forEach(key => f(this._keys[key], key));
   }
 
   async read(): Promise<void> {

@@ -1,53 +1,7 @@
 const { toString } = Object.prototype;
 const escapeHtmlRegex = /["&<>]/;
 
-type Callback<T, R = void> = (value: T, key: number | string) => R;
-
 const _ = {
-  // Helper methods for object/array iteration
-  // Note: Consider using native Object.keys().forEach() or for...of instead
-  each: function each<T>(obj: T[] | Record<string, T> | null | undefined, cb: Callback<T>): void {
-    if (obj) {
-      if (Array.isArray(obj)) {
-        obj.forEach(cb);
-      } else {
-        Object.keys(obj).forEach(key => {
-          cb(obj[key], key);
-        });
-      }
-    }
-  },
-
-  // Note: Consider using Object.values(obj).every(cb) for objects
-  every: function every<T>(obj: T[] | Record<string, T> | null | undefined, cb: Callback<T, boolean>): boolean {
-    if (obj) {
-      if (Array.isArray(obj)) {
-        return obj.every(cb);
-      }
-      return Object.keys(obj).every(key => cb(obj[key], key));
-    }
-    return true;
-  },
-
-  // Note: Consider using Object.keys(obj).map(key => cb(obj[key], key)) for objects
-  map: function map<T, R>(obj: T[] | Record<string, T> | null | undefined, cb: Callback<T, R>): R[] {
-    if (obj) {
-      if (Array.isArray(obj)) {
-        return obj.map(cb);
-      }
-      return Object.keys(obj).map(key => cb(obj[key], key));
-    }
-    return [];
-  },
-
-  // Useful utility - consider keeping
-  keyBy<T extends Record<string, any>>(a: T[], p: keyof T): Record<string, T> {
-    return a.reduce((o: Record<string, T>, v: T) => {
-      o[v[p]] = v;
-      return o;
-    }, {});
-  },
-
   isEqual: function isEqual(a: any, b: any): boolean {
     const aType = typeof a;
     const bType = typeof b;
@@ -90,7 +44,8 @@ const _ = {
           }
         }
 
-        return _.every(a, (aValue: any, key: string) => {
+        return keys.every(key => {
+          const aValue = a[key];
           const bValue = b[key];
           return _.isEqual(aValue, bValue);
         });
@@ -116,9 +71,6 @@ const _ = {
         case '&':
           escape = '&amp;';
           break;
-        case "'":
-          escape = '&apos;';
-          break;
         case '<':
           escape = '&lt;';
           break;
@@ -136,13 +88,6 @@ const _ = {
     return result;
   },
 
-  // Use native String.prototype.localeCompare() instead: a.localeCompare(b)
-  strcmp(a: string, b: string): number {
-    if (a < b) return -1;
-    if (a > b) return 1;
-    return 0;
-  },
-
   isUndefined(val: any): val is undefined {
     return toString.call(val) === '[object Undefined]';
   },
@@ -157,7 +102,7 @@ const _ = {
     // eslint-disable-next-line one-var
     let src: any, clone: any, copyIsArray: boolean;
 
-    function assignValue(val: any, key: string): void {
+    function assignValue(val: any, key: string | number): void {
       src = target[key];
       copyIsArray = Array.isArray(val);
       if (_.isObject(val) || copyIsArray) {
@@ -174,7 +119,14 @@ const _ = {
     }
 
     for (let i = 0; i < length; i++) {
-      _.each(args[i], assignValue);
+      const arg = args[i];
+      if (arg) {
+        if (Array.isArray(arg)) {
+          arg.forEach((val, index) => assignValue(val, index));
+        } else {
+          Object.entries(arg).forEach(([key, val]) => assignValue(val, key));
+        }
+      }
     }
     return target;
   },

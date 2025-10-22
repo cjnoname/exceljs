@@ -349,7 +349,7 @@ class Worksheet {
   }
 
   eachColumnKey(f: (column: any, key: string) => void): void {
-    Object.entries(this._keys).forEach(([key, value]) => f(value, key));
+    Object.keys(this._keys).forEach(key => f(this._keys[key], key));
   }
 
   // get a single column by col number. If it doesn't exist, create it and any gaps before it

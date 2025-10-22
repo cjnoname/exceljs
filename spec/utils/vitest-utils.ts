@@ -35,11 +35,20 @@ const tools = {
     } else {
       return o;
     }
-    _.each(o, (value: any, name: string | number) => {
-      if (value !== undefined) {
-        clone[name] = fix(value);
-      }
-    });
+    if (Array.isArray(o)) {
+      o.forEach((value: any, index: number) => {
+        if (value !== undefined) {
+          clone[index] = fix(value);
+        }
+      });
+    } else {
+      Object.keys(o).forEach(name => {
+        const value = o[name];
+        if (value !== undefined) {
+          clone[name] = fix(value);
+        }
+      });
+    }
     return clone;
   },
 
@@ -110,8 +119,8 @@ export function createSheetMock(): any {
     deleteColumnKey(key: string) {
       delete this._keys[key];
     },
-    eachColumnKey(f: (value: any, key: string | number) => void) {
-      _.each(this._keys, f);
+    eachColumnKey(f: (column: any, key: string) => void) {
+      Object.entries(this._keys).forEach(([key, value]) => f(value, key));
     },
     eachRow(opt: any, f?: (row: any, index: number) => void) {
       if (!f) {

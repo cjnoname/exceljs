@@ -14,11 +14,20 @@ const tools = {
     } else {
       return o;
     }
-    _.each(o, (value, name) => {
-      if (value !== undefined) {
-        clone[name] = fix(value);
-      }
-    });
+    if (Array.isArray(o)) {
+      o.forEach((value, index) => {
+        if (value !== undefined) {
+          clone[index] = fix(value);
+        }
+      });
+    } else {
+      Object.keys(o).forEach(name => {
+        const value = o[name];
+        if (value !== undefined) {
+          clone[name] = fix(value);
+        }
+      });
+    }
     return clone;
   },
 

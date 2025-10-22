@@ -151,7 +151,7 @@ const testUtils = {
         delete this._keys[key];
       },
       eachColumnKey(f) {
-        _.each(this._keys, f);
+        Object.entries(this._keys).forEach(([key, value]) => f(value, key));
       },
       eachRow(opt, f) {
         if (!f) {

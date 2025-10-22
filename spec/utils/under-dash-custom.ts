@@ -30,18 +30,26 @@ const _ = Object.assign(
       }
       if (obj instanceof Array) {
         clone = [];
+        obj.forEach((value, index) => {
+          if (value !== undefined) {
+            clone[index] = cloneDeep(value, preserveUndefined);
+          } else if (preserveUndefined) {
+            clone[index] = undefined;
+          }
+        });
       } else if (typeof obj === 'object') {
         clone = {};
+        Object.keys(obj).forEach(name => {
+          const value = obj[name];
+          if (value !== undefined) {
+            clone[name] = cloneDeep(value, preserveUndefined);
+          } else if (preserveUndefined) {
+            clone[name] = undefined;
+          }
+        });
       } else {
         return obj;
       }
-      _.each(obj, (value, name) => {
-        if (value !== undefined) {
-          clone[name] = cloneDeep(value, preserveUndefined);
-        } else if (preserveUndefined) {
-          clone[name] = undefined;
-        }
-      });
       return clone;
     },
   },

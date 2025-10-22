@@ -8,7 +8,7 @@ import parseSax from '../../../../src/utils/parse-sax.js';
 import XmlStream from '../../../../src/utils/xml-stream.js';
 import BooleanXform from '../../../../src/xlsx/xform/simple/boolean-xform.js';
 
-const { cloneDeep, each } = underDash;
+const { cloneDeep } = underDash;
 
 // Normalize XML by parsing and converting to sorted JSON
 function normalizeXml(xml: string): string {
@@ -207,10 +207,10 @@ const its: { [key: string]: (expectation: Expectation) => () => Promise<void> } 
 };
 
 export default function testXform(expectations: Expectation[]) {
-  each(expectations, (expectation: Expectation) => {
+  expectations.forEach((expectation: Expectation) => {
     const tests = getExpectation(expectation, 'tests');
     describe(expectation.title, () => {
-      each(tests, (test: string) => {
+      tests.forEach((test: string) => {
         it(test, its[test](expectation));
       });
     });
