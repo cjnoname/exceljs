@@ -11,13 +11,14 @@ async function* parseSax(iterable: any): AsyncGenerator<SaxEvent[]> {
   let events: SaxEvent[] = [];
   let depth = 0;
   let hasInvalidText = false;
-  let invalidTextForError = '';
+  let invalidTextParts: string[] = [];
   
   const parser = new Parser({
     onopentag(name: string, attribs: Record<string, string>) {
       if (depth === 0 && hasInvalidText) {
         // Text outside root node - report error at root element position
-        error = new Error(`${invalidTextForError.split('\n').length}:1: text data outside of root node.`);
+        const invalidText = invalidTextParts.join('');
+        error = new Error(`${invalidText.split('\n').length}:1: text data outside of root node.`);
       }
       depth++;
       events.push({
@@ -28,8 +29,7 @@ async function* parseSax(iterable: any): AsyncGenerator<SaxEvent[]> {
     ontext(text: string) {
       if (depth === 0 && text.trim()) {
         hasInvalidText = true;
-        // Only accumulate text for error message when outside root
-        invalidTextForError += text;
+        invalidTextParts.push(text);
       }
       events.push({eventType: 'text', value: text});
     },
