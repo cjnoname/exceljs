@@ -2,9 +2,13 @@ import fs from 'fs';
 import StreamBuf from '../utils/stream-buf.js';
 
 import {format, parse} from 'fast-csv';
-import {format as formatDate, formatISO, isValid, parse as parseDate} from 'date-fns';
-import {toZonedTime} from 'date-fns-tz';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
+import utc from 'dayjs/plugin/utc';
+import dayjs from 'dayjs';
 import utils from '../utils/utils.js';
+
+dayjs.extend(customParseFormat);
+dayjs.extend(utc);
 
 const {fs: {exists}} = utils;
 
@@ -67,14 +71,10 @@ class CSV {
       const worksheet = this.workbook.addWorksheet(options.sheetName);
 
       const dateFormats = options.dateFormats || [
-        "yyyy-MM-dd'T'HH:mm:ssXXX",
-        "yyyy-MM-dd'T'HH:mm:ss",
-        'MM/dd/yyyy',
-        'MM-dd-yyyy',
-        'dd/MM/yyyy',
-        'dd-MM-yyyy',
-        'yyyy-MM-dd',
-        'yyyy/MM/dd',
+        'YYYY-MM-DD[T]HH:mm:ssZ',
+        'YYYY-MM-DD[T]HH:mm:ss',
+        'MM-DD-YYYY',
+        'YYYY-MM-DD',
       ];
       const map =
         options.map ||
@@ -86,16 +86,18 @@ class CSV {
           if (!Number.isNaN(datumNumber) && datumNumber !== Infinity) {
             return datumNumber;
           }
-          // Try to parse as date - iterate through formats until one works
-          for (const currentDateFormat of dateFormats) {
-            try {
-              const parsedDate = parseDate(datum, currentDateFormat, new Date());
-              if (isValid(parsedDate)) {
-                return parsedDate;
-              }
-            } catch {
-              // Invalid format, continue to next
+          const dt = dateFormats.reduce((matchingDate: any, currentDateFormat: string) => {
+            if (matchingDate) {
+              return matchingDate;
             }
+            const dayjsObj = dayjs(datum, currentDateFormat, true);
+            if (dayjsObj.isValid()) {
+              return dayjsObj;
+            }
+            return null;
+          }, null);
+          if (dt) {
+            return new Date(dt.valueOf());
           }
           const special = SpecialValues[datum];
           if (special !== undefined) {
@@ -148,10 +150,10 @@ class CSV {
             if (value instanceof Date) {
               if (dateFormat) {
                 return dateUTC
-                  ? formatDate(toZonedTime(value, 'UTC'), dateFormat)
-                  : formatDate(value, dateFormat);
+                  ? dayjs.utc(value).format(dateFormat)
+                  : dayjs(value).format(dateFormat);
               }
-              return dateUTC ? formatISO(toZonedTime(value, 'UTC')) : formatISO(value);
+              return dateUTC ? dayjs.utc(value).format() : dayjs(value).format();
             }
             if (value.error) {
               return value.error;
