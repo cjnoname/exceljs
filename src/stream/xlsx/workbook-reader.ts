@@ -1,10 +1,10 @@
 import fs from 'fs';
 import { EventEmitter } from 'events';
-import { Readable } from 'stream';
+import { PassThrough } from 'stream';
 import nodeStream from 'stream';
 import os from 'os';
 import { join as pathJoin } from 'path';
-import { Unzip, UnzipFile, UnzipInflate } from 'fflate';
+import {Parse} from 'unzipper';
 import iterateStream from '../../utils/iterate-stream.js';
 import parseSax from '../../utils/parse-sax.js';
 
@@ -58,7 +58,7 @@ class WorkbookReader extends EventEmitter {
   }
 
   _getStream(input: any): any {
-    if (input instanceof nodeStream.Readable || input instanceof Readable) {
+    if (input instanceof nodeStream.Readable) {
       return input;
     }
     if (typeof input === 'string') {
@@ -101,120 +101,16 @@ class WorkbookReader extends EventEmitter {
   async *parse(input?: any, options?: WorkbookReaderOptions): AsyncIterableIterator<{ eventType: string; value: any }> {
     if (options) this.options = options;
     const stream = (this.stream = this._getStream(input || this.input));
-
-    // Use fflate's Unzip for streaming decompression
-    const allFiles: Record<string, Uint8Array> = {};
-
-    await new Promise<void>((resolve, reject) => {
-      let filesProcessed = 0;
-      let zipEnded = false;
-      let filesStarted = 0;
-
-      const checkCompletion = () => {
-        if (zipEnded && filesProcessed === filesStarted) {
-          resolve();
-        }
-      };
-
-      const unzipper = new Unzip((file: UnzipFile) => {
-        filesStarted++;
-        const fileChunks: Uint8Array[] = [];
-        let totalLength = 0;
-
-        file.ondata = (err, data, final) => {
-          if (err) {
-            reject(err);
-            return;
-          }
-          if (data) {
-            fileChunks.push(data);
-            totalLength += data.length;
-          }
-          if (final) {
-            // Optimize for single chunk case (common for small files)
-            if (fileChunks.length === 1) {
-              allFiles[file.name] = fileChunks[0];
-            } else if (fileChunks.length > 1) {
-              // Concatenate all chunks efficiently for multiple chunks
-              const fullData = new Uint8Array(totalLength);
-              let offset = 0;
-              for (const chunk of fileChunks) {
-                fullData.set(chunk, offset);
-                offset += chunk.length;
-              }
-              allFiles[file.name] = fullData;
-            } else {
-              // Empty file
-              allFiles[file.name] = new Uint8Array(0);
-            }
-            filesProcessed++;
-            // Clear chunks array to help GC
-            fileChunks.length = 0;
-            checkCompletion();
-          }
-        };
-        file.start();
-      });
-
-      // Register deflate decompressor (compression type 8)
-      unzipper.register(UnzipInflate);
-
-      // Define event handlers
-      const onData = (chunk: Buffer) => {
-        unzipper.push(chunk);
-      };
-
-      const onEnd = () => {
-        unzipper.push(new Uint8Array(0), true);
-        zipEnded = true;
-        checkCompletion();
-      };
-
-      const onError = (err: Error) => {
-        // Clean up listeners on error
-        stream.removeListener('data', onData);
-        stream.removeListener('end', onEnd);
-        stream.removeListener('error', onError);
-        reject(err);
-      };
-
-      // Stream chunks directly to unzipper without buffering entire file
-      stream.on('data', onData);
-      stream.on('end', onEnd);
-      stream.on('error', onError);
-    });
+    const zip = Parse({ forceStream: true });
+    stream.pipe(zip);
 
     // worksheets, deferred for parsing after shared strings reading
     const waitingWorkSheets: WaitingWorksheet[] = [];
 
-    // Sort files to ensure critical files are processed first
-    // This is important because worksheets depend on sharedStrings and workbookRels
-    const sortedFiles = Object.entries(allFiles).sort(([pathA], [pathB]) => {
-      // Priority order: _rels, workbook, sharedStrings, styles, then worksheets
-      const getPriority = (path: string) => {
-        if (path === '_rels/.rels') return 0;
-        if (path === 'xl/_rels/workbook.xml.rels') return 1;
-        if (path === 'xl/workbook.xml') return 2;
-        if (path === 'xl/sharedStrings.xml') return 3;
-        if (path === 'xl/styles.xml') return 4;
-        if (path.match(/xl\/worksheets\/sheet\d+[.]xml/)) return 100;
-        return 50; // Other files in the middle
-      };
-      return getPriority(pathA) - getPriority(pathB);
-    });
-
-    for (const [path, data] of sortedFiles) {
+    for await (const entry of iterateStream(zip)) {
       let match;
       let sheetNo;
-
-      // Normalize path - remove leading slash for consistency
-      const normalizedPath = path.startsWith('/') ? path.substring(1) : path;
-
-      // Create a readable stream from the data buffer
-      // Using Readable.from() ensures data is available when consumed
-      const entry = Readable.from([Buffer.from(data)]);
-
-      switch (normalizedPath) {
+      switch (entry.path) {
         case '_rels/.rels':
           break;
         case 'xl/_rels/workbook.xml.rels':
@@ -232,63 +128,52 @@ class WorkbookReader extends EventEmitter {
           await this._parseStyles(entry);
           break;
         default:
-          if (normalizedPath.match(/xl\/worksheets\/sheet\d+[.]xml/)) {
-            match = normalizedPath.match(/xl\/worksheets\/sheet(\d+)[.]xml/);
+          if (entry.path.match(/xl\/worksheets\/sheet\d+[.]xml/)) {
+            match = entry.path.match(/xl\/worksheets\/sheet(\d+)[.]xml/);
             sheetNo = match![1];
             if (this.sharedStrings && this.workbookRels) {
               yield* this._parseWorksheet(iterateStream(entry), sheetNo);
             } else {
               // create temp file for each worksheet
-              const createTempFile = async () => {
-                const tmpDir = await fs.promises.mkdtemp(pathJoin(os.tmpdir(), 'exceljs-'));
-                const tmpPath = pathJoin(tmpDir, `sheet${sheetNo}.xml`);
-
-                const tempFileCleanupCallback = () => {
-                  fs.promises.rm(tmpDir, { recursive: true, force: true }).catch(() => {});
-                };
-
-                waitingWorkSheets.push({ sheetNo, path: tmpPath, tempFileCleanupCallback });
-
-                const tempStream = fs.createWriteStream(tmpPath);
-
-                return new Promise<void>((resolve, reject) => {
-                  const onFinish = () => {
-                    tempStream.removeListener('error', onError);
-                    resolve();
+              await new Promise<void>((resolve, reject) => {
+                fs.mkdtemp(pathJoin(os.tmpdir(), 'exceljs-'), (err, tmpDir) => {
+                  if (err) {
+                    return reject(err);
+                  }
+                  const path = pathJoin(tmpDir, `sheet${sheetNo}.xml`);
+                  const tempFileCleanupCallback = () => {
+                    fs.rm(tmpDir, { recursive: true, force: true }, () => {});
                   };
+                  waitingWorkSheets.push({ sheetNo, path, tempFileCleanupCallback });
 
-                  const onError = (err: Error) => {
-                    tempStream.removeListener('finish', onFinish);
-                    reject(err);
-                  };
-
-                  tempStream.once('finish', onFinish);
-                  tempStream.on('error', onError);
-                  // data is already a Uint8Array, no need to convert
-                  tempStream.write(data);
-                  tempStream.end();
+                  const tempStream = fs.createWriteStream(path);
+                  tempStream.on('error', reject);
+                  entry.pipe(tempStream);
+                  return tempStream.on('finish', () => {
+                    return resolve();
+                  });
                 });
-              };
-
-              await createTempFile();
+              });
             }
-          } else if (normalizedPath.match(/xl\/worksheets\/_rels\/sheet\d+[.]xml.rels/)) {
-            match = normalizedPath.match(/xl\/worksheets\/_rels\/sheet(\d+)[.]xml.rels/);
+          } else if (entry.path.match(/xl\/worksheets\/_rels\/sheet\d+[.]xml.rels/)) {
+            match = entry.path.match(/xl\/worksheets\/_rels\/sheet(\d+)[.]xml.rels/);
             sheetNo = match![1];
             yield* this._parseHyperlinks(iterateStream(entry), sheetNo);
           }
           break;
       }
+      entry.autodrain();
     }
 
     for (const { sheetNo, path, tempFileCleanupCallback } of waitingWorkSheets) {
-      const fileStream = fs.createReadStream(path);
-      try {
-        yield* this._parseWorksheet(fileStream, sheetNo);
-      } finally {
-        fileStream.close();
-        tempFileCleanupCallback();
+      let fileStream: any = fs.createReadStream(path);
+      // TODO: Remove once node v8 is deprecated
+      // Detect and upgrade old fileStreams
+      if (!fileStream[Symbol.asyncIterator]) {
+        fileStream = fileStream.pipe(new PassThrough());
       }
+      yield* this._parseWorksheet(fileStream, sheetNo);
+      tempFileCleanupCallback();
     }
   }
 

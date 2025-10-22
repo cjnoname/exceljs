@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { WorkbookReader } from './src/index.js';
+import { WorkbookReader } from './dist/esm/index.js';
 
 const runs = 3;
 
