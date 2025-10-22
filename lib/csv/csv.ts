@@ -86,22 +86,16 @@ class CSV {
           if (!Number.isNaN(datumNumber) && datumNumber !== Infinity) {
             return datumNumber;
           }
-          const dt = dateFormats.reduce((matchingDate: any, currentDateFormat: string) => {
-            if (matchingDate) {
-              return matchingDate;
-            }
+          // Try to parse as date - iterate through formats until one works
+          for (const currentDateFormat of dateFormats) {
             try {
               const parsedDate = parseDate(datum, currentDateFormat, new Date());
               if (isValid(parsedDate)) {
                 return parsedDate;
               }
             } catch {
-              // Invalid format, try next
+              // Invalid format, continue to next
             }
-            return null;
-          }, null);
-          if (dt) {
-            return dt;
           }
           const special = SpecialValues[datum];
           if (special !== undefined) {

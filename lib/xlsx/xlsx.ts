@@ -1,6 +1,6 @@
 import fs from 'fs';
 import {unzipSync} from 'fflate';
-import {PassThrough} from 'readable-stream';
+import {PassThrough} from 'stream';
 import {ZipWriter} from '../utils/zip-stream.js';
 import StreamBuf from '../utils/stream-buf.js';
 

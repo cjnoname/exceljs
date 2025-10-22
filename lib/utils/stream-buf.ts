@@ -1,5 +1,5 @@
 /* eslint-disable max-classes-per-file */
-import {Duplex} from 'readable-stream';
+import {Duplex} from 'stream';
 import utils from './utils.js';
 import StringBuf from './string-buf.js';
 

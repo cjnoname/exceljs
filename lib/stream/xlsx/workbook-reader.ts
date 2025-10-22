@@ -1,6 +1,6 @@
 import fs from 'fs';
 import {EventEmitter} from 'events';
-import {Readable} from 'readable-stream';
+import {Readable} from 'stream';
 import nodeStream from 'stream';
 import {Unzip, UnzipFile, UnzipInflate} from 'fflate';
 import tmp from 'tmp';

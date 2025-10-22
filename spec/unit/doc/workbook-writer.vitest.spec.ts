@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import Stream from 'readable-stream';
+import Stream from 'stream';
 import Excel from '../../../lib/exceljs.nodejs.js';
 
 describe('Workbook Writer', () => {

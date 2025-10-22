@@ -1,4 +1,4 @@
-import {Duplex} from 'readable-stream';
+import {Duplex} from 'stream';
 
 // =============================================================================
 // StreamBase64 - A utility to convert to/from base64 stream
