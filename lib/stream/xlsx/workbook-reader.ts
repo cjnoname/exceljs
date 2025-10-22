@@ -2,8 +2,9 @@ import fs from 'fs';
 import {EventEmitter} from 'events';
 import {Readable} from 'stream';
 import nodeStream from 'stream';
+import os from 'os';
+import {join as pathJoin} from 'path';
 import {Unzip, UnzipFile, UnzipInflate} from 'fflate';
-import tmp from 'tmp';
 import iterateStream from '../../utils/iterate-stream.js';
 import parseSax from '../../utils/parse-sax.js';
 
@@ -13,8 +14,6 @@ import RelationshipsXform from '../../xlsx/xform/core/relationships-xform.js';
 
 import WorksheetReader from './worksheet-reader.js';
 import HyperlinkReader from './hyperlink-reader.js';
-
-tmp.setGracefulCleanup();
 
 interface WorkbookReaderOptions {
   worksheets?: string;
@@ -240,15 +239,19 @@ class WorkbookReader extends EventEmitter {
               yield* this._parseWorksheet(iterateStream(entry), sheetNo);
             } else {
               // create temp file for each worksheet
-              await new Promise<void>((resolve, reject) => {
-                tmp.file((err: any, tmpPath: string, fd: number, tempFileCleanupCallback: () => void) => {
-                  if (err) {
-                    return reject(err);
-                  }
-                  waitingWorkSheets.push({sheetNo, path: tmpPath, tempFileCleanupCallback});
+              const createTempFile = async () => {
+                const tmpDir = await fs.promises.mkdtemp(pathJoin(os.tmpdir(), 'exceljs-'));
+                const tmpPath = pathJoin(tmpDir, `sheet${sheetNo}.xml`);
+                
+                const tempFileCleanupCallback = () => {
+                  fs.promises.rm(tmpDir, {recursive: true, force: true}).catch(() => {});
+                };
+                
+                waitingWorkSheets.push({sheetNo, path: tmpPath, tempFileCleanupCallback});
 
-                  const tempStream = fs.createWriteStream(tmpPath);
-                  
+                const tempStream = fs.createWriteStream(tmpPath);
+                
+                return new Promise<void>((resolve, reject) => {
                   const onFinish = () => {
                     tempStream.removeListener('error', onError);
                     resolve();
@@ -265,7 +268,9 @@ class WorkbookReader extends EventEmitter {
                   tempStream.write(data);
                   tempStream.end();
                 });
-              });
+              };
+              
+              await createTempFile();
             }
           } else if (normalizedPath.match(/xl\/worksheets\/_rels\/sheet\d+[.]xml.rels/)) {
             match = normalizedPath.match(/xl\/worksheets\/_rels\/sheet(\d+)[.]xml.rels/);

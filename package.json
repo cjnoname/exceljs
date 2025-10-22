@@ -107,12 +107,10 @@
     "fast-csv": "^5.0.5",
     "fflate": "^0.8.2",
     "htmlparser2": "^10.0.0",
-    "tmp": "^0.2.5",
     "uuid": "^13.0.0"
   },
   "devDependencies": {
     "@types/node": "^24.9.1",
-    "@types/tmp": "^0.2.6",
     "@typescript/native-preview": "^7.0.0-dev.20251021.1",
     "@vitest/browser": "^3.2.4",
     "@vitest/ui": "^3.2.4",
