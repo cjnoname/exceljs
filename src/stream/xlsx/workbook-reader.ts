@@ -102,78 +102,98 @@ class WorkbookReader extends EventEmitter {
     if (options) this.options = options;
     const stream = (this.stream = this._getStream(input || this.input));
     const zip = Parse({ forceStream: true });
+    
+    // Handle pipe errors to prevent unhandled rejection
+    stream.on('error', (err: Error) => {
+      zip.emit('error', err);
+    });
     stream.pipe(zip);
 
     // worksheets, deferred for parsing after shared strings reading
     const waitingWorkSheets: WaitingWorksheet[] = [];
 
-    for await (const entry of iterateStream(zip)) {
-      let match;
-      let sheetNo;
-      switch (entry.path) {
-        case '_rels/.rels':
-          break;
-        case 'xl/_rels/workbook.xml.rels':
-          await this._parseRels(entry);
-          break;
-        case 'xl/workbook.xml':
-          await this._parseWorkbook(entry);
-          break;
-        case 'xl/sharedStrings.xml':
-          for await (const item of this._parseSharedStrings(entry)) {
-            yield { eventType: 'shared-strings', value: item };
-          }
-          break;
-        case 'xl/styles.xml':
-          await this._parseStyles(entry);
-          break;
-        default:
-          if (entry.path.match(/xl\/worksheets\/sheet\d+[.]xml/)) {
-            match = entry.path.match(/xl\/worksheets\/sheet(\d+)[.]xml/);
-            sheetNo = match![1];
-            if (this.sharedStrings && this.workbookRels) {
-              yield* this._parseWorksheet(iterateStream(entry), sheetNo);
-            } else {
-              // create temp file for each worksheet
-              await new Promise<void>((resolve, reject) => {
-                fs.mkdtemp(pathJoin(os.tmpdir(), 'exceljs-'), (err, tmpDir) => {
-                  if (err) {
-                    return reject(err);
-                  }
-                  const path = pathJoin(tmpDir, `sheet${sheetNo}.xml`);
-                  const tempFileCleanupCallback = () => {
-                    fs.rm(tmpDir, { recursive: true, force: true }, () => {});
-                  };
-                  waitingWorkSheets.push({ sheetNo, path, tempFileCleanupCallback });
+    try {
+      for await (const entry of iterateStream(zip)) {
+        let match;
+        let sheetNo;
+        switch (entry.path) {
+          case '_rels/.rels':
+            break;
+          case 'xl/_rels/workbook.xml.rels':
+            await this._parseRels(entry);
+            break;
+          case 'xl/workbook.xml':
+            await this._parseWorkbook(entry);
+            break;
+          case 'xl/sharedStrings.xml':
+            for await (const item of this._parseSharedStrings(entry)) {
+              yield { eventType: 'shared-strings', value: item };
+            }
+            break;
+          case 'xl/styles.xml':
+            await this._parseStyles(entry);
+            break;
+          default:
+            if (entry.path.match(/xl\/worksheets\/sheet\d+[.]xml/)) {
+              match = entry.path.match(/xl\/worksheets\/sheet(\d+)[.]xml/);
+              sheetNo = match![1];
+              if (this.sharedStrings && this.workbookRels) {
+                yield* this._parseWorksheet(iterateStream(entry), sheetNo);
+              } else {
+                // create temp file for each worksheet
+                await new Promise<void>((resolve, reject) => {
+                  fs.mkdtemp(pathJoin(os.tmpdir(), 'exceljs-'), (err, tmpDir) => {
+                    if (err) {
+                      return reject(err);
+                    }
+                    const path = pathJoin(tmpDir, `sheet${sheetNo}.xml`);
+                    const tempFileCleanupCallback = () => {
+                      fs.rm(tmpDir, { recursive: true, force: true }, () => {});
+                    };
+                    waitingWorkSheets.push({ sheetNo, path, tempFileCleanupCallback });
 
-                  const tempStream = fs.createWriteStream(path);
-                  tempStream.on('error', reject);
-                  entry.pipe(tempStream);
-                  return tempStream.on('finish', () => {
-                    return resolve();
+                    const tempStream = fs.createWriteStream(path);
+                    tempStream.on('error', reject);
+                    entry.pipe(tempStream);
+                    return tempStream.on('finish', () => {
+                      return resolve();
+                    });
                   });
                 });
-              });
+              }
+            } else if (entry.path.match(/xl\/worksheets\/_rels\/sheet\d+[.]xml.rels/)) {
+              match = entry.path.match(/xl\/worksheets\/_rels\/sheet(\d+)[.]xml.rels/);
+              sheetNo = match![1];
+              yield* this._parseHyperlinks(iterateStream(entry), sheetNo);
             }
-          } else if (entry.path.match(/xl\/worksheets\/_rels\/sheet\d+[.]xml.rels/)) {
-            match = entry.path.match(/xl\/worksheets\/_rels\/sheet(\d+)[.]xml.rels/);
-            sheetNo = match![1];
-            yield* this._parseHyperlinks(iterateStream(entry), sheetNo);
-          }
-          break;
+            break;
+        }
+        entry.autodrain();
       }
-      entry.autodrain();
-    }
 
-    for (const { sheetNo, path, tempFileCleanupCallback } of waitingWorkSheets) {
-      let fileStream: any = fs.createReadStream(path);
-      // TODO: Remove once node v8 is deprecated
-      // Detect and upgrade old fileStreams
-      if (!fileStream[Symbol.asyncIterator]) {
-        fileStream = fileStream.pipe(new PassThrough());
+      for (const { sheetNo, path, tempFileCleanupCallback } of waitingWorkSheets) {
+        let fileStream: any = fs.createReadStream(path);
+        try {
+          // TODO: Remove once node v8 is deprecated
+          // Detect and upgrade old fileStreams
+          if (!fileStream[Symbol.asyncIterator]) {
+            fileStream = fileStream.pipe(new PassThrough());
+          }
+          yield* this._parseWorksheet(fileStream, sheetNo);
+        } finally {
+          // Ensure stream is closed before cleanup
+          if (fileStream.close) {
+            fileStream.close();
+          }
+          tempFileCleanupCallback();
+        }
       }
-      yield* this._parseWorksheet(fileStream, sheetNo);
-      tempFileCleanupCallback();
+    } catch (error) {
+      // Clean up any remaining temp files on error
+      for (const { tempFileCleanupCallback } of waitingWorkSheets) {
+        tempFileCleanupCallback();
+      }
+      throw error;
     }
   }
 
