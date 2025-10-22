@@ -278,8 +278,12 @@ class WorkbookReader extends EventEmitter {
 
     for (const {sheetNo, path, tempFileCleanupCallback} of waitingWorkSheets) {
       const fileStream = fs.createReadStream(path);
-      yield* this._parseWorksheet(fileStream, sheetNo);
-      tempFileCleanupCallback();
+      try {
+        yield* this._parseWorksheet(fileStream, sheetNo);
+      } finally {
+        fileStream.close();
+        tempFileCleanupCallback();
+      }
     }
   }
 

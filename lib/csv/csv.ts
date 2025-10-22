@@ -59,9 +59,14 @@ class CSV {
       throw new Error(`File not found: ${filename}`);
     }
     const stream = fs.createReadStream(filename);
-    const worksheet = await this.read(stream, options);
-    stream.close();
-    return worksheet;
+    try {
+      const worksheet = await this.read(stream, options);
+      stream.close();
+      return worksheet;
+    } catch (error) {
+      stream.close();
+      throw error;
+    }
   }
 
   read(stream: any, options?: ReadOptions): Promise<any> {

@@ -10,36 +10,47 @@ interface Readable extends EventEmitter {
 
 async function* iterateStream(stream: Readable): AsyncGenerator<any> {
   const contents: any[] = [];
-  stream.on('data', data => contents.push(data));
+  
+  const onData = (data: any) => contents.push(data);
+  stream.on('data', onData);
 
   let resolveStreamEndedPromise: () => void;
   const streamEndedPromise = new Promise<void>(resolve => (resolveStreamEndedPromise = resolve));
 
   let ended = false;
-  stream.on('end', () => {
+  const onEnd = () => {
     ended = true;
     resolveStreamEndedPromise!();
-  });
+  };
+  stream.on('end', onEnd);
 
   let error: Error | false = false;
-  stream.on('error', (err: Error) => {
+  const onError = (err: Error) => {
     error = err;
     resolveStreamEndedPromise!();
-  });
+  };
+  stream.on('error', onError);
 
-  while (!ended || contents.length > 0) {
-    if (contents.length === 0) {
-      stream.resume();
-      // eslint-disable-next-line no-await-in-loop
-      await Promise.race([once(stream, 'data'), streamEndedPromise]);
-    } else {
-      stream.pause();
-      const data = contents.shift();
-      yield data;
+  try {
+    while (!ended || contents.length > 0) {
+      if (contents.length === 0) {
+        stream.resume();
+        // eslint-disable-next-line no-await-in-loop
+        await Promise.race([once(stream, 'data'), streamEndedPromise]);
+      } else {
+        stream.pause();
+        const data = contents.shift();
+        yield data;
+      }
+      if (error) throw error;
     }
-    if (error) throw error;
+  } finally {
+    // Clean up listeners
+    stream.removeListener('data', onData);
+    stream.removeListener('end', onEnd);
+    stream.removeListener('error', onError);
+    resolveStreamEndedPromise!();
   }
-  resolveStreamEndedPromise!();
 }
 
 function once(eventEmitter: EventEmitter, type: string): Promise<void> {
