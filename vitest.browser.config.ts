@@ -7,19 +7,19 @@ export default defineConfig({
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
     alias: {
-      // 使用浏览器版本的库
+      // Use browser version of the library
       './exceljs.nodejs': './exceljs.browser',
       buffer: 'buffer',
     },
   },
   optimizeDeps: {
-    exclude: ['@aws-sdk/client-s3'], // 排除 AWS SDK
+    exclude: ['@aws-sdk/client-s3'], // Exclude AWS SDK
     include: ['buffer'],
   },
   define: {
-    global: 'globalThis', // 在浏览器中 global 等同于 globalThis
+    global: 'globalThis', // In browser, global equals globalThis
     'global.Buffer': Buffer,
-    require: '(m => m)', // 简单的 require polyfill
+    require: '(m => m)', // Simple require polyfill
   },
   test: {
     globals: true,

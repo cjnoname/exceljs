@@ -10,7 +10,7 @@ export default defineConfig({
     globals: true,
     environment: 'node',
     include: ['spec/**/*.vitest.spec.ts'],
-    exclude: ['spec/browser/**/*.vitest.spec.ts'], // 排除浏览器测试
+    exclude: ['spec/browser/**/*.vitest.spec.ts'],
   },
 });
 
