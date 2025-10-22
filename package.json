@@ -111,7 +111,6 @@
     "uuid": "^13.0.0"
   },
   "devDependencies": {
-    "@types/archiver": "^6.0.3",
     "@types/node": "^24.9.1",
     "@types/tmp": "^0.2.6",
     "@typescript/native-preview": "^7.0.0-dev.20251021.1",

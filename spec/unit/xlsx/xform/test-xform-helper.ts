@@ -14,21 +14,16 @@ const { cloneDeep, each } = underDash;
 const xmlParser = new XMLParser({
   ignoreAttributes: false,
   attributeNamePrefix: '@_',
-  textNodeName: '#text',
-  preserveOrder: false, // Key: ignore element ordering
-  trimValues: true,
   parseTagValue: false,
-  parseAttributeValue: false,
+  trimValues: false,
 });
 
-// Normalize XML by parsing and rebuilding - handles formatting, attribute order, and element order
 function normalizeXml(xml: string): string {
   try {
-    // Parse XML to object (this normalizes everything)
+    // Parse XML to object (this normalizes element order by converting to object structure)
     const parsed = xmlParser.parse(xml);
     
-    // Convert back to consistent string representation
-    // We'll use JSON.stringify with sorted keys for reliable comparison
+    // Convert to JSON for comparison - element order doesn't matter in objects
     return JSON.stringify(parsed, Object.keys(parsed).sort());
   } catch (error) {
     // Fallback to string comparison if parsing fails
