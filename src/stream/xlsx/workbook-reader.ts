@@ -114,7 +114,10 @@ class WorkbookReader extends EventEmitter {
       for await (const entry of iterateStream(zip)) {
         let match;
         let sheetNo;
-        switch (entry.path) {
+        // Normalize path: remove leading slash if present
+        const normalizedPath = entry.path.startsWith('/') ? entry.path.slice(1) : entry.path;
+        // console.log('Entry path:', entry.path, '-> normalized:', normalizedPath);
+        switch (normalizedPath) {
           case '_rels/.rels':
             break;
           case 'xl/_rels/workbook.xml.rels':
@@ -132,8 +135,8 @@ class WorkbookReader extends EventEmitter {
             await this._parseStyles(entry);
             break;
           default:
-            if (entry.path.match(/xl\/worksheets\/sheet\d+[.]xml/)) {
-              match = entry.path.match(/xl\/worksheets\/sheet(\d+)[.]xml/);
+            if (normalizedPath.match(/xl\/worksheets\/sheet\d+[.]xml/)) {
+              match = normalizedPath.match(/xl\/worksheets\/sheet(\d+)[.]xml/);
               sheetNo = match![1];
               if (this.sharedStrings && this.workbookRels) {
                 yield* this._parseWorksheet(iterateStream(entry), sheetNo);
@@ -159,8 +162,8 @@ class WorkbookReader extends EventEmitter {
                   });
                 });
               }
-            } else if (entry.path.match(/xl\/worksheets\/_rels\/sheet\d+[.]xml.rels/)) {
-              match = entry.path.match(/xl\/worksheets\/_rels\/sheet(\d+)[.]xml.rels/);
+            } else if (normalizedPath.match(/xl\/worksheets\/_rels\/sheet\d+[.]xml.rels/)) {
+              match = normalizedPath.match(/xl\/worksheets\/_rels\/sheet(\d+)[.]xml.rels/);
               sheetNo = match![1];
               yield* this._parseHyperlinks(iterateStream(entry), sheetNo);
             }
@@ -231,6 +234,7 @@ class WorkbookReader extends EventEmitter {
     let richText: any[] = [];
     let index = 0;
     let font: any = null;
+    let inRichText = false;
     for await (const events of parseSax(iterateStream(entry))) {
       for (const { eventType, value } of events) {
         if (eventType === 'opentag') {
@@ -248,7 +252,7 @@ class WorkbookReader extends EventEmitter {
               font = font || {};
               font.color = {};
               if (node.attributes.rgb) {
-                font.color.argb = node.attributes.argb;
+                font.color.argb = node.attributes.rgb;
               }
               if (node.attributes.val) {
                 font.color.argb = node.attributes.val;
@@ -271,18 +275,24 @@ class WorkbookReader extends EventEmitter {
               break;
             case 'rFont':
               font = font || {};
-              font.name = node.value;
+              font.name = node.attributes.val;
+              break;
+            case 'r':
+              inRichText = true;
               break;
             case 'si':
               font = null;
               richText = [];
               text = null;
+              inRichText = false;
               break;
             case 'sz':
               font = font || {};
               font.size = parseInt(node.attributes.val, 10);
               break;
             case 'strike':
+              font = font || {};
+              font.strike = true;
               break;
             case 't':
               text = null;
@@ -302,24 +312,26 @@ class WorkbookReader extends EventEmitter {
           const node = value;
           switch (node.name) {
             case 'r':
-              richText.push({
-                font,
-                text,
-              });
-
-              font = null;
-              text = null;
+              if (inRichText) {
+                richText.push({
+                  font,
+                  text,
+                });
+                font = null;
+                text = null;
+              }
               break;
             case 'si':
               if (this.options.sharedStrings === 'cache') {
-                this.sharedStrings!.push(richText.length ? { richText } : text);
+                this.sharedStrings!.push(richText.length ? { richText } : text || '');
               } else if (this.options.sharedStrings === 'emit') {
-                yield { index: index++, text: richText.length ? { richText } : text };
+                yield { index: index++, text: richText.length ? { richText } : text || '' };
               }
 
               richText = [];
               font = null;
               text = null;
+              inRichText = false;
               break;
           }
         }
