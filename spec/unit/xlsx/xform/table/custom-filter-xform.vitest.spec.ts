@@ -1,5 +1,5 @@
 import { describe } from 'vitest';
-import testXformHelper from '../test-xform-helper.ts';
+import testXformHelper from '../test-xform-helper';
 
 import CustomFilterXform from '../../../../../lib/xlsx/xform/table/custom-filter-xform.js';
 

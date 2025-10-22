@@ -2,7 +2,7 @@ import fs from 'fs';
 import { describe, it, expect } from 'vitest';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
-import testXformHelper, { normalizeXml } from '../test-xform-helper.ts';
+import testXformHelper, { normalizeXml } from '../test-xform-helper';
 
 import StylesXform from '../../../../../lib/xlsx/xform/style/styles-xform.js';
 import XmlStream from '../../../../../lib/utils/xml-stream.js';

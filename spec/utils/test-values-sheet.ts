@@ -1,5 +1,5 @@
 import tools from './tools';
-import ExcelJS from '../../index.js';
+import ExcelJS, { ValueType } from '../../index.js';
 import testValuesJson from './data/sheet-values.json' with { type: 'json' };
 import stylesJson from './data/styles.json' with { type: 'json' };
 import propertiesJson from './data/sheet-properties.json' with { type: 'json' };
@@ -146,98 +146,98 @@ const self = {
     }
 
     expect(ws.getCell('A1').value).toBe(7);
-    expect(ws.getCell('A1').type).toBe(ExcelJS.ValueType.Number);
+    expect(ws.getCell('A1').type).toBe(ValueType.Number);
     expect(ws.getCell('B1').value).toBe(self.testValues.str);
-    expect(ws.getCell('B1').type).toBe(ExcelJS.ValueType.String);
+    expect(ws.getCell('B1').type).toBe(ValueType.String);
     expect(
       Math.abs(
         ws.getCell('C1').value.getTime() - self.testValues.date.getTime()
       )
     ).to.be.below(options.dateAccuracy);
-    expect(ws.getCell('C1').type).toBe(ExcelJS.ValueType.Date);
+    expect(ws.getCell('C1').type).toBe(ValueType.Date);
 
     if (options.checkFormulas) {
       expect(ws.getCell('D1').value).toEqual(self.testValues.formulas[0]);
-      expect(ws.getCell('D1').type).toBe(ExcelJS.ValueType.Formula);
+      expect(ws.getCell('D1').type).toBe(ValueType.Formula);
       expect(ws.getCell('E1').value.formula).to.equal(
         self.testValues.formulas[1].formula
       );
       expect(ws.getCell('E1').value.value).toBeUndefined();
-      expect(ws.getCell('E1').type).toBe(ExcelJS.ValueType.Formula);
+      expect(ws.getCell('E1').type).toBe(ValueType.Formula);
       expect(ws.getCell('F1').value).toEqual(self.testValues.hyperlink);
-      expect(ws.getCell('F1').type).toBe(ExcelJS.ValueType.Hyperlink);
+      expect(ws.getCell('F1').type).toBe(ValueType.Hyperlink);
       expect(ws.getCell('G1').value).toBe(self.testValues.str2);
     } else {
       expect(ws.getCell('D1').value).to.equal(
         self.testValues.formulas[0].result
       );
-      expect(ws.getCell('D1').type).toBe(ExcelJS.ValueType.Number);
+      expect(ws.getCell('D1').type).toBe(ValueType.Number);
       expect(ws.getCell('E1').value).toBeNull();
-      expect(ws.getCell('E1').type).toBe(ExcelJS.ValueType.Null);
+      expect(ws.getCell('E1').type).toBe(ValueType.Null);
       expect(ws.getCell('F1').value).to.deep.equal(
         self.testValues.hyperlink.hyperlink
       );
-      expect(ws.getCell('F1').type).toBe(ExcelJS.ValueType.String);
+      expect(ws.getCell('F1').type).toBe(ValueType.String);
       expect(ws.getCell('G1').value).toBe(self.testValues.str2);
     }
 
     expect(ws.getCell('H1').value).toBe(self.testValues.json.string);
-    expect(ws.getCell('H1').type).toBe(ExcelJS.ValueType.String);
+    expect(ws.getCell('H1').type).toBe(ValueType.String);
 
     expect(ws.getCell('I1').value).toBe(true);
-    expect(ws.getCell('I1').type).toBe(ExcelJS.ValueType.Boolean);
+    expect(ws.getCell('I1').type).toBe(ValueType.Boolean);
     expect(ws.getCell('J1').value).toBe(false);
-    expect(ws.getCell('J1').type).toBe(ExcelJS.ValueType.Boolean);
+    expect(ws.getCell('J1').type).toBe(ValueType.Boolean);
 
     expect(ws.getCell('K1').value).to.deep.equal(
       self.testValues.Errors.NotApplicable
     );
-    expect(ws.getCell('K1').type).toBe(ExcelJS.ValueType.Error);
+    expect(ws.getCell('K1').type).toBe(ValueType.Error);
     expect(ws.getCell('L1').value).toEqual(self.testValues.Errors.Value);
-    expect(ws.getCell('L1').type).toBe(ExcelJS.ValueType.Error);
+    expect(ws.getCell('L1').type).toBe(ValueType.Error);
 
     // A2:B3
     expect(ws.getCell('A2').value).toBe(5);
-    expect(ws.getCell('A2').type).toBe(ExcelJS.ValueType.Number);
+    expect(ws.getCell('A2').type).toBe(ValueType.Number);
     expect(ws.getCell('A2').master).toBe(ws.getCell('A2'));
 
     if (options.checkMerges) {
       expect(ws.getCell('A3').value).toBe(5);
-      expect(ws.getCell('A3').type).toBe(ExcelJS.ValueType.Merge);
+      expect(ws.getCell('A3').type).toBe(ValueType.Merge);
       expect(ws.getCell('A3').master).toBe(ws.getCell('A2'));
 
       expect(ws.getCell('B2').value).toBe(5);
-      expect(ws.getCell('B2').type).toBe(ExcelJS.ValueType.Merge);
+      expect(ws.getCell('B2').type).toBe(ValueType.Merge);
       expect(ws.getCell('B2').master).toBe(ws.getCell('A2'));
 
       expect(ws.getCell('B3').value).toBe(5);
-      expect(ws.getCell('B3').type).toBe(ExcelJS.ValueType.Merge);
+      expect(ws.getCell('B3').type).toBe(ValueType.Merge);
       expect(ws.getCell('B3').master).toBe(ws.getCell('A2'));
 
       // C2:D3
       expect(ws.getCell('C2').value).toBeNull();
-      expect(ws.getCell('C2').type).toBe(ExcelJS.ValueType.Null);
+      expect(ws.getCell('C2').type).toBe(ValueType.Null);
       expect(ws.getCell('C2').master).toBe(ws.getCell('C2'));
 
       expect(ws.getCell('D2').value).toBeNull();
-      expect(ws.getCell('D2').type).toBe(ExcelJS.ValueType.Merge);
+      expect(ws.getCell('D2').type).toBe(ValueType.Merge);
       expect(ws.getCell('D2').master).toBe(ws.getCell('C2'));
 
       expect(ws.getCell('C3').value).toBeNull();
-      expect(ws.getCell('C3').type).toBe(ExcelJS.ValueType.Merge);
+      expect(ws.getCell('C3').type).toBe(ValueType.Merge);
       expect(ws.getCell('C3').master).toBe(ws.getCell('C2'));
 
       expect(ws.getCell('D3').value).toBeNull();
-      expect(ws.getCell('D3').type).toBe(ExcelJS.ValueType.Merge);
+      expect(ws.getCell('D3').type).toBe(ValueType.Merge);
       expect(ws.getCell('D3').master).toBe(ws.getCell('C2'));
     }
 
     if (options.checkStyles) {
       expect(ws.getCell('A4').numFmt).toBe(self.testValues.numFmt1);
-      expect(ws.getCell('A4').type).toBe(ExcelJS.ValueType.Number);
+      expect(ws.getCell('A4').type).toBe(ValueType.Number);
       expect(ws.getCell('A4').border).toEqual(self.styles.borders.thin);
       expect(ws.getCell('C4').numFmt).toBe(self.testValues.numFmt2);
-      expect(ws.getCell('C4').type).toBe(ExcelJS.ValueType.Number);
+      expect(ws.getCell('C4').type).toBe(ValueType.Number);
       expect(ws.getCell('C4').border).to.deep.equal(
         self.styles.borders.doubleRed
       );
@@ -247,27 +247,27 @@ const self = {
 
       // test fonts and formats
       expect(ws.getCell('A5').value).toBe(self.testValues.str);
-      expect(ws.getCell('A5').type).toBe(ExcelJS.ValueType.String);
+      expect(ws.getCell('A5').type).toBe(ValueType.String);
       expect(ws.getCell('B5').value).toBe(self.testValues.str);
-      expect(ws.getCell('B5').type).toBe(ExcelJS.ValueType.String);
+      expect(ws.getCell('B5').type).toBe(ValueType.String);
       expect(ws.getCell('B5').font).to.deep.equal(
         self.styles.fonts.broadwayRedOutline20
       );
       expect(ws.getCell('C5').value).toBe(self.testValues.str);
-      expect(ws.getCell('C5').type).toBe(ExcelJS.ValueType.String);
+      expect(ws.getCell('C5').type).toBe(ValueType.String);
       expect(ws.getCell('C5').font).to.deep.equal(
         self.styles.fonts.comicSansUdB16
       );
 
       expect(Math.abs(ws.getCell('D5').value - 1.6)).to.be.below(0.00000001);
-      expect(ws.getCell('D5').type).toBe(ExcelJS.ValueType.Number);
+      expect(ws.getCell('D5').type).toBe(ValueType.Number);
       expect(ws.getCell('D5').numFmt).toBe(self.testValues.numFmt1);
       expect(ws.getCell('D5').font).to.deep.equal(
         self.styles.fonts.arialBlackUI14
       );
 
       expect(Math.abs(ws.getCell('E5').value - 1.6)).to.be.below(0.00000001);
-      expect(ws.getCell('E5').type).toBe(ExcelJS.ValueType.Number);
+      expect(ws.getCell('E5').type).toBe(ValueType.Number);
       expect(ws.getCell('E5').numFmt).toBe(self.testValues.numFmt2);
       expect(ws.getCell('E5').font).to.deep.equal(
         self.styles.fonts.broadwayRedOutline20
@@ -278,7 +278,7 @@ const self = {
           ws.getCell('F5').value.getTime() - self.testValues.date.getTime()
         )
       ).to.be.below(options.dateAccuracy);
-      expect(ws.getCell('F5').type).toBe(ExcelJS.ValueType.Date);
+      expect(ws.getCell('F5').type).toBe(ValueType.Date);
       expect(ws.getCell('F5').numFmt).toBe(self.testValues.numFmtDate);
       expect(ws.getCell('F5').font).to.deep.equal(
         self.styles.fonts.comicSansUdB16
@@ -320,7 +320,7 @@ const self = {
       if (options.checkFormulas) {
         // Shared Formula
         expect(ws.getCell('A9').value).toBe(1);
-        expect(ws.getCell('A9').type).toBe(ExcelJS.ValueType.Number);
+        expect(ws.getCell('A9').type).toBe(ValueType.Number);
 
         expect(ws.getCell('B9').value).to.deep.equal({
           shareType: 'shared',
@@ -328,14 +328,14 @@ const self = {
           formula: 'A9+1',
           result: 2,
         });
-        expect(ws.getCell('B9').type).toBe(ExcelJS.ValueType.Formula);
+        expect(ws.getCell('B9').type).toBe(ValueType.Formula);
 
         ['C9', 'D9', 'E9'].forEach((address, index) => {
           expect(ws.getCell(address).value).to.deep.equal({
             sharedFormula: 'B9',
             result: index + 3,
           });
-          expect(ws.getCell(address).type).toBe(ExcelJS.ValueType.Formula);
+          expect(ws.getCell(address).type).toBe(ValueType.Formula);
         });
 
         if (ws.getCell('A10').value) {
@@ -369,7 +369,7 @@ const self = {
       } else {
         ['A9', 'B9', 'C9', 'D9', 'E9'].forEach((address, index) => {
           expect(ws.getCell(address).value).toBe(index + 1);
-          expect(ws.getCell(address).type).toBe(ExcelJS.ValueType.Number);
+          expect(ws.getCell(address).type).toBe(ValueType.Number);
         });
       }
     }

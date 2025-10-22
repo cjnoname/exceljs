@@ -1,5 +1,6 @@
 import { defineConfig } from 'rolldown';
 import fs from 'fs';
+import { visualizer } from 'rollup-plugin-visualizer';
 
 const banner = `/*! ExcelJS ${new Date().toLocaleDateString('en-GB').replace(/\//g, '-')} */`;
 
@@ -109,6 +110,14 @@ export default defineConfig([
       sourcemap: true,
       banner,
     },
-    plugins: getPlugins(false),
+    plugins: [
+      ...getPlugins(false),
+      visualizer({
+        filename: './dist/stats.html',
+        open: true,
+        gzipSize: true,
+        brotliSize: true,
+      }),
+    ],
   },
 ]);

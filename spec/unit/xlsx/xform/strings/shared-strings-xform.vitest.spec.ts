@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { describe } from 'vitest';
-import testXformHelper from '../test-xform-helper.ts';
+import testXformHelper from '../test-xform-helper';
 
 import SharedStringsXform from '../../../../../lib/xlsx/xform/strings/shared-strings-xform.js';
 

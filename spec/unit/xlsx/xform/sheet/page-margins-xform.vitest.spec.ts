@@ -1,5 +1,5 @@
 import { describe } from 'vitest';
-import testXformHelper from '../test-xform-helper.ts';
+import testXformHelper from '../test-xform-helper';
 
 import PageMarginsXform from '../../../../../lib/xlsx/xform/sheet/page-margins-xform.js';
 

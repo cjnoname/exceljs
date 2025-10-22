@@ -17,7 +17,7 @@ describe('github issues', () => {
       .writeFile(TEST_CSV_FILE_NAME, options)
       .then(() => {
         const ws2 = new ExcelJS.Workbook();
-        return ws2.csv.readFile(TEST_CSV_FILE_NAME, options);
+        return ws2.csv.readFile(TEST_CSV_FILE_NAME);
       })
       .then(ws2 => {
         expect(ws2.getCell('A1').value).toBe(HEBREW_TEST_STRING);

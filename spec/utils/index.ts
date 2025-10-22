@@ -66,7 +66,7 @@ const testUtils = {
   conditionalFormatting: tools.fix(conditionalFormattingData),
   headerFooter: tools.fix(headerFooter),
 
-  createTestBook(workbook, docType, sheets) {
+  createTestBook(workbook: any, docType?: string, sheets?: string[]) {
     const options = getOptions(docType);
     sheets = sheets || ['values'];
 
@@ -82,7 +82,7 @@ const testUtils = {
     return workbook;
   },
 
-  checkTestBook(workbook, docType, sheets, options) {
+  checkTestBook(workbook: any, docType?: string, sheets?: string[], options?: any) {
     options = getOptions(docType, options);
     sheets = sheets || ['values'];
 

@@ -245,8 +245,9 @@ class WorksheetWriter {
       // eslint-disable-next-line no-underscore-dangle
       this._stream = this._workbook._openStream(`/xl/worksheets/sheet${this.id}.xml`);
 
-      // pause stream to prevent 'data' events
-      this._stream.pause();
+      // DO NOT pause stream - fflate migration requires data events to flow
+      // The stream uses 'data' events to pipe to ZipPassThrough
+      // this._stream.pause();
     }
     return this._stream;
   }

@@ -498,7 +498,7 @@ describe('Workbook', () => {
             .then(() => wb2);
         })
         .then((wb2: any) => {
-          testUtils.checkTestBook(wb2, 'csv', false, writeOptions);
+          testUtils.checkTestBook(wb2, 'csv', undefined, writeOptions);
         });
     });
 

@@ -24,7 +24,7 @@ describe('github issues', () => {
 
     await workbook.commit();
 
-    return new Promise((resolve, reject) => {
+    return new Promise<void>((resolve, reject) => {
       const workbookReader = new ExcelJS.stream.xlsx.WorkbookReader(
         './test.xlsx',
         {

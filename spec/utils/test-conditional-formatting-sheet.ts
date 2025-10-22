@@ -1,5 +1,5 @@
 import tools from './tools';
-import conditionalFormattingJson from './data/conditional-formatting' with { type: 'json' };
+import conditionalFormattingJson from './data/conditional-formatting.json' with { type: 'json' };
 import { expect } from 'vitest';
 
 const self = {

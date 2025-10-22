@@ -1,5 +1,5 @@
 import { describe } from 'vitest';
-import testXformHelper from '../../test-xform-helper.ts';
+import testXformHelper from '../../test-xform-helper';
 
 import DatabarExtXform from '../../../../../../lib/xlsx/xform/sheet/cf-ext/databar-ext-xform.js';
 

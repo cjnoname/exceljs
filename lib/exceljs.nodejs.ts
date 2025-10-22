@@ -21,3 +21,4 @@ export default ExcelJS;
 
 export { Workbook, ModelContainer, WorkbookWriter, WorkbookReader };
 export * from './doc/enums.js';
+export const stream = ExcelJS.stream;

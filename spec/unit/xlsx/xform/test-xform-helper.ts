@@ -1,8 +1,8 @@
 import { PassThrough } from 'stream';
 import { expect } from 'vitest';
 import { XMLParser } from 'fast-xml-parser';
-import underDash from '../../../utils/under-dash.ts';
-import CompyXform from './compy-xform.ts';
+import underDash from '../../../utils/under-dash';
+import CompyXform from './compy-xform';
 
 import parseSax from '../../../../lib/utils/parse-sax.js';
 import XmlStream from '../../../../lib/utils/xml-stream.js';

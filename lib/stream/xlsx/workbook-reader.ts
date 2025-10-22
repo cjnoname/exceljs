@@ -2,7 +2,7 @@ import fs from 'fs';
 import {EventEmitter} from 'events';
 import {PassThrough, Readable} from 'readable-stream';
 import nodeStream from 'stream';
-import unzip from 'unzipper';
+import {Unzip, UnzipFile, UnzipInflate} from 'fflate';
 import tmp from 'tmp';
 import iterateStream from '../../utils/iterate-stream.js';
 import parseSax from '../../utils/parse-sax.js';
@@ -102,18 +102,99 @@ class WorkbookReader extends EventEmitter {
   async *parse(input?: any, options?: WorkbookReaderOptions): AsyncIterableIterator<{eventType: string; value: any}> {
     if (options) this.options = options;
     const stream = (this.stream = this._getStream(input || this.input));
-    const zip = unzip.Parse({forceStream: true});
-    stream.pipe(zip);
+    
+    // Collect all chunks from the input stream
+    const chunks: Buffer[] = [];
+    for await (const chunk of stream) {
+      chunks.push(chunk);
+    }
+    const buffer = Buffer.concat(chunks);
+
+    // Use fflate's Unzip to extract all files
+    const allFiles: Record<string, Uint8Array> = {};
+    
+    await new Promise<void>((resolve, reject) => {
+      let filesProcessed = 0;
+      let zipEnded = false;
+      let filesStarted = 0;
+      
+      const checkCompletion = () => {
+        if (zipEnded && filesProcessed === filesStarted) {
+          resolve();
+        }
+      };
+      
+      const unzipper = new Unzip((file: UnzipFile) => {
+        filesStarted++;
+        const fileChunks: Uint8Array[] = [];
+        let totalLength = 0;
+        
+        file.ondata = (err, data, final) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+          if (data) {
+            fileChunks.push(data);
+            totalLength += data.length;
+          }
+          if (final) {
+            // Concatenate all chunks efficiently
+            const fullData = new Uint8Array(totalLength);
+            let offset = 0;
+            for (const chunk of fileChunks) {
+              fullData.set(chunk, offset);
+              offset += chunk.length;
+            }
+            allFiles[file.name] = fullData;
+            filesProcessed++;
+            // Clear chunks array to help GC
+            fileChunks.length = 0;
+            checkCompletion();
+          }
+        };
+        file.start();
+      });
+      
+      // Register deflate decompressor (compression type 8)
+      unzipper.register(UnzipInflate);
+      
+      unzipper.push(buffer, true);
+      zipEnded = true;
+      checkCompletion();
+    });
 
     // worksheets, deferred for parsing after shared strings reading
     const waitingWorkSheets: WaitingWorksheet[] = [];
 
-    for await (const entry of zip) {
+    // Sort files to ensure critical files are processed first
+    // This is important because worksheets depend on sharedStrings and workbookRels
+    const sortedFiles = Object.entries(allFiles).sort(([pathA], [pathB]) => {
+      // Priority order: _rels, workbook, sharedStrings, styles, then worksheets
+      const getPriority = (path: string) => {
+        if (path === '_rels/.rels') return 0;
+        if (path === 'xl/_rels/workbook.xml.rels') return 1;
+        if (path === 'xl/workbook.xml') return 2;
+        if (path === 'xl/sharedStrings.xml') return 3;
+        if (path === 'xl/styles.xml') return 4;
+        if (path.match(/xl\/worksheets\/sheet\d+[.]xml/)) return 100;
+        return 50; // Other files in the middle
+      };
+      return getPriority(pathA) - getPriority(pathB);
+    });
+
+    for (const [path, data] of sortedFiles) {
       let match;
       let sheetNo;
-      let entryConsumed = false; // Track if entry stream was consumed
       
-      switch (entry.path) {
+      // Normalize path - remove leading slash for consistency
+      const normalizedPath = path.startsWith('/') ? path.substring(1) : path;
+      
+      // Create a readable stream from the data buffer
+      // Using Readable.from() ensures data is available when consumed
+      const entry = Readable.from([Buffer.from(data)]);
+      
+      switch (normalizedPath) {
         case '_rels/.rels':
           break;
         case 'xl/_rels/workbook.xml.rels':
@@ -131,41 +212,34 @@ class WorkbookReader extends EventEmitter {
           await this._parseStyles(entry);
           break;
         default:
-          if (entry.path.match(/xl\/worksheets\/sheet\d+[.]xml/)) {
-            match = entry.path.match(/xl\/worksheets\/sheet(\d+)[.]xml/);
+          if (normalizedPath.match(/xl\/worksheets\/sheet\d+[.]xml/)) {
+            match = normalizedPath.match(/xl\/worksheets\/sheet(\d+)[.]xml/);
             sheetNo = match![1];
             if (this.sharedStrings && this.workbookRels) {
               yield* this._parseWorksheet(iterateStream(entry), sheetNo);
             } else {
               // create temp file for each worksheet
-              entryConsumed = true; // Entry will be consumed manually
               await new Promise<void>((resolve, reject) => {
-                tmp.file((err: any, path: string, fd: number, tempFileCleanupCallback: () => void) => {
+                tmp.file((err: any, tmpPath: string, fd: number, tempFileCleanupCallback: () => void) => {
                   if (err) {
                     return reject(err);
                   }
-                  waitingWorkSheets.push({sheetNo, path, tempFileCleanupCallback});
+                  waitingWorkSheets.push({sheetNo, path: tmpPath, tempFileCleanupCallback});
 
-                  const tempStream = fs.createWriteStream(path);
+                  const tempStream = fs.createWriteStream(tmpPath);
                   tempStream.on('error', reject);
                   tempStream.on('finish', resolve);
-                  
-                  // Manually consume entry instead of using pipe
-                  entry.on('data', (chunk: any) => tempStream.write(chunk));
-                  entry.on('end', () => tempStream.end());
-                  entry.on('error', reject);
+                  tempStream.write(Buffer.from(data));
+                  tempStream.end();
                 });
               });
             }
-          } else if (entry.path.match(/xl\/worksheets\/_rels\/sheet\d+[.]xml.rels/)) {
-            match = entry.path.match(/xl\/worksheets\/_rels\/sheet(\d+)[.]xml.rels/);
+          } else if (normalizedPath.match(/xl\/worksheets\/_rels\/sheet\d+[.]xml.rels/)) {
+            match = normalizedPath.match(/xl\/worksheets\/_rels\/sheet(\d+)[.]xml.rels/);
             sheetNo = match![1];
             yield* this._parseHyperlinks(iterateStream(entry), sheetNo);
           }
           break;
-      }
-      if (!entryConsumed) {
-        entry.autodrain();
       }
     }
 

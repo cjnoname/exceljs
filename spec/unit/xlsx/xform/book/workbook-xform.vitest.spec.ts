@@ -2,7 +2,7 @@ import { describe } from 'vitest';
 import { readFileSync } from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
-import testXformHelper from '../test-xform-helper.ts';
+import testXformHelper from '../test-xform-helper';
 
 import WorkbookXform from '../../../../../lib/xlsx/xform/book/workbook-xform.js';
 

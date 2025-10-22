@@ -1,5 +1,5 @@
 import fs from 'fs';
-import Archiver from 'archiver';
+import {Zip, ZipPassThrough} from 'fflate';
 
 import StreamBuf from '../../utils/stream-buf.js';
 
@@ -76,7 +76,18 @@ class WorkbookWriter {
     this.media = [];
     this.commentRefs = [];
 
-    this.zip = Archiver('zip', this.zipOptions);
+    // Create fflate Zip instance
+    this.zip = new Zip((err, data, final) => {
+      if (err) {
+        this.stream.emit('error', err);
+      } else {
+        this.stream.write(Buffer.from(data));
+        if (final) {
+          this.stream.end();
+        }
+      }
+    });
+    
     if (options.stream) {
       this.stream = options.stream;
     } else if (options.filename) {
@@ -84,7 +95,6 @@ class WorkbookWriter {
     } else {
       this.stream = new StreamBuf();
     }
-    this.zip.pipe(this.stream);
 
     // these bits can be added right now
     this.promise = Promise.all([this.addThemes(), this.addOfficeRels()]);
@@ -96,11 +106,51 @@ class WorkbookWriter {
 
   _openStream(path: string): any {
     const stream = new StreamBuf({bufSize: 65536, batch: true});
-    this.zip.append(stream, {name: path});
-    stream.on('finish', () => {
+    
+    // Create a ZipPassThrough for this file
+    const zipFile = new ZipPassThrough(path);
+    this.zip.add(zipFile);
+    
+    // Don't pause the stream - we need data events to flow
+    // The original implementation used archiver which consumed the stream internally
+    // Now we need to manually pipe data to fflate
+    
+    // Pipe stream data to zipFile
+    const onData = (chunk: Buffer) => {
+      zipFile.push(chunk);
+    };
+    
+    const onFinish = () => {
+      zipFile.push(new Uint8Array(0), true); // Signal end
+      // Clean up event listeners to prevent memory leaks
+      stream.removeListener('data', onData);
+      stream.removeListener('finish', onFinish);
       stream.emit('zipped');
-    });
+    };
+    
+    stream.on('data', onData);
+    stream.on('finish', onFinish);
+    
     return stream;
+  }
+
+  _addFile(data: string | Buffer, name: string, base64?: boolean): void {
+    // Helper method to add a file to the zip using fflate
+    const zipFile = new ZipPassThrough(name);
+    this.zip.add(zipFile);
+    
+    let buffer: Uint8Array;
+    if (base64) {
+      // Use Buffer.from for efficient base64 decoding
+      const base64Data = typeof data === 'string' ? data : data.toString();
+      buffer = Buffer.from(base64Data, 'base64');
+    } else if (typeof data === 'string') {
+      buffer = Buffer.from(data, 'utf8');
+    } else {
+      buffer = new Uint8Array(data);
+    }
+    
+    zipFile.push(buffer, true); // true = final chunk
   }
 
   _commitWorksheets(): Promise<void> {
@@ -215,14 +265,14 @@ class WorkbookWriter {
 
   addStyles(): Promise<void> {
     return new Promise(resolve => {
-      this.zip.append(this.styles.xml, {name: 'xl/styles.xml'});
+      this._addFile(this.styles.xml, 'xl/styles.xml');
       resolve();
     });
   }
 
   addThemes(): Promise<void> {
     return new Promise(resolve => {
-      this.zip.append(theme1Xml, {name: 'xl/theme/theme1.xml'});
+      this._addFile(theme1Xml, 'xl/theme/theme1.xml');
       resolve();
     });
   }
@@ -235,7 +285,7 @@ class WorkbookWriter {
         {Id: 'rId2', Type: RelType.CoreProperties, Target: 'docProps/core.xml'},
         {Id: 'rId3', Type: RelType.ExtenderProperties, Target: 'docProps/app.xml'},
       ]);
-      this.zip.append(xml, {name: '/_rels/.rels'});
+      this._addFile(xml, '/_rels/.rels');
       resolve();
     });
   }
@@ -250,26 +300,35 @@ class WorkbookWriter {
       };
       const xform = new ContentTypesXform();
       const xml = xform.toXml(model);
-      this.zip.append(xml, {name: '[Content_Types].xml'});
+      this._addFile(xml, '[Content_Types].xml');
       resolve();
     });
   }
 
   addMedia(): Promise<any> {
     return Promise.all(
-      this.media.map(medium => {
+      this.media.map(async medium => {
         if (medium.type === 'image') {
           const filename = `xl/media/${medium.name}`;
           if (medium.filename) {
-            return this.zip.file(medium.filename, {name: filename});
+            const data = await new Promise<Buffer>((resolve, reject) => {
+              fs.readFile(medium.filename, (err, data) => {
+                if (err) reject(err);
+                else resolve(data);
+              });
+            });
+            this._addFile(data, filename);
+            return;
           }
           if (medium.buffer) {
-            return this.zip.append(medium.buffer, {name: filename});
+            this._addFile(medium.buffer, filename);
+            return Promise.resolve();
           }
           if (medium.base64) {
             const dataimg64 = medium.base64;
             const content = dataimg64.substring(dataimg64.indexOf(',') + 1);
-            return this.zip.append(content, {name: filename, base64: true});
+            this._addFile(content, filename, true);
+            return Promise.resolve();
           }
         }
         throw new Error('Unsupported media');
@@ -284,7 +343,7 @@ class WorkbookWriter {
       };
       const xform = new AppXform();
       const xml = xform.toXml(model);
-      this.zip.append(xml, {name: 'docProps/app.xml'});
+      this._addFile(xml, 'docProps/app.xml');
       resolve();
     });
   }
@@ -293,7 +352,7 @@ class WorkbookWriter {
     return new Promise(resolve => {
       const coreXform = new CoreXform();
       const xml = coreXform.toXml(this);
-      this.zip.append(xml, {name: 'docProps/core.xml'});
+      this._addFile(xml, 'docProps/core.xml');
       resolve();
     });
   }
@@ -303,7 +362,7 @@ class WorkbookWriter {
       return new Promise(resolve => {
         const sharedStringsXform = new SharedStringsXform();
         const xml = sharedStringsXform.toXml(this.sharedStrings);
-        this.zip.append(xml, {name: '/xl/sharedStrings.xml'});
+        this._addFile(xml, '/xl/sharedStrings.xml');
         resolve();
       });
     }
@@ -336,13 +395,12 @@ class WorkbookWriter {
     return new Promise(resolve => {
       const xform = new RelationshipsXform();
       const xml = xform.toXml(relationships);
-      this.zip.append(xml, {name: '/xl/_rels/workbook.xml.rels'});
+      this._addFile(xml, '/xl/_rels/workbook.xml.rels');
       resolve();
     });
   }
 
   addWorkbook(): Promise<void> {
-    const {zip} = this;
     const model = {
       worksheets: this._worksheets.filter(Boolean),
       definedNames: this._definedNames.model,
@@ -354,7 +412,7 @@ class WorkbookWriter {
     return new Promise(resolve => {
       const xform = new WorkbookXform();
       xform.prepare(model);
-      zip.append(xform.toXml(model), {name: '/xl/workbook.xml'});
+      this._addFile(xform.toXml(model), '/xl/workbook.xml');
       resolve();
     });
   }
@@ -365,9 +423,9 @@ class WorkbookWriter {
       this.stream.on('finish', () => {
         resolve(this);
       });
-      this.zip.on('error', reject);
-
-      this.zip.finalize();
+      // fflate Zip doesn't have 'error' event or 'finalize' method
+      // Just end the zip by calling end()
+      this.zip.end();
     });
   }
 }

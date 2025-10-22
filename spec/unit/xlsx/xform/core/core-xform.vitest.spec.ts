@@ -2,7 +2,7 @@ import { describe } from 'vitest';
 import { readFileSync } from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
-import testXformHelper from '../test-xform-helper.ts';
+import testXformHelper from '../test-xform-helper';
 
 import CoreXform from '../../../../../lib/xlsx/xform/core/core-xform.js';
 

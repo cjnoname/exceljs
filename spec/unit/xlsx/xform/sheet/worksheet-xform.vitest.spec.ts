@@ -2,7 +2,7 @@ import fs from 'fs';
 import { describe, it, expect } from 'vitest';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
-import testXformHelper from '../test-xform-helper.ts';
+import testXformHelper from '../test-xform-helper';
 
 import Enums from '../../../../../lib/doc/enums.js';
 import XmlStream from '../../../../../lib/utils/xml-stream.js';

@@ -1,5 +1,5 @@
 import fs from 'fs';
-import JSZip from 'jszip';
+import {unzipSync} from 'fflate';
 import {PassThrough} from 'readable-stream';
 import {ZipWriter} from '../utils/zip-stream.js';
 import StreamBuf from '../utils/stream-buf.js';
@@ -155,6 +155,9 @@ class XLSX {
   async _processWorksheetEntry(stream: any, model: any, sheetNo: number, options: any, path: string): Promise<void> {
     const xform = new WorksheetXform(options);
     const worksheet = await xform.parseStream(stream);
+    if (!worksheet) {
+      throw new Error(`Failed to parse worksheet ${path}`);
+    }
     worksheet.sheetNo = sheetNo;
     model.worksheetHash[path] = worksheet;
     model.worksheets.push(worksheet);
@@ -282,8 +285,23 @@ class XLSX {
       vmlDrawings: {},
     };
 
-    const zip = await JSZip.loadAsync(buffer);
-    for (const entry of Object.values(zip.files)) {
+    // Unzip the buffer using fflate
+    let zipData;
+    try {
+      zipData = unzipSync(new Uint8Array(buffer));
+    } catch (error) {
+      // Wrap fflate errors to match JSZip error messages for compatibility
+      throw new Error("Can't read the data of 'the loaded zip file'. Is it in a supported JavaScript type (String, Blob, ArrayBuffer, etc) ?");
+    }
+    
+    // Convert fflate format to JSZip-like structure for compatibility
+    const entries = Object.keys(zipData).map(name => ({
+      name,
+      dir: name.endsWith('/'),
+      data: zipData[name],
+    }));
+
+    for (const entry of entries) {
       /* eslint-disable no-await-in-loop */
       if (!entry.dir) {
         let entryName = entry.name;
@@ -297,16 +315,16 @@ class XLSX {
           entryName.match(/xl\/theme\/([a-zA-Z0-9]+)[.]xml/)
         ) {
           stream = new PassThrough();
-          stream.write(await entry.async('nodebuffer'));
+          stream.end(Buffer.from(entry.data));
         } else {
           // use object mode to avoid buffer-string convention
           stream = new PassThrough({
             readableObjectMode: true,
             writableObjectMode: true,
           });
-          stream.write(bufferToString(await entry.async('nodebuffer')));
+          const content = bufferToString(Buffer.from(entry.data));
+          stream.end(content);
         }
-        stream.end();
 
         let match: RegExpMatchArray | null;
         match = entryName.match(/xl\/worksheets\/sheet(\d+)[.]xml/);

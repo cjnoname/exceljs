@@ -8,7 +8,7 @@ import path from 'path';
  */
 export function getUniqueTestFilePath(testFilePath: string, extension = '.xlsx'): string {
   // 从测试文件路径提取文件名
-  const fileName = path.basename(testFilePath, '.vitest.spec.ts');
+  const fileName = path.basename(testFilePath, '.vitest.spec');
   return `./spec/out/${fileName}${extension}`;
 }
 
@@ -19,6 +19,6 @@ export function getUniqueTestFilePath(testFilePath: string, extension = '.xlsx')
  * @returns 唯一的测试文件路径
  */
 export function getUniqueTestFilePathCJS(filename: string, extension = '.xlsx'): string {
-  const fileName = path.basename(filename, '.vitest.spec.ts');
+  const fileName = path.basename(filename, '.vitest.spec');
   return `./spec/out/${fileName}${extension}`;
 }
