@@ -1,8 +1,14 @@
 import { defineConfig } from 'rolldown';
 import fs from 'fs';
 import { visualizer } from 'rollup-plugin-visualizer';
+import nodePolyfills from 'node-stdlib-browser';
 
 const banner = `/*! ExcelJS ${new Date().toLocaleDateString('en-GB').replace(/\//g, '-')} */`;
+
+const browserPolyfills = {
+  ...nodePolyfills,
+  vm: false,
+};
 
 const getPlugins = (_minify = false) => {
   const plugins = [];
@@ -23,15 +29,7 @@ export default defineConfig([
       exports: 'named',
     },
     resolve: {
-      alias: {
-        fs: 'memfs',
-        events: 'events',
-        stream: 'stream-browserify',
-        buffer: 'buffer',
-        process: 'process',
-        crypto: 'crypto-browserify',
-        util: 'util',
-      },
+      alias: browserPolyfills,
     },
     transform: {
       inject: {
@@ -65,15 +63,7 @@ export default defineConfig([
       minify: true,
     },
     resolve: {
-      alias: {
-        fs: 'memfs',
-        events: 'events',
-        stream: 'stream-browserify',
-        buffer: 'buffer',
-        process: 'process',
-        crypto: 'crypto-browserify',
-        util: 'util',
-      },
+      alias: browserPolyfills,
     },
     transform: {
       inject: {
@@ -93,15 +83,7 @@ export default defineConfig([
       banner,
     },
     resolve: {
-      alias: {
-        fs: 'memfs',
-        events: 'events',
-        stream: 'stream-browserify',
-        buffer: 'buffer',
-        process: 'process',
-        crypto: 'crypto-browserify',
-        util: 'util',
-      },
+      alias: browserPolyfills,
     },
     transform: {
       inject: {
