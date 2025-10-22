@@ -17,12 +17,12 @@ const getPlugins = (_minify = false) => {
 };
 
 export default defineConfig([
-  // Browser: exceljs.js (for development/debugging with <script> tag)
+  // Browser: exceljs.iife.js (for development/debugging with <script> tag)
   {
     input: './src/index.browser.ts',
     external: ['@aws-sdk/client-s3'],
     output: {
-      file: './dist/exceljs.js',
+      file: './dist/exceljs.iife.js',
       format: 'iife',
       name: 'ExcelJS',
       sourcemap: true,
@@ -51,12 +51,12 @@ export default defineConfig([
       },
     ],
   },
-  // Browser: exceljs.min.js (for production with <script> tag)
+  // Browser: exceljs.iife.min.js (for production with <script> tag)
   {
     input: './src/index.browser.ts',
     external: ['@aws-sdk/client-s3'],
     output: {
-      file: './dist/exceljs.min.js',
+      file: './dist/exceljs.iife.min.js',
       format: 'iife',
       name: 'ExcelJS',
       sourcemap: true,
@@ -75,12 +75,12 @@ export default defineConfig([
     },
     plugins: getPlugins(true),
   },
-  // Browser: exceljs.esm.js (ESM for modern bundlers like Webpack/Vite)
+  // Browser: exceljs.browser.mjs (ESM for modern bundlers like Webpack/Vite)
   {
     input: './src/index.browser.ts',
     external: ['@aws-sdk/client-s3'],
     output: {
-      file: './dist/exceljs.esm.js',
+      file: './dist/exceljs.browser.mjs',
       format: 'esm',
       sourcemap: true,
       banner,
@@ -96,13 +96,13 @@ export default defineConfig([
     },
     plugins: getPlugins(false),
   },
-  // Node.js: CJS bundle for CommonJS projects
+  // Node.js: exceljs.node.cjs (CJS bundle for CommonJS projects)
   {
     input: './src/index.ts',
     platform: 'node',
     external: ['@aws-sdk/client-s3'],
     output: {
-      file: './dist/cjs/index.js',
+      file: './dist/exceljs.node.cjs',
       format: 'cjs',
       sourcemap: true,
       banner,
@@ -110,13 +110,13 @@ export default defineConfig([
     },
     plugins: getPlugins(false),
   },
-  // Node.js: ESM bundle for ES modules projects
+  // Node.js: exceljs.node.mjs (ESM bundle for ES modules projects)
   {
     input: './src/index.ts',
     platform: 'node',
     external: ['@aws-sdk/client-s3'],
     output: {
-      file: './dist/esm/index.js',
+      file: './dist/exceljs.node.mjs',
       format: 'esm',
       sourcemap: true,
       banner,

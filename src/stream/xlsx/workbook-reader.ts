@@ -7,11 +7,9 @@ import { join as pathJoin } from 'path';
 import {Parse} from 'unzipper';
 import iterateStream from '../../utils/iterate-stream.js';
 import parseSax from '../../utils/parse-sax.js';
-
 import StyleManager from '../../xlsx/xform/style/styles-xform.js';
 import WorkbookXform from '../../xlsx/xform/book/workbook-xform.js';
 import RelationshipsXform from '../../xlsx/xform/core/relationships-xform.js';
-
 import WorksheetReader from './worksheet-reader.js';
 import HyperlinkReader from './hyperlink-reader.js';
 

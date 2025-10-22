@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { WorkbookReader } from './dist/esm/index.js';
+import { WorkbookReader } from './dist/exceljs.node.mjs';
 
 const runs = 3;
 
@@ -45,7 +45,7 @@ await runProfiling('huge xlsx file async iteration', async () => {
   console.log(`Processed ${worksheetCount} worksheets and ${rowCount} rows`);
 });
 
-async function runProfiling(name: string, run: () => Promise<void>) {
+async function runProfiling(name, run) {
   console.log('');
   console.log('####################################################');
   console.log(`WARMUP: Current memory usage: ${currentMemoryUsage({ runGarbageCollector: true })} MB`);
@@ -80,7 +80,7 @@ async function runProfiling(name: string, run: () => Promise<void>) {
   }
 }
 
-function currentMemoryUsage({ runGarbageCollector }: { runGarbageCollector: boolean }) {
+function currentMemoryUsage({ runGarbageCollector }) {
   if (runGarbageCollector) global.gc();
   return Math.round((process.memoryUsage().heapUsed / 1024 / 1024) * 100) / 100;
 }

@@ -16,19 +16,16 @@
   "engines": {
     "node": ">=12.0.0"
   },
-  "main": "./dist/cjs/index.js",
-  "module": "./dist/esm/index.js",
-  "types": "./dist/types/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/types/index.d.ts",
       "browser": {
-        "import": "./dist/exceljs.esm.js",
-        "default": "./dist/exceljs.esm.js"
+        "import": "./dist/exceljs.browser.mjs",
+        "default": "./dist/exceljs.browser.mjs"
       },
-      "import": "./dist/esm/index.js",
-      "require": "./dist/cjs/index.js",
-      "default": "./dist/esm/index.js"
+      "import": "./dist/exceljs.node.mjs",
+      "require": "./dist/exceljs.node.cjs",
+      "default": "./dist/exceljs.node.mjs"
     },
     "./package.json": "./package.json"
   },
@@ -58,7 +55,7 @@
     "format": "prettier --write \"**/*.{js,ts,json,md}\"",
     "lint:staged": "lint-staged",
     "clean": "rm -rf build/ && rm -rf dist",
-    "benchmark": "node --expose-gc --import @oxc-node/core/register benchmark.ts",
+    "benchmark": "node --expose-gc benchmark.js",
     "build:types": "tsgo",
     "build:bundle": "rolldown -c rolldown.config.js",
     "build": "npm run build:types && npm run build:bundle",
