@@ -20,7 +20,7 @@ export default defineConfig([
   // Browser: exceljs.js (for development/debugging with <script> tag)
   {
     input: './src/index.browser.ts',
-    external: ['@aws-sdk/client-s3', 'fs', 'path', 'os'],
+    external: ['@aws-sdk/client-s3'],
     output: {
       file: './dist/exceljs.js',
       format: 'iife',
@@ -54,7 +54,7 @@ export default defineConfig([
   // Browser: exceljs.min.js (for production with <script> tag)
   {
     input: './src/index.browser.ts',
-    external: ['@aws-sdk/client-s3', 'fs', 'path', 'os'],
+    external: ['@aws-sdk/client-s3'],
     output: {
       file: './dist/exceljs.min.js',
       format: 'iife',
@@ -78,7 +78,7 @@ export default defineConfig([
   // Browser: exceljs.esm.js (ESM for modern bundlers like Webpack/Vite)
   {
     input: './src/index.browser.ts',
-    external: ['@aws-sdk/client-s3', 'fs', 'path', 'os'],
+    external: ['@aws-sdk/client-s3'],
     output: {
       file: './dist/exceljs.esm.js',
       format: 'esm',
