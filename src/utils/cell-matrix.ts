@@ -108,7 +108,7 @@ class CellMatrix {
   }
 
   forEach(callback: (cell: Cell) => void): void {
-    _.each(this.sheets, (sheet, sheetName) => {
+    Object.keys(this.sheets).forEach((sheetName) => {
       this.forEachInSheet(sheetName as string, callback);
     });
   }
@@ -172,7 +172,7 @@ class CellMatrix {
       for (let i = 0; i < numInsert; i++) {
         inserts.push(null);
       }
-      _.each(sheet, (row: Row) => {
+      Object.values(sheet).forEach((row: Row) => {
         row.splice(start, numDelete, ...inserts);
       });
     }

@@ -29,12 +29,12 @@ class Merges {
   }
 
   get mergeCells(): string[] {
-    return _.map(this.merges, (merge: Range) => merge.range);
+    return Object.values(this.merges).map((merge: Range) => merge.range);
   }
 
   reconcile(mergeCells: string[], rows: any[]): void {
     // reconcile merge list with merge cells
-    _.each(mergeCells, (merge: string) => {
+    mergeCells.forEach((merge: string) => {
       const dimensions: any = colCache.decode(merge);
       for (let i = dimensions.top; i <= dimensions.bottom; i++) {
         const row = rows[i - 1];

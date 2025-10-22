@@ -67,13 +67,13 @@ class DefinedNames {
   }
 
   removeAllNames(location: any): void {
-    _.each(this.matrixMap, (matrix: CellMatrix) => {
+    Object.values(this.matrixMap).forEach((matrix: CellMatrix) => {
       matrix.removeCellEx(location);
     });
   }
 
   forEach(callback: (name: string, cell: Cell) => void): void {
-    _.each(this.matrixMap, (matrix: CellMatrix, name: string | number) => {
+    Object.entries(this.matrixMap).forEach(([name, matrix]) => {
       matrix.forEach((cell: Cell) => {
         callback(name as string, cell);
       });
@@ -86,10 +86,9 @@ class DefinedNames {
   }
 
   getNamesEx(address: any): string[] {
-    return _.map(
-      this.matrixMap,
-      (matrix: CellMatrix, name: string | number) => matrix.findCellEx(address, false) && name
-    ).filter(Boolean) as string[];
+    return Object.entries(this.matrixMap)
+      .map(([name, matrix]) => matrix.findCellEx(address, false) && name)
+      .filter(Boolean) as string[];
   }
 
   _explore(matrix: CellMatrix, cell: Cell): Range {
@@ -173,14 +172,14 @@ class DefinedNames {
   }
 
   spliceRows(sheetName: string, start: number, numDelete: number, numInsert: number): void {
-    _.each(this.matrixMap, (matrix: CellMatrix) => {
+    Object.values(this.matrixMap).forEach((matrix: CellMatrix) => {
       matrix.spliceRows(sheetName, start, numDelete, numInsert);
       this.normaliseMatrix(matrix, sheetName);
     });
   }
 
   spliceColumns(sheetName: string, start: number, numDelete: number, numInsert: number): void {
-    _.each(this.matrixMap, (matrix: CellMatrix) => {
+    Object.values(this.matrixMap).forEach((matrix: CellMatrix) => {
       matrix.spliceColumns(sheetName, start, numDelete, numInsert);
       this.normaliseMatrix(matrix, sheetName);
     });
@@ -188,9 +187,9 @@ class DefinedNames {
 
   get model(): DefinedNameModel[] {
     // To get names per cell - just iterate over all names finding cells if they exist
-    return _.map(this.matrixMap, (matrix: CellMatrix, name: string | number) =>
-      this.getRanges(name as string, matrix)
-    ).filter((definedName: DefinedNameModel) => definedName.ranges.length);
+    return Object.entries(this.matrixMap)
+      .map(([name, matrix]) => this.getRanges(name as string, matrix))
+      .filter((definedName: DefinedNameModel) => definedName.ranges.length);
   }
 
   set model(value: DefinedNameModel[]) {

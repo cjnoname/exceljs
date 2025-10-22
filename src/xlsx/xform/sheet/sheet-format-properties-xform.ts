@@ -32,7 +32,7 @@ class SheetFormatPropertiesXform extends BaseXform {
         attributes.customHeight = '1';
       }
 
-      if (_.some(attributes, (value: any) => value !== undefined)) {
+      if (Object.values(attributes).some((value: any) => value !== undefined)) {
         xmlStream.leafNode('sheetFormatPr', attributes);
       }
     }

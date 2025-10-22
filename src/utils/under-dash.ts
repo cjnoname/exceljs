@@ -4,6 +4,8 @@ const escapeHtmlRegex = /["&<>]/;
 type Callback<T, R = void> = (value: T, key: number | string) => R;
 
 const _ = {
+  // Helper methods for object/array iteration
+  // Note: Consider using native Object.keys().forEach() or for...of instead
   each: function each<T>(obj: T[] | Record<string, T> | null | undefined, cb: Callback<T>): void {
     if (obj) {
       if (Array.isArray(obj)) {
@@ -16,16 +18,7 @@ const _ = {
     }
   },
 
-  some: function some<T>(obj: T[] | Record<string, T> | null | undefined, cb: Callback<T, boolean>): boolean {
-    if (obj) {
-      if (Array.isArray(obj)) {
-        return obj.some(cb);
-      }
-      return Object.keys(obj).some(key => cb(obj[key], key));
-    }
-    return false;
-  },
-
+  // Note: Consider using Object.values(obj).every(cb) for objects
   every: function every<T>(obj: T[] | Record<string, T> | null | undefined, cb: Callback<T, boolean>): boolean {
     if (obj) {
       if (Array.isArray(obj)) {
@@ -36,6 +29,7 @@ const _ = {
     return true;
   },
 
+  // Note: Consider using Object.keys(obj).map(key => cb(obj[key], key)) for objects
   map: function map<T, R>(obj: T[] | Record<string, T> | null | undefined, cb: Callback<T, R>): R[] {
     if (obj) {
       if (Array.isArray(obj)) {
@@ -46,6 +40,7 @@ const _ = {
     return [];
   },
 
+  // Useful utility - consider keeping
   keyBy<T extends Record<string, any>>(a: T[], p: keyof T): Record<string, T> {
     return a.reduce((o: Record<string, T>, v: T) => {
       o[v[p]] = v;
@@ -141,6 +136,7 @@ const _ = {
     return result;
   },
 
+  // Use native String.prototype.localeCompare() instead: a.localeCompare(b)
   strcmp(a: string, b: string): number {
     if (a < b) return -1;
     if (a > b) return 1;

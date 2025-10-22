@@ -26,7 +26,7 @@ class PrintOptionsXform extends BaseXform {
         horizontalCentered: booleanToXml(model.horizontalCentered),
         verticalCentered: booleanToXml(model.verticalCentered),
       };
-      if (_.some(attributes, (value: any) => value !== undefined)) {
+      if (Object.values(attributes).some((value: any) => value !== undefined)) {
         xmlStream.leafNode(this.tag, attributes);
       }
     }

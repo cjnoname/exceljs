@@ -252,7 +252,7 @@ class Row {
 
   // returns true if the row includes at least one cell with a value
   get hasValues(): boolean {
-    return _.some(this._cells, (cell: any) => cell && cell.type !== Enums.ValueType.Null);
+    return this._cells.some((cell: any) => cell && cell.type !== Enums.ValueType.Null);
   }
 
   get cellCount(): number {

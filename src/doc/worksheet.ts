@@ -349,7 +349,7 @@ class Worksheet {
   }
 
   eachColumnKey(f: (column: any, key: string) => void): void {
-    _.each(this._keys, f);
+    Object.entries(this._keys).forEach(([key, value]) => f(value, key));
   }
 
   // get a single column by col number. If it doesn't exist, create it and any gaps before it
@@ -729,7 +729,7 @@ class Worksheet {
 
   _mergeCellsInternal(dimensions: Range, ignoreStyle?: boolean): void {
     // check cells aren't already merged
-    _.each(this._merges, (merge: Range) => {
+    Object.values(this._merges).forEach((merge: Range) => {
       if (merge.intersects(dimensions)) {
         throw new Error('Cannot merge already merged cells');
       }
@@ -765,7 +765,7 @@ class Worksheet {
 
   get hasMerges(): boolean {
     // return true if this._merges has a merge object
-    return _.some(this._merges, Boolean);
+    return Object.values(this._merges).some(Boolean);
   }
 
   // scan the range defined by ['tl:br'], [tl,br] or [t,l,b,r] and if any cell is part of a merge,
@@ -1003,7 +1003,7 @@ Please leave feedback at https://github.com/exceljs/exceljs/discussions/2575`
     // ==========================================================
     // Merges
     model.merges = [];
-    _.each(this._merges, (merge: Range) => {
+    Object.values(this._merges).forEach((merge: Range) => {
       model.merges!.push(merge.range);
     });
 
@@ -1023,7 +1023,7 @@ Please leave feedback at https://github.com/exceljs/exceljs/discussions/2575`
 
   _parseMergeCells(model: WorksheetModel): void {
     if (model.mergeCells) {
-      _.each(model.mergeCells, (merge: string) => {
+      model.mergeCells.forEach((merge: string) => {
         // Do not merge styles when importing an Excel file
         // since each cell may have different styles intentionally.
         this.mergeCellsWithoutStyle(merge);

@@ -32,7 +32,6 @@ interface FontOptions {
 // Font encapsulates translation from font model to xlsx
 class FontXform extends BaseXform {
   public options: FontOptions;
-  public map: { [key: string]: { prop: string; xform: any } };
   public parser: any;
 
   constructor(options?: FontOptions) {
@@ -70,7 +69,7 @@ class FontXform extends BaseXform {
     const { map } = this;
 
     xmlStream.openNode(this.options.tagName);
-    _.each(this.map, (defn: { prop: string; xform: any }, tag: string) => {
+    Object.entries(this.map).forEach(([tag, defn]: [string, { prop: string; xform: any }]) => {
       map[tag].xform.render(xmlStream, model[defn.prop as keyof FontModel]);
     });
     xmlStream.closeNode();

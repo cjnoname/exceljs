@@ -56,8 +56,6 @@ interface PageSetupModel {
 }
 
 class PageSetupXform extends BaseXform {
-  public model: PageSetupModel;
-
   get tag(): string {
     return 'pageSetup';
   }
@@ -82,7 +80,7 @@ class PageSetupXform extends BaseXform {
         usePrinterDefaults: booleanToXml(model.usePrinterDefaults!),
         copies: model.copies,
       };
-      if (_.some(attributes, (value: any) => value !== undefined)) {
+      if (Object.values(attributes).some((value: any) => value !== undefined)) {
         xmlStream.leafNode(this.tag, attributes);
       }
     }

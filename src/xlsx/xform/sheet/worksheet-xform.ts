@@ -89,8 +89,6 @@ const mergeConditionalFormattings = (model, extModel) => {
 };
 
 class WorkSheetXform extends BaseXform {
-  public model: any;
-  public map: any;
   public ignoreNodes: string[];
   public parser: any;
   public preImageId: string | undefined;
@@ -379,7 +377,7 @@ class WorkSheetXform extends BaseXform {
     }
 
     if (node.name === 'worksheet') {
-      _.each(this.map, (xform: any) => {
+      Object.values(this.map).forEach((xform: any) => {
         xform.reset();
       });
       return true;

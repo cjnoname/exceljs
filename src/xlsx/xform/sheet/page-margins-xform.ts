@@ -12,8 +12,6 @@ interface PageMarginsModel {
 }
 
 class PageMarginsXform extends BaseXform {
-  public model: PageMarginsModel;
-
   get tag(): string {
     return 'pageMargins';
   }
@@ -28,7 +26,7 @@ class PageMarginsXform extends BaseXform {
         header: model.header,
         footer: model.footer,
       };
-      if (_.some(attributes, (value: any) => value !== undefined)) {
+      if (Object.values(attributes).some((value: any) => value !== undefined)) {
         xmlStream.leafNode(this.tag, attributes);
       }
     }

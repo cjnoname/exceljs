@@ -9,7 +9,7 @@ interface NumFmtModel {
 
 function hashDefaultFormats(): { [key: string]: number } {
   const hash: { [key: string]: number } = {};
-  _.each(defaultNumFormats, (dnf: any, id: string) => {
+  Object.entries(defaultNumFormats).forEach(([id, dnf]) => {
     if (dnf.f) {
       hash[dnf.f] = parseInt(id, 10);
     }

@@ -26,11 +26,12 @@ function assignBool(definedName: any, attributes: any, name: string, defaultValu
 function optimiseDataValidations(model: any): any[] {
   // Squeeze alike data validations together into rectangular ranges
   // to reduce file size and speed up Excel load time
-  const dvList = _.map(model, (dataValidation: any, address: string) => ({
+  if (!model) return [];
+  const dvList = Object.entries(model).map(([address, dataValidation]: [string, any]) => ({
     address,
     dataValidation,
     marked: false,
-  })).sort((a: any, b: any) => _.strcmp(a.address, b.address));
+  })).sort((a: any, b: any) => a.address.localeCompare(b.address));
   const dvMap = _.keyBy(dvList, 'address');
   const matchCol = (addr: any, height: number, col: number): boolean => {
     for (let i = 0; i < height; i++) {
@@ -95,7 +96,6 @@ function optimiseDataValidations(model: any): any[] {
 }
 
 class DataValidationsXform extends BaseXform {
-  public model: any;
   private _address: string;
   private _dataValidation: any;
   private _formula: string[];

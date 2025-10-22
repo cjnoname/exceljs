@@ -25,7 +25,7 @@ function pushAttribute(xml: string[], name: string, value: any): void {
 function pushAttributes(xml: string[], attributes?: Attributes): void {
   if (attributes) {
     const tmp: string[] = [];
-    _.each(attributes, (value: any, name: string | number) => {
+    Object.entries(attributes).forEach(([name, value]) => {
       if (value !== undefined) {
         pushAttribute(tmp, name as string, value);
       }

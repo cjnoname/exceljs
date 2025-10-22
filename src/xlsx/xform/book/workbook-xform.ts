@@ -12,7 +12,6 @@ import WorkbookCalcPropertiesXform from './workbook-calc-properties-xform.js';
 import WorkbookPivotCacheXform from './workbook-pivot-cache-xform.js';
 
 class WorkbookXform extends BaseXform {
-  public map: { [key: string]: any };
   public parser: any;
 
   constructor() {
@@ -191,7 +190,8 @@ class WorkbookXform extends BaseXform {
 
     // reconcile print areas
     const definedNames: any[] = [];
-    _.each(model.definedNames, (definedName: any) => {
+    if (model.definedNames) {
+      model.definedNames.forEach((definedName: any) => {
       if (definedName.name === '_xlnm.Print_Area') {
         worksheet = worksheets[definedName.localSheetId];
         if (worksheet) {
@@ -234,6 +234,7 @@ class WorkbookXform extends BaseXform {
         definedNames.push(definedName);
       }
     });
+    }
     model.definedNames = definedNames;
 
     // used by sheets to build their image models
