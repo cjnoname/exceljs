@@ -16,25 +16,24 @@
   "engines": {
     "node": ">=12.0.0"
   },
-  "main": "./excel.js",
+  "main": "./index.js",
   "types": "./dist/types/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/types/index.d.ts",
       "browser": "./lib/exceljs.browser.js",
-      "node": "./excel.js",
-      "default": "./excel.js"
+      "node": "./index.js",
+      "default": "./index.js"
     },
     "./package.json": "./package.json"
   },
   "files": [
     "dist",
     "lib",
-    "excel.js",
+    "index.js",
     "LICENSE",
     "README.md",
-    "README_zh.md",
-    "index.ts"
+    "README_zh.md"
   ],
   "scripts": {
     "test": "npm run test:vitest",
