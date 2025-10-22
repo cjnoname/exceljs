@@ -49,7 +49,7 @@ export const ErrorValue = {
   Num: '#NUM!',
 } as const;
 
-export type ErrorValueType = typeof ErrorValue[keyof typeof ErrorValue];
+export type ErrorValueType = (typeof ErrorValue)[keyof typeof ErrorValue];
 
 export default {
   ValueType,

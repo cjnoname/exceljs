@@ -1,7 +1,7 @@
 import colCache from '../../../utils/col-cache.js';
 import BaseXform from '../base-xform.js';
 
-const VIEW_STATES: {[key: string]: string} = {
+const VIEW_STATES: { [key: string]: string } = {
   frozen: 'frozen',
   frozenSplit: 'frozen',
   split: 'split',
@@ -50,7 +50,7 @@ class SheetViewXform extends BaseXform {
     xmlStream.openNode('sheetView', {
       workbookViewId: model.workbookViewId || 0,
     });
-    const add = function(name: string, value: any, included: any): void {
+    const add = function (name: string, value: any, included: any): void {
       if (included) {
         xmlStream.addAttribute(name, value);
       }
@@ -73,10 +73,7 @@ class SheetViewXform extends BaseXform {
         xSplit = model.xSplit || 0;
         ySplit = model.ySplit || 0;
         topLeftCell = model.topLeftCell || colCache.getAddress(ySplit + 1, xSplit + 1).address;
-        activePane =
-          (model.xSplit && model.ySplit && 'bottomRight') ||
-          (model.xSplit && 'topRight') ||
-          'bottomLeft';
+        activePane = (model.xSplit && model.ySplit && 'bottomRight') || (model.xSplit && 'topRight') || 'bottomLeft';
 
         xmlStream.leafNode('pane', {
           xSplit: model.xSplit || undefined,

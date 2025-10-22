@@ -11,15 +11,15 @@ interface AppModel {
 }
 
 class AppXform extends BaseXform {
-  public map: {[key: string]: any};
+  public map: { [key: string]: any };
   public parser: any;
 
   constructor() {
     super();
 
     this.map = {
-      Company: new StringXform({tag: 'Company'}),
-      Manager: new StringXform({tag: 'Manager'}),
+      Company: new StringXform({ tag: 'Company' }),
+      Manager: new StringXform({ tag: 'Manager' }),
       HeadingPairs: new AppHeadingPairsXform(),
       TitleOfParts: new AppTitleOfPartsXform(),
     };
@@ -97,7 +97,7 @@ class AppXform extends BaseXform {
     return dt.toISOString().replace(/[.]\d{3,6}/, '');
   };
 
-  static DateAttrs = {'xsi:type': 'dcterms:W3CDTF'};
+  static DateAttrs = { 'xsi:type': 'dcterms:W3CDTF' };
 
   static PROPERTY_ATTRIBUTES = {
     xmlns: 'http://schemas.openxmlformats.org/officeDocument/2006/extended-properties',

@@ -1,4 +1,4 @@
-import {EventEmitter} from 'events';
+import { EventEmitter } from 'events';
 
 // =============================================================================
 // AutoDrain - kind of /dev/null

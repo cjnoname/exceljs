@@ -19,24 +19,19 @@ interface AlignmentModel {
 }
 
 const validation = {
-  horizontalValues: [
-    'left',
-    'center',
-    'right',
-    'fill',
-    'centerContinuous',
-    'distributed',
-    'justify',
-  ].reduce((p: {[key: string]: boolean}, v: string) => {
-    p[v] = true;
-    return p;
-  }, {}),
+  horizontalValues: ['left', 'center', 'right', 'fill', 'centerContinuous', 'distributed', 'justify'].reduce(
+    (p: { [key: string]: boolean }, v: string) => {
+      p[v] = true;
+      return p;
+    },
+    {}
+  ),
   horizontal(value: string): string | undefined {
     return this.horizontalValues[value] ? value : undefined;
   },
 
   verticalValues: ['top', 'middle', 'bottom', 'distributed', 'justify'].reduce(
-    (p: {[key: string]: boolean}, v: string) => {
+    (p: { [key: string]: boolean }, v: string) => {
       p[v] = true;
       return p;
     },
@@ -165,22 +160,10 @@ class AlignmentXform extends BaseXform {
       node.attributes.vertical === 'center' ? 'middle' : node.attributes.vertical
     );
     add(node.attributes.wrapText, 'wrapText', utils.parseBoolean(node.attributes.wrapText));
-    add(
-      node.attributes.shrinkToFit,
-      'shrinkToFit',
-      utils.parseBoolean(node.attributes.shrinkToFit)
-    );
+    add(node.attributes.shrinkToFit, 'shrinkToFit', utils.parseBoolean(node.attributes.shrinkToFit));
     add(node.attributes.indent, 'indent', parseInt(node.attributes.indent, 10));
-    add(
-      node.attributes.textRotation,
-      'textRotation',
-      textRotationXform.toModel(node.attributes.textRotation)
-    );
-    add(
-      node.attributes.readingOrder,
-      'readingOrder',
-      node.attributes.readingOrder === '2' ? 'rtl' : 'ltr'
-    );
+    add(node.attributes.textRotation, 'textRotation', textRotationXform.toModel(node.attributes.textRotation));
+    add(node.attributes.readingOrder, 'readingOrder', node.attributes.readingOrder === '2' ? 'rtl' : 'ltr');
 
     this.model = valid ? model : null;
   }

@@ -15,7 +15,7 @@ interface DrawingModel {
 }
 
 class DrawingXform extends BaseXform {
-  public map: {[key: string]: any};
+  public map: { [key: string]: any };
   public parser: any;
   public model: DrawingModel;
 
@@ -26,14 +26,14 @@ class DrawingXform extends BaseXform {
       'xdr:twoCellAnchor': new TwoCellAnchorXform(),
       'xdr:oneCellAnchor': new OneCellAnchorXform(),
     };
-    this.model = {anchors: []};
+    this.model = { anchors: [] };
   }
 
   prepare(model: DrawingModel): void {
     model.anchors.forEach((item, index) => {
       item.anchorType = getAnchorType(item);
       const anchor = this.map[item.anchorType];
-      anchor.prepare(item, {index});
+      anchor.prepare(item, { index });
     });
   }
 

@@ -6,7 +6,7 @@ import Enums from '../../../lib/doc/enums.js';
 describe('Row', () => {
   it('stores cells', () => {
     const sheet = createSheetMock();
-    sheet.addColumn(1, {key: 'name'});
+    sheet.addColumn(1, { key: 'name' });
 
     const row1 = sheet.getRow(1);
     expect(row1.number).toBe(1);
@@ -36,15 +36,9 @@ describe('Row', () => {
       text: 'www.hyperlink.com',
     };
 
-    const values = [
-      ,
-      5,
-      'Hello, World!',
-      ,
-      {hyperlink: 'http://www.hyperlink.com', text: 'www.hyperlink.com'},
-    ];
+    const values = [, 5, 'Hello, World!', , { hyperlink: 'http://www.hyperlink.com', text: 'www.hyperlink.com' }];
     expect(row1.values).toEqual(values);
-    expect(row1.dimensions).toEqual({min: 1, max: 4});
+    expect(row1.dimensions).toEqual({ min: 1, max: 4 });
 
     let count = 0;
     row1.eachCell((cell: any, colNumber: any) => {
@@ -69,9 +63,9 @@ describe('Row', () => {
 
   it('stores values by whole row', () => {
     const sheet = createSheetMock();
-    sheet.addColumn(1, {key: 'id'});
-    sheet.addColumn(2, {key: 'name'});
-    sheet.addColumn(3, {key: 'dob'});
+    sheet.addColumn(1, { key: 'id' });
+    sheet.addColumn(2, { key: 'name' });
+    sheet.addColumn(3, { key: 'dob' });
 
     const now = new Date();
 
@@ -207,17 +201,7 @@ describe('Row', () => {
       const row = sheet.getRow(1);
       row.values = [1, 2, 3, 4, 5, 6, 7, 8];
       row.splice(4, 3, 'four', 'five', 'six');
-      expect(row.values).toEqual([
-        ,
-        1,
-        2,
-        3,
-        'four',
-        'five',
-        'six',
-        7,
-        8,
-      ]);
+      expect(row.values).toEqual([, 1, 2, 3, 'four', 'five', 'six', 7, 8]);
     });
 
     it('remove and insert more', () => {
@@ -225,18 +209,7 @@ describe('Row', () => {
       const row = sheet.getRow(1);
       row.values = [1, 2, 3, 4, 5, 6, 7, 8];
       row.splice(4, 3, 'four', 'five', 'six', 'six and a half');
-      expect(row.values).toEqual([
-        ,
-        1,
-        2,
-        3,
-        'four',
-        'five',
-        'six',
-        'six and a half',
-        7,
-        8,
-      ]);
+      expect(row.values).toEqual([, 1, 2, 3, 'four', 'five', 'six', 'six and a half', 7, 8]);
     });
   });
 
@@ -255,7 +228,7 @@ describe('Row', () => {
     });
 
     let count = 1;
-    row1.eachCell({includeEmpty: true}, (cell: any, colNumber: any) => {
+    row1.eachCell({ includeEmpty: true }, (cell: any, colNumber: any) => {
       expect(colNumber).toBe(count++);
     });
     expect(count).toBe(7);
@@ -275,7 +248,7 @@ describe('Row', () => {
 
     expect(row1.model).toEqual({
       cells: [
-        {address: 'A1', type: Enums.ValueType.Number, value: 5, style: {}},
+        { address: 'A1', type: Enums.ValueType.Number, value: 5, style: {} },
         {
           address: 'B1',
           type: Enums.ValueType.String,
@@ -289,7 +262,7 @@ describe('Row', () => {
           hyperlink: 'http://www.hyperlink.com',
           style: {},
         },
-        {address: 'E1', type: Enums.ValueType.Null, style: {}},
+        { address: 'E1', type: Enums.ValueType.Null, style: {} },
       ],
       number: 1,
       min: 1,
@@ -308,9 +281,7 @@ describe('Row', () => {
     row3.getCell(1).value = 5;
     row3.outlineLevel = 1;
     expect(row3.model).toEqual({
-      cells: [
-        {address: 'A3', type: Enums.ValueType.Number, value: 5, style: {}},
-      ],
+      cells: [{ address: 'A3', type: Enums.ValueType.Number, value: 5, style: {} }],
       number: 3,
       min: 1,
       max: 1,
@@ -327,8 +298,8 @@ describe('Row', () => {
     const row1 = sheet.getRow(1);
     row1.model = {
       cells: [
-        {address: 'A1', type: Enums.ValueType.Number, value: 5},
-        {address: 'B1', type: Enums.ValueType.String, value: 'Hello, World!'},
+        { address: 'A1', type: Enums.ValueType.Number, value: 5 },
+        { address: 'B1', type: Enums.ValueType.String, value: 'Hello, World!' },
         {
           address: 'D1',
           type: Enums.ValueType.Hyperlink,
@@ -342,13 +313,13 @@ describe('Row', () => {
       height: 32.5,
     };
 
-    expect(row1.dimensions).toEqual({min: 1, max: 4});
+    expect(row1.dimensions).toEqual({ min: 1, max: 4 });
     expect(row1.values).toEqual([
       ,
       5,
       'Hello, World!',
       ,
-      {hyperlink: 'http://www.hyperlink.com', text: 'www.hyperlink.com'},
+      { hyperlink: 'http://www.hyperlink.com', text: 'www.hyperlink.com' },
     ]);
     expect(row1.getCell(1).type).toBe(Enums.ValueType.Number);
     expect(row1.getCell(1).value).toBe(5);

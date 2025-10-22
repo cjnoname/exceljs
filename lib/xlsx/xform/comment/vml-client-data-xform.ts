@@ -29,7 +29,7 @@ interface RenderModel {
 }
 
 class VmlClientDataXform extends BaseXform {
-  public map: {[key: string]: any};
+  public map: { [key: string]: any };
   public parser: any;
   public model: ClientDataModel;
 
@@ -37,12 +37,12 @@ class VmlClientDataXform extends BaseXform {
     super();
     this.map = {
       'x:Anchor': new VmlAnchorXform(),
-      'x:Locked': new VmlProtectionXform({tag: 'x:Locked'}),
-      'x:LockText': new VmlProtectionXform({tag: 'x:LockText'}),
-      'x:SizeWithCells': new VmlPositionXform({tag: 'x:SizeWithCells'}),
-      'x:MoveWithCells': new VmlPositionXform({tag: 'x:MoveWithCells'}),
+      'x:Locked': new VmlProtectionXform({ tag: 'x:Locked' }),
+      'x:LockText': new VmlProtectionXform({ tag: 'x:LockText' }),
+      'x:SizeWithCells': new VmlPositionXform({ tag: 'x:SizeWithCells' }),
+      'x:MoveWithCells': new VmlPositionXform({ tag: 'x:MoveWithCells' }),
     };
-    this.model = {anchor: [], protection: {}, editAs: ''};
+    this.model = { anchor: [], protection: {}, editAs: '' };
   }
 
   get tag(): string {
@@ -50,8 +50,8 @@ class VmlClientDataXform extends BaseXform {
   }
 
   render(xmlStream: any, model: RenderModel): void {
-    const {protection, editAs} = model.note;
-    xmlStream.openNode(this.tag, {ObjectType: 'Note'});
+    const { protection, editAs } = model.note;
+    xmlStream.openNode(this.tag, { ObjectType: 'Note' });
     this.map['x:MoveWithCells'].render(xmlStream, editAs, POSITION_TYPE);
     this.map['x:SizeWithCells'].render(xmlStream, editAs, POSITION_TYPE);
     this.map['x:Anchor'].render(xmlStream, model);
@@ -106,11 +106,7 @@ class VmlClientDataXform extends BaseXform {
   }
 
   normalizeModel(): void {
-    const position = Object.assign(
-      {},
-      this.map['x:MoveWithCells'].model,
-      this.map['x:SizeWithCells'].model
-    );
+    const position = Object.assign({}, this.map['x:MoveWithCells'].model, this.map['x:SizeWithCells'].model);
     const len = Object.keys(position).length;
     this.model.editAs = POSITION_TYPE[len];
     this.model.anchor = this.map['x:Anchor'].text;

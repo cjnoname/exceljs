@@ -5,7 +5,7 @@ interface StyleObject {
 const oneDepthCopy = (obj: StyleObject, nestKeys: string[]): StyleObject => ({
   ...obj,
   ...nestKeys.reduce((memo: StyleObject, key: string) => {
-    if (obj[key]) memo[key] = {...obj[key]};
+    if (obj[key]) memo[key] = { ...obj[key] };
     return memo;
   }, {}),
 });
@@ -20,7 +20,7 @@ const copyStyle = (style: StyleObject | null | undefined): StyleObject | null | 
   if (!style) return style;
   if (isEmptyObj(style)) return {};
 
-  const copied: StyleObject = {...style};
+  const copied: StyleObject = { ...style };
 
   setIfExists(style, copied, 'font', ['color']);
   setIfExists(style, copied, 'alignment');
@@ -44,4 +44,4 @@ const copyStyle = (style: StyleObject | null | undefined): StyleObject | null | 
   return copied;
 };
 
-export {copyStyle};
+export { copyStyle };

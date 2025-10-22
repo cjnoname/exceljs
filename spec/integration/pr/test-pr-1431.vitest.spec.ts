@@ -6,8 +6,8 @@ describe('github issues', () => {
     const rowData = [
       {
         richText: [
-          {font: {bold: true}, text: 'This should '},
-          {font: {italic: true}, text: 'be one shared string value'},
+          { font: { bold: true }, text: 'This should ' },
+          { font: { italic: true }, text: 'be one shared string value' },
         ],
       },
       'this should be the second shared string',
@@ -25,16 +25,13 @@ describe('github issues', () => {
     await workbook.commit();
 
     return new Promise<void>((resolve, reject) => {
-      const workbookReader = new ExcelJS.stream.xlsx.WorkbookReader(
-        './test.xlsx',
-        {
-          entries: 'emit',
-          hyperlinks: 'cache',
-          sharedStrings: 'cache',
-          styles: 'cache',
-          worksheets: 'emit',
-        }
-      );
+      const workbookReader = new ExcelJS.stream.xlsx.WorkbookReader('./test.xlsx', {
+        entries: 'emit',
+        hyperlinks: 'cache',
+        sharedStrings: 'cache',
+        styles: 'cache',
+        worksheets: 'emit',
+      });
 
       workbookReader.on('worksheet', worksheet =>
         worksheet.on('row', row => {

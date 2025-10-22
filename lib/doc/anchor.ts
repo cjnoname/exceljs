@@ -63,7 +63,7 @@ class Anchor {
   }
 
   get col(): number {
-    return this.nativeCol + (Math.min(this.colWidth - 1, this.nativeColOff) / this.colWidth);
+    return this.nativeCol + Math.min(this.colWidth - 1, this.nativeColOff) / this.colWidth;
   }
 
   set col(v: number) {
@@ -72,7 +72,7 @@ class Anchor {
   }
 
   get row(): number {
-    return this.nativeRow + (Math.min(this.rowHeight - 1, this.nativeRowOff) / this.rowHeight);
+    return this.nativeRow + Math.min(this.rowHeight - 1, this.nativeRowOff) / this.rowHeight;
   }
 
   set row(v: number) {

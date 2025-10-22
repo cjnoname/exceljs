@@ -26,7 +26,7 @@ describe('StreamBuf', () => {
   // Original test worked synchronously due to CommonJS instanceof check succeeding
   it('writes StringBuf chunks', async () => {
     const stream = new StreamBuf();
-    const strBuf = new StringBuf({size: 64});
+    const strBuf = new StringBuf({ size: 64 });
     strBuf.addText('Hello, World!');
     await stream.write(strBuf);
     const chunk = stream.read();
@@ -35,7 +35,7 @@ describe('StreamBuf', () => {
   });
 
   it('signals end', () =>
-    new Promise<void>((resolve) => {
+    new Promise<void>(resolve => {
       const stream = new StreamBuf();
       stream.on('finish', () => {
         resolve(undefined);
@@ -62,9 +62,7 @@ describe('StreamBuf', () => {
       await stream.write({});
       expect.fail('should fail for given argument');
     } catch (e: any) {
-      expect(e.message).toBe(
-        'Chunk must be one of type String, Buffer or StringBuf.'
-      );
+      expect(e.message).toBe('Chunk must be one of type String, Buffer or StringBuf.');
     }
   });
 });

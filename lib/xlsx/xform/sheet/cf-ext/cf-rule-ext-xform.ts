@@ -1,4 +1,4 @@
-import {v4 as uuidv4} from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 import BaseXform from '../../base-xform.js';
 import CompositeXform from '../../composite-xform.js';
 
@@ -85,7 +85,7 @@ class CfRuleExtXform extends CompositeXform {
     xmlStream.closeNode();
   }
 
-  createNewModel({attributes}) {
+  createNewModel({ attributes }) {
     return {
       type: attributes.type,
       x14Id: attributes.id,

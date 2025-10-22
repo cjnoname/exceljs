@@ -11,8 +11,8 @@ const expectations = [
     },
     preparedModel: {
       cfvo: [
-        {type: 'num', value: 5},
-        {type: 'num', value: 20},
+        { type: 'num', value: 5 },
+        { type: 'num', value: 20 },
       ],
     },
     xml: `
@@ -31,8 +31,8 @@ const expectations = [
       axisPosition: 'auto',
       direction: 'leftToRight',
       cfvo: [
-        {type: 'num', value: 5},
-        {type: 'num', value: 20},
+        { type: 'num', value: 5 },
+        { type: 'num', value: 20 },
       ],
     },
     tests: ['render', 'parse'],
@@ -50,11 +50,11 @@ const expectations = [
       negativeBarColorSameAsPositive: false,
       negativeBarBorderColorSameAsPositive: false,
       axisPosition: 'middle',
-      borderColor: {argb: 'FFFF0000'},
-      negativeFillColor: {argb: 'FF00FF00'},
-      axisColor: {argb: 'FF0000FF'},
+      borderColor: { argb: 'FFFF0000' },
+      negativeFillColor: { argb: 'FF00FF00' },
+      axisColor: { argb: 'FF0000FF' },
       direction: 'rightToLeft',
-      cfvo: [{type: 'autoMin'}, {type: 'autoMax'}],
+      cfvo: [{ type: 'autoMin' }, { type: 'autoMax' }],
     },
     xml: `
       <x14:dataBar

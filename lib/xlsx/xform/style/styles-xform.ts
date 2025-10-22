@@ -24,12 +24,12 @@ interface StylesModel {
 }
 
 interface StyleIndex {
-  style?: {[key: string]: number};
-  numFmt?: {[key: string]: number};
+  style?: { [key: string]: number };
+  numFmt?: { [key: string]: number };
   numFmtNextId?: number;
-  font?: {[key: string]: number};
-  border?: {[key: string]: number};
-  fill?: {[key: string]: number};
+  font?: { [key: string]: number };
+  border?: { [key: string]: number };
+  fill?: { [key: string]: number };
   model?: any[];
 }
 
@@ -37,7 +37,7 @@ interface StyleIndex {
 // StylesXform is used to generate and parse the styles.xml file
 // it manages the collections of fonts, number formats, alignments, etc
 class StylesXform extends BaseXform {
-  public map: {[key: string]: any};
+  public map: { [key: string]: any };
   public index?: StyleIndex;
   public weakMap?: WeakMap<any, number>;
   public parser: any;
@@ -47,29 +47,29 @@ class StylesXform extends BaseXform {
     super();
 
     this.map = {
-      numFmts: new ListXform({tag: 'numFmts', count: true, childXform: new NumFmtXform()}),
+      numFmts: new ListXform({ tag: 'numFmts', count: true, childXform: new NumFmtXform() }),
       fonts: new ListXform({
         tag: 'fonts',
         count: true,
         childXform: new FontXform(),
-        $: {'x14ac:knownFonts': 1},
+        $: { 'x14ac:knownFonts': 1 },
       }),
-      fills: new ListXform({tag: 'fills', count: true, childXform: new FillXform()}),
-      borders: new ListXform({tag: 'borders', count: true, childXform: new BorderXform()}),
-      cellStyleXfs: new ListXform({tag: 'cellStyleXfs', count: true, childXform: new StyleXform()}),
+      fills: new ListXform({ tag: 'fills', count: true, childXform: new FillXform() }),
+      borders: new ListXform({ tag: 'borders', count: true, childXform: new BorderXform() }),
+      cellStyleXfs: new ListXform({ tag: 'cellStyleXfs', count: true, childXform: new StyleXform() }),
       cellXfs: new ListXform({
         tag: 'cellXfs',
         count: true,
-        childXform: new StyleXform({xfId: true}),
+        childXform: new StyleXform({ xfId: true }),
       }),
-      dxfs: new ListXform({tag: 'dxfs', always: true, count: true, childXform: new DxfXform()}),
+      dxfs: new ListXform({ tag: 'dxfs', always: true, count: true, childXform: new DxfXform() }),
 
       // for style manager
       numFmt: new NumFmtXform(),
       font: new FontXform(),
       fill: new FillXform(),
       border: new BorderXform(),
-      style: new StyleXform({xfId: true}),
+      style: new StyleXform({ xfId: true }),
 
       cellStyles: StylesXform.STATIC_XFORMS.cellStyles,
       tableStyles: StylesXform.STATIC_XFORMS.tableStyles,
@@ -110,11 +110,11 @@ class StylesXform extends BaseXform {
     this._addBorder({});
 
     // add default (all zero) style
-    this._addStyle({numFmtId: 0, fontId: 0, fillId: 0, borderId: 0, xfId: 0});
+    this._addStyle({ numFmtId: 0, fontId: 0, fillId: 0, borderId: 0, xfId: 0 });
 
     // add default fills
-    this._addFill({type: 'pattern', pattern: 'none'});
-    this._addFill({type: 'pattern', pattern: 'gray125'});
+    this._addFill({ type: 'pattern', pattern: 'none' });
+    this._addFill({ type: 'pattern', pattern: 'gray125' });
 
     this.weakMap = new WeakMap();
   }
@@ -130,7 +130,7 @@ class StylesXform extends BaseXform {
     if (this.index) {
       // model has been built by style manager role (contains xml)
       if (renderModel.numFmts && renderModel.numFmts.length) {
-        xmlStream.openNode('numFmts', {count: renderModel.numFmts.length});
+        xmlStream.openNode('numFmts', { count: renderModel.numFmts.length });
         renderModel.numFmts.forEach((numFmtXml: string) => {
           xmlStream.writeXml(numFmtXml);
         });
@@ -139,31 +139,29 @@ class StylesXform extends BaseXform {
 
       if (!renderModel.fonts!.length) {
         // default (zero) font
-        this._addFont({size: 11, color: {theme: 1}, name: 'Calibri', family: 2, scheme: 'minor'});
+        this._addFont({ size: 11, color: { theme: 1 }, name: 'Calibri', family: 2, scheme: 'minor' });
       }
-      xmlStream.openNode('fonts', {count: renderModel.fonts!.length, 'x14ac:knownFonts': 1});
+      xmlStream.openNode('fonts', { count: renderModel.fonts!.length, 'x14ac:knownFonts': 1 });
       renderModel.fonts!.forEach((fontXml: string) => {
         xmlStream.writeXml(fontXml);
       });
       xmlStream.closeNode();
 
-      xmlStream.openNode('fills', {count: renderModel.fills!.length});
+      xmlStream.openNode('fills', { count: renderModel.fills!.length });
       renderModel.fills!.forEach((fillXml: string) => {
         xmlStream.writeXml(fillXml);
       });
       xmlStream.closeNode();
 
-      xmlStream.openNode('borders', {count: renderModel.borders!.length});
+      xmlStream.openNode('borders', { count: renderModel.borders!.length });
       renderModel.borders!.forEach((borderXml: string) => {
         xmlStream.writeXml(borderXml);
       });
       xmlStream.closeNode();
 
-      this.map.cellStyleXfs.render(xmlStream, [
-        {numFmtId: 0, fontId: 0, fillId: 0, borderId: 0, xfId: 0},
-      ]);
+      this.map.cellStyleXfs.render(xmlStream, [{ numFmtId: 0, fontId: 0, fillId: 0, borderId: 0, xfId: 0 }]);
 
-      xmlStream.openNode('cellXfs', {count: renderModel.styles!.length});
+      xmlStream.openNode('cellXfs', { count: renderModel.styles!.length });
       renderModel.styles!.forEach((styleXml: string) => {
         xmlStream.writeXml(styleXml);
       });
@@ -174,9 +172,7 @@ class StylesXform extends BaseXform {
       this.map.fonts.render(xmlStream, renderModel.fonts);
       this.map.fills.render(xmlStream, renderModel.fills);
       this.map.borders.render(xmlStream, renderModel.borders);
-      this.map.cellStyleXfs.render(xmlStream, [
-        {numFmtId: 0, fontId: 0, fillId: 0, borderId: 0, xfId: 0},
-      ]);
+      this.map.cellStyleXfs.render(xmlStream, [{ numFmtId: 0, fontId: 0, fillId: 0, borderId: 0, xfId: 0 }]);
       this.map.cellXfs.render(xmlStream, renderModel.styles);
     }
 
@@ -267,7 +263,7 @@ class StylesXform extends BaseXform {
     // if we have no default font, add it here now
     if (!this.model.fonts.length) {
       // default (zero) font
-      this._addFont({size: 11, color: {theme: 1}, name: 'Calibri', family: 2, scheme: 'minor'});
+      this._addFont({ size: 11, color: { theme: 1 }, name: 'Calibri', family: 2, scheme: 'minor' });
     }
 
     // if we have seen this style object before, assume it has the same styleId
@@ -337,8 +333,7 @@ class StylesXform extends BaseXform {
     // -------------------------------------------------------
     // number format
     if (style.numFmtId) {
-      const numFmt =
-        (this.index!.numFmt as any)[style.numFmtId] || NumFmtXform.getDefaultFmtCode(style.numFmtId);
+      const numFmt = (this.index!.numFmt as any)[style.numFmtId] || NumFmtXform.getDefaultFmtCode(style.numFmtId);
       if (numFmt) {
         model.numFmt = numFmt;
       }
@@ -409,9 +404,8 @@ class StylesXform extends BaseXform {
     index = (this.index!.numFmt as any)[formatCode];
     if (index !== undefined) return index;
 
-    index = (this.index!.numFmt as any)[formatCode] =
-      NUMFMT_BASE + this.model.numFmts.length;
-    const xml = this.map.numFmt.toXml({id: index, formatCode});
+    index = (this.index!.numFmt as any)[formatCode] = NUMFMT_BASE + this.model.numFmts.length;
+    const xml = this.map.numFmt.toXml({ id: index, formatCode });
     this.model.numFmts.push(xml);
     return index;
   }
@@ -464,13 +458,13 @@ class StylesXform extends BaseXform {
   static STATIC_XFORMS = {
     cellStyles: new StaticXform({
       tag: 'cellStyles',
-      $: {count: 1},
-      c: [{tag: 'cellStyle', $: {name: 'Normal', xfId: 0, builtinId: 0}}],
+      $: { count: 1 },
+      c: [{ tag: 'cellStyle', $: { name: 'Normal', xfId: 0, builtinId: 0 } }],
     }),
-    dxfs: new StaticXform({tag: 'dxfs', $: {count: 0}}),
+    dxfs: new StaticXform({ tag: 'dxfs', $: { count: 0 } }),
     tableStyles: new StaticXform({
       tag: 'tableStyles',
-      $: {count: 0, defaultTableStyle: 'TableStyleMedium2', defaultPivotStyle: 'PivotStyleLight16'},
+      $: { count: 0, defaultTableStyle: 'TableStyleMedium2', defaultPivotStyle: 'PivotStyleLight16' },
     }),
     extLst: new StaticXform({
       tag: 'extLst',
@@ -481,7 +475,7 @@ class StylesXform extends BaseXform {
             uri: '{EB79DEF2-80B8-43e5-95BD-54CBDDF9020C}',
             'xmlns:x14': 'http://schemas.microsoft.com/office/spreadsheetml/2009/9/main',
           },
-          c: [{tag: 'x14:slicerStyles', $: {defaultSlicerStyle: 'SlicerStyleLight1'}}],
+          c: [{ tag: 'x14:slicerStyles', $: { defaultSlicerStyle: 'SlicerStyleLight1' } }],
         },
         {
           tag: 'ext',
@@ -489,7 +483,7 @@ class StylesXform extends BaseXform {
             uri: '{9260A510-F301-46a8-8635-F512D64BE5F5}',
             'xmlns:x15': 'http://schemas.microsoft.com/office/spreadsheetml/2010/11/main',
           },
-          c: [{tag: 'x15:timelineStyles', $: {defaultTimelineStyle: 'TimeSlicerStyleLight1'}}],
+          c: [{ tag: 'x15:timelineStyles', $: { defaultTimelineStyle: 'TimeSlicerStyleLight1' } }],
         },
       ],
     }),
@@ -504,13 +498,13 @@ class StylesXformMock extends StylesXform {
     super();
 
     this.model = {
-      styles: [{numFmtId: 0, fontId: 0, fillId: 0, borderId: 0, xfId: 0}],
+      styles: [{ numFmtId: 0, fontId: 0, fillId: 0, borderId: 0, xfId: 0 }],
       numFmts: [],
-      fonts: [{size: 11, color: {theme: 1}, name: 'Calibri', family: 2, scheme: 'minor'}],
+      fonts: [{ size: 11, color: { theme: 1 }, name: 'Calibri', family: 2, scheme: 'minor' }],
       borders: [{}],
       fills: [
-        {type: 'pattern', pattern: 'none'},
-        {type: 'pattern', pattern: 'gray125'},
+        { type: 'pattern', pattern: 'none' },
+        { type: 'pattern', pattern: 'gray125' },
       ],
     };
   }

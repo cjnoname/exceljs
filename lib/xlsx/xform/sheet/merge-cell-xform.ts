@@ -6,7 +6,7 @@ class MergeCellXform extends BaseXform {
   }
 
   render(xmlStream: any, model: string): void {
-    xmlStream.leafNode('mergeCell', {ref: model});
+    xmlStream.leafNode('mergeCell', { ref: model });
   }
 
   parseOpen(node: any): boolean {

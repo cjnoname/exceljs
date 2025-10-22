@@ -9,9 +9,9 @@ const expectations = [
     create() {
       return new PageSetupPropertiesXform();
     },
-    preparedModel: {fitToPage: true},
+    preparedModel: { fitToPage: true },
     xml: '<pageSetUpPr fitToPage="1"/>',
-    parsedModel: {fitToPage: true},
+    parsedModel: { fitToPage: true },
     tests: ['render', 'renderIn', 'parse'],
   },
 ];

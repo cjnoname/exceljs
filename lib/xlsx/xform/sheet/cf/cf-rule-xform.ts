@@ -21,7 +21,7 @@ const getTextFormula = model => {
   }
 
   const range = new Range(model.ref);
-  const {tl} = range;
+  const { tl } = range;
   switch (model.operator) {
     case 'containsText':
       return `NOT(ISERROR(SEARCH("${model.text}",${tl})))`;
@@ -44,7 +44,7 @@ const getTimePeriodFormula = model => {
   }
 
   const range = new Range(model.ref);
-  const {tl} = range;
+  const { tl } = range;
   switch (model.timePeriod) {
     case 'thisWeek':
       return `AND(TODAY()-ROUNDDOWN(${tl},0)<=WEEKDAY(TODAY())-1,ROUNDDOWN(${tl},0)-TODAY()<=7-WEEKDAY(TODAY()))`;
@@ -72,7 +72,7 @@ const getTimePeriodFormula = model => {
 };
 
 const opType = attributes => {
-  const {type, operator} = attributes;
+  const { type, operator } = attributes;
   switch (type) {
     case 'containsText':
     case 'containsBlanks':
@@ -85,7 +85,7 @@ const opType = attributes => {
       };
 
     default:
-      return {type, operator};
+      return { type, operator };
   }
 };
 
@@ -95,7 +95,7 @@ class CfRuleXform extends CompositeXform {
   formulaXform: FormulaXform;
   colorScaleXform: ColorScaleXform;
   iconSetXform: IconSetXform;
-  
+
   constructor() {
     super();
 
@@ -272,7 +272,7 @@ class CfRuleXform extends CompositeXform {
     xmlStream.closeNode();
   }
 
-  createNewModel({attributes}) {
+  createNewModel({ attributes }) {
     return {
       ...opType(attributes),
       dxfId: BaseXform.toIntValue(attributes.dxfId),

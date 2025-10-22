@@ -9,7 +9,7 @@ class DimensionXform extends BaseXform {
 
   render(xmlStream: any, model: any): void {
     if (model) {
-      xmlStream.leafNode('dimension', {ref: model});
+      xmlStream.leafNode('dimension', { ref: model });
     }
   }
 

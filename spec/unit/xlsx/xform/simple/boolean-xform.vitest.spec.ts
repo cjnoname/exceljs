@@ -7,7 +7,7 @@ const expectations = [
   {
     title: 'true',
     create() {
-      return new BooleanXform({tag: 'boolean', attr: 'val'});
+      return new BooleanXform({ tag: 'boolean', attr: 'val' });
     },
     preparedModel: true,
     get parsedModel() {
@@ -19,7 +19,7 @@ const expectations = [
   {
     title: 'false',
     create() {
-      return new BooleanXform({tag: 'boolean', attr: 'val'});
+      return new BooleanXform({ tag: 'boolean', attr: 'val' });
     },
     preparedModel: false,
     xml: '',
@@ -28,7 +28,7 @@ const expectations = [
   {
     title: 'undefined',
     create() {
-      return new BooleanXform({tag: 'boolean', attr: 'val'});
+      return new BooleanXform({ tag: 'boolean', attr: 'val' });
     },
     preparedModel: undefined,
     xml: '',

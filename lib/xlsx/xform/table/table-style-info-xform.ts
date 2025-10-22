@@ -38,7 +38,7 @@ class TableStyleInfoXform extends BaseXform {
 
   parseOpen(node: any): boolean {
     if (node.name === this.tag) {
-      const {attributes} = node;
+      const { attributes } = node;
       this.model = {
         theme: attributes.name ? attributes.name : null,
         showFirstColumn: attributes.showFirstColumn === '1',

@@ -20,7 +20,7 @@ class ConditionalFormattingXform extends CompositeXform {
       return;
     }
 
-    xmlStream.openNode(this.tag, {sqref: model.ref});
+    xmlStream.openNode(this.tag, { sqref: model.ref });
 
     model.rules.forEach((rule: any) => {
       if (CfRuleXform.isPrimitive(rule)) {
@@ -32,7 +32,7 @@ class ConditionalFormattingXform extends CompositeXform {
     xmlStream.closeNode();
   }
 
-  createNewModel({attributes}: any): any {
+  createNewModel({ attributes }: any): any {
     return {
       ref: attributes.sqref,
       rules: [],

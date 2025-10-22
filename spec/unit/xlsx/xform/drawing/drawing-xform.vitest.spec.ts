@@ -11,10 +11,10 @@ const __dirname = path.dirname(__filename);
 
 const options = {
   rels: {
-    rId1: {Target: '../media/image1.jpg'},
-    rId2: {Target: '../media/image2.jpg'},
+    rId1: { Target: '../media/image1.jpg' },
+    rId2: { Target: '../media/image2.jpg' },
   },
-  mediaIndex: {image1: 0, image2: 1},
+  mediaIndex: { image1: 0, image2: 1 },
   media: [{}, {}],
 };
 

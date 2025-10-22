@@ -18,10 +18,10 @@ class OneCellAnchorXform extends BaseCellAnchorXform {
     super();
 
     this.map = {
-      'xdr:from': new CellPositionXform({tag: 'xdr:from'}),
-      'xdr:ext': new ExtXform({tag: 'xdr:ext'}),
+      'xdr:from': new CellPositionXform({ tag: 'xdr:from' }),
+      'xdr:ext': new ExtXform({ tag: 'xdr:ext' }),
       'xdr:pic': new PicXform(),
-      'xdr:clientData': new StaticXform({tag: 'xdr:clientData'}),
+      'xdr:clientData': new StaticXform({ tag: 'xdr:clientData' }),
     };
   }
 
@@ -29,12 +29,12 @@ class OneCellAnchorXform extends BaseCellAnchorXform {
     return 'xdr:oneCellAnchor';
   }
 
-  prepare(model: OneCellModel, options: {index: number}): void {
+  prepare(model: OneCellModel, options: { index: number }): void {
     this.map['xdr:pic'].prepare(model.picture, options);
   }
 
   render(xmlStream: any, model: OneCellModel): void {
-    xmlStream.openNode(this.tag, {editAs: model.range.editAs || 'oneCell'});
+    xmlStream.openNode(this.tag, { editAs: model.range.editAs || 'oneCell' });
 
     this.map['xdr:from'].render(xmlStream, model.range.tl);
     this.map['xdr:ext'].render(xmlStream, model.range.ext);

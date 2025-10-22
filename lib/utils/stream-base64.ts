@@ -1,4 +1,4 @@
-import {Duplex} from 'stream';
+import { Duplex } from 'stream';
 
 // =============================================================================
 // StreamBase64 - A utility to convert to/from base64 stream
@@ -59,7 +59,7 @@ class StreamBase64 extends Duplex {
     return false;
   }
 
-  pipe<T extends NodeJS.WritableStream>(destination: T, _options?: {end?: boolean}): T {
+  pipe<T extends NodeJS.WritableStream>(destination: T, _options?: { end?: boolean }): T {
     // add destination to pipe list & write current buffer
     this.pipes.push(destination);
     return destination;

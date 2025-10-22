@@ -1,5 +1,6 @@
 // eslint-disable-next-line node/no-unsupported-features/node-builtins
-const textDecoder = typeof (global as any).TextDecoder === 'undefined' ? null : new (global as any).TextDecoder('utf-8');
+const textDecoder =
+  typeof (global as any).TextDecoder === 'undefined' ? null : new (global as any).TextDecoder('utf-8');
 
 function bufferToString(chunk: any): string {
   if (typeof chunk === 'string') {
@@ -11,4 +12,4 @@ function bufferToString(chunk: any): string {
   return chunk.toString();
 }
 
-export {bufferToString};
+export { bufferToString };

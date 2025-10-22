@@ -39,4 +39,4 @@ function slideFormula(formula: string, fromCell: string, toCell: string): string
   );
 }
 
-export {slideFormula};
+export { slideFormula };

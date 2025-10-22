@@ -114,10 +114,10 @@ const self = {
 
     // Old Shared Formula
     ws.getCell('A9').value = 1;
-    ws.getCell('B9').value = {formula: 'A9+1', result: 2};
-    ws.getCell('C9').value = {sharedFormula: 'B9', result: 3};
-    ws.getCell('D9').value = {sharedFormula: 'B9', result: 4};
-    ws.getCell('E9').value = {sharedFormula: 'B9', result: 5};
+    ws.getCell('B9').value = { formula: 'A9+1', result: 2 };
+    ws.getCell('C9').value = { sharedFormula: 'B9', result: 3 };
+    ws.getCell('D9').value = { sharedFormula: 'B9', result: 4 };
+    ws.getCell('E9').value = { sharedFormula: 'B9', result: 5 };
 
     if (ws.fillFormula) {
       // Fill Formula Shared
@@ -139,7 +139,7 @@ const self = {
       expect(ws.getRow(10).collapsed).toBe(true);
       expect(ws.properties.outlineLevelCol).toBe(1);
       expect(ws.properties.outlineLevelRow).toBe(1);
-      expect(ws.properties.tabColor).toEqual({argb: 'FF00FF00'});
+      expect(ws.properties.tabColor).toEqual({ argb: 'FF00FF00' });
       expect(ws.properties).toEqual(self.properties);
       expect(ws.pageSetup).toEqual(self.pageSetup);
       expect(ws.headerFooter).toEqual(self.headerFooter);
@@ -149,34 +149,26 @@ const self = {
     expect(ws.getCell('A1').type).toBe(ValueType.Number);
     expect(ws.getCell('B1').value).toBe(self.testValues.str);
     expect(ws.getCell('B1').type).toBe(ValueType.String);
-    expect(
-      Math.abs(
-        ws.getCell('C1').value.getTime() - self.testValues.date.getTime()
-      )
-    ).to.be.below(options.dateAccuracy);
+    expect(Math.abs(ws.getCell('C1').value.getTime() - self.testValues.date.getTime())).to.be.below(
+      options.dateAccuracy
+    );
     expect(ws.getCell('C1').type).toBe(ValueType.Date);
 
     if (options.checkFormulas) {
       expect(ws.getCell('D1').value).toEqual(self.testValues.formulas[0]);
       expect(ws.getCell('D1').type).toBe(ValueType.Formula);
-      expect(ws.getCell('E1').value.formula).to.equal(
-        self.testValues.formulas[1].formula
-      );
+      expect(ws.getCell('E1').value.formula).to.equal(self.testValues.formulas[1].formula);
       expect(ws.getCell('E1').value.value).toBeUndefined();
       expect(ws.getCell('E1').type).toBe(ValueType.Formula);
       expect(ws.getCell('F1').value).toEqual(self.testValues.hyperlink);
       expect(ws.getCell('F1').type).toBe(ValueType.Hyperlink);
       expect(ws.getCell('G1').value).toBe(self.testValues.str2);
     } else {
-      expect(ws.getCell('D1').value).to.equal(
-        self.testValues.formulas[0].result
-      );
+      expect(ws.getCell('D1').value).to.equal(self.testValues.formulas[0].result);
       expect(ws.getCell('D1').type).toBe(ValueType.Number);
       expect(ws.getCell('E1').value).toBeNull();
       expect(ws.getCell('E1').type).toBe(ValueType.Null);
-      expect(ws.getCell('F1').value).to.deep.equal(
-        self.testValues.hyperlink.hyperlink
-      );
+      expect(ws.getCell('F1').value).to.deep.equal(self.testValues.hyperlink.hyperlink);
       expect(ws.getCell('F1').type).toBe(ValueType.String);
       expect(ws.getCell('G1').value).toBe(self.testValues.str2);
     }
@@ -189,9 +181,7 @@ const self = {
     expect(ws.getCell('J1').value).toBe(false);
     expect(ws.getCell('J1').type).toBe(ValueType.Boolean);
 
-    expect(ws.getCell('K1').value).to.deep.equal(
-      self.testValues.Errors.NotApplicable
-    );
+    expect(ws.getCell('K1').value).to.deep.equal(self.testValues.Errors.NotApplicable);
     expect(ws.getCell('K1').type).toBe(ValueType.Error);
     expect(ws.getCell('L1').value).toEqual(self.testValues.Errors.Value);
     expect(ws.getCell('L1').type).toBe(ValueType.Error);
@@ -238,51 +228,35 @@ const self = {
       expect(ws.getCell('A4').border).toEqual(self.styles.borders.thin);
       expect(ws.getCell('C4').numFmt).toBe(self.testValues.numFmt2);
       expect(ws.getCell('C4').type).toBe(ValueType.Number);
-      expect(ws.getCell('C4').border).to.deep.equal(
-        self.styles.borders.doubleRed
-      );
-      expect(ws.getCell('E4').border).to.deep.equal(
-        self.styles.borders.thickRainbow
-      );
+      expect(ws.getCell('C4').border).to.deep.equal(self.styles.borders.doubleRed);
+      expect(ws.getCell('E4').border).to.deep.equal(self.styles.borders.thickRainbow);
 
       // test fonts and formats
       expect(ws.getCell('A5').value).toBe(self.testValues.str);
       expect(ws.getCell('A5').type).toBe(ValueType.String);
       expect(ws.getCell('B5').value).toBe(self.testValues.str);
       expect(ws.getCell('B5').type).toBe(ValueType.String);
-      expect(ws.getCell('B5').font).to.deep.equal(
-        self.styles.fonts.broadwayRedOutline20
-      );
+      expect(ws.getCell('B5').font).to.deep.equal(self.styles.fonts.broadwayRedOutline20);
       expect(ws.getCell('C5').value).toBe(self.testValues.str);
       expect(ws.getCell('C5').type).toBe(ValueType.String);
-      expect(ws.getCell('C5').font).to.deep.equal(
-        self.styles.fonts.comicSansUdB16
-      );
+      expect(ws.getCell('C5').font).to.deep.equal(self.styles.fonts.comicSansUdB16);
 
       expect(Math.abs(ws.getCell('D5').value - 1.6)).to.be.below(0.00000001);
       expect(ws.getCell('D5').type).toBe(ValueType.Number);
       expect(ws.getCell('D5').numFmt).toBe(self.testValues.numFmt1);
-      expect(ws.getCell('D5').font).to.deep.equal(
-        self.styles.fonts.arialBlackUI14
-      );
+      expect(ws.getCell('D5').font).to.deep.equal(self.styles.fonts.arialBlackUI14);
 
       expect(Math.abs(ws.getCell('E5').value - 1.6)).to.be.below(0.00000001);
       expect(ws.getCell('E5').type).toBe(ValueType.Number);
       expect(ws.getCell('E5').numFmt).toBe(self.testValues.numFmt2);
-      expect(ws.getCell('E5').font).to.deep.equal(
-        self.styles.fonts.broadwayRedOutline20
-      );
+      expect(ws.getCell('E5').font).to.deep.equal(self.styles.fonts.broadwayRedOutline20);
 
-      expect(
-        Math.abs(
-          ws.getCell('F5').value.getTime() - self.testValues.date.getTime()
-        )
-      ).to.be.below(options.dateAccuracy);
+      expect(Math.abs(ws.getCell('F5').value.getTime() - self.testValues.date.getTime())).to.be.below(
+        options.dateAccuracy
+      );
       expect(ws.getCell('F5').type).toBe(ValueType.Date);
       expect(ws.getCell('F5').numFmt).toBe(self.testValues.numFmtDate);
-      expect(ws.getCell('F5').font).to.deep.equal(
-        self.styles.fonts.comicSansUdB16
-      );
+      expect(ws.getCell('F5').font).to.deep.equal(self.styles.fonts.comicSansUdB16);
 
       expect(ws.getRow(5).height).toBeUndefined();
       expect(ws.getRow(6).height).toBe(42);
@@ -306,15 +280,9 @@ const self = {
 
       const row8 = ws.getRow(8);
       expect(row8.height).toBe(40);
-      expect(row8.getCell(1).fill).to.deep.equal(
-        self.styles.fills.blueWhiteHGrad
-      );
-      expect(row8.getCell(2).fill).to.deep.equal(
-        self.styles.fills.redDarkVertical
-      );
-      expect(row8.getCell(3).fill).to.deep.equal(
-        self.styles.fills.redGreenDarkTrellis
-      );
+      expect(row8.getCell(1).fill).to.deep.equal(self.styles.fills.blueWhiteHGrad);
+      expect(row8.getCell(2).fill).to.deep.equal(self.styles.fills.redDarkVertical);
+      expect(row8.getCell(3).fill).to.deep.equal(self.styles.fills.redGreenDarkTrellis);
       expect(row8.getCell(4).fill).toEqual(self.styles.fills.rgbPathGrad);
 
       if (options.checkFormulas) {

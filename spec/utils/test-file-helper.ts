@@ -15,7 +15,7 @@ export function getUniqueTestFilePath(testFilePath: string, extension = '.xlsx')
 /**
  * 为 CommonJS 环境生成唯一的测试文件路径
  * @param filename - __filename
- * @param extension - 文件扩展名，默认 '.xlsx'  
+ * @param extension - 文件扩展名，默认 '.xlsx'
  * @returns 唯一的测试文件路径
  */
 export function getUniqueTestFilePathCJS(filename: string, extension = '.xlsx'): string {

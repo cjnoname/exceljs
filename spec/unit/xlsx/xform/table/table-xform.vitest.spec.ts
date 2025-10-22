@@ -16,13 +16,9 @@ const expectations = [
       return new TableXform();
     },
     initialModel: null,
-    preparedModel: JSON.parse(
-      fs.readFileSync(join(__dirname, 'data/table.1.1.json')).toString()
-    ),
+    preparedModel: JSON.parse(fs.readFileSync(join(__dirname, 'data/table.1.1.json')).toString()),
     xml: fs.readFileSync(join(__dirname, 'data/table.1.2.xml')).toString(),
-    parsedModel: JSON.parse(
-      fs.readFileSync(join(__dirname, 'data/table.1.3.json')).toString()
-    ),
+    parsedModel: JSON.parse(fs.readFileSync(join(__dirname, 'data/table.1.3.json')).toString()),
     tests: ['render', 'renderIn', 'parse'],
   },
 ];

@@ -9,7 +9,7 @@ interface VmlNotesModel {
 // This class is (currently) single purposed to insert the triangle
 // drawing icons on commented cells
 class VmlNotesXform extends BaseXform {
-  public map: {[key: string]: any};
+  public map: { [key: string]: any };
   public parser: any;
   public model: VmlNotesModel;
 
@@ -18,7 +18,7 @@ class VmlNotesXform extends BaseXform {
     this.map = {
       'v:shape': new VmlShapeXform(),
     };
-    this.model = {comments: []};
+    this.model = { comments: [] };
   }
 
   get tag(): string {
@@ -30,8 +30,8 @@ class VmlNotesXform extends BaseXform {
     xmlStream.openXml(XmlStream.StdDocAttributes);
     xmlStream.openNode(this.tag, VmlNotesXform.DRAWING_ATTRIBUTES);
 
-    xmlStream.openNode('o:shapelayout', {'v:ext': 'edit'});
-    xmlStream.leafNode('o:idmap', {'v:ext': 'edit', data: 1});
+    xmlStream.openNode('o:shapelayout', { 'v:ext': 'edit' });
+    xmlStream.leafNode('o:idmap', { 'v:ext': 'edit', data: 1 });
     xmlStream.closeNode();
 
     xmlStream.openNode('v:shapetype', {
@@ -40,8 +40,8 @@ class VmlNotesXform extends BaseXform {
       'o:spt': 202,
       path: 'm,l,21600r21600,l21600,xe',
     });
-    xmlStream.leafNode('v:stroke', {joinstyle: 'miter'});
-    xmlStream.leafNode('v:path', {gradientshapeok: 't', 'o:connecttype': 'rect'});
+    xmlStream.leafNode('v:stroke', { joinstyle: 'miter' });
+    xmlStream.leafNode('v:path', { gradientshapeok: 't', 'o:connecttype': 'rect' });
     xmlStream.closeNode();
 
     renderModel.comments.forEach((item, index) => {

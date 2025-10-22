@@ -12,7 +12,7 @@ import WorkbookCalcPropertiesXform from './workbook-calc-properties-xform.js';
 import WorkbookPivotCacheXform from './workbook-pivot-cache-xform.js';
 
 class WorkbookXform extends BaseXform {
-  public map: {[key: string]: any};
+  public map: { [key: string]: any };
   public parser: any;
 
   constructor() {
@@ -26,7 +26,7 @@ class WorkbookXform extends BaseXform {
         count: false,
         childXform: new WorkbookViewXform(),
       }),
-      sheets: new ListXform({tag: 'sheets', count: false, childXform: new SheetXform()}),
+      sheets: new ListXform({ tag: 'sheets', count: false, childXform: new SheetXform() }),
       definedNames: new ListXform({
         tag: 'definedNames',
         count: false,
@@ -60,10 +60,7 @@ class WorkbookXform extends BaseXform {
         });
       }
 
-      if (
-        sheet.pageSetup &&
-        (sheet.pageSetup.printTitlesRow || sheet.pageSetup.printTitlesColumn)
-      ) {
+      if (sheet.pageSetup && (sheet.pageSetup.printTitlesRow || sheet.pageSetup.printTitlesColumn)) {
         const ranges: string[] = [];
 
         if (sheet.pageSetup.printTitlesColumn) {
@@ -256,7 +253,7 @@ class WorkbookXform extends BaseXform {
   static STATIC_XFORMS = {
     fileVersion: new StaticXform({
       tag: 'fileVersion',
-      $: {appName: 'xl', lastEdited: 5, lowestEdited: 5, rupBuild: 9303},
+      $: { appName: 'xl', lastEdited: 5, lowestEdited: 5, rupBuild: 9303 },
     }),
   };
 }

@@ -8,7 +8,7 @@ describe('utils', () => {
       expect(utils.xmlEncode('>')).toBe('&gt;');
       expect(utils.xmlEncode('&')).toBe('&amp;');
       expect(utils.xmlEncode('"')).toBe('&quot;');
-      expect(utils.xmlEncode('\'')).toBe('&apos;');
+      expect(utils.xmlEncode("'")).toBe('&apos;');
 
       expect(
         utils.xmlEncode(
@@ -16,9 +16,7 @@ describe('utils', () => {
         )
       ).toBe('abc abc');
 
-      expect(
-        utils.xmlEncode('<a href="www.whatever.com">Talk to the H&</a>')
-      ).toBe(
+      expect(utils.xmlEncode('<a href="www.whatever.com">Talk to the H&</a>')).toBe(
         '&lt;a href=&quot;www.whatever.com&quot;&gt;Talk to the H&amp;&lt;/a&gt;'
       );
 

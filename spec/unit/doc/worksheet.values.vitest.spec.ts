@@ -34,7 +34,7 @@ describe('Worksheet', () => {
       };
 
       // number formula
-      ws.getCell('A2').value = {formula: 'A1', result: 7};
+      ws.getCell('A2').value = { formula: 'A1', result: 7 };
 
       // string formula
       ws.getCell('B2').value = {
@@ -43,7 +43,7 @@ describe('Worksheet', () => {
       };
 
       // date formula
-      ws.getCell('C2').value = {formula: 'D1', result: now};
+      ws.getCell('C2').value = { formula: 'D1', result: now };
 
       expect(ws.getCell('A1').value).toBe(7);
       expect(ws.getCell('B1').value).toBe('Hello, World!');
@@ -51,16 +51,12 @@ describe('Worksheet', () => {
       expect(ws.getCell('D1').value).toBe(now);
       expect(ws.getCell('E1').value).toBe('Hello, World!');
       expect(ws.getCell('F1').value.text).toBe('www.google.com');
-      expect(ws.getCell('F1').value.hyperlink).toBe(
-        'http://www.google.com'
-      );
+      expect(ws.getCell('F1').value.hyperlink).toBe('http://www.google.com');
 
       expect(ws.getCell('A2').value.formula).toBe('A1');
       expect(ws.getCell('A2').value.result).toBe(7);
 
-      expect(ws.getCell('B2').value.formula).toBe(
-        'CONCATENATE("Hello", ", ", "World!")'
-      );
+      expect(ws.getCell('B2').value.formula).toBe('CONCATENATE("Hello", ", ", "World!")');
       expect(ws.getCell('B2').value.result).toBe('Hello, World!');
 
       expect(ws.getCell('C2').value.formula).toBe('D1');
@@ -112,7 +108,7 @@ describe('Worksheet', () => {
       };
 
       // number formula
-      ws.getCell('A2').value = {formula: 'A1', result: 7};
+      ws.getCell('A2').value = { formula: 'A1', result: 7 };
 
       // string formula
       ws.getCell('B2').value = {
@@ -121,7 +117,7 @@ describe('Worksheet', () => {
       };
 
       // date formula
-      ws.getCell('C2').value = {formula: 'D1', result: new Date()};
+      ws.getCell('C2').value = { formula: 'D1', result: new Date() };
 
       expect(ws.getCell('A1').type).toBe(Enums.ValueType.Number);
       expect(ws.getCell('B1').type).toBe(Enums.ValueType.String);
@@ -139,9 +135,9 @@ describe('Worksheet', () => {
       const ws = wb.addWorksheet('blort');
 
       ws.columns = [
-        {key: 'id', width: 10},
-        {key: 'name', width: 32},
-        {key: 'dob', width: 10},
+        { key: 'id', width: 10 },
+        { key: 'name', width: 32 },
+        { key: 'dob', width: 10 },
       ];
 
       expect(ws.getColumn('id').number).toBe(1);
@@ -165,9 +161,9 @@ describe('Worksheet', () => {
       const ws = wb.addWorksheet('blort');
 
       ws.columns = [
-        {header: 'Id', width: 10},
-        {header: 'Name', width: 32},
-        {header: 'D.O.B.', width: 10},
+        { header: 'Id', width: 10 },
+        { header: 'Name', width: 32 },
+        { header: 'D.O.B.', width: 10 },
       ];
 
       expect(ws.getCell('A1').value).toBe('Id');
@@ -180,7 +176,7 @@ describe('Worksheet', () => {
       const ws = wb.addWorksheet('blort');
 
       // by defn
-      ws.getColumn(1).defn = {key: 'id', header: 'Id', width: 10};
+      ws.getColumn(1).defn = { key: 'id', header: 'Id', width: 10 };
 
       // by property
       ws.getColumn(2).key = 'name';
@@ -207,7 +203,7 @@ describe('Worksheet', () => {
       const ws = wb.addWorksheet('blort');
 
       // by defn
-      ws.getColumn('A').defn = {key: 'id', header: 'Id', width: 10};
+      ws.getColumn('A').defn = { key: 'id', header: 'Id', width: 10 };
 
       // by property
       ws.getColumn('B').key = 'name';
@@ -235,16 +231,16 @@ describe('Worksheet', () => {
 
       // add columns to define column keys
       ws.columns = [
-        {header: 'Id', key: 'id', width: 10},
-        {header: 'Name', key: 'name', width: 32},
-        {header: 'D.O.B.', key: 'dob', width: 10},
+        { header: 'Id', key: 'id', width: 10 },
+        { header: 'Name', key: 'name', width: 32 },
+        { header: 'D.O.B.', key: 'dob', width: 10 },
       ];
 
       const dateValue1 = new Date(1970, 1, 1);
       const dateValue2 = new Date(1965, 1, 7);
 
-      ws.addRow({id: 1, name: 'John Doe', dob: dateValue1});
-      ws.addRow({id: 2, name: 'Jane Doe', dob: dateValue2});
+      ws.addRow({ id: 1, name: 'John Doe', dob: dateValue1 });
+      ws.addRow({ id: 2, name: 'Jane Doe', dob: dateValue2 });
 
       expect(ws.getCell('A2').value).toBe(1);
       expect(ws.getCell('B2').value).toBe('John Doe');
@@ -257,12 +253,7 @@ describe('Worksheet', () => {
       expect(ws.getRow(2).values).toEqual([, 1, 'John Doe', dateValue1]);
       expect(ws.getRow(3).values).toEqual([, 2, 'Jane Doe', dateValue2]);
 
-      const values = [
-        ,
-        [, 'Id', 'Name', 'D.O.B.'],
-        [, 1, 'John Doe', dateValue1],
-        [, 2, 'Jane Doe', dateValue2],
-      ];
+      const values = [, [, 'Id', 'Name', 'D.O.B.'], [, 1, 'John Doe', dateValue1], [, 2, 'Jane Doe', dateValue2]];
       ws.eachRow((row, rowNumber) => {
         expect(row.values).toEqual(values[rowNumber]);
         row.eachCell((cell: any, colNumber: any) => {
@@ -299,11 +290,7 @@ describe('Worksheet', () => {
 
       const dateValue1 = new Date(1970, 1, 1);
       const dateValue2 = new Date(1965, 1, 7);
-      const rows = [
-        ,
-        [, 1, 'John Doe', , dateValue1],
-        [, 2, 'Jane Doe', , dateValue2],
-      ];
+      const rows = [, [, 1, 'John Doe', , dateValue1], [, 2, 'Jane Doe', , dateValue2]];
       const row3 = [];
       row3[1] = 3;
       row3[3] = 'Sam';
@@ -452,17 +439,22 @@ describe('Worksheet', () => {
           ws.addRow(['4,1', '4,2', '4,3', '4,4']);
 
           ws.getCell('A1').numFmt = '# ?/?';
-          ws.getCell('B2').fill = {type: 'pattern', pattern: 'darkVertical', fgColor: {argb: 'FFFF0000'}};
-          ws.getRow(3).border = {top: {style: 'thin'}, left: {style: 'thin'}, bottom: {style: 'thin'}, right: {style: 'thin'}};
-          ws.getRow(4).alignment = {horizontal: 'left', vertical: 'middle'};
+          ws.getCell('B2').fill = { type: 'pattern', pattern: 'darkVertical', fgColor: { argb: 'FFFF0000' } };
+          ws.getRow(3).border = {
+            top: { style: 'thin' },
+            left: { style: 'thin' },
+            bottom: { style: 'thin' },
+            right: { style: 'thin' },
+          };
+          ws.getRow(4).alignment = { horizontal: 'left', vertical: 'middle' };
 
           ws.spliceRows(2, 2);
 
           expect(ws).not.toBeUndefined();
           expect(ws.getRow(1).values).toEqual([, '1,1', '1,2', '1,3', '1,4']);
           expect(ws.getRow(2).values).toEqual([, '4,1', '4,2', '4,3', '4,4']);
-          expect(ws.getCell('A1').style).toEqual({numFmt: '# ?/?'});
-          expect(ws.getRow(2).style).toEqual({alignment: {horizontal: 'left', vertical: 'middle'}});
+          expect(ws.getCell('A1').style).toEqual({ numFmt: '# ?/?' });
+          expect(ws.getRow(2).style).toEqual({ alignment: { horizontal: 'left', vertical: 'middle' } });
         });
         it('Insert style', () => {
           const wb = new Excel.Workbook();
@@ -470,20 +462,34 @@ describe('Worksheet', () => {
 
           ws.addRow(['1,1', '1,2', '1,3']);
           ws.addRow(['2,1', '2,2', '2,3']);
-          ws.getCell('A2').fill = {type: 'pattern', pattern: 'darkVertical', fgColor: {argb: 'FFFF0000'}};
-          ws.getRow(2).alignment = {horizontal: 'left', vertical: 'middle'};
+          ws.getCell('A2').fill = { type: 'pattern', pattern: 'darkVertical', fgColor: { argb: 'FFFF0000' } };
+          ws.getRow(2).alignment = { horizontal: 'left', vertical: 'middle' };
 
           ws.spliceRows(2, 0, ['one', 'two', 'three']);
-          ws.getCell('A2').border = {top: {style: 'thin'}, left: {style: 'thin'}, bottom: {style: 'thin'}, right: {style: 'thin'}};
+          ws.getCell('A2').border = {
+            top: { style: 'thin' },
+            left: { style: 'thin' },
+            bottom: { style: 'thin' },
+            right: { style: 'thin' },
+          };
 
           expect(ws).not.toBeUndefined();
           expect(ws.getRow(1).values).toEqual([, '1,1', '1,2', '1,3']);
           expect(ws.getRow(2).values).toEqual([, 'one', 'two', 'three']);
           expect(ws.getRow(3).values).toEqual([, '2,1', '2,2', '2,3']);
-          expect(ws.getRow(3).style.alignment).toEqual({horizontal: 'left', vertical: 'middle'});
-          expect(ws.getCell('A2').style.border).toEqual({top: {style: 'thin'}, left: {style: 'thin'}, bottom: {style: 'thin'}, right: {style: 'thin'}});
-          expect(ws.getCell('A3').style.alignment).toEqual({horizontal: 'left', vertical: 'middle'});
-          expect(ws.getCell('A3').style.fill).toEqual({type: 'pattern', pattern: 'darkVertical', fgColor: {argb: 'FFFF0000'}});
+          expect(ws.getRow(3).style.alignment).toEqual({ horizontal: 'left', vertical: 'middle' });
+          expect(ws.getCell('A2').style.border).toEqual({
+            top: { style: 'thin' },
+            left: { style: 'thin' },
+            bottom: { style: 'thin' },
+            right: { style: 'thin' },
+          });
+          expect(ws.getCell('A3').style.alignment).toEqual({ horizontal: 'left', vertical: 'middle' });
+          expect(ws.getCell('A3').style.fill).toEqual({
+            type: 'pattern',
+            pattern: 'darkVertical',
+            fgColor: { argb: 'FFFF0000' },
+          });
         });
         it('Replace style', () => {
           const wb = new Excel.Workbook();
@@ -495,9 +501,9 @@ describe('Worksheet', () => {
           ws.getCell('B1').numFmt = 'top';
           ws.getCell('B2').numFmt = 'middle';
           ws.getCell('B3').numFmt = 'bottom';
-          ws.getRow(1).alignment = {horizontal: 'left', vertical: 'top'};
-          ws.getRow(2).alignment = {horizontal: 'center', vertical: 'middle'};
-          ws.getRow(3).alignment = {horizontal: 'right', vertical: 'bottom'};
+          ws.getRow(1).alignment = { horizontal: 'left', vertical: 'top' };
+          ws.getRow(2).alignment = { horizontal: 'center', vertical: 'middle' };
+          ws.getRow(3).alignment = { horizontal: 'right', vertical: 'bottom' };
 
           ws.spliceRows(2, 1, ['two-one', 'two-two', 'two-three', 'two-four']);
 
@@ -505,12 +511,15 @@ describe('Worksheet', () => {
           expect(ws.getRow(1).values).toEqual([, '1,1', '1,2', '1,3', '1,4']);
           expect(ws.getRow(2).values).toEqual([, 'two-one', 'two-two', 'two-three', 'two-four']);
           expect(ws.getRow(3).values).toEqual([, '3,1', '3,2', '3,3', '3,4']);
-          expect(ws.getCell('B1').style).toEqual({numFmt: 'top', alignment: {horizontal: 'left', vertical: 'top'}});
+          expect(ws.getCell('B1').style).toEqual({ numFmt: 'top', alignment: { horizontal: 'left', vertical: 'top' } });
           expect(ws.getCell('B2').style).toEqual({});
-          expect(ws.getCell('B3').style).toEqual({numFmt: 'bottom', alignment: {horizontal: 'right', vertical: 'bottom'}});
-          expect(ws.getRow(1).style).toEqual({alignment: {horizontal: 'left', vertical: 'top'}});
+          expect(ws.getCell('B3').style).toEqual({
+            numFmt: 'bottom',
+            alignment: { horizontal: 'right', vertical: 'bottom' },
+          });
+          expect(ws.getRow(1).style).toEqual({ alignment: { horizontal: 'left', vertical: 'top' } });
           expect(ws.getRow(2).style).toEqual({});
-          expect(ws.getRow(3).style).toEqual({alignment: {horizontal: 'right', vertical: 'bottom'}});
+          expect(ws.getRow(3).style).toEqual({ alignment: { horizontal: 'right', vertical: 'bottom' } });
         });
         it('Remove defined names', () => {
           const wb = new Excel.Workbook();
@@ -681,10 +690,14 @@ describe('Worksheet', () => {
           const wb = new Excel.Workbook();
           const ws = wb.addWorksheet('splice-column-remove-only');
 
-          ws.columns = [{key: 'id', width: 10}, {key: 'name', width: 32}, {key: 'dob', width: 10}];
-          ws.addRow({id: 'id1', name: 'name1', dob: 'dob1'});
-          ws.addRow({id: 2, dob: 'dob2'});
-          ws.addRow({name: 'name3', dob: 3});
+          ws.columns = [
+            { key: 'id', width: 10 },
+            { key: 'name', width: 32 },
+            { key: 'dob', width: 10 },
+          ];
+          ws.addRow({ id: 'id1', name: 'name1', dob: 'dob1' });
+          ws.addRow({ id: 2, dob: 'dob2' });
+          ws.addRow({ name: 'name3', dob: 3 });
 
           ws.spliceColumns(2, 1);
 
@@ -757,7 +770,13 @@ describe('Worksheet', () => {
           ws.getCell('E4').value = 4.5;
           ws.addRow(['5,1', '5,2', '5,3', '5,4', '5,5']);
 
-          ws.spliceColumns(2, 2, ['one', 'two', 'three', 'four', 'five'], ['une', 'deux', 'trois', 'quatre', 'cinq'], ['uno', 'due', 'tre', 'quatro', 'cinque']);
+          ws.spliceColumns(
+            2,
+            2,
+            ['one', 'two', 'three', 'four', 'five'],
+            ['une', 'deux', 'trois', 'quatre', 'cinq'],
+            ['uno', 'due', 'tre', 'quatro', 'cinque']
+          );
 
           expect(ws).not.toBeUndefined();
           expect(ws.getRow(1).values).toEqual([, '1,1', 'one', 'une', 'uno', '1,4', '1,5']);
@@ -770,15 +789,15 @@ describe('Worksheet', () => {
           const wb = new Excel.Workbook();
           const ws = wb.addWorksheet('splice-column-insert-fewer');
           ws.columns = [
-            {key: 'id', width: 10},
-            {key: 'dob', width: 20},
-            {key: 'name', width: 30},
-            {key: 'age', width: 40},
+            { key: 'id', width: 10 },
+            { key: 'dob', width: 20 },
+            { key: 'name', width: 30 },
+            { key: 'age', width: 40 },
           ];
 
           const values = [
-            {id: '123', name: 'Jack', dob: new Date(), age: 0},
-            {id: '124', name: 'Jill', dob: new Date(), age: 0},
+            { id: '123', name: 'Jack', dob: new Date(), age: 0 },
+            { id: '124', name: 'Jill', dob: new Date(), age: 0 },
           ];
           values.forEach(value => {
             ws.addRow(value);
@@ -806,12 +825,12 @@ describe('Worksheet', () => {
           const wb = new Excel.Workbook();
           const ws = wb.addWorksheet('splice-to-end');
           ws.columns = [
-            {header: 'Col-1', width: 10},
-            {header: 'Col-2', width: 10},
-            {header: 'Col-3', width: 10},
-            {header: 'Col-4', width: 10},
-            {header: 'Col-5', width: 10},
-            {header: 'Col-6', width: 10},
+            { header: 'Col-1', width: 10 },
+            { header: 'Col-2', width: 10 },
+            { header: 'Col-3', width: 10 },
+            { header: 'Col-4', width: 10 },
+            { header: 'Col-5', width: 10 },
+            { header: 'Col-6', width: 10 },
           ];
 
           ws.addRow([1, 2, 3, 4, 5, 6]);
@@ -852,12 +871,12 @@ describe('Worksheet', () => {
           const wb = new Excel.Workbook();
           const ws = wb.addWorksheet('splice-to-end');
           ws.columns = [
-            {header: 'Col-1', width: 10},
-            {header: 'Col-2', width: 10},
-            {header: 'Col-3', width: 10},
-            {header: 'Col-4', width: 10},
-            {header: 'Col-5', width: 10},
-            {header: 'Col-6', width: 10},
+            { header: 'Col-1', width: 10 },
+            { header: 'Col-2', width: 10 },
+            { header: 'Col-3', width: 10 },
+            { header: 'Col-4', width: 10 },
+            { header: 'Col-5', width: 10 },
+            { header: 'Col-6', width: 10 },
           ];
 
           ws.addRow([1, 2, 3, 4, 5, 6]);
@@ -898,12 +917,12 @@ describe('Worksheet', () => {
           const wb = new Excel.Workbook();
           const ws = wb.addWorksheet('splice-to-end');
           ws.columns = [
-            {header: 'Col-1', width: 10},
-            {header: 'Col-2', width: 10},
-            {header: 'Col-3', width: 10},
-            {header: 'Col-4', width: 10},
-            {header: 'Col-5', width: 10},
-            {header: 'Col-6', width: 10},
+            { header: 'Col-1', width: 10 },
+            { header: 'Col-2', width: 10 },
+            { header: 'Col-3', width: 10 },
+            { header: 'Col-4', width: 10 },
+            { header: 'Col-5', width: 10 },
+            { header: 'Col-6', width: 10 },
           ];
 
           ws.addRow([1, 2, 3, 4, 5, 6]);
@@ -950,9 +969,14 @@ describe('Worksheet', () => {
           ws.addRow(['4,1', '4,2', '4,3', '4,4']);
 
           ws.getCell('A1').numFmt = '# ?/?';
-          ws.getCell('B2').fill = {type: 'pattern', pattern: 'darkVertical', fgColor: {argb: 'FFFF0000'}};
-          ws.getColumn(3).border = {top: {style: 'thin'}, left: {style: 'thin'}, bottom: {style: 'thin'}, right: {style: 'thin'}};
-          ws.getColumn(4).alignment = {horizontal: 'left', vertical: 'middle'};
+          ws.getCell('B2').fill = { type: 'pattern', pattern: 'darkVertical', fgColor: { argb: 'FFFF0000' } };
+          ws.getColumn(3).border = {
+            top: { style: 'thin' },
+            left: { style: 'thin' },
+            bottom: { style: 'thin' },
+            right: { style: 'thin' },
+          };
+          ws.getColumn(4).alignment = { horizontal: 'left', vertical: 'middle' };
 
           ws.spliceColumns(2, 2);
 
@@ -961,9 +985,9 @@ describe('Worksheet', () => {
           expect(ws.getRow(2).values).toEqual([, '2,1', '2,4']);
           expect(ws.getRow(3).values).toEqual([, '3,1', '3,4']);
           expect(ws.getRow(4).values).toEqual([, '4,1', '4,4']);
-          expect(ws.getCell('A1').style).toEqual({numFmt: '# ?/?'});
-          expect(ws.getColumn(2).style).toEqual({alignment: {horizontal: 'left', vertical: 'middle'}});
-          expect(ws.getCell('B4').style).toEqual({alignment: {horizontal: 'left', vertical: 'middle'}});
+          expect(ws.getCell('A1').style).toEqual({ numFmt: '# ?/?' });
+          expect(ws.getColumn(2).style).toEqual({ alignment: { horizontal: 'left', vertical: 'middle' } });
+          expect(ws.getCell('B4').style).toEqual({ alignment: { horizontal: 'left', vertical: 'middle' } });
         });
         it('Insert style', () => {
           const wb = new Excel.Workbook();
@@ -972,19 +996,34 @@ describe('Worksheet', () => {
           ws.addRow(['1,1', '1,2', '1,3']);
           ws.addRow(['2,1', '2,2', '2,3']);
           ws.addRow(['3,1', '3,2', '3,3']);
-          ws.getCell('B2').fill = {type: 'pattern', pattern: 'darkVertical', fgColor: {argb: 'FFFF0000'}};
-          ws.getColumn(2).alignment = {horizontal: 'left', vertical: 'middle'};
+          ws.getCell('B2').fill = { type: 'pattern', pattern: 'darkVertical', fgColor: { argb: 'FFFF0000' } };
+          ws.getColumn(2).alignment = { horizontal: 'left', vertical: 'middle' };
 
           ws.spliceColumns(2, 0, ['one', 'two', 'three']);
-          ws.getCell('B2').border = {top: {style: 'thin'}, left: {style: 'thin'}, bottom: {style: 'thin'}, right: {style: 'thin'}};
+          ws.getCell('B2').border = {
+            top: { style: 'thin' },
+            left: { style: 'thin' },
+            bottom: { style: 'thin' },
+            right: { style: 'thin' },
+          };
 
           expect(ws).not.toBeUndefined();
           expect(ws.getRow(1).values).toEqual([, '1,1', 'one', '1,2', '1,3']);
           expect(ws.getRow(2).values).toEqual([, '2,1', 'two', '2,2', '2,3']);
           expect(ws.getRow(3).values).toEqual([, '3,1', 'three', '3,2', '3,3']);
-          expect(ws.getColumn(3).style).toEqual({alignment: {horizontal: 'left', vertical: 'middle'}});
-          expect(ws.getCell('B2').style).toEqual({border: {top: {style: 'thin'}, left: {style: 'thin'}, bottom: {style: 'thin'}, right: {style: 'thin'}}});
-          expect(ws.getCell('C2').style).toEqual({alignment: {horizontal: 'left', vertical: 'middle'}, fill: {type: 'pattern', pattern: 'darkVertical', fgColor: {argb: 'FFFF0000'}}});
+          expect(ws.getColumn(3).style).toEqual({ alignment: { horizontal: 'left', vertical: 'middle' } });
+          expect(ws.getCell('B2').style).toEqual({
+            border: {
+              top: { style: 'thin' },
+              left: { style: 'thin' },
+              bottom: { style: 'thin' },
+              right: { style: 'thin' },
+            },
+          });
+          expect(ws.getCell('C2').style).toEqual({
+            alignment: { horizontal: 'left', vertical: 'middle' },
+            fill: { type: 'pattern', pattern: 'darkVertical', fgColor: { argb: 'FFFF0000' } },
+          });
         });
         it('Replace style', () => {
           const wb = new Excel.Workbook();
@@ -996,9 +1035,9 @@ describe('Worksheet', () => {
           ws.getCell('A2').numFmt = 'left';
           ws.getCell('B2').numFmt = 'center';
           ws.getCell('C2').numFmt = 'right';
-          ws.getColumn(1).alignment = {horizontal: 'left', vertical: 'top'};
-          ws.getColumn(2).alignment = {horizontal: 'center', vertical: 'middle'};
-          ws.getColumn(3).alignment = {horizontal: 'right', vertical: 'bottom'};
+          ws.getColumn(1).alignment = { horizontal: 'left', vertical: 'top' };
+          ws.getColumn(2).alignment = { horizontal: 'center', vertical: 'middle' };
+          ws.getColumn(3).alignment = { horizontal: 'right', vertical: 'bottom' };
 
           ws.spliceColumns(2, 1, ['one-two', 'two-two', 'three-two']);
 
@@ -1006,12 +1045,18 @@ describe('Worksheet', () => {
           expect(ws.getRow(1).values).toEqual([, '1,1', 'one-two', '1,3', '1,4']);
           expect(ws.getRow(2).values).toEqual([, '2,1', 'two-two', '2,3', '2,4']);
           expect(ws.getRow(3).values).toEqual([, '3,1', 'three-two', '3,3', '3,4']);
-          expect(ws.getCell('A2').style).toEqual({numFmt: 'left', alignment: {horizontal: 'left', vertical: 'top'}});
+          expect(ws.getCell('A2').style).toEqual({
+            numFmt: 'left',
+            alignment: { horizontal: 'left', vertical: 'top' },
+          });
           expect(ws.getCell('B2').style).toEqual({});
-          expect(ws.getCell('C2').style).toEqual({numFmt: 'right', alignment: {horizontal: 'right', vertical: 'bottom'}});
-          expect(ws.getColumn(1).style).toEqual({alignment: {horizontal: 'left', vertical: 'top'}});
+          expect(ws.getCell('C2').style).toEqual({
+            numFmt: 'right',
+            alignment: { horizontal: 'right', vertical: 'bottom' },
+          });
+          expect(ws.getColumn(1).style).toEqual({ alignment: { horizontal: 'left', vertical: 'top' } });
           expect(ws.getColumn(2).style).toEqual({});
-          expect(ws.getColumn(3).style).toEqual({alignment: {horizontal: 'right', vertical: 'bottom'}});
+          expect(ws.getColumn(3).style).toEqual({ alignment: { horizontal: 'right', vertical: 'bottom' } });
         });
         it('Remove defined names', () => {
           const wb = new Excel.Workbook();
@@ -1192,7 +1237,7 @@ describe('Worksheet', () => {
       });
 
       let count = 1;
-      ws.eachRow({includeEmpty: true}, (row, rowNumber) => {
+      ws.eachRow({ includeEmpty: true }, (row, rowNumber) => {
         expect(rowNumber).toBe(count++);
       });
     });
@@ -1213,7 +1258,7 @@ describe('Worksheet', () => {
       });
 
       let count = 1;
-      colA.eachCell({includeEmpty: true}, (cell: any, rowNumber: any) => {
+      colA.eachCell({ includeEmpty: true }, (cell: any, rowNumber: any) => {
         expect(rowNumber).toBe(count++);
       });
       expect(count).toBe(7);

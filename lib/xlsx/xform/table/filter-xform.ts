@@ -9,7 +9,7 @@ class FilterXform extends BaseXform {
 
   constructor() {
     super();
-    this.model = {val: ''};
+    this.model = { val: '' };
   }
 
   get tag(): string {

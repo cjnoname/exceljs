@@ -10,8 +10,8 @@ import Table from './table.js';
 import DataValidations from './data-validations.js';
 import Encryptor from '../utils/encryptor.js';
 
-import {makePivotTable} from './pivot-table.js';
-import {copyStyle} from '../utils/copy-style.js';
+import { makePivotTable } from './pivot-table.js';
+import { copyStyle } from '../utils/copy-style.js';
 
 interface WorksheetOptions {
   workbook?: any;
@@ -113,8 +113,8 @@ class Worksheet {
   public state: string;
   public _rows: any[];
   public _columns: any[] | null;
-  public _keys: {[key: string]: any};
-  public _merges: {[key: string]: Range};
+  public _keys: { [key: string]: any };
+  public _merges: { [key: string]: Range };
   public rowBreaks: any[];
   public properties: any;
   public pageSetup: PageSetup;
@@ -124,7 +124,7 @@ class Worksheet {
   public autoFilter: any;
   public _media: any[];
   public sheetProtection: any;
-  public tables: {[key: string]: Table};
+  public tables: { [key: string]: Table };
   public pivotTables: any[];
   public conditionalFormattings: any[];
   public _headerRowCount?: number;
@@ -175,7 +175,7 @@ class Worksheet {
     this.pageSetup = Object.assign(
       {},
       {
-        margins: {left: 0.7, right: 0.7, top: 0.75, bottom: 0.75, header: 0.3, footer: 0.3},
+        margins: { left: 0.7, right: 0.7, top: 0.75, bottom: 0.75, header: 0.3, footer: 0.3 },
         orientation: 'portrait',
         horizontalDpi: 4294967295,
         verticalDpi: 4294967295,
@@ -256,7 +256,7 @@ class Worksheet {
     }
 
     if (name === '') {
-      throw new Error('The name can\'t be empty.');
+      throw new Error("The name can't be empty.");
     }
 
     if (name === 'History') {
@@ -439,7 +439,7 @@ class Worksheet {
     const counts: boolean[] = [];
     let count = 0;
     this.eachRow((row: any) => {
-      row.eachCell(({col}: any) => {
+      row.eachCell(({ col }: any) => {
         if (!counts[col]) {
           counts[col] = true;
           count++;
@@ -570,7 +570,7 @@ class Worksheet {
     const rDst = this.getRow(dest);
     rDst.style = copyStyle(rSrc.style);
     // eslint-disable-next-line no-loop-func
-    rSrc.eachCell({includeEmpty: styleEmpty}, (cell: any, colNumber: number) => {
+    rSrc.eachCell({ includeEmpty: styleEmpty }, (cell: any, colNumber: number) => {
       rDst.getCell(colNumber).style = copyStyle(cell.style);
     });
     rDst.height = rSrc.height;
@@ -581,7 +581,7 @@ class Worksheet {
     // either inserting new or overwriting existing rows
 
     const rSrc = this._rows[rowNum - 1];
-    const inserts = Array.from({length: count}).fill(rSrc.values);
+    const inserts = Array.from({ length: count }).fill(rSrc.values);
     this.spliceRows(rowNum + 1, insert ? 0 : count, ...inserts);
 
     // now copy styles...
@@ -590,7 +590,7 @@ class Worksheet {
       rDst.style = rSrc.style;
       rDst.height = rSrc.height;
       // eslint-disable-next-line no-loop-func
-      rSrc.eachCell({includeEmpty: true}, (cell: any, colNumber: number) => {
+      rSrc.eachCell({ includeEmpty: true }, (cell: any, colNumber: number) => {
         rDst.getCell(colNumber).style = cell.style;
       });
     }
@@ -617,7 +617,7 @@ class Worksheet {
           rDst.style = rSrc.style;
           rDst.height = rSrc.height;
           // eslint-disable-next-line no-loop-func
-          rSrc.eachCell({includeEmpty: true}, (cell: any, colNumber: number) => {
+          rSrc.eachCell({ includeEmpty: true }, (cell: any, colNumber: number) => {
             rDst.getCell(colNumber).style = cell.style;
           });
           this._rows[i - 1] = undefined;
@@ -635,7 +635,7 @@ class Worksheet {
           rDst.style = rSrc.style;
           rDst.height = rSrc.height;
           // eslint-disable-next-line no-loop-func
-          rSrc.eachCell({includeEmpty: true}, (cell: any, colNumber: number) => {
+          rSrc.eachCell({ includeEmpty: true }, (cell: any, colNumber: number) => {
             rDst.getCell(colNumber).style = cell.style;
 
             // remerge cells accounting for insert offset
@@ -793,10 +793,15 @@ class Worksheet {
 
   // ===========================================================================
   // Shared/Array Formula
-  fillFormula(range: string, formula: string, results?: any[][] | any[] | ((row: number, col: number) => any), shareType: string = 'shared'): void {
+  fillFormula(
+    range: string,
+    formula: string,
+    results?: any[][] | any[] | ((row: number, col: number) => any),
+    shareType: string = 'shared'
+  ): void {
     // Define formula for top-left cell and share to rest
     const decoded = colCache.decode(range) as any;
-    const {top, left, bottom, right} = decoded;
+    const { top, left, bottom, right } = decoded;
     const width = right - left + 1;
     const masterAddress = colCache.encodeAddress(top, left);
     const isShared = shareType === 'shared';
@@ -1040,7 +1045,7 @@ Please leave feedback at https://github.com/exceljs/exceljs/discussions/2575`
     this.autoFilter = value.autoFilter;
     this._media = value.media.map(medium => new Image(this, medium));
     this.sheetProtection = value.sheetProtection;
-    this.tables = value.tables.reduce((tables: {[key: string]: Table}, table: any) => {
+    this.tables = value.tables.reduce((tables: { [key: string]: Table }, table: any) => {
       const t = new Table(this, table);
       t.model = table;
       tables[table.name] = t;

@@ -14,7 +14,7 @@ interface PhoneticTextModel {
 }
 
 class PhoneticTextXform extends BaseXform {
-  public map: {[key: string]: any};
+  public map: { [key: string]: any };
   public parser: any;
 
   constructor() {
@@ -36,7 +36,7 @@ class PhoneticTextXform extends BaseXform {
       eb: model.eb || 0,
     });
     if (model && model.hasOwnProperty('richText') && model.richText) {
-      const {r} = this.map;
+      const { r } = this.map;
       model.richText.forEach(text => {
         r.render(xmlStream, text);
       });
@@ -47,7 +47,7 @@ class PhoneticTextXform extends BaseXform {
   }
 
   parseOpen(node: any): boolean {
-    const {name} = node;
+    const { name } = node;
     if (this.parser) {
       this.parser.parseOpen(node);
       return true;

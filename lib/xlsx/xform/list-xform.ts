@@ -37,7 +37,7 @@ class ListXform extends BaseXform {
   }
 
   prepare(model: any[], options: any): void {
-    const {childXform} = this;
+    const { childXform } = this;
     if (model) {
       model.forEach((childModel, index) => {
         options.index = index;
@@ -53,7 +53,7 @@ class ListXform extends BaseXform {
         xmlStream.addAttribute(this.$count, (model && model.length) || 0);
       }
 
-      const {childXform} = this;
+      const { childXform } = this;
       (model || []).forEach((childModel, index) => {
         childXform.render(xmlStream, childModel, index);
       });
@@ -106,7 +106,7 @@ class ListXform extends BaseXform {
 
   reconcile(model: any[], options: any): void {
     if (model) {
-      const {childXform} = this;
+      const { childXform } = this;
       model.forEach((childModel: any) => {
         childXform.reconcile(childModel, options);
       });

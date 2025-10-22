@@ -12,9 +12,9 @@ const expectations = [
     preparedModel: {
       iconSet: '3TrafficLights',
       cfvo: [
-        {type: 'percent', value: 0},
-        {type: 'percent', value: 33},
-        {type: 'percent', value: 67},
+        { type: 'percent', value: 0 },
+        { type: 'percent', value: 33 },
+        { type: 'percent', value: 67 },
       ],
     },
     xml: `
@@ -39,11 +39,11 @@ const expectations = [
       reverse: true,
       showValue: false,
       cfvo: [
-        {type: 'percent', value: 0},
-        {type: 'percent', value: 20},
-        {type: 'percent', value: 40},
-        {type: 'percent', value: 60},
-        {type: 'percent', value: 80},
+        { type: 'percent', value: 0 },
+        { type: 'percent', value: 20 },
+        { type: 'percent', value: 40 },
+        { type: 'percent', value: 60 },
+        { type: 'percent', value: 80 },
       ],
     },
     xml: `

@@ -13,4 +13,3 @@ export default defineConfig({
     exclude: ['spec/browser/**/*.vitest.spec.ts'],
   },
 });
-

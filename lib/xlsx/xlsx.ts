@@ -1,12 +1,12 @@
 import fs from 'fs';
-import {Unzip, UnzipFile, UnzipInflate} from 'fflate';
-import {PassThrough} from 'stream';
-import {ZipWriter} from '../utils/zip-stream.js';
+import { Unzip, UnzipFile, UnzipInflate } from 'fflate';
+import { PassThrough } from 'stream';
+import { ZipWriter } from '../utils/zip-stream.js';
 import StreamBuf from '../utils/stream-buf.js';
 
 import utils from '../utils/utils.js';
 import XmlStream from '../utils/xml-stream.js';
-import {bufferToString} from '../utils/browser-buffer-decode.js';
+import { bufferToString } from '../utils/browser-buffer-decode.js';
 
 import StylesXform from './xform/style/styles-xform.js';
 
@@ -189,13 +189,13 @@ class XLSX {
       const name = filename.substr(0, lastDot);
       await new Promise<void>((resolve, reject) => {
         const streamBuf = new StreamBuf();
-        
+
         const cleanup = () => {
           stream.removeListener('error', onError);
           streamBuf.removeListener('error', onError);
           streamBuf.removeListener('finish', onFinish);
         };
-        
+
         const onFinish = () => {
           cleanup();
           model.mediaIndex[filename] = model.media.length;
@@ -209,12 +209,12 @@ class XLSX {
           model.media.push(medium);
           resolve();
         };
-        
+
         const onError = (error: Error) => {
           cleanup();
           reject(error);
         };
-        
+
         streamBuf.once('finish', onFinish);
         stream.on('error', onError);
         streamBuf.on('error', onError);
@@ -245,24 +245,24 @@ class XLSX {
     await new Promise<void>((resolve, reject) => {
       // TODO: stream entry into buffer and store the xml in the model.themes[]
       const streamBuf = new StreamBuf();
-      
+
       const cleanup = () => {
         stream.removeListener('error', onError);
         streamBuf.removeListener('error', onError);
         streamBuf.removeListener('finish', onFinish);
       };
-      
+
       const onFinish = () => {
         cleanup();
         model.themes[name] = streamBuf.read().toString();
         resolve();
       };
-      
+
       const onError = (err: Error) => {
         cleanup();
         reject(err);
       };
-      
+
       streamBuf.once('finish', onFinish);
       stream.on('error', onError);
       streamBuf.on('error', onError);
@@ -273,30 +273,30 @@ class XLSX {
   async read(stream: any, options?: any): Promise<any> {
     // Use streaming unzip with fflate
     const allFiles: Record<string, Uint8Array> = {};
-    
+
     await new Promise<void>((resolve, reject) => {
       let filesProcessed = 0;
       let zipEnded = false;
       let filesStarted = 0;
-      
+
       const cleanup = () => {
         stream.removeListener('data', onData);
         stream.removeListener('end', onEnd);
         stream.removeListener('error', onError);
       };
-      
+
       const checkCompletion = () => {
         if (zipEnded && filesProcessed === filesStarted) {
           cleanup();
           resolve();
         }
       };
-      
+
       const unzipper = new Unzip((file: UnzipFile) => {
         filesStarted++;
         const fileChunks: Uint8Array[] = [];
         let totalLength = 0;
-        
+
         file.ondata = (err, data, final) => {
           if (err) {
             cleanup();
@@ -329,24 +329,24 @@ class XLSX {
         };
         file.start();
       });
-      
+
       unzipper.register(UnzipInflate);
-      
+
       const onData = (chunk: Buffer) => {
         unzipper.push(chunk);
       };
-      
+
       const onEnd = () => {
         unzipper.push(new Uint8Array(0), true);
         zipEnded = true;
         checkCompletion();
       };
-      
+
       const onError = (err: Error) => {
         cleanup();
         reject(err);
       };
-      
+
       stream.on('data', onData);
       stream.on('end', onEnd);
       stream.on('error', onError);
@@ -357,12 +357,20 @@ class XLSX {
 
   async load(data: any, options?: any): Promise<any> {
     let buffer: Buffer;
-    
+
     // Validate input type
-    if (!data || (typeof data === 'object' && !Buffer.isBuffer(data) && !(data instanceof Uint8Array) && !(data instanceof ArrayBuffer))) {
-      throw new Error("Can't read the data of 'the loaded zip file'. Is it in a supported JavaScript type (String, Blob, ArrayBuffer, etc) ?");
+    if (
+      !data ||
+      (typeof data === 'object' &&
+        !Buffer.isBuffer(data) &&
+        !(data instanceof Uint8Array) &&
+        !(data instanceof ArrayBuffer))
+    ) {
+      throw new Error(
+        "Can't read the data of 'the loaded zip file'. Is it in a supported JavaScript type (String, Blob, ArrayBuffer, etc) ?"
+      );
     }
-    
+
     if (options && options.base64) {
       buffer = Buffer.from(data.toString(), 'base64');
     } else {
@@ -373,7 +381,7 @@ class XLSX {
     const PassThroughStream = PassThrough;
     const stream = new PassThroughStream();
     stream.end(buffer);
-    
+
     return this.read(stream, options);
   }
 
@@ -391,7 +399,7 @@ class XLSX {
       tables: {},
       vmlDrawings: {},
     };
-    
+
     // Convert fflate format to JSZip-like structure for compatibility
     const entries = Object.keys(zipData).map(name => ({
       name,
@@ -528,44 +536,44 @@ class XLSX {
   async addContentTypes(zip: any, model: any): Promise<void> {
     const xform = new ContentTypesXform();
     const xml = xform.toXml(model);
-    zip.append(xml, {name: '[Content_Types].xml'});
+    zip.append(xml, { name: '[Content_Types].xml' });
   }
 
   async addApp(zip: any, model: any): Promise<void> {
     const xform = new AppXform();
     const xml = xform.toXml(model);
-    zip.append(xml, {name: 'docProps/app.xml'});
+    zip.append(xml, { name: 'docProps/app.xml' });
   }
 
   async addCore(zip: any, model: any): Promise<void> {
     const xform = new CoreXform();
-    zip.append(xform.toXml(model), {name: 'docProps/core.xml'});
+    zip.append(xform.toXml(model), { name: 'docProps/core.xml' });
   }
 
   async addThemes(zip: any, model: any): Promise<void> {
-    const themes = model.themes || {theme1: theme1Xml};
+    const themes = model.themes || { theme1: theme1Xml };
     Object.keys(themes).forEach(name => {
       const xml = themes[name];
       const path = `xl/theme/${name}.xml`;
-      zip.append(xml, {name: path});
+      zip.append(xml, { name: path });
     });
   }
 
   async addOfficeRels(zip: any, _model: any): Promise<void> {
     const xform = new RelationshipsXform();
     const xml = xform.toXml([
-      {Id: 'rId1', Type: XLSX.RelType.OfficeDocument, Target: 'xl/workbook.xml'},
-      {Id: 'rId2', Type: XLSX.RelType.CoreProperties, Target: 'docProps/core.xml'},
-      {Id: 'rId3', Type: XLSX.RelType.ExtenderProperties, Target: 'docProps/app.xml'},
+      { Id: 'rId1', Type: XLSX.RelType.OfficeDocument, Target: 'xl/workbook.xml' },
+      { Id: 'rId2', Type: XLSX.RelType.CoreProperties, Target: 'docProps/core.xml' },
+      { Id: 'rId3', Type: XLSX.RelType.ExtenderProperties, Target: 'docProps/app.xml' },
     ]);
-    zip.append(xml, {name: '_rels/.rels'});
+    zip.append(xml, { name: '_rels/.rels' });
   }
 
   async addWorkbookRels(zip: any, model: any): Promise<void> {
     let count = 1;
     const relationships: any[] = [
-      {Id: `rId${count++}`, Type: XLSX.RelType.Styles, Target: 'styles.xml'},
-      {Id: `rId${count++}`, Type: XLSX.RelType.Theme, Target: 'theme/theme1.xml'},
+      { Id: `rId${count++}`, Type: XLSX.RelType.Styles, Target: 'styles.xml' },
+      { Id: `rId${count++}`, Type: XLSX.RelType.Theme, Target: 'theme/theme1.xml' },
     ];
     if (model.sharedStrings.count) {
       relationships.push({
@@ -593,25 +601,25 @@ class XLSX {
     });
     const xform = new RelationshipsXform();
     const xml = xform.toXml(relationships);
-    zip.append(xml, {name: 'xl/_rels/workbook.xml.rels'});
+    zip.append(xml, { name: 'xl/_rels/workbook.xml.rels' });
   }
 
   async addSharedStrings(zip: any, model: any): Promise<void> {
     if (model.sharedStrings && model.sharedStrings.count) {
-      zip.append(model.sharedStrings.xml, {name: 'xl/sharedStrings.xml'});
+      zip.append(model.sharedStrings.xml, { name: 'xl/sharedStrings.xml' });
     }
   }
 
   async addStyles(zip: any, model: any): Promise<void> {
-    const {xml} = model.styles;
+    const { xml } = model.styles;
     if (xml) {
-      zip.append(xml, {name: 'xl/styles.xml'});
+      zip.append(xml, { name: 'xl/styles.xml' });
     }
   }
 
   async addWorkbook(zip: any, model: any): Promise<void> {
     const xform = new WorkbookXform();
-    zip.append(xform.toXml(model), {name: 'xl/workbook.xml'});
+    zip.append(xform.toXml(model), { name: 'xl/workbook.xml' });
   }
 
   async addWorksheets(zip: any, model: any): Promise<void> {
@@ -625,22 +633,22 @@ class XLSX {
     model.worksheets.forEach((worksheet: any) => {
       let xmlStream = new XmlStream();
       worksheetXform.render(xmlStream, worksheet);
-      zip.append(xmlStream.xml, {name: `xl/worksheets/sheet${worksheet.id}.xml`});
+      zip.append(xmlStream.xml, { name: `xl/worksheets/sheet${worksheet.id}.xml` });
 
       if (worksheet.rels && worksheet.rels.length) {
         xmlStream = new XmlStream();
         relationshipsXform.render(xmlStream, worksheet.rels);
-        zip.append(xmlStream.xml, {name: `xl/worksheets/_rels/sheet${worksheet.id}.xml.rels`});
+        zip.append(xmlStream.xml, { name: `xl/worksheets/_rels/sheet${worksheet.id}.xml.rels` });
       }
 
       if (worksheet.comments.length > 0) {
         xmlStream = new XmlStream();
         commentsXform.render(xmlStream, worksheet);
-        zip.append(xmlStream.xml, {name: `xl/comments${worksheet.id}.xml`});
+        zip.append(xmlStream.xml, { name: `xl/comments${worksheet.id}.xml` });
 
         xmlStream = new XmlStream();
         vmlNotesXform.render(xmlStream, worksheet);
-        zip.append(xmlStream.xml, {name: `xl/drawings/vmlDrawing${worksheet.id}.vml`});
+        zip.append(xmlStream.xml, { name: `xl/drawings/vmlDrawing${worksheet.id}.vml` });
       }
     });
   }
@@ -652,15 +660,15 @@ class XLSX {
           const filename = `xl/media/${medium.name}.${medium.extension}`;
           if (medium.filename) {
             const data = await fsReadFileAsync(medium.filename);
-            return zip.append(data, {name: filename});
+            return zip.append(data, { name: filename });
           }
           if (medium.buffer) {
-            return zip.append(medium.buffer, {name: filename});
+            return zip.append(medium.buffer, { name: filename });
           }
           if (medium.base64) {
             const dataimg64 = medium.base64;
             const content = dataimg64.substring(dataimg64.indexOf(',') + 1);
-            return zip.append(content, {name: filename, base64: true});
+            return zip.append(content, { name: filename, base64: true });
           }
         }
         throw new Error('Unsupported media');
@@ -673,14 +681,14 @@ class XLSX {
     const relsXform = new RelationshipsXform();
 
     model.worksheets.forEach((worksheet: any) => {
-      const {drawing} = worksheet;
+      const { drawing } = worksheet;
       if (drawing) {
         drawingXform.prepare(drawing);
         let xml = drawingXform.toXml(drawing);
-        zip.append(xml, {name: `xl/drawings/${drawing.name}.xml`});
+        zip.append(xml, { name: `xl/drawings/${drawing.name}.xml` });
 
         xml = relsXform.toXml(drawing.rels);
-        zip.append(xml, {name: `xl/drawings/_rels/${drawing.name}.xml.rels`});
+        zip.append(xml, { name: `xl/drawings/_rels/${drawing.name}.xml.rels` });
       }
     });
   }
@@ -689,11 +697,11 @@ class XLSX {
     const tableXform = new TableXform();
 
     model.worksheets.forEach((worksheet: any) => {
-      const {tables} = worksheet;
+      const { tables } = worksheet;
       tables.forEach((table: any) => {
         tableXform.prepare(table, {});
         const tableXml = tableXform.toXml(table);
-        zip.append(tableXml, {name: `xl/tables/${table.target}`});
+        zip.append(tableXml, { name: `xl/tables/${table.target}` });
       });
     });
   }
@@ -710,11 +718,11 @@ class XLSX {
 
     // pivot cache records
     let xml = pivotCacheRecordsXform.toXml(pivotTable);
-    zip.append(xml, {name: 'xl/pivotCache/pivotCacheRecords1.xml'});
+    zip.append(xml, { name: 'xl/pivotCache/pivotCacheRecords1.xml' });
 
     // pivot cache definition
     xml = pivotCacheDefinitionXform.toXml(pivotTable);
-    zip.append(xml, {name: 'xl/pivotCache/pivotCacheDefinition1.xml'});
+    zip.append(xml, { name: 'xl/pivotCache/pivotCacheDefinition1.xml' });
 
     // pivot cache definition rels
     xml = relsXform.toXml([
@@ -724,11 +732,11 @@ class XLSX {
         Target: 'pivotCacheRecords1.xml',
       },
     ]);
-    zip.append(xml, {name: 'xl/pivotCache/_rels/pivotCacheDefinition1.xml.rels'});
+    zip.append(xml, { name: 'xl/pivotCache/_rels/pivotCacheDefinition1.xml.rels' });
 
     // pivot table
     xml = pivotTableXform.toXml(pivotTable);
-    zip.append(xml, {name: 'xl/pivotTables/pivotTable1.xml'});
+    zip.append(xml, { name: 'xl/pivotTables/pivotTable1.xml' });
 
     xml = relsXform.toXml([
       {
@@ -737,7 +745,7 @@ class XLSX {
         Target: '../pivotCache/pivotCacheDefinition1.xml',
       },
     ]);
-    zip.append(xml, {name: 'xl/pivotTables/_rels/pivotTable1.xml.rels'});
+    zip.append(xml, { name: 'xl/pivotTables/_rels/pivotTable1.xml.rels' });
   }
 
   _finalize(zip: any): Promise<XLSX> {
@@ -800,7 +808,7 @@ class XLSX {
 
   async write(stream: any, options?: any): Promise<XLSX> {
     options = options || {};
-    const {model} = this.workbook;
+    const { model } = this.workbook;
     const zip = new ZipWriter(options.zip);
     zip.pipe(stream);
 
@@ -830,17 +838,17 @@ class XLSX {
         stream.removeListener('finish', onFinish);
         stream.removeListener('error', onError);
       };
-      
+
       const onFinish = () => {
         cleanup();
         resolve();
       };
-      
+
       const onError = (error: Error) => {
         cleanup();
         reject(error);
       };
-      
+
       stream.once('finish', onFinish);
       stream.on('error', onError);
 

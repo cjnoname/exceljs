@@ -19,9 +19,7 @@ const expectations: any[] = [
       created: new Date('2016-04-20T16:26:46Z'),
       modified: new Date('2016-05-12T06:52:49Z'),
     },
-    xml: readFileSync(join(__dirname, './data/core.01.xml'))
-      .toString()
-      .replace(/\r\n/g, '\n'),
+    xml: readFileSync(join(__dirname, './data/core.01.xml')).toString().replace(/\r\n/g, '\n'),
     get parsedModel() {
       return this.preparedModel;
     },
@@ -42,9 +40,7 @@ const expectations: any[] = [
       created: new Date('2016-04-20T16:26:46Z'),
       modified: new Date('2016-05-12T06:52:49Z'),
     },
-    xml: readFileSync(join(__dirname, './data/core.02.xml'))
-      .toString()
-      .replace(/\r\n/g, '\n'),
+    xml: readFileSync(join(__dirname, './data/core.02.xml')).toString().replace(/\r\n/g, '\n'),
     get parsedModel() {
       return this.preparedModel;
     },
@@ -60,9 +56,7 @@ const expectations: any[] = [
       created: new Date('2016-04-20T16:26:46Z'),
       modified: new Date('2016-05-12T06:52:49Z'),
     },
-    xml: readFileSync(join(__dirname, './data/core.03.xml'))
-      .toString()
-      .replace(/\r\n/g, '\n'),
+    xml: readFileSync(join(__dirname, './data/core.03.xml')).toString().replace(/\r\n/g, '\n'),
     get parsedModel() {
       return this.preparedModel;
     },
@@ -78,9 +72,7 @@ const expectations: any[] = [
       created: new Date('2016-04-20T16:26:46Z'),
       modified: new Date('2016-05-12T06:52:49Z'),
     },
-    xml: readFileSync(join(__dirname, './data/core.04.xml'))
-      .toString()
-      .replace(/\r\n/g, '\n'),
+    xml: readFileSync(join(__dirname, './data/core.04.xml')).toString().replace(/\r\n/g, '\n'),
     get parsedModel() {
       return this.preparedModel;
     },
@@ -90,9 +82,7 @@ const expectations: any[] = [
     title: 'core.xml - with empty cp:version',
     create: () => new CoreXform(),
     preparedModel: {},
-    xml: readFileSync(join(__dirname, './data/core.05.xml'))
-      .toString()
-      .replace(/\r\n/g, '\n'),
+    xml: readFileSync(join(__dirname, './data/core.05.xml')).toString().replace(/\r\n/g, '\n'),
     parsedModel: {
       title: '...',
       creator: '...',
@@ -107,9 +97,7 @@ const expectations: any[] = [
     title: 'core.xml - without namespace for coreProperties node',
     create: () => new CoreXform(),
     preparedModel: {},
-    xml: readFileSync(join(__dirname, './data/core.06.xml'))
-      .toString()
-      .replace(/\r\n/g, '\n'),
+    xml: readFileSync(join(__dirname, './data/core.06.xml')).toString().replace(/\r\n/g, '\n'),
     parsedModel: {
       creator: 'Apache POI',
       created: new Date('2018-05-08T14:56:50Z'),

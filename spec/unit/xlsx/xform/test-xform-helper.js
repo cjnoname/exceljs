@@ -1,5 +1,5 @@
-const {PassThrough} = require('readable-stream');
-const {cloneDeep, each} = require('../../../utils/under-dash');
+const { PassThrough } = require('readable-stream');
+const { cloneDeep, each } = require('../../../utils/under-dash');
 const CompyXform = require('./compy-xform');
 
 const parseSax = verquire('utils/parse-sax');
@@ -51,7 +51,7 @@ const its = {
       }));
   },
 
-  'prepare-render': function(expectation) {
+  'prepare-render': function (expectation) {
     // when implementation details get in the way of testing the prepared result
     it('Prepare and Render to XML', () =>
       new Promise(resolve => {
@@ -77,22 +77,19 @@ const its = {
           child: getExpectation(expectation, 'preparedModel'),
           post: true,
         };
-        const result = `<compy><pre/>${getExpectation(
-          expectation,
-          'xml'
-        )}<post/></compy>`;
+        const result = `<compy><pre/>${getExpectation(expectation, 'xml')}<post/></compy>`;
 
         const xform = new CompyXform({
           tag: 'compy',
           children: [
             {
               name: 'pre',
-              xform: new BooleanXform({tag: 'pre', attr: 'val'}),
+              xform: new BooleanXform({ tag: 'pre', attr: 'val' }),
             },
-            {name: 'child', xform: expectation.create()},
+            { name: 'child', xform: expectation.create() },
             {
               name: 'post',
-              xform: new BooleanXform({tag: 'post', attr: 'val'}),
+              xform: new BooleanXform({ tag: 'post', attr: 'val' }),
             },
           ],
         });
@@ -109,12 +106,9 @@ const its = {
   parseIn(expectation) {
     it('Parse within composite', () =>
       new Promise((resolve, reject) => {
-        const xml = `<compy><pre/>${getExpectation(
-          expectation,
-          'xml'
-        )}<post/></compy>`;
+        const xml = `<compy><pre/>${getExpectation(expectation, 'xml')}<post/></compy>`;
         const childXform = expectation.create();
-        const result = {pre: true};
+        const result = { pre: true };
         result[childXform.tag] = getExpectation(expectation, 'parsedModel');
         result.post = true;
         const xform = new CompyXform({
@@ -122,12 +116,12 @@ const its = {
           children: [
             {
               name: 'pre',
-              xform: new BooleanXform({tag: 'pre', attr: 'val'}),
+              xform: new BooleanXform({ tag: 'pre', attr: 'val' }),
             },
-            {name: childXform.tag, xform: childXform},
+            { name: childXform.tag, xform: childXform },
             {
               name: 'post',
-              xform: new BooleanXform({tag: 'post', attr: 'val'}),
+              xform: new BooleanXform({ tag: 'post', attr: 'val' }),
             },
           ],
         });

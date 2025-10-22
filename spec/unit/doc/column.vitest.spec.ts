@@ -17,7 +17,7 @@ describe('Column', () => {
     expect(sheet.getCell(1, 1).value).toBe('Col 1');
     expect(sheet.getColumn('id1')).toBe(sheet.getColumn(1));
 
-    sheet.getRow(2).values = {id1: 'Hello, World!'};
+    sheet.getRow(2).values = { id1: 'Hello, World!' };
     expect(sheet.getCell(2, 1).value).toBe('Hello, World!');
   });
 
@@ -43,7 +43,7 @@ describe('Column', () => {
     expect(sheet.getCell(1, 1).value).toBe('Col A1');
     expect(sheet.getCell(2, 1).value).toBe('Col A2');
 
-    sheet.getRow(3).values = {id1: 'Hello, World!'};
+    sheet.getRow(3).values = { id1: 'Hello, World!' };
     expect(sheet.getCell(3, 1).value).toBe('Hello, World!');
   });
 

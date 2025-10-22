@@ -149,9 +149,7 @@ class Column {
   }
 
   get collapsed(): boolean {
-    return !!(
-      this._outlineLevel && this._outlineLevel >= this._worksheet.properties.outlineLevelCol
-    );
+    return !!(this._outlineLevel && this._outlineLevel >= this._worksheet.properties.outlineLevelCol);
   }
 
   toString(): string {
@@ -328,7 +326,7 @@ class Column {
      * sort cols by min
      * If it is not sorted, the subsequent column configuration will be overwritten
      * */
-    cols = cols.sort(function(pre, next) {
+    cols = cols.sort(function (pre, next) {
       return pre.min - next.min;
     });
     while (index < cols.length) {

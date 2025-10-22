@@ -2,11 +2,11 @@ import { describe, it, expect, beforeAll, afterAll, beforeEach, afterEach } from
 // *Note*: `fs.promises` not supported before Node.js 11.14.0;
 // ExcelJS version range '>=8.3.0' (as of 2023-10-08).
 import fs from 'fs';
-import {promisify} from 'util';
+import { promisify } from 'util';
 
 const fsReadFileAsync = promisify(fs.readFile);
 
-import {unzipSync} from 'fflate';
+import { unzipSync } from 'fflate';
 
 import ExcelJS from '../../../index.js';
 

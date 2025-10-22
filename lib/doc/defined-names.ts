@@ -86,14 +86,15 @@ class DefinedNames {
   }
 
   getNamesEx(address: any): string[] {
-    return _.map(this.matrixMap, (matrix: CellMatrix, name: string | number) => 
-      matrix.findCellEx(address, false) && name
+    return _.map(
+      this.matrixMap,
+      (matrix: CellMatrix, name: string | number) => matrix.findCellEx(address, false) && name
     ).filter(Boolean) as string[];
   }
 
   _explore(matrix: CellMatrix, cell: Cell): Range {
     cell.mark = false;
-    const {sheetName} = cell;
+    const { sheetName } = cell;
 
     const range = new Range(cell.row, cell.col, cell.row, cell.col, sheetName);
     let x: number;
@@ -139,7 +140,7 @@ class DefinedNames {
     matrix = matrix || this.matrixMap[name];
 
     if (!matrix) {
-      return {name, ranges: []};
+      return { name, ranges: [] };
     }
 
     // mark and sweep!
@@ -187,7 +188,7 @@ class DefinedNames {
 
   get model(): DefinedNameModel[] {
     // To get names per cell - just iterate over all names finding cells if they exist
-    return _.map(this.matrixMap, (matrix: CellMatrix, name: string | number) => 
+    return _.map(this.matrixMap, (matrix: CellMatrix, name: string | number) =>
       this.getRanges(name as string, matrix)
     ).filter((definedName: DefinedNameModel) => definedName.ranges.length);
   }

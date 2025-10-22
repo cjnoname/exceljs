@@ -21,7 +21,7 @@ class RowBreaksXform extends ListXform {
         xmlStream.addAttribute('manualBreakCount', model.length);
       }
 
-      const {childXform} = this;
+      const { childXform } = this;
       model.forEach((childModel: any) => {
         childXform.render(xmlStream, childModel);
       });

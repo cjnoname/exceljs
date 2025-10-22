@@ -49,9 +49,7 @@ describe('XmlStream', () => {
     xmlStream.writeText('<escape this!>');
     xmlStream.closeNode();
     xmlStream.closeNode();
-    expect(xmlStream.xml).toBe(
-      '<root><l1>&lt;escape this!&gt;</l1></root>'
-    );
+    expect(xmlStream.xml).toBe('<root><l1>&lt;escape this!&gt;</l1></root>');
   });
   it('attributes are escaped', () => {
     const xmlStream = new XmlStream();
@@ -59,9 +57,9 @@ describe('XmlStream', () => {
     xmlStream.openNode('root');
     xmlStream.openNode('l1');
     xmlStream.addAttribute('stuff', 'this & that');
-    xmlStream.openNode('l2', {foo: '<bar>'});
+    xmlStream.openNode('l2', { foo: '<bar>' });
     xmlStream.closeNode();
-    xmlStream.leafNode('l2', {quote: '"this"'});
+    xmlStream.leafNode('l2', { quote: '"this"' });
     xmlStream.closeNode();
     xmlStream.closeNode();
     expect(xmlStream.xml).toBe(

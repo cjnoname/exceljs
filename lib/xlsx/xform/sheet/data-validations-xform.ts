@@ -107,7 +107,7 @@ class DataValidationsXform extends BaseXform {
   render(xmlStream: any, model: any): void {
     const optimizedModel = optimiseDataValidations(model);
     if (optimizedModel.length) {
-      xmlStream.openNode('dataValidations', {count: optimizedModel.length});
+      xmlStream.openNode('dataValidations', { count: optimizedModel.length });
 
       optimizedModel.forEach((value: any) => {
         xmlStream.openNode('dataValidation');
@@ -167,7 +167,7 @@ class DataValidationsXform extends BaseXform {
 
       case 'dataValidation': {
         this._address = node.attributes.sqref;
-        const dataValidation: any = {type: node.attributes.type || 'any', formulae: []};
+        const dataValidation: any = { type: node.attributes.type || 'any', formulae: [] };
 
         if (node.attributes.type) {
           assignBool(dataValidation, node.attributes, 'allowBlank');

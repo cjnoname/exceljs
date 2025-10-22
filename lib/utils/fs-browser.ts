@@ -1,7 +1,7 @@
 // Browser-compatible fs implementation
 // Supports File objects from <input type="file"> and ArrayBuffer/Buffer
 
-import {PassThrough} from 'stream';
+import { PassThrough } from 'stream';
 
 function isFile(obj: any): obj is File {
   return typeof File !== 'undefined' && obj instanceof File;
@@ -34,12 +34,14 @@ function readFile(path: string | File, options: any, callback: any): void {
     callback = options;
     options = undefined;
   }
-  
+
   if (typeof path === 'string') {
-    callback(new Error('fs.readFile with file path is not supported in browser. Use File object from <input type="file">.'));
+    callback(
+      new Error('fs.readFile with file path is not supported in browser. Use File object from <input type="file">.')
+    );
     return;
   }
-  
+
   toBuffer(path)
     .then(buffer => callback(null, buffer))
     .catch(err => callback(err));
@@ -49,18 +51,24 @@ function writeFile(_path: string, _data: any, _options: any, callback: any): voi
   if (typeof _options === 'function') {
     callback = _options;
   }
-  callback(new Error('fs.writeFile is not supported in browser. Use workbook.xlsx.writeBuffer() and trigger download instead.'));
+  callback(
+    new Error('fs.writeFile is not supported in browser. Use workbook.xlsx.writeBuffer() and trigger download instead.')
+  );
 }
 
 function createReadStream(path: string | File): any {
   if (typeof path === 'string') {
     const stream = new PassThrough();
     process.nextTick(() => {
-      stream.destroy(new Error('fs.createReadStream with file path is not supported in browser. Use File object from <input type="file">.'));
+      stream.destroy(
+        new Error(
+          'fs.createReadStream with file path is not supported in browser. Use File object from <input type="file">.'
+        )
+      );
     });
     return stream;
   }
-  
+
   const stream = new PassThrough();
   toBuffer(path)
     .then(buffer => {
@@ -75,7 +83,9 @@ function createReadStream(path: string | File): any {
 function createWriteStream(_path: string): any {
   const stream = new PassThrough();
   process.nextTick(() => {
-    stream.destroy(new Error('fs.createWriteStream is not supported in browser. Use workbook.xlsx.writeBuffer() instead.'));
+    stream.destroy(
+      new Error('fs.createWriteStream is not supported in browser. Use workbook.xlsx.writeBuffer() instead.')
+    );
   });
   return stream;
 }
@@ -99,7 +109,9 @@ export default {
   promises: {
     readFile: async (path: string | File) => {
       if (typeof path === 'string') {
-        throw new Error('fs.promises.readFile with file path is not supported in browser. Use File object from <input type="file">.');
+        throw new Error(
+          'fs.promises.readFile with file path is not supported in browser. Use File object from <input type="file">.'
+        );
       }
       return toBuffer(path);
     },
@@ -113,4 +125,3 @@ export default {
     rm: async () => {},
   },
 };
-

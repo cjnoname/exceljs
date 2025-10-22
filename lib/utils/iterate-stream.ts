@@ -1,4 +1,4 @@
-import {EventEmitter} from 'events';
+import { EventEmitter } from 'events';
 
 interface Readable extends EventEmitter {
   resume(): void;
@@ -11,7 +11,7 @@ interface Readable extends EventEmitter {
 async function* iterateStream(stream: Readable): AsyncGenerator<any> {
   const contents: any[] = [];
   let resolveDataPromise: (() => void) | null = null;
-  
+
   const onData = (data: any) => {
     contents.push(data);
     if (resolveDataPromise) {

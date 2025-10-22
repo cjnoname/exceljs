@@ -155,21 +155,21 @@ describe('colCache', () => {
       row: 1,
       sheetName: 'Sheet1',
     });
-    expect(colCache.decodeEx('\'Sheet 1\'!$H$1')).toEqual({
+    expect(colCache.decodeEx("'Sheet 1'!$H$1")).toEqual({
       $col$row: '$H$1',
       address: 'H1',
       col: 8,
       row: 1,
       sheetName: 'Sheet 1',
     });
-    expect(colCache.decodeEx('\'Sheet !$:1\'!$H$1')).toEqual({
+    expect(colCache.decodeEx("'Sheet !$:1'!$H$1")).toEqual({
       $col$row: '$H$1',
       address: 'H1',
       col: 8,
       row: 1,
       sheetName: 'Sheet !$:1',
     });
-    expect(colCache.decodeEx('\'Sheet !$:1\'!#REF!')).toEqual({
+    expect(colCache.decodeEx("'Sheet !$:1'!#REF!")).toEqual({
       sheetName: 'Sheet !$:1',
       error: '#REF!',
     });

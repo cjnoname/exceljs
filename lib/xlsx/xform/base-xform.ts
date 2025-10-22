@@ -11,7 +11,7 @@ interface ParseEvent {
 
 // Base class for Xforms
 class BaseXform {
-  public map?: {[key: string]: any};
+  public map?: { [key: string]: any };
   public model?: any;
 
   // ============================================================
@@ -65,7 +65,7 @@ class BaseXform {
 
   async parse(saxParser: AsyncIterable<ParseEvent[]>): Promise<any> {
     for await (const events of saxParser) {
-      for (const {eventType, value} of events) {
+      for (const { eventType, value } of events) {
         if (eventType === 'opentag') {
           this.parseOpen(value);
         } else if (eventType === 'text') {

@@ -7,7 +7,7 @@ class CacheField {
   public name: string;
   public sharedItems: string[] | null;
 
-  constructor({name, sharedItems}: CacheFieldConfig) {
+  constructor({ name, sharedItems }: CacheFieldConfig) {
     // string type
     //
     // {

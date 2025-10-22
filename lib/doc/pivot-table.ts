@@ -1,4 +1,4 @@
-import {objectFromProps, range, toSortedArray} from '../utils/utils.js';
+import { objectFromProps, range, toSortedArray } from '../utils/utils.js';
 
 interface PivotTableModel {
   sourceSheet: any;
@@ -42,8 +42,8 @@ function makePivotTable(worksheet: any, model: PivotTableModel): PivotTable {
 
   validate(worksheet, model);
 
-  const {sourceSheet} = model;
-  let {rows, columns, values} = model;
+  const { sourceSheet } = model;
+  let { rows, columns, values } = model;
 
   const cacheFields = makeCacheFields(sourceSheet, [...rows, ...columns]);
 
@@ -51,10 +51,13 @@ function makePivotTable(worksheet: any, model: PivotTableModel): PivotTable {
   // names can then be accessed via `pivotTable.cacheFields[index].name`.
   // *Note*: Using `reduce` as `Object.fromEntries` requires Node 12+;
   // ExcelJS is >=8.3.0 (as of 2023-10-08).
-  const nameToIndex = cacheFields.reduce((result: Record<string, number>, cacheField: CacheField, index: number) => {
-    result[cacheField.name] = index;
-    return result;
-  }, {} as Record<string, number>);
+  const nameToIndex = cacheFields.reduce(
+    (result: Record<string, number>, cacheField: CacheField, index: number) => {
+      result[cacheField.name] = index;
+      return result;
+    },
+    {} as Record<string, number>
+  );
   const rowIndices = rows.map(row => nameToIndex[row]);
   const columnIndices = columns.map(column => nameToIndex[column]);
   const valueIndices = values.map(value => nameToIndex[value]);
@@ -147,9 +150,9 @@ function makeCacheFields(worksheet: any, fieldNamesWithSharedItems: string[]): C
   for (const columnIndex of range(1, names.length)) {
     const name = names[columnIndex];
     const sharedItems = nameToHasSharedItems[name] ? aggregate(columnIndex) : null;
-    result.push({name, sharedItems});
+    result.push({ name, sharedItems });
   }
   return result;
 }
 
-export {makePivotTable};
+export { makePivotTable };

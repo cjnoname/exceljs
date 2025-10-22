@@ -7,7 +7,7 @@ const self = {
   },
   addSheet(wb) {
     const ws = wb.addWorksheet('conditional-formatting');
-    const {types} = self.conditionalFormattings;
+    const { types } = self.conditionalFormattings;
     types.forEach(type => {
       const conditionalFormatting = self.getConditionalFormatting(type);
       if (conditionalFormatting) {

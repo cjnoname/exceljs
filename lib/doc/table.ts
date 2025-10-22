@@ -174,7 +174,7 @@ class Table {
   }
 
   validate(): void {
-    const {table} = this;
+    const { table } = this;
     // set defaults and check is valid
     const assign = (o: any, name: string, dflt: any) => {
       if (o[name] === undefined) {
@@ -201,11 +201,11 @@ class Table {
     assert(!!table.rows, 'Table must have row definitions');
 
     table.tl = colCache.decodeAddress(table.ref);
-    const {row, col} = table.tl;
+    const { row, col } = table.tl;
     assert(row > 0, 'Table must be on valid row');
     assert(col > 0, 'Table must be on valid col');
 
-    const {width, filterHeight, tableHeight} = this;
+    const { width, filterHeight, tableHeight } = this;
 
     // autoFilterRef is a range that includes optional headers only
     table.autoFilterRef = colCache.encode(row, col, row + filterHeight - 1, col + width - 1);
@@ -235,13 +235,13 @@ class Table {
       }
     };
 
-    const {worksheet, table} = this;
-    const {row, col} = table.tl;
+    const { worksheet, table } = this;
+    const { row, col } = table.tl;
     let count = 0;
     if (table.headerRow) {
       const r = worksheet.getRow(row + count++);
       table.columns.forEach((column, j) => {
-        const {style, name} = column;
+        const { style, name } = column;
         const cell = r.getCell(col + j);
         cell.value = name;
         assignStyle(cell, style);
@@ -282,8 +282,8 @@ class Table {
 
   load(worksheet: any): void {
     // where the table will read necessary features from a loaded sheet
-    const {table} = this;
-    const {row, col} = table.tl;
+    const { table } = this;
+    const { row, col } = table.tl;
     let count = 0;
     if (table.headerRow) {
       const r = worksheet.getRow(row + count++);

@@ -10,9 +10,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Import JSON data
-const sharedStringsData = JSON.parse(
-  fs.readFileSync(path.join(__dirname, 'data', 'sharedStrings.json'), 'utf8')
-);
+const sharedStringsData = JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'sharedStrings.json'), 'utf8'));
 
 const expectations = [
   {

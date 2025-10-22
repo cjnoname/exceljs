@@ -11,7 +11,7 @@ interface PicModel {
 }
 
 class PicXform extends BaseXform {
-  public map: {[key: string]: any};
+  public map: { [key: string]: any };
   public parser: any;
   public model: any;
 
@@ -29,7 +29,7 @@ class PicXform extends BaseXform {
     return 'xdr:pic';
   }
 
-  prepare(model: PicModel, options: {index: number}): void {
+  prepare(model: PicModel, options: { index: number }): void {
     model.index = options.index + 1;
   }
 

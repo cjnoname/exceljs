@@ -10,21 +10,21 @@ interface PositionModel {
 
 class CellPositionXform extends BaseXform {
   public tag: string;
-  public map: {[key: string]: IntegerXform};
+  public map: { [key: string]: IntegerXform };
   public parser: any;
   public model: PositionModel;
 
-  constructor(options: {tag: string}) {
+  constructor(options: { tag: string }) {
     super();
 
     this.tag = options.tag;
     this.map = {
-      'xdr:col': new IntegerXform({tag: 'xdr:col', zero: true}),
-      'xdr:colOff': new IntegerXform({tag: 'xdr:colOff', zero: true}),
-      'xdr:row': new IntegerXform({tag: 'xdr:row', zero: true}),
-      'xdr:rowOff': new IntegerXform({tag: 'xdr:rowOff', zero: true}),
+      'xdr:col': new IntegerXform({ tag: 'xdr:col', zero: true }),
+      'xdr:colOff': new IntegerXform({ tag: 'xdr:colOff', zero: true }),
+      'xdr:row': new IntegerXform({ tag: 'xdr:row', zero: true }),
+      'xdr:rowOff': new IntegerXform({ tag: 'xdr:rowOff', zero: true }),
     };
-    this.model = {nativeCol: 0, nativeColOff: 0, nativeRow: 0, nativeRowOff: 0};
+    this.model = { nativeCol: 0, nativeColOff: 0, nativeRow: 0, nativeRowOff: 0 };
   }
 
   render(xmlStream: any, model: PositionModel): void {

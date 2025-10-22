@@ -1,10 +1,10 @@
 import fs from 'fs';
-import {EventEmitter} from 'events';
-import {Readable} from 'stream';
+import { EventEmitter } from 'events';
+import { Readable } from 'stream';
 import nodeStream from 'stream';
 import os from 'os';
-import {join as pathJoin} from 'path';
-import {Unzip, UnzipFile, UnzipInflate} from 'fflate';
+import { join as pathJoin } from 'path';
+import { Unzip, UnzipFile, UnzipInflate } from 'fflate';
 import iterateStream from '../../utils/iterate-stream.js';
 import parseSax from '../../utils/parse-sax.js';
 
@@ -69,7 +69,7 @@ class WorkbookReader extends EventEmitter {
 
   async read(input?: any, options?: WorkbookReaderOptions): Promise<void> {
     try {
-      for await (const {eventType, value} of this.parse(input, options)) {
+      for await (const { eventType, value } of this.parse(input, options)) {
         switch (eventType) {
           case 'shared-strings':
             this.emit(eventType, value);
@@ -91,36 +91,36 @@ class WorkbookReader extends EventEmitter {
   }
 
   async *[Symbol.asyncIterator](): AsyncIterableIterator<any> {
-    for await (const {eventType, value} of this.parse()) {
+    for await (const { eventType, value } of this.parse()) {
       if (eventType === 'worksheet') {
         yield value;
       }
     }
   }
 
-  async *parse(input?: any, options?: WorkbookReaderOptions): AsyncIterableIterator<{eventType: string; value: any}> {
+  async *parse(input?: any, options?: WorkbookReaderOptions): AsyncIterableIterator<{ eventType: string; value: any }> {
     if (options) this.options = options;
     const stream = (this.stream = this._getStream(input || this.input));
-    
+
     // Use fflate's Unzip for streaming decompression
     const allFiles: Record<string, Uint8Array> = {};
-    
+
     await new Promise<void>((resolve, reject) => {
       let filesProcessed = 0;
       let zipEnded = false;
       let filesStarted = 0;
-      
+
       const checkCompletion = () => {
         if (zipEnded && filesProcessed === filesStarted) {
           resolve();
         }
       };
-      
+
       const unzipper = new Unzip((file: UnzipFile) => {
         filesStarted++;
         const fileChunks: Uint8Array[] = [];
         let totalLength = 0;
-        
+
         file.ondata = (err, data, final) => {
           if (err) {
             reject(err);
@@ -155,21 +155,21 @@ class WorkbookReader extends EventEmitter {
         };
         file.start();
       });
-      
+
       // Register deflate decompressor (compression type 8)
       unzipper.register(UnzipInflate);
-      
+
       // Define event handlers
       const onData = (chunk: Buffer) => {
         unzipper.push(chunk);
       };
-      
+
       const onEnd = () => {
         unzipper.push(new Uint8Array(0), true);
         zipEnded = true;
         checkCompletion();
       };
-      
+
       const onError = (err: Error) => {
         // Clean up listeners on error
         stream.removeListener('data', onData);
@@ -177,7 +177,7 @@ class WorkbookReader extends EventEmitter {
         stream.removeListener('error', onError);
         reject(err);
       };
-      
+
       // Stream chunks directly to unzipper without buffering entire file
       stream.on('data', onData);
       stream.on('end', onEnd);
@@ -206,14 +206,14 @@ class WorkbookReader extends EventEmitter {
     for (const [path, data] of sortedFiles) {
       let match;
       let sheetNo;
-      
+
       // Normalize path - remove leading slash for consistency
       const normalizedPath = path.startsWith('/') ? path.substring(1) : path;
-      
+
       // Create a readable stream from the data buffer
       // Using Readable.from() ensures data is available when consumed
       const entry = Readable.from([Buffer.from(data)]);
-      
+
       switch (normalizedPath) {
         case '_rels/.rels':
           break;
@@ -225,7 +225,7 @@ class WorkbookReader extends EventEmitter {
           break;
         case 'xl/sharedStrings.xml':
           for await (const item of this._parseSharedStrings(entry)) {
-            yield {eventType: 'shared-strings', value: item};
+            yield { eventType: 'shared-strings', value: item };
           }
           break;
         case 'xl/styles.xml':
@@ -242,26 +242,26 @@ class WorkbookReader extends EventEmitter {
               const createTempFile = async () => {
                 const tmpDir = await fs.promises.mkdtemp(pathJoin(os.tmpdir(), 'exceljs-'));
                 const tmpPath = pathJoin(tmpDir, `sheet${sheetNo}.xml`);
-                
+
                 const tempFileCleanupCallback = () => {
-                  fs.promises.rm(tmpDir, {recursive: true, force: true}).catch(() => {});
+                  fs.promises.rm(tmpDir, { recursive: true, force: true }).catch(() => {});
                 };
-                
-                waitingWorkSheets.push({sheetNo, path: tmpPath, tempFileCleanupCallback});
+
+                waitingWorkSheets.push({ sheetNo, path: tmpPath, tempFileCleanupCallback });
 
                 const tempStream = fs.createWriteStream(tmpPath);
-                
+
                 return new Promise<void>((resolve, reject) => {
                   const onFinish = () => {
                     tempStream.removeListener('error', onError);
                     resolve();
                   };
-                  
+
                   const onError = (err: Error) => {
                     tempStream.removeListener('finish', onFinish);
                     reject(err);
                   };
-                  
+
                   tempStream.once('finish', onFinish);
                   tempStream.on('error', onError);
                   // data is already a Uint8Array, no need to convert
@@ -269,7 +269,7 @@ class WorkbookReader extends EventEmitter {
                   tempStream.end();
                 });
               };
-              
+
               await createTempFile();
             }
           } else if (normalizedPath.match(/xl\/worksheets\/_rels\/sheet\d+[.]xml.rels/)) {
@@ -281,7 +281,7 @@ class WorkbookReader extends EventEmitter {
       }
     }
 
-    for (const {sheetNo, path, tempFileCleanupCallback} of waitingWorkSheets) {
+    for (const { sheetNo, path, tempFileCleanupCallback } of waitingWorkSheets) {
       const fileStream = fs.createReadStream(path);
       try {
         yield* this._parseWorksheet(fileStream, sheetNo);
@@ -304,7 +304,7 @@ class WorkbookReader extends EventEmitter {
   }
 
   async _parseWorkbook(entry: any): Promise<void> {
-    this._emitEntry({type: 'workbook'});
+    this._emitEntry({ type: 'workbook' });
 
     const workbook = new WorkbookXform();
     this.model = await workbook.parseStream(iterateStream(entry));
@@ -312,8 +312,8 @@ class WorkbookReader extends EventEmitter {
     this.properties = workbook.map.workbookPr;
   }
 
-  async *_parseSharedStrings(entry: any): AsyncIterableIterator<{index: number; text: any}> {
-    this._emitEntry({type: 'shared-strings'});
+  async *_parseSharedStrings(entry: any): AsyncIterableIterator<{ index: number; text: any }> {
+    this._emitEntry({ type: 'shared-strings' });
     switch (this.options.sharedStrings) {
       case 'cache':
         this.sharedStrings = [];
@@ -329,7 +329,7 @@ class WorkbookReader extends EventEmitter {
     let index = 0;
     let font: any = null;
     for await (const events of parseSax(iterateStream(entry))) {
-      for (const {eventType, value} of events) {
+      for (const { eventType, value } of events) {
         if (eventType === 'opentag') {
           const node = value;
           switch (node.name) {
@@ -409,9 +409,9 @@ class WorkbookReader extends EventEmitter {
               break;
             case 'si':
               if (this.options.sharedStrings === 'cache') {
-                this.sharedStrings!.push(richText.length ? {richText} : text);
+                this.sharedStrings!.push(richText.length ? { richText } : text);
               } else if (this.options.sharedStrings === 'emit') {
-                yield {index: index++, text: richText.length ? {richText} : text};
+                yield { index: index++, text: richText.length ? { richText } : text };
               }
 
               richText = [];
@@ -425,15 +425,15 @@ class WorkbookReader extends EventEmitter {
   }
 
   async _parseStyles(entry: any): Promise<void> {
-    this._emitEntry({type: 'styles'});
+    this._emitEntry({ type: 'styles' });
     if (this.options.styles === 'cache') {
       this.styles = new StyleManager();
       await this.styles.parseStream(iterateStream(entry));
     }
   }
 
-  *_parseWorksheet(iterator: any, sheetNo: string): IterableIterator<{eventType: string; value: any}> {
-    this._emitEntry({type: 'worksheet', id: sheetNo});
+  *_parseWorksheet(iterator: any, sheetNo: string): IterableIterator<{ eventType: string; value: any }> {
+    this._emitEntry({ type: 'worksheet', id: sheetNo });
     const worksheetReader = new WorksheetReader({
       workbook: this,
       id: parseInt(sheetNo, 10),
@@ -442,19 +442,20 @@ class WorkbookReader extends EventEmitter {
     });
 
     const matchingRel = (this.workbookRels || []).find((rel: any) => rel.Target === `worksheets/sheet${sheetNo}.xml`);
-    const matchingSheet = matchingRel && this.model && (this.model.sheets || []).find((sheet: any) => sheet.rId === matchingRel.Id);
+    const matchingSheet =
+      matchingRel && this.model && (this.model.sheets || []).find((sheet: any) => sheet.rId === matchingRel.Id);
     if (matchingSheet) {
       worksheetReader.id = matchingSheet.id;
       worksheetReader.name = matchingSheet.name;
       worksheetReader.state = matchingSheet.state;
     }
     if (this.options.worksheets === 'emit') {
-      yield {eventType: 'worksheet', value: worksheetReader};
+      yield { eventType: 'worksheet', value: worksheetReader };
     }
   }
 
-  *_parseHyperlinks(iterator: any, sheetNo: string): IterableIterator<{eventType: string; value: any}> {
-    this._emitEntry({type: 'hyperlinks', id: sheetNo});
+  *_parseHyperlinks(iterator: any, sheetNo: string): IterableIterator<{ eventType: string; value: any }> {
+    this._emitEntry({ type: 'hyperlinks', id: sheetNo });
     const hyperlinksReader = new HyperlinkReader({
       workbook: this,
       id: parseInt(sheetNo, 10),
@@ -462,7 +463,7 @@ class WorkbookReader extends EventEmitter {
       options: this.options,
     });
     if (this.options.hyperlinks === 'emit') {
-      yield {eventType: 'hyperlinks', value: hyperlinksReader};
+      yield { eventType: 'hyperlinks', value: hyperlinksReader };
     }
   }
 }

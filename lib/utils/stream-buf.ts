@@ -1,5 +1,5 @@
 /* eslint-disable max-classes-per-file */
-import {Duplex} from 'stream';
+import { Duplex } from 'stream';
 import utils from './utils.js';
 import StringBuf from './string-buf.js';
 
@@ -162,13 +162,13 @@ interface StreamBufOptions {
 
 // Note: Not sure why but StreamBuf does not like JS "class" sugar. It fails the
 // integration tests
-const StreamBuf = function(this: any, options?: StreamBufOptions) {
+const StreamBuf = function (this: any, options?: StreamBufOptions) {
   if (!(this instanceof StreamBuf)) {
     return new (StreamBuf as any)(options);
   }
-  
+
   Duplex.call(this, options);
-  
+
   options = options || {};
   this.bufSize = options.bufSize || 1024 * 1024;
   this.buffers = [];
@@ -225,7 +225,7 @@ utils.inherits(StreamBuf, Duplex as any, {
   },
 
   async _pipe(this: any, chunk: Chunk): Promise<void> {
-    const write = function(pipe: any): Promise<void> {
+    const write = function (pipe: any): Promise<void> {
       return new Promise(resolve => {
         pipe.write(chunk.toBuffer(), () => {
           resolve();

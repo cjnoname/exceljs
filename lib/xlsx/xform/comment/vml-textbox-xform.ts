@@ -40,7 +40,7 @@ class VmlTextboxXform extends BaseXform {
       style: 'mso-direction-alt:auto',
     };
     if (model && model.note) {
-      let {inset} = model.note && model.note.margins || {};
+      let { inset } = (model.note && model.note.margins) || {};
       if (Array.isArray(inset)) {
         inset = inset
           .map(margin => {
@@ -53,7 +53,7 @@ class VmlTextboxXform extends BaseXform {
       }
     }
     xmlStream.openNode('v:textbox', attributes);
-    xmlStream.leafNode('div', {style: 'text-align:left'});
+    xmlStream.leafNode('div', { style: 'text-align:left' });
     xmlStream.closeNode();
   }
 

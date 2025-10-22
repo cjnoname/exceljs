@@ -65,7 +65,7 @@ class CellXform extends BaseXform {
     }
 
     if (model.comment) {
-      options.comments.push({...model.comment, ref: model.address});
+      options.comments.push({ ...model.comment, ref: model.address });
     }
 
     switch (model.type) {
@@ -112,9 +112,7 @@ class CellXform extends BaseXform {
         } else if (model.sharedFormula) {
           const master = options.formulae[model.sharedFormula];
           if (!master) {
-            throw new Error(
-              `Shared Formula master must exist above and or left of clone for cell ${model.address}`
-            );
+            throw new Error(`Shared Formula master must exist above and or left of clone for cell ${model.address}`);
           }
           if (master.si === undefined) {
             master.shareType = 'shared';
@@ -348,7 +346,7 @@ class CellXform extends BaseXform {
   parseClose(name) {
     switch (name) {
       case 'c': {
-        const {model} = this;
+        const { model } = this;
 
         // first guess on cell type
         if (model.formula || model.shareType) {
@@ -359,7 +357,7 @@ class CellXform extends BaseXform {
             } else if (this.t === 'b') {
               model.result = parseInt(model.value, 10) !== 0;
             } else if (this.t === 'e') {
-              model.result = {error: model.value};
+              model.result = { error: model.value };
             } else {
               model.result = parseFloat(model.value);
             }
@@ -384,7 +382,7 @@ class CellXform extends BaseXform {
               break;
             case 'e':
               model.type = Enums.ValueType.Error;
-              model.value = {error: model.value};
+              model.value = { error: model.value };
               break;
             default:
               model.type = Enums.ValueType.Number;

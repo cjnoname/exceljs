@@ -216,7 +216,7 @@ class Row {
   }
 
   // set the values by contiguous or sparse array, or by key'd object literal
-  set values(value: any[] | {[key: string]: any}) {
+  set values(value: any[] | { [key: string]: any }) {
     // this operation is not additive - any prior cells are removed
     this._cells = [];
     if (!value) {
@@ -366,9 +366,7 @@ class Row {
   }
 
   get collapsed(): boolean {
-    return !!(
-      this._outlineLevel && this._outlineLevel >= this._worksheet.properties.outlineLevelRow
-    );
+    return !!(this._outlineLevel && this._outlineLevel >= this._worksheet.properties.outlineLevelRow);
   }
 
   // =========================================================================
@@ -424,7 +422,7 @@ class Row {
           } else if (previousAddress) {
             // This is a <c> element without an r attribute
             // Assume that it's the cell for the next column
-            const {row} = previousAddress;
+            const { row } = previousAddress;
             const col = previousAddress.col + 1;
             address = {
               row,

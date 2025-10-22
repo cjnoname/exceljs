@@ -18,9 +18,7 @@ describe('Anchor', () => {
       worksheet.addColumn(anchor.nativeCol + 1, {
         width: 10,
       });
-      expect(anchor.colWidth).toBe(
-        worksheet.getColumn(anchor.nativeCol + 1).width * 10000
-      );
+      expect(anchor.colWidth).toBe(worksheet.getColumn(anchor.nativeCol + 1).width * 10000);
     });
   });
   describe('rowHeight', () => {
@@ -49,7 +47,7 @@ describe('Anchor', () => {
       worksheet.getColumn(1).width = 20;
       worksheet.getRow(1).height = 20;
 
-      anchor = new Anchor(worksheet, {col: 0.6, row: 0.6});
+      anchor = new Anchor(worksheet, { col: 0.6, row: 0.6 });
     });
 
     it('should update colWidth', () => {
@@ -75,46 +73,26 @@ describe('Anchor', () => {
       expect(anchor.row).not.toBe(pre);
     });
     it('should integer part of row and rowOff should be always equals', () => {
-      expect(Math.floor(anchor.row)).toBe(
-        Math.floor(anchor.nativeCol)
-      );
+      expect(Math.floor(anchor.row)).toBe(Math.floor(anchor.nativeCol));
       worksheet.getRow(1).height *= 2;
-      expect(Math.floor(anchor.row)).toBe(
-        Math.floor(anchor.nativeCol)
-      );
+      expect(Math.floor(anchor.row)).toBe(Math.floor(anchor.nativeCol));
       worksheet.getRow(1).height /= 4;
-      expect(Math.floor(anchor.row)).toBe(
-        Math.floor(anchor.nativeCol)
-      );
+      expect(Math.floor(anchor.row)).toBe(Math.floor(anchor.nativeCol));
       worksheet.getRow(1).height = 0.1;
-      expect(Math.floor(anchor.row)).toBe(
-        Math.floor(anchor.nativeCol)
-      );
+      expect(Math.floor(anchor.row)).toBe(Math.floor(anchor.nativeCol));
       worksheet.getRow(1).height = 9999;
-      expect(Math.floor(anchor.row)).toBe(
-        Math.floor(anchor.nativeCol)
-      );
+      expect(Math.floor(anchor.row)).toBe(Math.floor(anchor.nativeCol));
     });
     it('should integer part of col and colOff should be always equals', () => {
-      expect(Math.floor(anchor.col)).toBe(
-        Math.floor(anchor.nativeCol)
-      );
+      expect(Math.floor(anchor.col)).toBe(Math.floor(anchor.nativeCol));
       worksheet.getColumn(1).width *= 2;
-      expect(Math.floor(anchor.col)).toBe(
-        Math.floor(anchor.nativeCol)
-      );
+      expect(Math.floor(anchor.col)).toBe(Math.floor(anchor.nativeCol));
       worksheet.getColumn(1).width /= 4;
-      expect(Math.floor(anchor.col)).toBe(
-        Math.floor(anchor.nativeCol)
-      );
+      expect(Math.floor(anchor.col)).toBe(Math.floor(anchor.nativeCol));
       worksheet.getColumn(1).width = 0.1;
-      expect(Math.floor(anchor.col)).toBe(
-        Math.floor(anchor.nativeCol)
-      );
+      expect(Math.floor(anchor.col)).toBe(Math.floor(anchor.nativeCol));
       worksheet.getColumn(1).width = 9999;
-      expect(Math.floor(anchor.col)).toBe(
-        Math.floor(anchor.nativeCol)
-      );
+      expect(Math.floor(anchor.col)).toBe(Math.floor(anchor.nativeCol));
     });
     it('should update nativeColOff after col has been changed', () => {
       const pre = anchor.nativeColOff;

@@ -18,7 +18,7 @@ const expectations = [
     create() {
       return new FillXform();
     },
-    preparedModel: {type: 'pattern', pattern: 'none'},
+    preparedModel: { type: 'pattern', pattern: 'none' },
     xml: '<fill><patternFill patternType="none"/></fill>',
     get parsedModel() {
       return this.preparedModel;
@@ -30,7 +30,7 @@ const expectations = [
     create() {
       return new FillXform();
     },
-    preparedModel: {type: 'pattern', pattern: 'gray125'},
+    preparedModel: { type: 'pattern', pattern: 'gray125' },
     xml: '<fill><patternFill patternType="gray125"/></fill>',
     get parsedModel() {
       return this.preparedModel;
@@ -45,10 +45,9 @@ const expectations = [
     preparedModel: {
       type: 'pattern',
       pattern: 'darkVertical',
-      fgColor: {argb: 'FFFF0000'},
+      fgColor: { argb: 'FFFF0000' },
     },
-    xml:
-      '<fill><patternFill patternType="darkVertical"><fgColor rgb="FFFF0000"/></patternFill></fill>',
+    xml: '<fill><patternFill patternType="darkVertical"><fgColor rgb="FFFF0000"/></patternFill></fill>',
     get parsedModel() {
       return this.preparedModel;
     },
@@ -62,11 +61,10 @@ const expectations = [
     preparedModel: {
       type: 'pattern',
       pattern: 'darkTrellis',
-      fgColor: {argb: 'FFFF0000'},
-      bgColor: {argb: 'FF00FF00'},
+      fgColor: { argb: 'FFFF0000' },
+      bgColor: { argb: 'FF00FF00' },
     },
-    xml:
-      '<fill><patternFill patternType="darkTrellis"><fgColor rgb="FFFF0000"/><bgColor rgb="FF00FF00"/></patternFill></fill>',
+    xml: '<fill><patternFill patternType="darkTrellis"><fgColor rgb="FFFF0000"/><bgColor rgb="FF00FF00"/></patternFill></fill>',
     get parsedModel() {
       return this.preparedModel;
     },
@@ -82,8 +80,8 @@ const expectations = [
       gradient: 'angle',
       degree: 0,
       stops: [
-        {position: 0, color: {argb: 'FF0000FF'}},
-        {position: 1, color: {argb: 'FFFFFFFF'}},
+        { position: 0, color: { argb: 'FF0000FF' } },
+        { position: 1, color: { argb: 'FFFFFFFF' } },
       ],
     },
     xml:
@@ -104,11 +102,11 @@ const expectations = [
     preparedModel: {
       type: 'gradient',
       gradient: 'path',
-      center: {left: 0.5, top: 0.5},
+      center: { left: 0.5, top: 0.5 },
       stops: [
-        {position: 0, color: {argb: 'FFFF0000'}},
-        {position: 0.5, color: {argb: 'FF00FF00'}},
-        {position: 1, color: {argb: 'FF0000FF'}},
+        { position: 0, color: { argb: 'FFFF0000' } },
+        { position: 0.5, color: { argb: 'FF00FF00' } },
+        { position: 1, color: { argb: 'FF0000FF' } },
       ],
     },
     xml:

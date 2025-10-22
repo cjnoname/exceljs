@@ -10,15 +10,15 @@ interface ExtModel {
 
 class ExtXform extends BaseXform {
   public tag: string;
-  public map: {[key: string]: any};
+  public map: { [key: string]: any };
   public model: ExtModel;
 
-  constructor(options: {tag: string}) {
+  constructor(options: { tag: string }) {
     super();
 
     this.tag = options.tag;
     this.map = {};
-    this.model = {width: 0, height: 0};
+    this.model = { width: 0, height: 0 };
   }
 
   render(xmlStream: any, model: ExtModel): void {

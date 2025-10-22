@@ -20,9 +20,7 @@ const expectations = [
       return new WorkbookXform();
     },
     preparedModel: book_1_1,
-    xml: readFileSync(join(__dirname, './data/book.1.2.xml'))
-      .toString()
-      .replace(/\r\n/g, '\n'),
+    xml: readFileSync(join(__dirname, './data/book.1.2.xml')).toString().replace(/\r\n/g, '\n'),
     parsedModel: book_1_3,
     tests: ['render', 'renderIn', 'parse'],
   },
@@ -32,9 +30,7 @@ const expectations = [
       return new WorkbookXform();
     },
     preparedModel: {},
-    xml: readFileSync(join(__dirname, './data/book.2.2.xml'))
-      .toString()
-      .replace(/\r\n/g, '\n'),
+    xml: readFileSync(join(__dirname, './data/book.2.2.xml')).toString().replace(/\r\n/g, '\n'),
     parsedModel: book_2_3,
     tests: ['parse'],
   },

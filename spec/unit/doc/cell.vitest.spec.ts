@@ -96,7 +96,7 @@ const fonts = {
     family: 5,
     size: 20,
     outline: true,
-    color: {argb: 'FFFF0000'},
+    color: { argb: 'FFFF0000' },
   },
 };
 
@@ -129,7 +129,7 @@ describe('Cell', () => {
     expect(a1.value).toBe(dateValue);
     expect(a1.type).toBe(Enums.ValueType.Date);
 
-    let formulaValue = {formula: 'A2', result: 5};
+    let formulaValue = { formula: 'A2', result: 5 };
     expect((a1.value = formulaValue)).toEqual(formulaValue);
     expect(a1.value).toEqual(formulaValue);
     expect(a1.type).toBe(Enums.ValueType.Formula);
@@ -145,7 +145,7 @@ describe('Cell', () => {
     expect((a1.value = null)).toBeNull();
     expect(a1.type).toBe(Enums.ValueType.Null);
 
-    expect((a1.value = {json: 'data'})).toEqual({json: 'data'});
+    expect((a1.value = { json: 'data' })).toEqual({ json: 'data' });
     expect(a1.type).toBe(Enums.ValueType.String);
   });
   it('validates options on construction', () => {
@@ -216,7 +216,7 @@ describe('Cell', () => {
     expect(a1.type).toBe(Enums.ValueType.Hyperlink);
   });
 
-  it('doesn\'t upgrade from non-string to hyperlink', () => {
+  it("doesn't upgrade from non-string to hyperlink", () => {
     sheetMock.getRow(1);
     sheetMock.getColumn(1);
 
@@ -239,12 +239,12 @@ describe('Cell', () => {
     expect(a1.type).toBe(Enums.ValueType.Date);
 
     // formula
-    a1.value = {formula: 'A2'};
+    a1.value = { formula: 'A2' };
     a1._upgradeToHyperlink(linkValue);
     expect(a1.type).toBe(Enums.ValueType.Formula);
 
     // hyperlink
-    a1.value = {hyperlink: 'http://www.link2.com', text: 'www.link2.com'};
+    a1.value = { hyperlink: 'http://www.link2.com', text: 'www.link2.com' };
     a1._upgradeToHyperlink(linkValue);
     expect(a1.type).toEqual(Enums.ValueType.Hyperlink);
 
@@ -297,15 +297,15 @@ describe('Cell', () => {
     expect(a1.type).toBe(Enums.ValueType.Date);
     expect(a1.effectiveType).toBe(Enums.ValueType.Date);
 
-    a1.value = {formula: 'A2', result: 5};
+    a1.value = { formula: 'A2', result: 5 };
     expect(a1.type).toEqual(Enums.ValueType.Formula);
     expect(a1.effectiveType).toBe(Enums.ValueType.Number);
 
-    a1.value = {formula: 'A2', result: 'Hello, World!'};
+    a1.value = { formula: 'A2', result: 'Hello, World!' };
     expect(a1.type).toEqual(Enums.ValueType.Formula);
     expect(a1.effectiveType).toBe(Enums.ValueType.String);
 
-    a1.value = {hyperlink: 'http://www.link.com', text: 'www.link.com'};
+    a1.value = { hyperlink: 'http://www.link.com', text: 'www.link.com' };
     expect(a1.type).toEqual(Enums.ValueType.Hyperlink);
     expect(a1.effectiveType).toBe(Enums.ValueType.Hyperlink);
   });
@@ -316,8 +316,8 @@ describe('Cell', () => {
     const c1 = sheetMock.getCell('C1');
 
     a1.value = 1;
-    b1.value = {formula: 'A1+1', result: 2};
-    c1.value = {sharedFormula: 'B1', result: 3};
+    b1.value = { formula: 'A1+1', result: 2 };
+    c1.value = { sharedFormula: 'B1', result: 3 };
 
     expect(b1.type).toBe(Enums.ValueType.Formula);
     expect(b1.formulaType).toBe(Enums.FormulaType.Master);
@@ -331,9 +331,7 @@ describe('Cell', () => {
 
     a1.value = '<script>alert("yoohoo")</script>';
 
-    expect(a1.html).toBe(
-      '&lt;script&gt;alert(&quot;yoohoo&quot;)&lt;/script&gt;'
-    );
+    expect(a1.html).toBe('&lt;script&gt;alert(&quot;yoohoo&quot;)&lt;/script&gt;');
   });
   it('can set comment', () => {
     const a1 = sheetMock.getCell('A1');
@@ -343,7 +341,7 @@ describe('Cell', () => {
         {
           font: {
             size: 12,
-            color: {theme: 0},
+            color: { theme: 0 },
             name: 'Calibri',
             family: 2,
             scheme: 'minor',
@@ -377,7 +375,7 @@ describe('Cell', () => {
         {
           font: {
             size: 12,
-            color: {theme: 0},
+            color: { theme: 0 },
             name: 'Calibri',
             family: 2,
             scheme: 'minor',
@@ -398,12 +396,7 @@ describe('Cell', () => {
     expect(a1.model.comment.note.texts).toEqual(comment.texts);
     expect(a1.model.comment.note.protection).toEqual(comment.protection);
     expect(a1.model.comment.note.margins.insetmode).toBe('auto');
-    expect(a1.model.comment.note.margins.inset).toEqual([
-      0.13,
-      0.13,
-      0.25,
-      0.25,
-    ]);
+    expect(a1.model.comment.note.margins.inset).toEqual([0.13, 0.13, 0.25, 0.25]);
     expect(a1.model.comment.note.editAs).toBe('absolute');
   });
 });

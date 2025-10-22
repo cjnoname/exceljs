@@ -90,7 +90,7 @@ const colCache = {
     }
     if (this._l2nFill < 2 && level >= 2) {
       n = 27;
-      while (n <= 26 + (26 * 26)) {
+      while (n <= 26 + 26 * 26) {
         v = n - (26 + 1);
         l1 = v % 26;
         l2 = Math.floor(v / 26);
@@ -102,9 +102,9 @@ const colCache = {
       this._l2nFill = 2;
     }
     if (this._l2nFill < 3 && level >= 3) {
-      n = 26 + (26 * 26) + 1;
+      n = 26 + 26 * 26 + 1;
       while (n <= 16384) {
-        v = n - ((26 * 26) + 26 + 1);
+        v = n - (26 * 26 + 26 + 1);
         l1 = v % 26;
         l2 = Math.floor(v / 26) % 26;
         l3 = Math.floor(v / (26 * 26));
@@ -168,14 +168,14 @@ const colCache = {
         hasCol = true;
         col += value[i];
         // colNumber starts from 1
-        colNumber = (colNumber * 26) + char - 64;
+        colNumber = colNumber * 26 + char - 64;
       } else if (char >= 48 && char <= 57) {
         // 48 = '0'.charCodeAt(0)
         // 57 = '9'.charCodeAt(0)
         hasRow = true;
         row += value[i];
         // rowNumber starts from 0
-        rowNumber = (rowNumber * 10) + char - 48;
+        rowNumber = rowNumber * 10 + char - 48;
       } else if (hasRow && hasCol && char !== 36) {
         // 36 = '$'.charCodeAt(0)
         break;
@@ -267,7 +267,7 @@ const colCache = {
         bottom,
         right,
         sheetName,
-        tl: {address: tlStr, col: left, row: top, $col$row: `$${this.n2l(left)}$${top}`, sheetName},
+        tl: { address: tlStr, col: left, row: top, $col$row: `$${this.n2l(left)}$${top}`, sheetName },
         br: {
           address: brStr,
           col: right,
@@ -279,11 +279,11 @@ const colCache = {
       };
     }
     if (reference.indexOf('#') === 0) {
-      return sheetName ? {sheetName, error: reference} : {error: reference};
+      return sheetName ? { sheetName, error: reference } : { error: reference };
     }
 
     const address = this.decodeAddress(reference);
-    return sheetName ? {sheetName, ...address} : address;
+    return sheetName ? { sheetName, ...address } : address;
   },
 
   // convert row,col into address string
@@ -297,10 +297,7 @@ const colCache = {
       case 2:
         return colCache.encodeAddress(args[0], args[1]);
       case 4:
-        return `${colCache.encodeAddress(args[0], args[1])}:${colCache.encodeAddress(
-          args[2],
-          args[3]
-        )}`;
+        return `${colCache.encodeAddress(args[0], args[1])}:${colCache.encodeAddress(args[2], args[3])}`;
       default:
         throw new Error('Can only encode with 2 or 4 arguments');
     }

@@ -10,7 +10,7 @@ interface FilterColumnModel {
 }
 
 class FilterColumnXform extends BaseXform {
-  public map: {[key: string]: ListXform};
+  public map: { [key: string]: ListXform };
   public parser: any;
   public model: FilterColumnModel;
 
@@ -31,14 +31,14 @@ class FilterColumnXform extends BaseXform {
         childXform: new FilterXform(),
       }),
     };
-    this.model = {filterButton: false};
+    this.model = { filterButton: false };
   }
 
   get tag(): string {
     return 'filterColumn';
   }
 
-  prepare(model: FilterColumnModel, options: {index: number}): void {
+  prepare(model: FilterColumnModel, options: { index: number }): void {
     model.colId = options.index.toString();
   }
 
@@ -65,7 +65,7 @@ class FilterColumnXform extends BaseXform {
       this.parser.parseOpen(node);
       return true;
     }
-    const {attributes} = node;
+    const { attributes } = node;
     switch (node.name) {
       case this.tag:
         this.model = {

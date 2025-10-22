@@ -7,29 +7,11 @@ const wb = new Excel.Workbook();
 const ws = wb.addWorksheet('Foo');
 
 const now = new Date();
-const today = Date.UTC(
-  now.getUTCFullYear(),
-  now.getUTCMonth(),
-  now.getUTCDay()
-);
+const today = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDay());
 
-ws.columns = [{key: 'date', width: 32}, {key: 'number'}, {key: 'word'}];
+ws.columns = [{ key: 'date', width: 32 }, { key: 'number' }, { key: 'word' }];
 
-const words = [
-  'Twas',
-  'brillig',
-  'and',
-  'the',
-  'slithy',
-  'toves',
-  'did',
-  'gyre',
-  'and',
-  'gimble',
-  'in',
-  'the',
-  'wabe',
-];
+const words = ['Twas', 'brillig', 'and', 'the', 'slithy', 'toves', 'did', 'gyre', 'and', 'gimble', 'in', 'the', 'wabe'];
 
 ws.addTable({
   name: 'TestTable',
@@ -41,18 +23,18 @@ ws.addTable({
     showRowStripes: true,
   },
   columns: [
-    {name: 'Date', totalsRowLabel: 'Totally', filterButton: true},
+    { name: 'Date', totalsRowLabel: 'Totally', filterButton: true },
     {
       name: 'Id',
       totalsRowFunction: 'max',
       filterButton: true,
       totalsRowResult: 8,
-      style: {numFmt: '0.00%'},
+      style: { numFmt: '0.00%' },
     },
     {
       name: 'Word',
       filterButton: false,
-      style: {font: {bold: true, name: 'Comic Sans MS'}},
+      style: { font: { bold: true, name: 'Comic Sans MS' } },
     },
   ],
   rows: words.map((word, i) => {

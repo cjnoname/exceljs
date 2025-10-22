@@ -7,8 +7,8 @@ interface NumFmtModel {
   formatCode: string;
 }
 
-function hashDefaultFormats(): {[key: string]: number} {
-  const hash: {[key: string]: number} = {};
+function hashDefaultFormats(): { [key: string]: number } {
+  const hash: { [key: string]: number } = {};
   _.each(defaultNumFormats, (dnf: any, id: string) => {
     if (dnf.f) {
       hash[dnf.f] = parseInt(id, 10);
@@ -36,7 +36,7 @@ class NumFmtXform extends BaseXform {
   }
 
   render(xmlStream: any, model: NumFmtModel): void {
-    xmlStream.leafNode('numFmt', {numFmtId: model.id, formatCode: model.formatCode});
+    xmlStream.leafNode('numFmt', { numFmtId: model.id, formatCode: model.formatCode });
   }
 
   parseOpen(node: any): boolean {

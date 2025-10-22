@@ -23,7 +23,7 @@ interface RowModel {
 
 class RowXform extends BaseXform {
   public maxItems?: number;
-  public map: {[key: string]: any};
+  public map: { [key: string]: any };
   public model: RowModel;
   public parser: any;
   public numRowsSeen: number;

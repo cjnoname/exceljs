@@ -8,7 +8,7 @@ interface CacheDefinitionModel {
 }
 
 class PivotCacheDefinitionXform extends BaseXform {
-  public map: {[key: string]: any};
+  public map: { [key: string]: any };
 
   constructor() {
     super();
@@ -26,7 +26,7 @@ class PivotCacheDefinitionXform extends BaseXform {
   }
 
   render(xmlStream: any, model: CacheDefinitionModel): void {
-    const {sourceSheet, cacheFields} = model;
+    const { sourceSheet, cacheFields } = model;
 
     xmlStream.openXml(XmlStream.StdDocAttributes);
     xmlStream.openNode(this.tag, {
@@ -41,14 +41,14 @@ class PivotCacheDefinitionXform extends BaseXform {
       recordCount: cacheFields.length + 1,
     });
 
-    xmlStream.openNode('cacheSource', {type: 'worksheet'});
+    xmlStream.openNode('cacheSource', { type: 'worksheet' });
     xmlStream.leafNode('worksheetSource', {
       ref: sourceSheet.dimensions.shortRange,
       sheet: sourceSheet.name,
     });
     xmlStream.closeNode();
 
-    xmlStream.openNode('cacheFields', {count: cacheFields.length});
+    xmlStream.openNode('cacheFields', { count: cacheFields.length });
     // Note: keeping this pretty-printed for now to ease debugging.
     xmlStream.writeXml(cacheFields.map((cacheField: any) => new CacheField(cacheField).render()).join('\n    '));
     xmlStream.closeNode();

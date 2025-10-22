@@ -32,9 +32,7 @@ class TextXform extends BaseXform {
   parseText(text: string): void {
     this._text.push(text);
     // Update model immediately after receiving text
-    this.model = this._text
-      .join('')
-      .replace(/_x([0-9A-F]{4})_/g, ($0, $1) => String.fromCharCode(parseInt($1, 16)));
+    this.model = this._text.join('').replace(/_x([0-9A-F]{4})_/g, ($0, $1) => String.fromCharCode(parseInt($1, 16)));
   }
 
   parseClose(): boolean {
@@ -43,4 +41,3 @@ class TextXform extends BaseXform {
 }
 
 export default TextXform;
-

@@ -7,17 +7,17 @@ const ws = wb.addWorksheet('blort');
 
 const borders = {
   thin: {
-    top: {style: 'thin'},
-    left: {style: 'thin'},
-    bottom: {style: 'thin'},
-    right: {style: 'thin'},
+    top: { style: 'thin' },
+    left: { style: 'thin' },
+    bottom: { style: 'thin' },
+    right: { style: 'thin' },
   },
   doubleRed: {
-    color: {argb: 'FFFF0000'},
-    top: {style: 'double'},
-    left: {style: 'double'},
-    bottom: {style: 'double'},
-    right: {style: 'double'},
+    color: { argb: 'FFFF0000' },
+    top: { style: 'double' },
+    left: { style: 'double' },
+    bottom: { style: 'double' },
+    right: { style: 'double' },
   },
 };
 

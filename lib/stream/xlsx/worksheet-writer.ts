@@ -40,10 +40,10 @@ const xform: any = {
   dataValidations: new DataValidationsXform(),
   sheetProperties: new SheetPropertiesXform(),
   sheetFormatProperties: new SheetFormatPropertiesXform(),
-  columns: new ListXform({tag: 'cols', count: false, childXform: new ColXform()} as any),
+  columns: new ListXform({ tag: 'cols', count: false, childXform: new ColXform() } as any),
   row: new RowXform(),
-  hyperlinks: new ListXform({tag: 'hyperlinks', count: false, childXform: new HyperlinkXform()} as any),
-  sheetViews: new ListXform({tag: 'sheetViews', count: false, childXform: new SheetViewXform()} as any),
+  hyperlinks: new ListXform({ tag: 'hyperlinks', count: false, childXform: new HyperlinkXform() } as any),
+  sheetViews: new ListXform({ tag: 'sheetViews', count: false, childXform: new SheetViewXform() } as any),
   sheetProtection: new SheetProtectionXform(),
   pageMargins: new PageMarginsXform(),
   pageSeteup: new PageSetupXform(),
@@ -75,7 +75,7 @@ class WorksheetWriter {
   state: string;
   _rows: any[] | null;
   _columns: any[] | null;
-  _keys: {[key: string]: any};
+  _keys: { [key: string]: any };
   _merges: any[];
   _sheetRelsWriter: any;
   _sheetCommentsWriter: any;
@@ -83,7 +83,7 @@ class WorksheetWriter {
   _rowZero: number;
   committed: boolean;
   dataValidations: any;
-  _formulae: {[key: string]: any};
+  _formulae: { [key: string]: any };
   _siFormulae: number;
   conditionalFormatting: any[];
   rowBreaks: any[];
@@ -124,7 +124,7 @@ class WorksheetWriter {
 
     // keep a record of all row and column pageBreaks
     this._merges = [];
-    (this._merges as any).add = function() {}; // ignore cell instruction
+    (this._merges as any).add = function () {}; // ignore cell instruction
 
     // keep record of all hyperlinks
     this._sheetRelsWriter = new SheetRelsWriter(options);
@@ -184,7 +184,7 @@ class WorksheetWriter {
     this.pageSetup = Object.assign(
       {},
       {
-        margins: {left: 0.7, right: 0.7, top: 0.75, bottom: 0.75, header: 0.3, footer: 0.3},
+        margins: { left: 0.7, right: 0.7, top: 0.75, bottom: 0.75, header: 0.3, footer: 0.3 },
         orientation: 'portrait',
         horizontalDpi: 4294967295,
         verticalDpi: 4294967295,
@@ -628,7 +628,7 @@ class WorksheetWriter {
   _writeColumns(): void {
     const cols = (Column as any).toModel(this.columns);
     if (cols) {
-      xform.columns.prepare(cols, {styles: this._workbook.styles});
+      xform.columns.prepare(cols, { styles: this._workbook.styles });
       this.stream.write(xform.columns.toXml(cols));
     }
   }
@@ -645,7 +645,7 @@ class WorksheetWriter {
     }
 
     if (row.hasValues || row.height) {
-      const {model} = row;
+      const { model } = row;
       const options = {
         styles: this._workbook.styles,
         sharedStrings: this.useSharedStrings ? this._workbook.sharedStrings : undefined,
@@ -737,7 +737,7 @@ class WorksheetWriter {
           rId: pictureId,
         };
       }
-      this.stream.write(xform.picture.toXml({rId: this._background.rId}));
+      this.stream.write(xform.picture.toXml({ rId: this._background.rId }));
     }
   }
 

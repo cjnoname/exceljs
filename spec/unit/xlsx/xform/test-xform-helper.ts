@@ -22,7 +22,7 @@ function normalizeXml(xml: string): string {
   try {
     // Parse XML to object (this normalizes element order by converting to object structure)
     const parsed = xmlParser.parse(xml);
-    
+
     // Convert to JSON for comparison - element order doesn't matter in objects
     return JSON.stringify(parsed, Object.keys(parsed).sort());
   } catch (error) {
@@ -58,7 +58,7 @@ function getExpectation<K extends keyof Expectation>(expectation: Expectation, n
 //  parse:  xml => parsedModel
 //  reconcile: parsedModel => reconciledModel
 
-const its: {[key: string]: (expectation: Expectation) => (() => Promise<void>)} = {
+const its: { [key: string]: (expectation: Expectation) => () => Promise<void> } = {
   prepare(expectation: Expectation) {
     return async () => {
       const model = getExpectation(expectation, 'initialModel');
@@ -83,7 +83,7 @@ const its: {[key: string]: (expectation: Expectation) => (() => Promise<void>)} 
     };
   },
 
-  'prepare-render': function(expectation: Expectation) {
+  'prepare-render': function (expectation: Expectation) {
     // when implementation details get in the way of testing the prepared result
     return async () => {
       const model = getExpectation(expectation, 'initialModel');
@@ -106,22 +106,19 @@ const its: {[key: string]: (expectation: Expectation) => (() => Promise<void>)} 
         child: getExpectation(expectation, 'preparedModel'),
         post: true,
       };
-      const result = `<compy><pre/>${getExpectation(
-        expectation,
-        'xml'
-      )}<post/></compy>`;
+      const result = `<compy><pre/>${getExpectation(expectation, 'xml')}<post/></compy>`;
 
       const xform = new CompyXform({
         tag: 'compy',
         children: [
           {
             name: 'pre',
-            xform: new BooleanXform({tag: 'pre', attr: 'val'}),
+            xform: new BooleanXform({ tag: 'pre', attr: 'val' }),
           },
-          {name: 'child', xform: expectation.create()},
+          { name: 'child', xform: expectation.create() },
           {
             name: 'post',
-            xform: new BooleanXform({tag: 'post', attr: 'val'}),
+            xform: new BooleanXform({ tag: 'post', attr: 'val' }),
           },
         ],
       });
@@ -135,12 +132,9 @@ const its: {[key: string]: (expectation: Expectation) => (() => Promise<void>)} 
 
   parseIn(expectation: Expectation) {
     return async () => {
-      const xml = `<compy><pre/>${getExpectation(
-        expectation,
-        'xml'
-      )}<post/></compy>`;
+      const xml = `<compy><pre/>${getExpectation(expectation, 'xml')}<post/></compy>`;
       const childXform = expectation.create();
-      const result: any = {pre: true};
+      const result: any = { pre: true };
       result[childXform.tag] = getExpectation(expectation, 'parsedModel');
       result.post = true;
       const xform: any = new CompyXform({
@@ -148,12 +142,12 @@ const its: {[key: string]: (expectation: Expectation) => (() => Promise<void>)} 
         children: [
           {
             name: 'pre',
-            xform: new BooleanXform({tag: 'pre', attr: 'val'}),
+            xform: new BooleanXform({ tag: 'pre', attr: 'val' }),
           },
-          {name: childXform.tag, xform: childXform},
+          { name: childXform.tag, xform: childXform },
           {
             name: 'post',
-            xform: new BooleanXform({tag: 'post', attr: 'val'}),
+            xform: new BooleanXform({ tag: 'post', attr: 'val' }),
           },
         ],
       });

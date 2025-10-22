@@ -15,9 +15,9 @@ const expectations = [
       x14Id: 'x14-id',
       iconSet: '3Triangles',
       cfvo: [
-        {type: 'percent', value: 0},
-        {type: 'percent', value: 33},
-        {type: 'percent', value: 67},
+        { type: 'percent', value: 0 },
+        { type: 'percent', value: 33 },
+        { type: 'percent', value: 67 },
       ],
     },
     xml: `
@@ -37,9 +37,9 @@ const expectations = [
       reverse: false,
       showValue: true,
       cfvo: [
-        {type: 'percent', value: 0},
-        {type: 'percent', value: 33},
-        {type: 'percent', value: 67},
+        { type: 'percent', value: 0 },
+        { type: 'percent', value: 33 },
+        { type: 'percent', value: 67 },
       ],
     },
     tests: ['render', 'parse'],
@@ -53,8 +53,8 @@ const expectations = [
       type: 'dataBar',
       x14Id: 'x14-id',
       cfvo: [
-        {type: 'num', value: 5},
-        {type: 'num', value: 20},
+        { type: 'num', value: 5 },
+        { type: 'num', value: 20 },
       ],
     },
     xml: `
@@ -79,8 +79,8 @@ const expectations = [
       axisPosition: 'auto',
       direction: 'leftToRight',
       cfvo: [
-        {type: 'num', value: 5},
-        {type: 'num', value: 20},
+        { type: 'num', value: 5 },
+        { type: 'num', value: 20 },
       ],
     },
     tests: ['render', 'parse'],

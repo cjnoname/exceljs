@@ -13,10 +13,10 @@ describe('DefinedNames', () => {
     expect(dn.getNames('blort!B4')).toEqual(['bar']);
     expect(dn.getNames('blort!$B$4')).toEqual(['bar']);
 
-    dn.add('\'blo rt\'!$B$4', 'bar');
-    expect(dn.getNames('\'blo rt\'!$B$4')).toEqual(['bar']);
-    dn.add('\'blo ,!rt\'!$B$4', 'bar');
-    expect(dn.getNames('\'blo ,!rt\'!$B$4')).toEqual(['bar']);
+    dn.add("'blo rt'!$B$4", 'bar');
+    expect(dn.getNames("'blo rt'!$B$4")).toEqual(['bar']);
+    dn.add("'blo ,!rt'!$B$4", 'bar');
+    expect(dn.getNames("'blo ,!rt'!$B$4")).toEqual(['bar']);
   });
 
   it('removes names for cells', () => {
@@ -139,15 +139,15 @@ describe('DefinedNames', () => {
   it('skips values with invalid range', () => {
     const dn = new DefinedNames();
     dn.model = [
-      {name: 'eq', ranges: ['"="']},
-      {name: 'ref', ranges: ['#REF!']},
-      {name: 'single', ranges: ['Sheet3!$A$1']},
-      {name: 'range', ranges: ['Sheet3!$A$2:$F$2228']},
+      { name: 'eq', ranges: ['"="'] },
+      { name: 'ref', ranges: ['#REF!'] },
+      { name: 'single', ranges: ['Sheet3!$A$1'] },
+      { name: 'range', ranges: ['Sheet3!$A$2:$F$2228'] },
     ];
 
     expect(dn.model).toEqual([
-      {name: 'single', ranges: ['Sheet3!$A$1']},
-      {name: 'range', ranges: ['Sheet3!$A$2:$F$2228']},
+      { name: 'single', ranges: ['Sheet3!$A$1'] },
+      { name: 'range', ranges: ['Sheet3!$A$2:$F$2228'] },
     ]);
   });
 });

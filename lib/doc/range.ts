@@ -170,7 +170,7 @@ class Range {
   }
 
   get _serialisedSheetName(): string {
-    const {sheetName} = this.model;
+    const { sheetName } = this.model;
     if (sheetName) {
       if (/^[a-zA-Z0-9]*$/.test(sheetName)) {
         return `${sheetName}!`;
@@ -189,7 +189,7 @@ class Range {
 
   expandRow(row: RowWithDimensions | null | undefined): void {
     if (row) {
-      const {dimensions, number} = row;
+      const { dimensions, number } = row;
       if (dimensions) {
         this.expand(number, dimensions.min, number, dimensions.max);
       }
@@ -258,10 +258,7 @@ class Range {
   containsEx(address: any): boolean {
     if (address.sheetName && this.sheetName && address.sheetName !== this.sheetName) return false;
     return (
-      address.row >= this.top &&
-      address.row <= this.bottom &&
-      address.col >= this.left &&
-      address.col <= this.right
+      address.row >= this.top && address.row <= this.bottom && address.col >= this.left && address.col <= this.right
     );
   }
 

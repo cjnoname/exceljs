@@ -31,7 +31,7 @@ class IconSetXform extends CompositeXform {
     xmlStream.closeNode();
   }
 
-  createNewModel({attributes}: any): any {
+  createNewModel({ attributes }: any): any {
     return {
       iconSet: BaseXform.toStringValue(attributes.iconSet, '3TrafficLights'),
       reverse: BaseXform.toBoolValue(attributes.reverse),

@@ -1,5 +1,5 @@
-import {Parser} from 'htmlparser2';
-import {bufferToString} from './browser-buffer-decode.js';
+import { Parser } from 'htmlparser2';
+import { bufferToString } from './browser-buffer-decode.js';
 
 interface SaxEvent {
   eventType: 'opentag' | 'text' | 'closetag';
@@ -12,45 +12,48 @@ async function* parseSax(iterable: any): AsyncGenerator<SaxEvent[]> {
   let depth = 0;
   let hasInvalidText = false;
   let invalidTextParts: string[] = [];
-  
-  const parser = new Parser({
-    onopentag(name: string, attribs: Record<string, string>) {
-      if (depth === 0 && hasInvalidText) {
-        // Text outside root node - report error at root element position
-        const invalidText = invalidTextParts.join('');
-        error = new Error(`${invalidText.split('\n').length}:1: text data outside of root node.`);
-      }
-      depth++;
-      events.push({
-        eventType: 'opentag',
-        value: {name, attributes: attribs, isSelfClosing: false}
-      });
+
+  const parser = new Parser(
+    {
+      onopentag(name: string, attribs: Record<string, string>) {
+        if (depth === 0 && hasInvalidText) {
+          // Text outside root node - report error at root element position
+          const invalidText = invalidTextParts.join('');
+          error = new Error(`${invalidText.split('\n').length}:1: text data outside of root node.`);
+        }
+        depth++;
+        events.push({
+          eventType: 'opentag',
+          value: { name, attributes: attribs, isSelfClosing: false },
+        });
+      },
+      ontext(text: string) {
+        if (depth === 0 && text.trim()) {
+          hasInvalidText = true;
+          invalidTextParts.push(text);
+        }
+        events.push({ eventType: 'text', value: text });
+      },
+      onclosetag(name: string) {
+        depth--;
+        events.push({
+          eventType: 'closetag',
+          value: { name },
+        });
+      },
+      onerror(err: Error) {
+        error = err;
+      },
     },
-    ontext(text: string) {
-      if (depth === 0 && text.trim()) {
-        hasInvalidText = true;
-        invalidTextParts.push(text);
-      }
-      events.push({eventType: 'text', value: text});
-    },
-    onclosetag(name: string) {
-      depth--;
-      events.push({
-        eventType: 'closetag',
-        value: {name}
-      });
-    },
-    onerror(err: Error) {
-      error = err;
+    {
+      xmlMode: true,
+      decodeEntities: true,
+      recognizeSelfClosing: true,
+      lowerCaseAttributeNames: false,
+      lowerCaseTags: false,
     }
-  }, {
-    xmlMode: true,
-    decodeEntities: true,
-    recognizeSelfClosing: true,  
-    lowerCaseAttributeNames: false, 
-    lowerCaseTags: false 
-  });
-  
+  );
+
   for await (const chunk of iterable) {
     parser.write(bufferToString(chunk));
     // parser.write and callbacks are synchronous,
@@ -61,7 +64,7 @@ async function* parseSax(iterable: any): AsyncGenerator<SaxEvent[]> {
     yield events;
     events = [];
   }
-  
+
   parser.end();
 }
 

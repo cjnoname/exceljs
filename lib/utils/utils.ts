@@ -1,7 +1,7 @@
 import fs from 'fs';
 
 // useful stuff
-const inherits = function<T extends new (...args: any[]) => any, S extends new (...args: any[]) => any>(
+const inherits = function <T extends new (...args: any[]) => any, S extends new (...args: any[]) => any>(
   cls: T,
   superCtor: S,
   statics?: any,
@@ -136,7 +136,7 @@ const utils = {
         case '&amp;':
           return '&';
         case '&apos;':
-          return '\'';
+          return "'";
         case '&quot;':
           return '"';
         default:
@@ -216,7 +216,7 @@ export default utils;
 
 // Named exports for convenient destructuring
 export const promiseImmediate = utils.promiseImmediate;
-export {inherits};
+export { inherits };
 export const dateToExcel = utils.dateToExcel;
 export const excelToDate = utils.excelToDate;
 export const parsePath = utils.parsePath;

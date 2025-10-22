@@ -7,7 +7,7 @@ interface AutoFilterModel {
 }
 
 class AutoFilterXform extends BaseXform {
-  public map: {[key: string]: FilterColumnXform};
+  public map: { [key: string]: FilterColumnXform };
   public parser: any;
   public model: AutoFilterModel;
 
@@ -17,7 +17,7 @@ class AutoFilterXform extends BaseXform {
     this.map = {
       filterColumn: new FilterColumnXform(),
     };
-    this.model = {autoFilterRef: '', columns: []};
+    this.model = { autoFilterRef: '', columns: [] };
   }
 
   get tag(): string {
@@ -26,12 +26,12 @@ class AutoFilterXform extends BaseXform {
 
   prepare(model: any): void {
     model.columns.forEach((column: any, index: number) => {
-      this.map.filterColumn.prepare(column, {index});
+      this.map.filterColumn.prepare(column, { index });
     });
   }
 
   render(xmlStream: any, model: any): void {
-    xmlStream.openNode(this.tag, {ref: model.autoFilterRef});
+    xmlStream.openNode(this.tag, { ref: model.autoFilterRef });
 
     model.columns.forEach((column: any) => {
       this.map.filterColumn.render(xmlStream, column);

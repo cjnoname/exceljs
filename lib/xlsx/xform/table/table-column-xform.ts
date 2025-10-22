@@ -13,14 +13,14 @@ class TableColumnXform extends BaseXform {
 
   constructor() {
     super();
-    this.model = {name: ''};
+    this.model = { name: '' };
   }
 
   get tag(): string {
     return 'tableColumn';
   }
 
-  prepare(model: TableColumnModel, options: {index: number}): void {
+  prepare(model: TableColumnModel, options: { index: number }): void {
     model.id = options.index + 1;
   }
 
@@ -36,7 +36,7 @@ class TableColumnXform extends BaseXform {
 
   parseOpen(node: any): boolean {
     if (node.name === this.tag) {
-      const {attributes} = node;
+      const { attributes } = node;
       this.model = {
         name: attributes.name,
         totalsRowLabel: attributes.totalsRowLabel,

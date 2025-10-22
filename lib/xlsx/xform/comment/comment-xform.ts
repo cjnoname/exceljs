@@ -24,7 +24,7 @@ class CommentXform extends BaseXform {
 
   constructor(model?: CommentModel) {
     super();
-    this.model = model || {type: 'note', note: {texts: []}, ref: ''};
+    this.model = model || { type: 'note', note: { texts: [] }, ref: '' };
   }
 
   get tag(): string {

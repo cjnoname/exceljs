@@ -11,7 +11,7 @@ class PictureXform extends BaseXform {
 
   render(xmlStream: any, model?: PictureModel): void {
     if (model) {
-      xmlStream.leafNode(this.tag, {'r:id': model.rId});
+      xmlStream.leafNode(this.tag, { 'r:id': model.rId });
     }
   }
 

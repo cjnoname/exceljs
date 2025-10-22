@@ -3,11 +3,11 @@ import BaseXform from '../base-xform.js';
 type UnderlineType = boolean | 'single' | 'double' | 'singleAccounting' | 'doubleAccounting';
 
 class UnderlineXform extends BaseXform {
-  static Attributes: {[key: string]: any} = {
+  static Attributes: { [key: string]: any } = {
     single: {},
-    double: {val: 'double'},
-    singleAccounting: {val: 'singleAccounting'},
-    doubleAccounting: {val: 'doubleAccounting'},
+    double: { val: 'double' },
+    singleAccounting: { val: 'singleAccounting' },
+    doubleAccounting: { val: 'doubleAccounting' },
   };
 
   constructor(model?: UnderlineType) {

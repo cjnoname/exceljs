@@ -18,10 +18,10 @@ describe('under-dash', () => {
       ['array2'],
       ['array2', 'foobar'],
       {},
-      {object: 1},
-      {object: 2},
-      {object: 1, foobar: 'quux'},
-      {object: 2, foobar: 'quux'},
+      { object: 1 },
+      { object: 2 },
+      { object: 1, foobar: 'quux' },
+      { object: 2, foobar: 'quux' },
       null,
       undefined,
       () => {},
@@ -32,7 +32,7 @@ describe('under-dash', () => {
     ];
 
     function showVal(o: any) {
-      return util.inspect(o, {compact: true});
+      return util.inspect(o, { compact: true });
     }
 
     it('works on simple values', () => {
@@ -41,9 +41,7 @@ describe('under-dash', () => {
           const a = values[i];
           const b = values[j];
 
-          const assertion = `${showVal(a)} ${i === j ? '==' : '!='} ${showVal(
-            b
-          )}`;
+          const assertion = `${showVal(a)} ${i === j ? '==' : '!='} ${showVal(b)}`;
           expect(_.isEqual(a, b), `expected ${assertion}`).toBe(i === j);
         }
       }
@@ -55,9 +53,7 @@ describe('under-dash', () => {
           const a = [values[i]];
           const b = [values[j]];
 
-          const assertion = `${showVal(a)} ${i === j ? '==' : '!='} ${showVal(
-            b
-          )}`;
+          const assertion = `${showVal(a)} ${i === j ? '==' : '!='} ${showVal(b)}`;
           expect(_.isEqual(a, b), `expected ${assertion}`).toBe(i === j);
         }
       }
@@ -66,12 +62,10 @@ describe('under-dash', () => {
     it('works on complex objects', () => {
       for (let i = 0; i < values.length; i++) {
         for (let j = 0; j < values.length; j++) {
-          const a = {key: values[i]};
-          const b = {key: values[j]};
+          const a = { key: values[i] };
+          const b = { key: values[j] };
 
-          const assertion = `${showVal(a)} ${i === j ? '==' : '!='} ${showVal(
-            b
-          )}`;
+          const assertion = `${showVal(a)} ${i === j ? '==' : '!='} ${showVal(b)}`;
           expect(_.isEqual(a, b), `expected ${assertion}`).toBe(i === j);
         }
       }

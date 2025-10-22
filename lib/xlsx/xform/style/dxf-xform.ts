@@ -23,7 +23,7 @@ interface DxfModel {
 
 // Style assists translation from style model to/from xlsx
 class DxfXform extends BaseXform {
-  public map: {[key: string]: any};
+  public map: { [key: string]: any };
   public parser: any;
 
   constructor() {
@@ -52,7 +52,7 @@ class DxfXform extends BaseXform {
       this.map.font.render(xmlStream, model.font);
     }
     if (model.numFmt && model.numFmtId) {
-      const numFmtModel = {id: model.numFmtId, formatCode: model.numFmt};
+      const numFmtModel = { id: model.numFmtId, formatCode: model.numFmt };
       this.map.numFmt.render(xmlStream, numFmtModel);
     }
     if (model.fill) {

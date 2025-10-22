@@ -1,7 +1,7 @@
 import events from 'events';
-import {Zip, ZipPassThrough} from 'fflate';
+import { Zip, ZipPassThrough } from 'fflate';
 import StreamBuf from './stream-buf.js';
-import {stringToBuffer} from './browser-buffer-encode.js';
+import { stringToBuffer } from './browser-buffer-encode.js';
 
 interface ZipWriterOptions {
   type?: string;
@@ -41,7 +41,7 @@ class ZipWriter extends events.EventEmitter {
     this.files = {};
     this.stream = new StreamBuf();
     this.finalized = false;
-    
+
     // Create fflate Zip instance for streaming compression
     this.zip = new Zip((err, data, final) => {
       if (err) {
@@ -57,7 +57,7 @@ class ZipWriter extends events.EventEmitter {
 
   append(data: any, options: AppendOptions): void {
     let buffer: Uint8Array;
-    
+
     if (options.hasOwnProperty('base64') && options.base64) {
       // Use Buffer.from for efficient base64 decoding
       const base64Data = typeof data === 'string' ? data : data.toString();
@@ -88,7 +88,7 @@ class ZipWriter extends events.EventEmitter {
         buffer = data;
       }
     }
-    
+
     // Add file to zip using streaming API
     const zipFile = new ZipPassThrough(options.name);
     this.zip.add(zipFile);
@@ -104,10 +104,10 @@ class ZipWriter extends events.EventEmitter {
       return;
     }
     this.finalized = true;
-    
+
     // End the zip stream
     this.zip.end();
-    
+
     this.emit('finish');
   }
 
@@ -152,4 +152,4 @@ class ZipWriter extends events.EventEmitter {
 
 // =============================================================================
 
-export {ZipWriter};
+export { ZipWriter };

@@ -30,7 +30,7 @@ interface GradientFillModel {
 type FillModel = PatternFillModel | GradientFillModel;
 
 class StopXform extends BaseXform {
-  public map: {color: ColorXform};
+  public map: { color: ColorXform };
   public parser: any;
 
   constructor() {
@@ -87,7 +87,7 @@ class StopXform extends BaseXform {
 }
 
 class PatternFillXform extends BaseXform {
-  public map: {fgColor: ColorXform; bgColor: ColorXform};
+  public map: { fgColor: ColorXform; bgColor: ColorXform };
   public parser: any;
 
   constructor() {
@@ -162,7 +162,7 @@ class PatternFillXform extends BaseXform {
 }
 
 class GradientFillXform extends BaseXform {
-  public map: {stop: StopXform};
+  public map: { stop: StopXform };
   public parser: any;
 
   constructor() {
@@ -280,7 +280,7 @@ class GradientFillXform extends BaseXform {
 
 // Fill encapsulates translation from fill model to/from xlsx
 class FillXform extends BaseXform {
-  public map: {patternFill: PatternFillXform; gradientFill: GradientFillXform};
+  public map: { patternFill: PatternFillXform; gradientFill: GradientFillXform };
   public parser: any;
 
   constructor() {
@@ -355,7 +355,7 @@ class FillXform extends BaseXform {
     return FillXform.validPatternValues[value];
   }
 
-  static validPatternValues: {[key: string]: boolean} = [
+  static validPatternValues: { [key: string]: boolean } = [
     'none',
     'solid',
     'darkVertical',
@@ -377,7 +377,7 @@ class FillXform extends BaseXform {
     'lightGrid',
     'lightTrellis',
     'lightGrid',
-  ].reduce((p: {[key: string]: boolean}, v: string) => {
+  ].reduce((p: { [key: string]: boolean }, v: string) => {
     p[v] = true;
     return p;
   }, {});

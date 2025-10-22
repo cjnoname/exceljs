@@ -4,7 +4,7 @@ import Enums from './enums.js';
 import Note from './note.js';
 
 import _ from '../utils/under-dash.js';
-import {slideFormula} from '../utils/shared-formula.js';
+import { slideFormula } from '../utils/shared-formula.js';
 
 interface HyperlinkValueData {
   text?: string;
@@ -322,7 +322,7 @@ class Cell {
   // =========================================================================
   // Name stuff
   get fullAddress(): FullAddress {
-    const {worksheet} = this._row;
+    const { worksheet } = this._row;
     return {
       sheetName: worksheet.name,
       address: this.address,
@@ -344,7 +344,7 @@ class Cell {
   }
 
   set names(value: string[]) {
-    const {definedNames} = this.workbook;
+    const { definedNames } = this.workbook;
     definedNames.removeAllNames(this.fullAddress);
     value.forEach(name => {
       definedNames.addEx(this.fullAddress, name);
@@ -381,7 +381,7 @@ class Cell {
   // Model stuff
 
   get model(): CellModel {
-    const {model} = this._value;
+    const { model } = this._value;
     model.style = this.style;
     if (this._comment) {
       model.comment = this._comment.model;
@@ -849,7 +849,7 @@ class FormulaValue {
     }
   }
 
-  get dependencies(): {ranges: string[] | null; cells: string[] | null} {
+  get dependencies(): { ranges: string[] | null; cells: string[] | null } {
     // find all the ranges and cells mentioned in the formula
     const ranges = this.formula.match(/([a-zA-Z0-9]+!)?[A-Z]{1,3}\d{1,4}:[A-Z]{1,3}\d{1,4}/g);
     const cells = this.formula
@@ -925,10 +925,9 @@ class FormulaValue {
 
   _getTranslatedFormula(): string | undefined {
     if (!this._translatedFormula && this.model.sharedFormula) {
-      const {worksheet} = this.cell;
+      const { worksheet } = this.cell;
       const master = worksheet.findCell(this.model.sharedFormula);
-      this._translatedFormula =
-        master && slideFormula(master.formula, master.address, this.model.address);
+      this._translatedFormula = master && slideFormula(master.formula, master.address, this.model.address);
     }
     return this._translatedFormula;
   }
@@ -1168,18 +1167,18 @@ const Value = {
 
   // map valueType to constructor
   types: [
-    {t: Cell.Types.Null, f: NullValue},
-    {t: Cell.Types.Number, f: NumberValue},
-    {t: Cell.Types.String, f: StringValue},
-    {t: Cell.Types.Date, f: DateValue},
-    {t: Cell.Types.Hyperlink, f: HyperlinkValue},
-    {t: Cell.Types.Formula, f: FormulaValue},
-    {t: Cell.Types.Merge, f: MergeValue},
-    {t: Cell.Types.JSON, f: JSONValue},
-    {t: Cell.Types.SharedString, f: SharedStringValue},
-    {t: Cell.Types.RichText, f: RichTextValue},
-    {t: Cell.Types.Boolean, f: BooleanValue},
-    {t: Cell.Types.Error, f: ErrorValue},
+    { t: Cell.Types.Null, f: NullValue },
+    { t: Cell.Types.Number, f: NumberValue },
+    { t: Cell.Types.String, f: StringValue },
+    { t: Cell.Types.Date, f: DateValue },
+    { t: Cell.Types.Hyperlink, f: HyperlinkValue },
+    { t: Cell.Types.Formula, f: FormulaValue },
+    { t: Cell.Types.Merge, f: MergeValue },
+    { t: Cell.Types.JSON, f: JSONValue },
+    { t: Cell.Types.SharedString, f: SharedStringValue },
+    { t: Cell.Types.RichText, f: RichTextValue },
+    { t: Cell.Types.Boolean, f: BooleanValue },
+    { t: Cell.Types.Error, f: ErrorValue },
   ].reduce((p: any[], t: any) => {
     p[t.t] = t.f;
     return p;

@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeAll, afterAll, beforeEach, afterEach } from 'vitest';
 import fs from 'fs';
-import {promisify} from 'util';
+import { promisify } from 'util';
 
 import ExcelJS from '../../../index.js';
 
@@ -109,8 +109,8 @@ describe('Workbook', () => {
       });
 
       ws.addImage(imageId, {
-        tl: {col: 0.1125, row: 0.4},
-        br: {col: 2.101046875, row: 3.4},
+        tl: { col: 0.1125, row: 0.4 },
+        br: { col: 2.101046875, row: 3.4 },
         editAs: 'oneCell',
       });
 
@@ -150,8 +150,8 @@ describe('Workbook', () => {
       });
 
       ws.addImage(imageId, {
-        tl: {col: 0.1125, row: 0.4},
-        ext: {width: 100, height: 100},
+        tl: { col: 0.1125, row: 0.4 },
+        ext: { width: 100, height: 100 },
         editAs: 'oneCell',
       });
 
@@ -193,8 +193,8 @@ describe('Workbook', () => {
       });
 
       ws.addImage(imageId, {
-        tl: {col: 0.1125, row: 0.4},
-        ext: {width: 100, height: 100},
+        tl: { col: 0.1125, row: 0.4 },
+        ext: { width: 100, height: 100 },
         editAs: 'absolute',
         hyperlinks: {
           hyperlink: 'http://www.somewhere.com',
@@ -250,13 +250,13 @@ describe('Workbook', () => {
       });
 
       ws.addImage(imageId1, {
-        tl: {col: 0.1125, row: 0.4},
-        ext: {width: 100, height: 100},
+        tl: { col: 0.1125, row: 0.4 },
+        ext: { width: 100, height: 100 },
       });
 
       ws.addImage(imageId2, {
-        tl: {col: 0.1125, row: 0.4},
-        br: {col: 2.101046875, row: 3.4},
+        tl: { col: 0.1125, row: 0.4 },
+        br: { col: 2.101046875, row: 3.4 },
         editAs: 'oneCell',
       });
 

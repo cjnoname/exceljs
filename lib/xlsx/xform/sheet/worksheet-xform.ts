@@ -58,7 +58,7 @@ const mergeConditionalFormattings = (model, extModel) => {
   model.forEach(cf => {
     cfMap[cf.ref] = cf;
     cf.rules.forEach(rule => {
-      const {x14Id} = rule;
+      const { x14Id } = rule;
       if (x14Id) {
         ruleMap[x14Id] = rule;
       }
@@ -99,7 +99,7 @@ class WorkSheetXform extends BaseXform {
   constructor(options?: any) {
     super();
 
-    const {maxRows, maxCols, ignoreNodes} = options || {};
+    const { maxRows, maxCols, ignoreNodes } = options || {};
 
     this.ignoreNodes = ignoreNodes || [];
 
@@ -112,16 +112,16 @@ class WorkSheetXform extends BaseXform {
         childXform: new SheetViewXform(),
       }),
       sheetFormatPr: new SheetFormatPropertiesXform(),
-      cols: new ListXform({tag: 'cols', count: false, childXform: new ColXform()}),
+      cols: new ListXform({ tag: 'cols', count: false, childXform: new ColXform() }),
       sheetData: new ListXform({
         tag: 'sheetData',
         count: false,
         empty: true,
-        childXform: new RowXform({maxItems: maxCols}),
+        childXform: new RowXform({ maxItems: maxCols }),
         maxItems: maxRows,
       }),
       autoFilter: new AutoFilterXform(),
-      mergeCells: new ListXform({tag: 'mergeCells', count: true, childXform: new MergeCellXform()}),
+      mergeCells: new ListXform({ tag: 'mergeCells', count: true, childXform: new MergeCellXform() }),
       rowBreaks: new RowBreaksXform(),
       hyperlinks: new ListXform({
         tag: 'hyperlinks',
@@ -136,7 +136,7 @@ class WorkSheetXform extends BaseXform {
       picture: new PictureXform(),
       drawing: new DrawingXform(),
       sheetProtection: new SheetProtectionXform(),
-      tableParts: new ListXform({tag: 'tableParts', count: true, childXform: new TablePartXform()}),
+      tableParts: new ListXform({ tag: 'tableParts', count: true, childXform: new TablePartXform() }),
       conditionalFormatting: new ConditionalFormattingsXform(),
       extLst: new ExtListXform(),
     };
@@ -214,7 +214,7 @@ class WorkSheetXform extends BaseXform {
         };
         model.image = options.media[medium.imageId];
       } else if (medium.type === 'image') {
-        let {drawing} = model;
+        let { drawing } = model;
         bookImage = options.media[medium.imageId];
         if (!drawing) {
           drawing = model.drawing = {
@@ -280,7 +280,7 @@ class WorkSheetXform extends BaseXform {
 
       // dynamic styles
       table.columns.forEach(column => {
-        const {style} = column;
+        const { style } = column;
         if (style) {
           column.dxfId = options.styles.addDxfStyle(style);
         }
@@ -364,7 +364,7 @@ class WorkSheetXform extends BaseXform {
       // add a <legacyDrawing /> node for each comment
       model.rels.forEach(rel => {
         if (rel.Type === RelType.VmlDrawing) {
-          xmlStream.leafNode('legacyDrawing', {'r:id': rel.Id});
+          xmlStream.leafNode('legacyDrawing', { 'r:id': rel.Id });
         }
       });
     }

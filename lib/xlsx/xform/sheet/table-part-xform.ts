@@ -11,7 +11,7 @@ class TablePartXform extends BaseXform {
 
   render(xmlStream: any, model?: TablePartModel): void {
     if (model) {
-      xmlStream.leafNode(this.tag, {'r:id': model.rId});
+      xmlStream.leafNode(this.tag, { 'r:id': model.rId });
     }
   }
 

@@ -1,5 +1,5 @@
 import fs from 'fs';
-import {Zip, ZipPassThrough} from 'fflate';
+import { Zip, ZipPassThrough } from 'fflate';
 
 import StreamBuf from '../../utils/stream-buf.js';
 
@@ -87,7 +87,7 @@ class WorkbookWriter {
         }
       }
     });
-    
+
     if (options.stream) {
       this.stream = options.stream;
     } else if (options.filename) {
@@ -105,30 +105,30 @@ class WorkbookWriter {
   }
 
   _openStream(path: string): any {
-    const stream = new StreamBuf({bufSize: 65536, batch: true});
-    
+    const stream = new StreamBuf({ bufSize: 65536, batch: true });
+
     // Create a ZipPassThrough for this file
     const zipFile = new ZipPassThrough(path);
     this.zip.add(zipFile);
-    
+
     // Don't pause the stream - we need data events to flow
     // The original implementation used archiver which consumed the stream internally
     // Now we need to manually pipe data to fflate
-    
+
     // Pipe stream data to zipFile with cleanup
     const onData = (chunk: Buffer) => {
       zipFile.push(chunk);
     };
-    
+
     stream.on('data', onData);
-    
+
     // Use once for automatic cleanup and also clean up data listener
     stream.once('finish', () => {
       stream.removeListener('data', onData);
       zipFile.push(new Uint8Array(0), true); // Signal end
       stream.emit('zipped');
     });
-    
+
     return stream;
   }
 
@@ -136,7 +136,7 @@ class WorkbookWriter {
     // Helper method to add a file to the zip using fflate
     const zipFile = new ZipPassThrough(name);
     this.zip.add(zipFile);
-    
+
     let buffer: Uint8Array;
     if (base64) {
       // Use Buffer.from for efficient base64 decoding
@@ -147,12 +147,12 @@ class WorkbookWriter {
     } else {
       buffer = new Uint8Array(data);
     }
-    
+
     zipFile.push(buffer, true); // true = final chunk
   }
 
   _commitWorksheets(): Promise<void> {
-    const commitWorksheet = function(worksheet: any): Promise<void> {
+    const commitWorksheet = function (worksheet: any): Promise<void> {
       if (!worksheet.committed) {
         return new Promise(resolve => {
           // Use once to automatically clean up listener
@@ -202,7 +202,7 @@ class WorkbookWriter {
 
   addImage(image: any): number {
     const id = this.media.length;
-    const medium = Object.assign({}, image, {type: 'image', name: `image${id}.${image.extension}`});
+    const medium = Object.assign({}, image, { type: 'image', name: `image${id}.${image.extension}` });
     this.media.push(medium);
     return id;
   }
@@ -215,8 +215,7 @@ class WorkbookWriter {
     // it's possible to add a worksheet with different than default
     // shared string handling
     // in fact, it's even possible to switch it mid-sheet
-    const useSharedStrings =
-      options.useSharedStrings !== undefined ? options.useSharedStrings : this.useSharedStrings;
+    const useSharedStrings = options.useSharedStrings !== undefined ? options.useSharedStrings : this.useSharedStrings;
 
     if (options.tabColor) {
       // eslint-disable-next-line no-console
@@ -280,9 +279,9 @@ class WorkbookWriter {
     return new Promise(resolve => {
       const xform = new RelationshipsXform();
       const xml = xform.toXml([
-        {Id: 'rId1', Type: RelType.OfficeDocument, Target: 'xl/workbook.xml'},
-        {Id: 'rId2', Type: RelType.CoreProperties, Target: 'docProps/core.xml'},
-        {Id: 'rId3', Type: RelType.ExtenderProperties, Target: 'docProps/app.xml'},
+        { Id: 'rId1', Type: RelType.OfficeDocument, Target: 'xl/workbook.xml' },
+        { Id: 'rId2', Type: RelType.CoreProperties, Target: 'docProps/core.xml' },
+        { Id: 'rId3', Type: RelType.ExtenderProperties, Target: 'docProps/app.xml' },
       ]);
       this._addFile(xml, '/_rels/.rels');
       resolve();
@@ -371,8 +370,8 @@ class WorkbookWriter {
   addWorkbookRels(): Promise<void> {
     let count = 1;
     const relationships = [
-      {Id: `rId${count++}`, Type: RelType.Styles, Target: 'styles.xml'},
-      {Id: `rId${count++}`, Type: RelType.Theme, Target: 'theme/theme1.xml'},
+      { Id: `rId${count++}`, Type: RelType.Styles, Target: 'styles.xml' },
+      { Id: `rId${count++}`, Type: RelType.Theme, Target: 'theme/theme1.xml' },
     ];
     if (this.sharedStrings.count) {
       relationships.push({
@@ -422,15 +421,15 @@ class WorkbookWriter {
         this.stream.removeListener('finish', onFinish);
         reject(err);
       };
-      
+
       const onFinish = () => {
         this.stream.removeListener('error', onError);
         resolve(this);
       };
-      
+
       this.stream.once('error', onError);
       this.stream.once('finish', onFinish);
-      
+
       // fflate Zip doesn't have 'error' event or 'finalize' method
       // Just end the zip by calling end()
       this.zip.end();

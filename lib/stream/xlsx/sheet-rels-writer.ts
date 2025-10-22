@@ -33,7 +33,7 @@ interface SheetRelsWriterOptions {
 class SheetRelsWriter {
   id: number;
   count: number;
-  _hyperlinks: Array<{rId: string; address: string}>;
+  _hyperlinks: Array<{ rId: string; address: string }>;
   _workbook: any;
   _stream?: any;
   _hyperlinksProxy?: HyperlinksProxy;
@@ -63,7 +63,7 @@ class SheetRelsWriter {
     return this._hyperlinks.length;
   }
 
-  each(fn: (hyperlink: {rId: string; address: string}) => void): void {
+  each(fn: (hyperlink: { rId: string; address: string }) => void): void {
     return this._hyperlinks.forEach(fn);
   }
 
@@ -128,9 +128,7 @@ class SheetRelsWriter {
           '/>'
       );
     } else {
-      this.stream.write(
-        `<Relationship Id="${rId}" Type="${relationship.Type}" Target="${relationship.Target}"/>`
-      );
+      this.stream.write(`<Relationship Id="${rId}" Type="${relationship.Type}" Target="${relationship.Target}"/>`);
     }
 
     return rId;

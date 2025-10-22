@@ -1,4 +1,4 @@
-const {toString} = Object.prototype;
+const { toString } = Object.prototype;
 const escapeHtmlRegex = /["&<>]/;
 
 type Callback<T, R = void> = (value: T, key: number | string) => R;
@@ -121,7 +121,7 @@ const _ = {
         case '&':
           escape = '&amp;';
           break;
-        case '\'':
+        case "'":
           escape = '&apos;';
           break;
         case '<':
@@ -157,7 +157,7 @@ const _ = {
 
   deepMerge<T = any>(...args: any[]): T {
     const target: any = args[0] || {};
-    const {length} = args;
+    const { length } = args;
     // eslint-disable-next-line one-var
     let src: any, clone: any, copyIsArray: boolean;
 

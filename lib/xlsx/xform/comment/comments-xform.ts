@@ -7,7 +7,7 @@ interface CommentsModel {
 }
 
 class CommentsXform extends BaseXform {
-  public map: {[key: string]: CommentXform};
+  public map: { [key: string]: CommentXform };
   public parser: any;
   public model: CommentsModel;
 
@@ -16,7 +16,7 @@ class CommentsXform extends BaseXform {
     this.map = {
       comment: new CommentXform(),
     };
-    this.model = {comments: []};
+    this.model = { comments: [] };
   }
 
   render(xmlStream: any, model?: CommentsModel): void {

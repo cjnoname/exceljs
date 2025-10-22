@@ -8,8 +8,8 @@ interface SharedStringsModel {
 }
 
 class SharedStringsXform extends BaseXform {
-  public hash: {[key: string]: number};
-  public rich: {[key: string]: number};
+  public hash: { [key: string]: number };
+  public rich: { [key: string]: number };
   public parser: any;
   private _sharedStringXform?: SharedStringXform;
   private _values?: SharedStringsModel;

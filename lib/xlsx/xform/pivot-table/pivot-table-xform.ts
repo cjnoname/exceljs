@@ -11,7 +11,7 @@ interface PivotTableModel {
 }
 
 class PivotTableXform extends BaseXform {
-  public map: {[key: string]: any};
+  public map: { [key: string]: any };
 
   constructor() {
     super();
@@ -29,7 +29,7 @@ class PivotTableXform extends BaseXform {
   }
 
   render(xmlStream: any, model: PivotTableModel): void {
-    const {rows, columns, values, cacheFields, cacheId} = model;
+    const { rows, columns, values, cacheFields, cacheId } = model;
 
     // Examples
     // --------
@@ -166,10 +166,10 @@ function renderPivotFields(pivotTable: PivotTableModel): string {
         pivotTable.rows.indexOf(fieldIndex) >= 0
           ? 'row'
           : pivotTable.columns.indexOf(fieldIndex) >= 0
-          ? 'column'
-          : pivotTable.values.indexOf(fieldIndex) >= 0
-          ? 'value'
-          : null;
+            ? 'column'
+            : pivotTable.values.indexOf(fieldIndex) >= 0
+              ? 'value'
+              : null;
       return renderPivotField(fieldType, cacheField.sharedItems);
     })
     .join('');

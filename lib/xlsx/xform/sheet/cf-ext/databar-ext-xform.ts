@@ -17,12 +17,8 @@ class DatabarExtXform extends CompositeXform {
     this.map = {
       'x14:cfvo': (this.cfvoXform = new CfvoExtXform()),
       'x14:borderColor': (this.borderColorXform = new ColorXform('x14:borderColor')),
-      'x14:negativeBorderColor': (this.negativeBorderColorXform = new ColorXform(
-        'x14:negativeBorderColor'
-      )),
-      'x14:negativeFillColor': (this.negativeFillColorXform = new ColorXform(
-        'x14:negativeFillColor'
-      )),
+      'x14:negativeBorderColor': (this.negativeBorderColorXform = new ColorXform('x14:negativeBorderColor')),
+      'x14:negativeFillColor': (this.negativeFillColorXform = new ColorXform('x14:negativeFillColor')),
       'x14:axisColor': (this.axisColorXform = new ColorXform('x14:axisColor')),
     };
   }
@@ -43,14 +39,8 @@ class DatabarExtXform extends CompositeXform {
       maxLength: BaseXform.toIntAttribute(model.maxLength, 100, true),
       border: BaseXform.toBoolAttribute(model.border, false),
       gradient: BaseXform.toBoolAttribute(model.gradient, true),
-      negativeBarColorSameAsPositive: BaseXform.toBoolAttribute(
-        model.negativeBarColorSameAsPositive,
-        true
-      ),
-      negativeBarBorderColorSameAsPositive: BaseXform.toBoolAttribute(
-        model.negativeBarBorderColorSameAsPositive,
-        true
-      ),
+      negativeBarColorSameAsPositive: BaseXform.toBoolAttribute(model.negativeBarColorSameAsPositive, true),
+      negativeBarBorderColorSameAsPositive: BaseXform.toBoolAttribute(model.negativeBarBorderColorSameAsPositive, true),
       axisPosition: BaseXform.toAttribute(model.axisPosition, 'auto'),
       direction: BaseXform.toAttribute(model.direction, 'leftToRight'),
     });
@@ -67,17 +57,14 @@ class DatabarExtXform extends CompositeXform {
     xmlStream.closeNode();
   }
 
-  createNewModel({attributes}) {
+  createNewModel({ attributes }) {
     return {
       cfvo: [],
       minLength: BaseXform.toIntValue(attributes.minLength, 0),
       maxLength: BaseXform.toIntValue(attributes.maxLength, 100),
       border: BaseXform.toBoolValue(attributes.border, false),
       gradient: BaseXform.toBoolValue(attributes.gradient, true),
-      negativeBarColorSameAsPositive: BaseXform.toBoolValue(
-        attributes.negativeBarColorSameAsPositive,
-        true
-      ),
+      negativeBarColorSameAsPositive: BaseXform.toBoolValue(attributes.negativeBarColorSameAsPositive, true),
       negativeBarBorderColorSameAsPositive: BaseXform.toBoolValue(
         attributes.negativeBarBorderColorSameAsPositive,
         true

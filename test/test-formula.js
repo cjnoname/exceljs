@@ -17,16 +17,16 @@ ws.fillFormula('A4:B5', 'A1', [
 ]);
 
 for (let i = 1; i <= 4; i++) {
-  ws.getCell(`D${i}`).value = {formula: 'ROW()', result: i};
+  ws.getCell(`D${i}`).value = { formula: 'ROW()', result: i };
 }
 
 ws.fillFormula('E1:E4', 'D1', [1, 1, 1, 1], 'array');
 
 // manual fill formula
-ws.getCell('F1').value = {formula: 'ROW()', result: 1};
-ws.getCell('F2').value = {sharedFormula: 'F1', result: 2};
-ws.getCell('F3').value = {sharedFormula: 'F1', result: 3};
-ws.getCell('F4').value = {sharedFormula: 'F1', result: 4};
+ws.getCell('F1').value = { formula: 'ROW()', result: 1 };
+ws.getCell('F2').value = { sharedFormula: 'F1', result: 2 };
+ws.getCell('F3').value = { sharedFormula: 'F1', result: 3 };
+ws.getCell('F4').value = { sharedFormula: 'F1', result: 4 };
 
 // function fill
 ws.getCell('H1').value = 1;

@@ -13,13 +13,13 @@ interface BorderModel {
   left?: EdgeModel;
   bottom?: EdgeModel;
   right?: EdgeModel;
-  diagonal?: EdgeModel & {up?: boolean; down?: boolean};
+  diagonal?: EdgeModel & { up?: boolean; down?: boolean };
   color?: any;
 }
 
 class EdgeXform extends BaseXform {
   public name: string;
-  public map: {color: ColorXform};
+  public map: { color: ColorXform };
   public defaultColor: any;
   public parser: any;
 
@@ -55,7 +55,7 @@ class EdgeXform extends BaseXform {
     }
     switch (node.name) {
       case this.name: {
-        const {style} = node.attributes;
+        const { style } = node.attributes;
         if (style) {
           this.model = {
             style,
@@ -104,7 +104,7 @@ class EdgeXform extends BaseXform {
     return EdgeXform.validStyleValues[value];
   }
 
-  static validStyleValues: {[key: string]: boolean} = [
+  static validStyleValues: { [key: string]: boolean } = [
     'thin',
     'dashed',
     'dotted',
@@ -118,7 +118,7 @@ class EdgeXform extends BaseXform {
     'medium',
     'double',
     'thick',
-  ].reduce((p: {[key: string]: boolean}, v: string) => {
+  ].reduce((p: { [key: string]: boolean }, v: string) => {
     p[v] = true;
     return p;
   }, {});
@@ -126,7 +126,7 @@ class EdgeXform extends BaseXform {
 
 // Border encapsulates translation from border model to/from xlsx
 class BorderXform extends BaseXform {
-  public map: {[key: string]: EdgeXform};
+  public map: { [key: string]: EdgeXform };
   public parser: any;
   public diagonalUp: boolean | undefined;
   public diagonalDown: boolean | undefined;
@@ -144,7 +144,7 @@ class BorderXform extends BaseXform {
   }
 
   render(xmlStream: any, model: BorderModel): void {
-    const {color} = model;
+    const { color } = model;
     xmlStream.openNode('border');
     if (model.diagonal && model.diagonal.style) {
       if (model.diagonal.up) {
@@ -222,7 +222,7 @@ class BorderXform extends BaseXform {
       add('right', this.map.right.model);
       add('top', this.map.top.model);
       add('bottom', this.map.bottom.model);
-      add('diagonal', this.map.diagonal.model, {up: this.diagonalUp, down: this.diagonalDown});
+      add('diagonal', this.map.diagonal.model, { up: this.diagonalUp, down: this.diagonalDown });
     }
     return false;
   }

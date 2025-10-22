@@ -18,9 +18,7 @@ const expectations: any[] = [
       return new RelationshipsXform();
     },
     preparedModel: worksheetRels1,
-    xml: readFileSync(join(__dirname, './data/worksheet.rels.xml'))
-      .toString()
-      .replace(/\r\n/g, '\n'),
+    xml: readFileSync(join(__dirname, './data/worksheet.rels.xml')).toString().replace(/\r\n/g, '\n'),
     get parsedModel() {
       return this.preparedModel;
     },

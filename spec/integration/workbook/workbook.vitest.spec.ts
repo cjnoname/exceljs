@@ -153,8 +153,7 @@ describe('Workbook', () => {
       const wb = new ExcelJS.Workbook();
       const ws = wb.addWorksheet('printHeader');
 
-      ws.getCell('A1').value =
-        'This is a header row repeated on every printed page';
+      ws.getCell('A1').value = 'This is a header row repeated on every printed page';
       ws.getCell('B2').value = 'This is a header row too';
 
       for (let i = 0; i < 100; i++) {
@@ -179,10 +178,8 @@ describe('Workbook', () => {
       const wb = new ExcelJS.Workbook();
       const ws = wb.addWorksheet('printColumn');
 
-      ws.getCell('A1').value =
-        'This is a column repeated on every printed page';
-      ws.getCell('A2').value =
-        'This is a column repeated on every printed page';
+      ws.getCell('A1').value = 'This is a column repeated on every printed page';
+      ws.getCell('A2').value = 'This is a column repeated on every printed page';
       ws.getCell('B1').value = 'This is a repeated column too';
       ws.getCell('B2').value = 'This is a repeated column too';
 
@@ -209,10 +206,8 @@ describe('Workbook', () => {
       const wb = new ExcelJS.Workbook();
       const ws = wb.addWorksheet('printHeaderAndColumn');
 
-      ws.getCell('A1').value =
-        'This is a column / row repeated on every printed page';
-      ws.getCell('A2').value =
-        'This is a column / row repeated on every printed page';
+      ws.getCell('A1').value = 'This is a column / row repeated on every printed page';
+      ws.getCell('A2').value = 'This is a column / row repeated on every printed page';
       ws.getCell('B1').value = 'This is a repeated column / row too';
       ws.getCell('B2').value = 'This is a repeated column / row too';
 
@@ -230,12 +225,7 @@ describe('Workbook', () => {
       ws.pageSetup.printTitlesRow = '1:2';
 
       for (let i = 0; i < 100; i++) {
-        ws.addRow([
-          'repeated column, not repeated row',
-          'repeated column, not repeated row',
-          'no repeat',
-          'no repeat',
-        ]);
+        ws.addRow(['repeated column, not repeated row', 'repeated column, not repeated row', 'no repeat', 'no repeat']);
       }
 
       return wb.xlsx
@@ -395,9 +385,7 @@ describe('Workbook', () => {
     });
 
     it('dataValidations', () => {
-      const wb = testUtils.createTestBook(new ExcelJS.Workbook(), 'xlsx', [
-        'dataValidations',
-      ]);
+      const wb = testUtils.createTestBook(new ExcelJS.Workbook(), 'xlsx', ['dataValidations']);
 
       return wb.xlsx
         .writeFile(TEST_XLSX_FILE_NAME)
@@ -415,18 +403,16 @@ describe('Workbook', () => {
       const ws = wb.addWorksheet();
 
       ws.columns = [
-        {key: 'id', width: 10},
-        {key: 'name', width: 32},
+        { key: 'id', width: 10 },
+        { key: 'name', width: 32 },
       ];
 
-      ws.addRow({id: 1, name: ''});
+      ws.addRow({ id: 1, name: '' });
 
       return wb.xlsx.writeFile(TEST_XLSX_FILE_NAME);
     });
 
-    it('a lot of sheets to xlsx file', function() {
-
-
+    it('a lot of sheets to xlsx file', function () {
       let i;
       const wb = new ExcelJS.Workbook();
       const numSheets = 90;
@@ -450,9 +436,7 @@ describe('Workbook', () => {
         });
     });
 
-    it('csv file', function() {
-
-
+    it('csv file', function () {
       const wb = testUtils.createTestBook(new ExcelJS.Workbook(), 'csv', undefined);
 
       return wb.csv
@@ -466,8 +450,7 @@ describe('Workbook', () => {
         });
     });
 
-    it('CSV file and its configuration', function() {
-
+    it('CSV file and its configuration', function () {
       const writeOptions = {
         dateFormat: 'DD/MM/YYYY HH:mm:ss',
         dateUTC: false,
@@ -493,9 +476,7 @@ describe('Workbook', () => {
         .writeFile(TEST_CSV_FILE_NAME, writeOptions)
         .then(() => {
           const wb2 = new ExcelJS.Workbook();
-          return wb2.csv
-            .readFile(TEST_CSV_FILE_NAME, readOptions)
-            .then(() => wb2);
+          return wb2.csv.readFile(TEST_CSV_FILE_NAME, readOptions).then(() => wb2);
         })
         .then((wb2: any) => {
           testUtils.checkTestBook(wb2, 'csv', undefined, writeOptions);
@@ -588,10 +569,7 @@ describe('Workbook', () => {
           check(ws2b, 'B7', 2, 'sheets');
 
           // two names
-          expect(ws2a.getCell('G1').names).to.have.members([
-            'thing1',
-            'thing2',
-          ]);
+          expect(ws2a.getCell('G1').names).to.have.members(['thing1', 'thing2']);
 
           // once removed
           expect(ws2a.getCell('G2').names).to.have.members(['twice']);
@@ -621,8 +599,7 @@ describe('Workbook', () => {
 
     describe('Duplicate Rows', () => {
       it('Duplicate rows with styles properly', () => {
-        const fileDuplicateRowTestFile =
-          './spec/integration/data/duplicateRowTest.xlsx';
+        const fileDuplicateRowTestFile = './spec/integration/data/duplicateRowTest.xlsx';
         const wb = new ExcelJS.Workbook();
         return wb.xlsx.readFile(fileDuplicateRowTestFile).then(() => {
           const ws = wb.getWorksheet('duplicateTest');
@@ -782,69 +759,29 @@ describe('Workbook', () => {
           .then((wb2: any) => {
             const ws2 = wb2.getWorksheet('blort');
 
-            expect(ws2.getCell('B2').font).toEqual(
-              testUtils.styles.fonts.broadwayRedOutline20
-            );
-            expect(ws2.getCell('B2').border).toEqual(
-              testUtils.styles.borders.doubleRed
-            );
-            expect(ws2.getCell('B2').fill).toEqual(
-              testUtils.styles.fills.blueWhiteHGrad
-            );
-            expect(ws2.getCell('B2').alignment).toEqual(
-              testUtils.styles.namedAlignments.middleCentre
-            );
-            expect(ws2.getCell('B2').numFmt).toBe(
-              testUtils.styles.numFmts.numFmt1
-            );
+            expect(ws2.getCell('B2').font).toEqual(testUtils.styles.fonts.broadwayRedOutline20);
+            expect(ws2.getCell('B2').border).toEqual(testUtils.styles.borders.doubleRed);
+            expect(ws2.getCell('B2').fill).toEqual(testUtils.styles.fills.blueWhiteHGrad);
+            expect(ws2.getCell('B2').alignment).toEqual(testUtils.styles.namedAlignments.middleCentre);
+            expect(ws2.getCell('B2').numFmt).toBe(testUtils.styles.numFmts.numFmt1);
 
-            expect(ws2.getCell('B3').font).toEqual(
-              testUtils.styles.fonts.broadwayRedOutline20
-            );
-            expect(ws2.getCell('B3').border).toEqual(
-              testUtils.styles.borders.doubleRed
-            );
-            expect(ws2.getCell('B3').fill).toEqual(
-              testUtils.styles.fills.blueWhiteHGrad
-            );
-            expect(ws2.getCell('B3').alignment).toEqual(
-              testUtils.styles.namedAlignments.middleCentre
-            );
-            expect(ws2.getCell('B3').numFmt).toBe(
-              testUtils.styles.numFmts.numFmt1
-            );
+            expect(ws2.getCell('B3').font).toEqual(testUtils.styles.fonts.broadwayRedOutline20);
+            expect(ws2.getCell('B3').border).toEqual(testUtils.styles.borders.doubleRed);
+            expect(ws2.getCell('B3').fill).toEqual(testUtils.styles.fills.blueWhiteHGrad);
+            expect(ws2.getCell('B3').alignment).toEqual(testUtils.styles.namedAlignments.middleCentre);
+            expect(ws2.getCell('B3').numFmt).toBe(testUtils.styles.numFmts.numFmt1);
 
-            expect(ws2.getCell('C2').font).toEqual(
-              testUtils.styles.fonts.broadwayRedOutline20
-            );
-            expect(ws2.getCell('C2').border).toEqual(
-              testUtils.styles.borders.doubleRed
-            );
-            expect(ws2.getCell('C2').fill).toEqual(
-              testUtils.styles.fills.blueWhiteHGrad
-            );
-            expect(ws2.getCell('C2').alignment).toEqual(
-              testUtils.styles.namedAlignments.middleCentre
-            );
-            expect(ws2.getCell('C2').numFmt).toBe(
-              testUtils.styles.numFmts.numFmt1
-            );
+            expect(ws2.getCell('C2').font).toEqual(testUtils.styles.fonts.broadwayRedOutline20);
+            expect(ws2.getCell('C2').border).toEqual(testUtils.styles.borders.doubleRed);
+            expect(ws2.getCell('C2').fill).toEqual(testUtils.styles.fills.blueWhiteHGrad);
+            expect(ws2.getCell('C2').alignment).toEqual(testUtils.styles.namedAlignments.middleCentre);
+            expect(ws2.getCell('C2').numFmt).toBe(testUtils.styles.numFmts.numFmt1);
 
-            expect(ws2.getCell('C3').font).toEqual(
-              testUtils.styles.fonts.broadwayRedOutline20
-            );
-            expect(ws2.getCell('C3').border).toEqual(
-              testUtils.styles.borders.doubleRed
-            );
-            expect(ws2.getCell('C3').fill).toEqual(
-              testUtils.styles.fills.blueWhiteHGrad
-            );
-            expect(ws2.getCell('C3').alignment).toEqual(
-              testUtils.styles.namedAlignments.middleCentre
-            );
-            expect(ws2.getCell('C3').numFmt).toBe(
-              testUtils.styles.numFmts.numFmt1
-            );
+            expect(ws2.getCell('C3').font).toEqual(testUtils.styles.fonts.broadwayRedOutline20);
+            expect(ws2.getCell('C3').border).toEqual(testUtils.styles.borders.doubleRed);
+            expect(ws2.getCell('C3').fill).toEqual(testUtils.styles.fills.blueWhiteHGrad);
+            expect(ws2.getCell('C3').alignment).toEqual(testUtils.styles.namedAlignments.middleCentre);
+            expect(ws2.getCell('C3').numFmt).toBe(testUtils.styles.numFmts.numFmt1);
           });
       });
     });
@@ -922,7 +859,7 @@ describe('Workbook', () => {
       expect.fail('should fail for given argument');
     } catch (e) {
       expect((e as Error).message).toBe(
-        'Can\'t read the data of \'the loaded zip file\'. Is it in a supported JavaScript type (String, Blob, ArrayBuffer, etc) ?'
+        "Can't read the data of 'the loaded zip file'. Is it in a supported JavaScript type (String, Blob, ArrayBuffer, etc) ?"
       );
     }
   });
@@ -939,8 +876,8 @@ describe('Workbook', () => {
           topLeftCell: 'C4',
           activeCell: 'D5',
         },
-        {state: 'frozen', ySplit: 1},
-        {state: 'frozen', xSplit: 1},
+        { state: 'frozen', ySplit: 1 },
+        { state: 'frozen', xSplit: 1 },
       ];
       ws.getCell('A1').value = 'Let it Snow!';
 
@@ -1017,7 +954,7 @@ describe('Workbook', () => {
           activePane: 'bottomLeft',
           topLeftCell: 'A10',
         },
-        {state: 'split', xSplit: 1500, activePane: 'topRight'},
+        { state: 'split', xSplit: 1500, activePane: 'topRight' },
       ];
       ws.getCell('A1').value = 'Do the splits!';
 

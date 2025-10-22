@@ -72,8 +72,8 @@ class Note {
   }
 
   set model(value: NoteModel) {
-    const {note} = value;
-    const {texts} = note;
+    const { note } = value;
+    const { texts } = note;
     if (texts && texts.length === 1 && Object.keys(texts[0]).length === 1) {
       this.note = texts[0].text;
     } else {

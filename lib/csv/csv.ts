@@ -1,7 +1,7 @@
 import fs from 'fs';
 import StreamBuf from '../utils/stream-buf.js';
 
-import {format, parse} from 'fast-csv';
+import { format, parse } from 'fast-csv';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import utc from 'dayjs/plugin/utc';
 import dayjs from 'dayjs';
@@ -10,7 +10,9 @@ import utils from '../utils/utils.js';
 dayjs.extend(customParseFormat);
 dayjs.extend(utc);
 
-const {fs: {exists}} = utils;
+const {
+  fs: { exists },
+} = utils;
 
 interface ReadOptions {
   sheetName?: string;
@@ -31,16 +33,16 @@ interface WriteOptions {
 }
 
 /* eslint-disable quote-props */
-const SpecialValues: {[key: string]: any} = {
-  'true': true,
-  'false': false,
-  '#N/A': {error: '#N/A'},
-  '#REF!': {error: '#REF!'},
-  '#NAME?': {error: '#NAME?'},
-  '#DIV/0!': {error: '#DIV/0!'},
-  '#NULL!': {error: '#NULL!'},
-  '#VALUE!': {error: '#VALUE!'},
-  '#NUM!': {error: '#NUM!'},
+const SpecialValues: { [key: string]: any } = {
+  true: true,
+  false: false,
+  '#N/A': { error: '#N/A' },
+  '#REF!': { error: '#REF!' },
+  '#NAME?': { error: '#NAME?' },
+  '#DIV/0!': { error: '#DIV/0!' },
+  '#NULL!': { error: '#NULL!' },
+  '#VALUE!': { error: '#VALUE!' },
+  '#NUM!': { error: '#NUM!' },
 };
 /* eslint-ensable quote-props */
 
@@ -83,7 +85,7 @@ class CSV {
       ];
       const map =
         options.map ||
-        function(datum: any): any {
+        function (datum: any): any {
           if (datum === '') {
             return null;
           }
@@ -114,31 +116,29 @@ class CSV {
       const onData = (data: any[]) => {
         worksheet.addRow(data.map(map));
       };
-      
+
       const onEnd = () => {
         csvStream.emit('worksheet', worksheet);
       };
-      
+
       const cleanup = () => {
         csvStream.removeListener('data', onData);
         csvStream.removeListener('end', onEnd);
         csvStream.removeListener('worksheet', onWorksheet);
         csvStream.removeListener('error', onError);
       };
-      
+
       const onWorksheet = (ws: any) => {
         cleanup();
         resolve(ws);
       };
-      
+
       const onError = (err: Error) => {
         cleanup();
         reject(err);
       };
 
-      const csvStream = parse(options.parserOptions)
-        .on('data', onData)
-        .on('end', onEnd);
+      const csvStream = parse(options.parserOptions).on('data', onData).on('end', onEnd);
 
       csvStream.once('worksheet', onWorksheet).on('error', onError);
 
@@ -156,27 +156,27 @@ class CSV {
       const worksheet = this.workbook.getWorksheet(options.sheetName || options.sheetId);
 
       const csvStream = format(options.formatterOptions);
-      
+
       const cleanup = () => {
         stream.removeListener('finish', onFinish);
         csvStream.removeListener('error', onError);
       };
-      
+
       const onFinish = () => {
         cleanup();
         resolve();
       };
-      
+
       const onError = (err: Error) => {
         cleanup();
         reject(err);
       };
-      
+
       stream.once('finish', onFinish);
       csvStream.on('error', onError);
       csvStream.pipe(stream);
 
-      const {dateFormat, dateUTC} = options;
+      const { dateFormat, dateUTC } = options;
       const map =
         options.map ||
         ((value: any) => {
@@ -189,9 +189,7 @@ class CSV {
             }
             if (value instanceof Date) {
               if (dateFormat) {
-                return dateUTC
-                  ? dayjs.utc(value).format(dateFormat)
-                  : dayjs(value).format(dateFormat);
+                return dateUTC ? dayjs.utc(value).format(dateFormat) : dayjs(value).format(dateFormat);
               }
               return dateUTC ? dayjs.utc(value).format() : dayjs(value).format();
             }
@@ -214,7 +212,7 @@ class CSV {
               csvStream.write([]);
             }
           }
-          const {values} = row;
+          const { values } = row;
           values.shift();
           csvStream.write(values.map(map));
           lastRow = rowNumber;

@@ -55,9 +55,7 @@ class VmlAnchorXform extends BaseXform {
   }
 
   render(xmlStream: any, model: RenderModel): void {
-    const rect = model.anchor
-      ? this.getAnchorRect(model.anchor)
-      : this.getDefaultRect(model.refAddress!);
+    const rect = model.anchor ? this.getAnchorRect(model.anchor) : this.getDefaultRect(model.refAddress!);
 
     xmlStream.leafNode('x:Anchor', null, rect.join(', '));
   }

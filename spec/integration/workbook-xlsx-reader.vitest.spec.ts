@@ -11,13 +11,15 @@ const TEST_FILE_NAME = './spec/out/wb-xlsx-reader.test.xlsx';
 // because of: shared strings, sheet names, etc are not read in guaranteed order
 describe('WorkbookReader', () => {
   describe('Serialise', () => {
-    it('xlsx file', async () => {
-      const wb = testutils.createTestBook(new Workbook(), 'xlsx');
+    it(
+      'xlsx file',
+      async () => {
+        const wb = testutils.createTestBook(new Workbook(), 'xlsx');
 
-      return wb.xlsx
-        .writeFile(TEST_FILE_NAME)
-        .then(() => testutils.checkTestBookReader(TEST_FILE_NAME));
-    }, { timeout: 10000 });
+        return wb.xlsx.writeFile(TEST_FILE_NAME).then(() => testutils.checkTestBookReader(TEST_FILE_NAME));
+      },
+      { timeout: 10000 }
+    );
   });
 
   describe('#readFile', () => {
@@ -25,23 +27,21 @@ describe('WorkbookReader', () => {
       it('should bail out if the file contains more rows than the limit', () => {
         const workbook = new Workbook();
         // The Fibonacci sheet has 19 rows
-        return workbook.xlsx
-          .readFile('./spec/integration/data/fibonacci.xlsx', {maxRows: 10})
-          .then(
-            () => {
-              throw new Error('Promise unexpectedly fulfilled');
-            },
-            err => {
-              expect(err.message).toBe('Max row count (10) exceeded');
-            }
-          );
+        return workbook.xlsx.readFile('./spec/integration/data/fibonacci.xlsx', { maxRows: 10 }).then(
+          () => {
+            throw new Error('Promise unexpectedly fulfilled');
+          },
+          err => {
+            expect(err.message).toBe('Max row count (10) exceeded');
+          }
+        );
       });
 
-      it('should fail fast on a huge file', async () => {
-        const workbook = new Workbook();
-        return workbook.xlsx
-          .readFile('./spec/integration/data/huge.xlsx', {maxRows: 100})
-          .then(
+      it(
+        'should fail fast on a huge file',
+        async () => {
+          const workbook = new Workbook();
+          return workbook.xlsx.readFile('./spec/integration/data/huge.xlsx', { maxRows: 100 }).then(
             () => {
               throw new Error('Promise unexpectedly fulfilled');
             },
@@ -49,14 +49,13 @@ describe('WorkbookReader', () => {
               expect(err.message).toBe('Max row count (100) exceeded');
             }
           );
-      }, { timeout: 10000 });
+        },
+        { timeout: 10000 }
+      );
 
       it('should parse fine if the limit is not exceeded', () => {
         const workbook = new Workbook();
-        return workbook.xlsx.readFile(
-          './spec/integration/data/fibonacci.xlsx',
-          {maxRows: 20}
-        );
+        return workbook.xlsx.readFile('./spec/integration/data/fibonacci.xlsx', { maxRows: 20 });
       });
     });
 
@@ -78,11 +77,11 @@ describe('WorkbookReader', () => {
           );
       });
 
-      it('should fail fast on a huge file', async () => {
-        const workbook = new Workbook();
-        return workbook.xlsx
-          .readFile('./spec/integration/data/huge.xlsx', {maxCols: 10})
-          .then(
+      it(
+        'should fail fast on a huge file',
+        async () => {
+          const workbook = new Workbook();
+          return workbook.xlsx.readFile('./spec/integration/data/huge.xlsx', { maxCols: 10 }).then(
             () => {
               throw new Error('Promise unexpectedly fulfilled');
             },
@@ -90,14 +89,13 @@ describe('WorkbookReader', () => {
               expect(err.message).toBe('Max column count (10) exceeded');
             }
           );
-      }, { timeout: 10000 });
+        },
+        { timeout: 10000 }
+      );
 
       it('should parse fine if the limit is not exceeded', () => {
         const workbook = new Workbook();
-        return workbook.xlsx.readFile(
-          './spec/integration/data/many-columns.xlsx',
-          {maxCols: 40}
-        );
+        return workbook.xlsx.readFile('./spec/integration/data/many-columns.xlsx', { maxCols: 40 });
       });
     });
   });
@@ -123,10 +121,7 @@ describe('WorkbookReader', () => {
 
       it('should parse fine if the limit is not exceeded', () => {
         const workbook = new Workbook();
-        return workbook.xlsx.read(
-          fs.createReadStream('./spec/integration/data/fibonacci.xlsx'),
-          {maxRows: 20}
-        );
+        return workbook.xlsx.read(fs.createReadStream('./spec/integration/data/fibonacci.xlsx'), { maxRows: 20 });
       });
     });
   });
@@ -144,31 +139,17 @@ describe('WorkbookReader', () => {
 
       ws.eachRow((row, rowNo) => {
         if (rowNo % 5 === 0) {
-          row.font = {color: {argb: '00ff00'}};
+          row.font = { color: { argb: '00ff00' } };
         }
       });
 
-      expect(ws.getRow(3).font.color.argb).to.be.equal(
-        ws.getRow(6).font.color.argb
-      );
-      expect(ws.getRow(6).font.color.argb).to.be.equal(
-        ws.getRow(9).font.color.argb
-      );
-      expect(ws.getRow(9).font.color.argb).to.be.equal(
-        ws.getRow(12).font.color.argb
-      );
-      expect(ws.getRow(12).font.color.argb).not.to.be.equal(
-        ws.getRow(15).font.color.argb
-      );
-      expect(ws.getRow(15).font.color.argb).not.to.be.equal(
-        ws.getRow(18).font.color.argb
-      );
-      expect(ws.getRow(15).font.color.argb).to.be.equal(
-        ws.getRow(10).font.color.argb
-      );
-      expect(ws.getRow(10).font.color.argb).to.be.equal(
-        ws.getRow(5).font.color.argb
-      );
+      expect(ws.getRow(3).font.color.argb).to.be.equal(ws.getRow(6).font.color.argb);
+      expect(ws.getRow(6).font.color.argb).to.be.equal(ws.getRow(9).font.color.argb);
+      expect(ws.getRow(9).font.color.argb).to.be.equal(ws.getRow(12).font.color.argb);
+      expect(ws.getRow(12).font.color.argb).not.to.be.equal(ws.getRow(15).font.color.argb);
+      expect(ws.getRow(15).font.color.argb).not.to.be.equal(ws.getRow(18).font.color.argb);
+      expect(ws.getRow(15).font.color.argb).to.be.equal(ws.getRow(10).font.color.argb);
+      expect(ws.getRow(10).font.color.argb).to.be.equal(ws.getRow(5).font.color.argb);
     });
   });
 
@@ -196,9 +177,7 @@ describe('WorkbookReader', () => {
       });
 
       it('should have the formula source', () => {
-        expect(cell.model.formula).toBe(
-          '_xlfn.CONCAT("someone","@example.com")'
-        );
+        expect(cell.model.formula).toBe('_xlfn.CONCAT("someone","@example.com")');
       });
     });
 
@@ -216,9 +195,7 @@ describe('WorkbookReader', () => {
       });
 
       it('should have the formula source', () => {
-        expect(cell.model.formula).toBe(
-          '_xlfn.CONCAT("someone","@example.com")'
-        );
+        expect(cell.model.formula).toBe('_xlfn.CONCAT("someone","@example.com")');
       });
 
       it('should contain the linked url', () => {
@@ -233,11 +210,7 @@ describe('WorkbookReader', () => {
 
     beforeAll(async () => {
       const workbook = new Workbook();
-      await workbook.xlsx.read(
-        fs.createReadStream(
-          './spec/integration/data/shared_string_with_escape.xlsx'
-        )
-      );
+      await workbook.xlsx.read(fs.createReadStream('./spec/integration/data/shared_string_with_escape.xlsx'));
       worksheet = workbook.getWorksheet();
     });
 
@@ -268,9 +241,7 @@ describe('WorkbookReader', () => {
             throw new Error('Promise unexpectedly fulfilled');
           },
           err => {
-            expect(err.message).toBe(
-              '3:1: text data outside of root node.'
-            );
+            expect(err.message).toBe('3:1: text data outside of root node.');
             // Wait a tick before checking for an unhandled rejection
             return new Promise(setImmediate);
           }
@@ -284,9 +255,7 @@ describe('WorkbookReader', () => {
   describe('with a spreadsheet that is missing some files in the zip container', () => {
     it('should not break', () => {
       const workbook = new Workbook();
-      return workbook.xlsx.readFile(
-        './spec/integration/data/missing-bits.xlsx'
-      );
+      return workbook.xlsx.readFile('./spec/integration/data/missing-bits.xlsx');
     });
   });
 
@@ -302,16 +271,12 @@ describe('WorkbookReader', () => {
     describe('with image`s tl anchor', () => {
       it('Should integer part of col equals nativeCol', () => {
         worksheet.getImages().forEach(image => {
-          expect(Math.floor(image.range.tl.col)).toBe(
-            image.range.tl.nativeCol
-          );
+          expect(Math.floor(image.range.tl.col)).toBe(image.range.tl.nativeCol);
         });
       });
       it('Should integer part of row equals nativeRow', () => {
         worksheet.getImages().forEach(image => {
-          expect(Math.floor(image.range.tl.row)).toBe(
-            image.range.tl.nativeRow
-          );
+          expect(Math.floor(image.range.tl.row)).toBe(image.range.tl.nativeRow);
         });
       });
       it('Should anchor width equals to column width when custom', () => {
@@ -321,9 +286,7 @@ describe('WorkbookReader', () => {
           const col = ws.getColumn(image.range.tl.nativeCol + 1);
 
           if (col.isCustomWidth) {
-            expect(image.range.tl.colWidth).toBe(
-              Math.floor(col.width * 10000)
-            );
+            expect(image.range.tl.colWidth).toBe(Math.floor(col.width * 10000));
           } else {
             expect(image.range.tl.colWidth).toBe(640000);
           }
@@ -336,9 +299,7 @@ describe('WorkbookReader', () => {
           const row = ws.getRow(image.range.tl.nativeRow + 1);
 
           if (row.height) {
-            expect(image.range.tl.rowHeight).toBe(
-              Math.floor(row.height * 10000)
-            );
+            expect(image.range.tl.rowHeight).toBe(Math.floor(row.height * 10000));
           } else {
             expect(image.range.tl.rowHeight).toBe(180000);
           }
@@ -349,16 +310,12 @@ describe('WorkbookReader', () => {
     describe('with image`s br anchor', () => {
       it('Should integer part of col equals nativeCol', () => {
         worksheet.getImages().forEach(image => {
-          expect(Math.floor(image.range.br.col)).toBe(
-            image.range.br.nativeCol
-          );
+          expect(Math.floor(image.range.br.col)).toBe(image.range.br.nativeCol);
         });
       });
       it('Should integer part of row equals nativeRow', () => {
         worksheet.getImages().forEach(image => {
-          expect(Math.floor(image.range.br.row)).toBe(
-            image.range.br.nativeRow
-          );
+          expect(Math.floor(image.range.br.row)).toBe(image.range.br.nativeRow);
         });
       });
       it('Should anchor width equals to column width when custom', () => {
@@ -368,9 +325,7 @@ describe('WorkbookReader', () => {
           const col = ws.getColumn(image.range.br.nativeCol + 1);
 
           if (col.isCustomWidth) {
-            expect(image.range.br.colWidth).toBe(
-              Math.floor(col.width * 10000)
-            );
+            expect(image.range.br.colWidth).toBe(Math.floor(col.width * 10000));
           } else {
             expect(image.range.br.colWidth).toBe(640000);
           }
@@ -383,9 +338,7 @@ describe('WorkbookReader', () => {
           const row = ws.getRow(image.range.br.nativeRow + 1);
 
           if (row.height) {
-            expect(image.range.br.rowHeight).toBe(
-              Math.floor(row.height * 10000)
-            );
+            expect(image.range.br.rowHeight).toBe(Math.floor(row.height * 10000));
           } else {
             expect(image.range.br.rowHeight).toBe(180000);
           }
@@ -396,9 +349,7 @@ describe('WorkbookReader', () => {
   describe('with a spreadsheet containing a defined name that kinda looks like it contains a range', () => {
     it('should not crash', () => {
       const workbook = new Workbook();
-      return workbook.xlsx.read(
-        fs.createReadStream('./spec/integration/data/bogus-defined-name.xlsx')
-      );
+      return workbook.xlsx.read(fs.createReadStream('./spec/integration/data/bogus-defined-name.xlsx'));
     });
   });
 });

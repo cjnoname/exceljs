@@ -9,13 +9,13 @@ class ContentTypesXform extends BaseXform {
 
     xmlStream.openNode('Types', ContentTypesXform.PROPERTY_ATTRIBUTES);
 
-    const mediaHash: {[key: string]: boolean} = {};
+    const mediaHash: { [key: string]: boolean } = {};
     (model.media || []).forEach((medium: any) => {
       if (medium.type === 'image') {
         const imageType = medium.extension;
         if (!mediaHash[imageType]) {
           mediaHash[imageType] = true;
-          xmlStream.leafNode('Default', {Extension: imageType, ContentType: `image/${imageType}`});
+          xmlStream.leafNode('Default', { Extension: imageType, ContentType: `image/${imageType}` });
         }
       }
     });
@@ -24,7 +24,7 @@ class ContentTypesXform extends BaseXform {
       Extension: 'rels',
       ContentType: 'application/vnd.openxmlformats-package.relationships+xml',
     });
-    xmlStream.leafNode('Default', {Extension: 'xml', ContentType: 'application/xml'});
+    xmlStream.leafNode('Default', { Extension: 'xml', ContentType: 'application/xml' });
 
     xmlStream.leafNode('Override', {
       PartName: '/xl/workbook.xml',
@@ -43,13 +43,11 @@ class ContentTypesXform extends BaseXform {
       // Note(2023-10-06): assuming at most one pivot table for now.
       xmlStream.leafNode('Override', {
         PartName: '/xl/pivotCache/pivotCacheDefinition1.xml',
-        ContentType:
-          'application/vnd.openxmlformats-officedocument.spreadsheetml.pivotCacheDefinition+xml',
+        ContentType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.pivotCacheDefinition+xml',
       });
       xmlStream.leafNode('Override', {
         PartName: '/xl/pivotCache/pivotCacheRecords1.xml',
-        ContentType:
-          'application/vnd.openxmlformats-officedocument.spreadsheetml.pivotCacheRecords+xml',
+        ContentType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.pivotCacheRecords+xml',
       });
       xmlStream.leafNode('Override', {
         PartName: '/xl/pivotTables/pivotTable1.xml',
@@ -98,7 +96,7 @@ class ContentTypesXform extends BaseXform {
         ContentType: 'application/vnd.openxmlformats-officedocument.vmlDrawing',
       });
 
-      model.commentRefs.forEach(({commentName}: {commentName: string}) => {
+      model.commentRefs.forEach(({ commentName }: { commentName: string }) => {
         xmlStream.leafNode('Override', {
           PartName: `/xl/${commentName}.xml`,
           ContentType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.comments+xml',

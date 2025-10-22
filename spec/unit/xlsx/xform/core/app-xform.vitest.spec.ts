@@ -15,10 +15,8 @@ const expectations = [
     create() {
       return new AppXform();
     },
-    preparedModel: {worksheets: [{name: 'Sheet1'}]},
-    xml: readFileSync(join(__dirname, './data/app.01.xml'))
-      .toString()
-      .replace(/\r\n/g, '\n'),
+    preparedModel: { worksheets: [{ name: 'Sheet1' }] },
+    xml: readFileSync(join(__dirname, './data/app.01.xml')).toString().replace(/\r\n/g, '\n'),
     tests: ['render', 'renderIn'],
   },
   {
@@ -27,13 +25,11 @@ const expectations = [
       return new AppXform();
     },
     preparedModel: {
-      worksheets: [{name: 'Sheet1'}, {name: 'Sheet2'}],
+      worksheets: [{ name: 'Sheet1' }, { name: 'Sheet2' }],
       company: 'Cyber Sapiens, Ltd.',
       manager: 'Guyon Roche',
     },
-    xml: readFileSync(join(__dirname, './data/app.02.xml'))
-      .toString()
-      .replace(/\r\n/g, '\n'),
+    xml: readFileSync(join(__dirname, './data/app.02.xml')).toString().replace(/\r\n/g, '\n'),
     tests: ['render', 'renderIn'],
   },
 ];

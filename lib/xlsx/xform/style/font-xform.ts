@@ -32,7 +32,7 @@ interface FontOptions {
 // Font encapsulates translation from font model to xlsx
 class FontXform extends BaseXform {
   public options: FontOptions;
-  public map: {[key: string]: {prop: string; xform: any}};
+  public map: { [key: string]: { prop: string; xform: any } };
   public parser: any;
 
   constructor(options?: FontOptions) {
@@ -41,24 +41,24 @@ class FontXform extends BaseXform {
     this.options = options || FontXform.OPTIONS;
 
     this.map = {
-      b: {prop: 'bold', xform: new BooleanXform({tag: 'b', attr: 'val'})},
-      i: {prop: 'italic', xform: new BooleanXform({tag: 'i', attr: 'val'})},
-      u: {prop: 'underline', xform: new UnderlineXform()},
-      charset: {prop: 'charset', xform: new IntegerXform({tag: 'charset', attr: 'val'})},
-      color: {prop: 'color', xform: new ColorXform()},
-      condense: {prop: 'condense', xform: new BooleanXform({tag: 'condense', attr: 'val'})},
-      extend: {prop: 'extend', xform: new BooleanXform({tag: 'extend', attr: 'val'})},
-      family: {prop: 'family', xform: new IntegerXform({tag: 'family', attr: 'val'})},
-      outline: {prop: 'outline', xform: new BooleanXform({tag: 'outline', attr: 'val'})},
-      vertAlign: {prop: 'vertAlign', xform: new StringXform({tag: 'vertAlign', attr: 'val'})},
-      scheme: {prop: 'scheme', xform: new StringXform({tag: 'scheme', attr: 'val'})},
-      shadow: {prop: 'shadow', xform: new BooleanXform({tag: 'shadow', attr: 'val'})},
-      strike: {prop: 'strike', xform: new BooleanXform({tag: 'strike', attr: 'val'})},
-      sz: {prop: 'size', xform: new IntegerXform({tag: 'sz', attr: 'val'})},
+      b: { prop: 'bold', xform: new BooleanXform({ tag: 'b', attr: 'val' }) },
+      i: { prop: 'italic', xform: new BooleanXform({ tag: 'i', attr: 'val' }) },
+      u: { prop: 'underline', xform: new UnderlineXform() },
+      charset: { prop: 'charset', xform: new IntegerXform({ tag: 'charset', attr: 'val' }) },
+      color: { prop: 'color', xform: new ColorXform() },
+      condense: { prop: 'condense', xform: new BooleanXform({ tag: 'condense', attr: 'val' }) },
+      extend: { prop: 'extend', xform: new BooleanXform({ tag: 'extend', attr: 'val' }) },
+      family: { prop: 'family', xform: new IntegerXform({ tag: 'family', attr: 'val' }) },
+      outline: { prop: 'outline', xform: new BooleanXform({ tag: 'outline', attr: 'val' }) },
+      vertAlign: { prop: 'vertAlign', xform: new StringXform({ tag: 'vertAlign', attr: 'val' }) },
+      scheme: { prop: 'scheme', xform: new StringXform({ tag: 'scheme', attr: 'val' }) },
+      shadow: { prop: 'shadow', xform: new BooleanXform({ tag: 'shadow', attr: 'val' }) },
+      strike: { prop: 'strike', xform: new BooleanXform({ tag: 'strike', attr: 'val' }) },
+      sz: { prop: 'size', xform: new IntegerXform({ tag: 'sz', attr: 'val' }) },
     };
     this.map[this.options.fontNameTag] = {
       prop: 'name',
-      xform: new StringXform({tag: this.options.fontNameTag, attr: 'val'}),
+      xform: new StringXform({ tag: this.options.fontNameTag, attr: 'val' }),
     };
   }
 
@@ -67,10 +67,10 @@ class FontXform extends BaseXform {
   }
 
   render(xmlStream: any, model: FontModel): void {
-    const {map} = this;
+    const { map } = this;
 
     xmlStream.openNode(this.options.tagName);
-    _.each(this.map, (defn: {prop: string; xform: any}, tag: string) => {
+    _.each(this.map, (defn: { prop: string; xform: any }, tag: string) => {
       map[tag].xform.render(xmlStream, model[defn.prop as keyof FontModel]);
     });
     xmlStream.closeNode();

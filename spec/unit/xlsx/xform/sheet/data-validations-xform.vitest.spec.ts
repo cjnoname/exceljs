@@ -139,10 +139,10 @@ const expectations = [
     title: 'optimised',
     create: () => new DataValidationsXform(),
     preparedModel: {
-      A1: {type: 'whole', operator: 'between', formulae: [5, 10]},
-      A2: {type: 'whole', operator: 'between', formulae: [5, 10]},
-      B1: {type: 'whole', operator: 'between', formulae: [5, 10]},
-      B2: {type: 'whole', operator: 'between', formulae: [5, 10]},
+      A1: { type: 'whole', operator: 'between', formulae: [5, 10] },
+      A2: { type: 'whole', operator: 'between', formulae: [5, 10] },
+      B1: { type: 'whole', operator: 'between', formulae: [5, 10] },
+      B2: { type: 'whole', operator: 'between', formulae: [5, 10] },
     },
     get parsedModel() {
       return this.preparedModel;

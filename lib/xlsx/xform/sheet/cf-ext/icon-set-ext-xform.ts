@@ -43,7 +43,7 @@ class IconSetExtXform extends CompositeXform {
     xmlStream.closeNode();
   }
 
-  createNewModel({attributes}) {
+  createNewModel({ attributes }) {
     return {
       cfvo: [],
       iconSet: BaseXform.toStringValue(attributes.iconSet, '3TrafficLights'),

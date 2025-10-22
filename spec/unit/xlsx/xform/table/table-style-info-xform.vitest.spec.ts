@@ -16,8 +16,7 @@ const expectations = [
       showRowStripes: true,
       showColumnStripes: false,
     },
-    xml:
-      '<tableStyleInfo name="TableStyle" showFirstColumn="0" showLastColumn="0" showRowStripes="1" showColumnStripes="0" />',
+    xml: '<tableStyleInfo name="TableStyle" showFirstColumn="0" showLastColumn="0" showRowStripes="1" showColumnStripes="0" />',
     get parsedModel() {
       return this.preparedModel;
     },
@@ -35,8 +34,7 @@ const expectations = [
       showRowStripes: false,
       showColumnStripes: true,
     },
-    xml:
-      '<tableStyleInfo showFirstColumn="1" showLastColumn="1" showRowStripes="0" showColumnStripes="1" />',
+    xml: '<tableStyleInfo showFirstColumn="1" showLastColumn="1" showRowStripes="0" showColumnStripes="1" />',
     get parsedModel() {
       return this.preparedModel;
     },

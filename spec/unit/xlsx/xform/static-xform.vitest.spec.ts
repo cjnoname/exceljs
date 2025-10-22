@@ -7,7 +7,7 @@ const expectations = [
   {
     title: 'Leaf',
     create() {
-      return new StaticXform({tag: 'root', $: {attr: 'val'}});
+      return new StaticXform({ tag: 'root', $: { attr: 'val' } });
     },
     preparedModel: undefined,
     get parsedModel() {
@@ -21,10 +21,10 @@ const expectations = [
     create() {
       return new StaticXform({
         tag: 'root',
-        $: {attr: 'val'},
+        $: { attr: 'val' },
         c: [
-          {tag: 'child1', $: {attr: 5}},
-          {tag: 'child2', $: {attr: true}},
+          { tag: 'child1', $: { attr: 5 } },
+          { tag: 'child2', $: { attr: true } },
         ],
       });
     },
@@ -40,8 +40,8 @@ const expectations = [
     create() {
       return new StaticXform({
         tag: 'root',
-        $: {attr: 'val'},
-        c: [{tag: 'child1', $: {attr: 5}, t: 'Hello, World!'}],
+        $: { attr: 'val' },
+        c: [{ tag: 'child1', $: { attr: 5 }, t: 'Hello, World!' }],
       });
     },
     preparedModel: undefined,

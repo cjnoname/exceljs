@@ -1,17 +1,17 @@
 import BaseXform from '../../base-xform.js';
 
 class VmlPositionXform extends BaseXform {
-  private _model: {tag?: string};
-  public model: {[key: string]: boolean};
+  private _model: { tag?: string };
+  public model: { [key: string]: boolean };
 
-  constructor(model?: {tag?: string}) {
+  constructor(model?: { tag?: string }) {
     super();
     this._model = model || {};
     this.model = {};
   }
 
   get tag(): string {
-    return this._model && this._model.tag || '';
+    return (this._model && this._model.tag) || '';
   }
 
   render(xmlStream: any, model: string, type?: string[]): void {

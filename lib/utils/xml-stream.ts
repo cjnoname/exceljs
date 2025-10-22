@@ -30,7 +30,7 @@ function pushAttributes(xml: string[], attributes?: Attributes): void {
         pushAttribute(tmp, name as string, value);
       }
     });
-    xml.push(tmp.join(""));
+    xml.push(tmp.join(''));
   }
 }
 

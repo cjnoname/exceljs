@@ -13,8 +13,7 @@ const expectations = [
       horizontalDpi: 4294967295,
       verticalDpi: 4294967295,
     },
-    xml:
-      '<pageSetup paperSize="9" orientation="portrait" horizontalDpi="4294967295" verticalDpi="4294967295"/>',
+    xml: '<pageSetup paperSize="9" orientation="portrait" horizontalDpi="4294967295" verticalDpi="4294967295"/>',
     parsedModel: {
       paperSize: 9,
       orientation: 'portrait',
@@ -47,8 +46,7 @@ const expectations = [
       cellComments: 'atEnd',
       errors: 'dash',
     },
-    xml:
-      '<pageSetup paperSize="119" pageOrder="overThenDown" orientation="portrait" blackAndWhite="1" draft="1" cellComments="atEnd" errors="dash"/>',
+    xml: '<pageSetup paperSize="119" pageOrder="overThenDown" orientation="portrait" blackAndWhite="1" draft="1" cellComments="atEnd" errors="dash"/>',
     parsedModel: {
       paperSize: 119,
       pageOrder: 'overThenDown',
@@ -108,8 +106,7 @@ const expectations = [
       fitToHeight: 3,
       orientation: 'landscape',
     },
-    xml:
-      '<pageSetup paperSize="119" scale="95" fitToWidth="2" fitToHeight="3" orientation="landscape"/>',
+    xml: '<pageSetup paperSize="119" scale="95" fitToWidth="2" fitToHeight="3" orientation="landscape"/>',
     parsedModel: {
       paperSize: 119,
       scale: 95,

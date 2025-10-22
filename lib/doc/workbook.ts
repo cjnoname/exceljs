@@ -184,7 +184,7 @@ class Workbook {
   addImage(image: any): number {
     // TODO:  validation?
     const id = this.media.length;
-    this.media.push(Object.assign({}, image, {type: 'image'}));
+    this.media.push(Object.assign({}, image, { type: 'image' }));
     return id;
   }
 
@@ -242,7 +242,7 @@ class Workbook {
     this.calcProperties = value.calcProperties;
     this._worksheets = [];
     value.worksheets.forEach(worksheetModel => {
-      const {id, name, state} = worksheetModel;
+      const { id, name, state } = worksheetModel;
       const orderNo = value.sheets && value.sheets.findIndex(ws => ws.id === id);
       const worksheet = (this._worksheets[id] = new Worksheet({
         id,

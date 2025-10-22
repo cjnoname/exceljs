@@ -11,7 +11,7 @@ class DrawingXform extends BaseXform {
 
   render(xmlStream: any, model?: DrawingModel): void {
     if (model) {
-      xmlStream.leafNode(this.tag, {'r:id': model.rId});
+      xmlStream.leafNode(this.tag, { 'r:id': model.rId });
     }
   }
 

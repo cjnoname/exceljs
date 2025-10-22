@@ -4,7 +4,7 @@ import ExcelJS from '../../../index.js';
 const TEST_XLSX_FILE_NAME = './spec/out/issue-1027.test.xlsx';
 
 describe('github issues', () => {
-  it('issue 1027 - Broken due to Cannot set property \'marked\' of undefined error', () => {
+  it("issue 1027 - Broken due to Cannot set property 'marked' of undefined error", () => {
     const wb = new ExcelJS.Workbook();
     const ws = wb.addWorksheet('Sheet1');
 

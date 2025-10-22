@@ -6,15 +6,12 @@ import ExcelJS from '../../index.js';
 
 describe('Express', () => {
   let server: any;
-  
+
   beforeAll(() => {
     const app: any = express();
     app.get('/workbook', (req: any, res: any) => {
       const wb = testutils.createTestBook(new ExcelJS.Workbook(), 'xlsx', undefined);
-      res.setHeader(
-        'Content-Type',
-        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-      );
+      res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
       res.setHeader('Content-Disposition', 'attachment; filename=Report.xlsx');
       wb.xlsx.write(res).then(() => {
         res.end();
@@ -30,7 +27,7 @@ describe('Express', () => {
   it('downloads a workbook', async () => {
     const response = await fetch('http://127.0.0.1:3003/workbook');
     if (!response.body) throw new Error('No response body');
-    
+
     const wb2 = new ExcelJS.Workbook();
     await wb2.xlsx.read(Readable.fromWeb(response.body as any));
     testutils.checkTestBook(wb2, 'xlsx', undefined, {});

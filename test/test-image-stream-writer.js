@@ -4,7 +4,7 @@ const HrStopwatch = require('./utils/hr-stopwatch');
 
 const [, , filename] = process.argv;
 
-const wb = new Excel.stream.xlsx.WorkbookWriter({filename});
+const wb = new Excel.stream.xlsx.WorkbookWriter({ filename });
 
 const imageId = wb.addImage({
   filename: path.join(__dirname, 'data/image2.png'),

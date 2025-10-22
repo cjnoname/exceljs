@@ -9,11 +9,9 @@ const wb = new Excel.Workbook();
 
 function addTable(ws, ref) {
   const range = new Range(ref);
-  ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'].forEach(
-    (day, index) => {
-      ws.getCell(range.top, range.left + index).value = day;
-    }
-  );
+  ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'].forEach((day, index) => {
+    ws.getCell(range.top, range.left + index).value = day;
+  });
   let count = 1;
   for (let i = 1; i <= 6; i++) {
     for (let j = 0; j < 5; j++) {
@@ -24,23 +22,15 @@ function addTable(ws, ref) {
 
 function addDateTable(ws, ref) {
   const range = new Range(ref);
-  [
-    'Monday',
-    'Tuesday',
-    'Wednesday',
-    'Thursday',
-    'Friday',
-    'Saturday',
-    'Sunday',
-  ].forEach((day, index) => {
+  ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'].forEach((day, index) => {
     ws.getCell(range.top, range.left + index).value = day;
   });
   const DAY = 86400000;
   const now = Date.now();
   const today = now - (now % DAY);
   let dt = new Date(today);
-  const sow = today - ( (dt.getDay() - 1) * DAY );
-  const som = sow - (28 * DAY);
+  const sow = today - (dt.getDay() - 1) * DAY;
+  const som = sow - 28 * DAY;
   dt = new Date(som);
 
   for (let i = 1; i <= 9; i++) {
@@ -65,7 +55,7 @@ expressionWS.addConditionalFormatting({
       type: 'expression',
       priority: 3,
       formulae: ['MOD(ROW()+COLUMN(),2)=0'],
-      style: {font: {bold: true}},
+      style: { font: { bold: true } },
     },
   ],
 });
@@ -79,7 +69,7 @@ expressionWS.addConditionalFormatting({
       priority: 1,
       formulae: ['TRUE'],
       style: {
-        fill: {type: 'pattern', pattern: 'solid', bgColor: {argb: 'FF00FF00'}},
+        fill: { type: 'pattern', pattern: 'solid', bgColor: { argb: 'FF00FF00' } },
       },
     },
     {
@@ -87,7 +77,7 @@ expressionWS.addConditionalFormatting({
       priority: 2,
       formulae: ['TRUE'],
       style: {
-        fill: {type: 'pattern', pattern: 'solid', bgColor: {argb: 'FFFF0000'}},
+        fill: { type: 'pattern', pattern: 'solid', bgColor: { argb: 'FFFF0000' } },
       },
     },
   ],
@@ -106,7 +96,7 @@ highlightWS.addConditionalFormatting({
       operator: 'greaterThan',
       formulae: [13],
       style: {
-        fill: {type: 'pattern', pattern: 'solid', bgColor: {argb: 'FF00FF00'}},
+        fill: { type: 'pattern', pattern: 'solid', bgColor: { argb: 'FF00FF00' } },
       },
     },
   ],
@@ -124,14 +114,14 @@ top10pcWS.addConditionalFormatting({
       type: 'top10',
       percent: true,
       rank: 10,
-      style: {font: {bold: true}},
+      style: { font: { bold: true } },
     },
     {
       type: 'top10',
       percent: true,
       bottom: true,
       rank: 10,
-      style: {font: {italic: true}},
+      style: { font: { italic: true } },
     },
   ],
 });
@@ -145,14 +135,14 @@ top10pcWS.addConditionalFormatting({
       type: 'top10',
       percent: false,
       rank: 8,
-      style: {font: {bold: true}},
+      style: { font: { bold: true } },
     },
     {
       type: 'top10',
       percent: false,
       bottom: true,
       rank: 8,
-      style: {font: {italic: true}},
+      style: { font: { italic: true } },
     },
   ],
 });
@@ -164,12 +154,12 @@ top10pcWS.addConditionalFormatting({
   rules: [
     {
       type: 'aboveAverage',
-      style: {font: {bold: true}},
+      style: { font: { bold: true } },
     },
     {
       type: 'aboveAverage',
       aboveAverage: false,
-      style: {font: {italic: true}},
+      style: { font: { italic: true } },
     },
   ],
 });
@@ -184,8 +174,8 @@ colourScaleWS.addConditionalFormatting({
   rules: [
     {
       type: 'colorScale',
-      cfvo: [{type: 'min'}, {type: 'percentile', value: 50}, {type: 'max'}],
-      color: [{argb: 'FFF8696B'}, {argb: 'FFFFEB84'}, {argb: 'FF63BE7B'}],
+      cfvo: [{ type: 'min' }, { type: 'percentile', value: 50 }, { type: 'max' }],
+      color: [{ argb: 'FFF8696B' }, { argb: 'FFFFEB84' }, { argb: 'FF63BE7B' }],
     },
   ],
 });
@@ -197,8 +187,8 @@ colourScaleWS.addConditionalFormatting({
   rules: [
     {
       type: 'colorScale',
-      cfvo: [{type: 'min'}, {type: 'max'}],
-      color: [{argb: 'FFF8696B'}, {argb: 'FFFCFCFF'}],
+      cfvo: [{ type: 'min' }, { type: 'max' }],
+      color: [{ argb: 'FFF8696B' }, { argb: 'FFFCFCFF' }],
     },
   ],
 });
@@ -215,9 +205,9 @@ arrowsWS.addConditionalFormatting({
       type: 'iconSet',
       iconSet: '3Arrows',
       cfvo: [
-        {type: 'percent', value: 0},
-        {type: 'percent', value: 33},
-        {type: 'percent', value: 66},
+        { type: 'percent', value: 0 },
+        { type: 'percent', value: 33 },
+        { type: 'percent', value: 66 },
       ],
     },
   ],
@@ -231,10 +221,10 @@ arrowsWS.addConditionalFormatting({
       type: 'iconSet',
       iconSet: '4Arrows',
       cfvo: [
-        {type: 'percent', value: 0},
-        {type: 'percent', value: 25},
-        {type: 'percent', value: 50},
-        {type: 'percent', value: 75},
+        { type: 'percent', value: 0 },
+        { type: 'percent', value: 25 },
+        { type: 'percent', value: 50 },
+        { type: 'percent', value: 75 },
       ],
     },
   ],
@@ -248,11 +238,11 @@ arrowsWS.addConditionalFormatting({
       type: 'iconSet',
       iconSet: '5Arrows',
       cfvo: [
-        {type: 'percent', value: 0},
-        {type: 'percent', value: 20},
-        {type: 'percent', value: 40},
-        {type: 'percent', value: 60},
-        {type: 'percent', value: 80},
+        { type: 'percent', value: 0 },
+        { type: 'percent', value: 20 },
+        { type: 'percent', value: 40 },
+        { type: 'percent', value: 60 },
+        { type: 'percent', value: 80 },
       ],
     },
   ],
@@ -266,10 +256,10 @@ arrowsWS.addConditionalFormatting({
       type: 'iconSet',
       iconSet: '4ArrowsGray',
       cfvo: [
-        {type: 'percent', value: 0},
-        {type: 'percent', value: 25},
-        {type: 'percent', value: 50},
-        {type: 'percent', value: 75},
+        { type: 'percent', value: 0 },
+        { type: 'percent', value: 25 },
+        { type: 'percent', value: 50 },
+        { type: 'percent', value: 75 },
       ],
     },
   ],
@@ -283,9 +273,9 @@ arrowsWS.addConditionalFormatting({
       type: 'iconSet',
       iconSet: '3TrafficLights',
       cfvo: [
-        {type: 'percent', value: 0},
-        {type: 'num', value: 'COLUMN()'},
-        {type: 'num', value: 'ROW()'},
+        { type: 'percent', value: 0 },
+        { type: 'num', value: 'COLUMN()' },
+        { type: 'num', value: 'ROW()' },
       ],
     },
   ],
@@ -303,9 +293,9 @@ shapesWS.addConditionalFormatting({
       type: 'iconSet',
       iconSet: '3TrafficLights',
       cfvo: [
-        {type: 'percent', value: 0},
-        {type: 'percent', value: 33},
-        {type: 'percent', value: 67},
+        { type: 'percent', value: 0 },
+        { type: 'percent', value: 33 },
+        { type: 'percent', value: 67 },
       ],
     },
   ],
@@ -319,11 +309,11 @@ shapesWS.addConditionalFormatting({
       type: 'iconSet',
       iconSet: '5Quarters',
       cfvo: [
-        {type: 'percent', value: 0},
-        {type: 'percent', value: 20},
-        {type: 'percent', value: 40},
-        {type: 'percent', value: 60},
-        {type: 'percent', value: 80},
+        { type: 'percent', value: 0 },
+        { type: 'percent', value: 20 },
+        { type: 'percent', value: 40 },
+        { type: 'percent', value: 60 },
+        { type: 'percent', value: 80 },
       ],
     },
   ],
@@ -338,9 +328,9 @@ shapesWS.addConditionalFormatting({
       iconSet: '3TrafficLights',
       showValue: false,
       cfvo: [
-        {type: 'percent', value: 0},
-        {type: 'percent', value: 33},
-        {type: 'percent', value: 67},
+        { type: 'percent', value: 0 },
+        { type: 'percent', value: 33 },
+        { type: 'percent', value: 67 },
       ],
     },
   ],
@@ -355,9 +345,9 @@ shapesWS.addConditionalFormatting({
       iconSet: '3TrafficLights',
       reverse: true,
       cfvo: [
-        {type: 'percent', value: 0},
-        {type: 'percent', value: 33},
-        {type: 'percent', value: 67},
+        { type: 'percent', value: 0 },
+        { type: 'percent', value: 33 },
+        { type: 'percent', value: 67 },
       ],
     },
   ],
@@ -375,9 +365,9 @@ extSshapesWS.addConditionalFormatting({
       type: 'iconSet',
       iconSet: '3Stars',
       cfvo: [
-        {type: 'percent', value: 0},
-        {type: 'percent', value: 33},
-        {type: 'percent', value: 67},
+        { type: 'percent', value: 0 },
+        { type: 'percent', value: 33 },
+        { type: 'percent', value: 67 },
       ],
     },
   ],
@@ -391,9 +381,9 @@ extSshapesWS.addConditionalFormatting({
       type: 'iconSet',
       iconSet: '3Triangles',
       cfvo: [
-        {type: 'percent', value: 0},
-        {type: 'percent', value: 33},
-        {type: 'percent', value: 67},
+        { type: 'percent', value: 0 },
+        { type: 'percent', value: 33 },
+        { type: 'percent', value: 67 },
       ],
     },
   ],
@@ -407,11 +397,11 @@ extSshapesWS.addConditionalFormatting({
       type: 'iconSet',
       iconSet: '5Boxes',
       cfvo: [
-        {type: 'percent', value: 0},
-        {type: 'percent', value: 20},
-        {type: 'percent', value: 40},
-        {type: 'percent', value: 60},
-        {type: 'percent', value: 80},
+        { type: 'percent', value: 0 },
+        { type: 'percent', value: 20 },
+        { type: 'percent', value: 40 },
+        { type: 'percent', value: 60 },
+        { type: 'percent', value: 80 },
       ],
     },
   ],
@@ -427,11 +417,11 @@ databarWS.addConditionalFormatting({
   rules: [
     {
       type: 'dataBar',
-      color: {argb: 'FFFF0000'},
+      color: { argb: 'FFFF0000' },
       gradient: true,
       cfvo: [
-        {type: 'num', value: 5},
-        {type: 'num', value: 20},
+        { type: 'num', value: 5 },
+        { type: 'num', value: 20 },
       ],
     },
   ],
@@ -443,11 +433,11 @@ databarWS.addConditionalFormatting({
   rules: [
     {
       type: 'dataBar',
-      color: {argb: 'FF00FF00'},
+      color: { argb: 'FF00FF00' },
       gradient: false,
       cfvo: [
-        {type: 'num', value: 5},
-        {type: 'num', value: 20},
+        { type: 'num', value: 5 },
+        { type: 'num', value: 20 },
       ],
     },
   ],
@@ -465,25 +455,25 @@ cellIsWS.addConditionalFormatting({
       type: 'cellIs',
       operator: 'equal',
       formulae: [13],
-      style: {font: {bold: true}},
+      style: { font: { bold: true } },
     },
     {
       type: 'cellIs',
       operator: 'greaterThan',
       formulae: [22],
-      style: {font: {italic: true}},
+      style: { font: { italic: true } },
     },
     {
       type: 'cellIs',
       operator: 'lessThan',
       formulae: [4],
-      style: {font: {underline: true}},
+      style: { font: { underline: true } },
     },
     {
       type: 'cellIs',
       operator: 'between',
       formulae: [16, 20],
-      style: {font: {strike: true}},
+      style: { font: { strike: true } },
     },
   ],
 });
@@ -501,7 +491,7 @@ containsWS.addConditionalFormatting({
       operator: 'containsText',
       text: 'sday',
       style: {
-        fill: {type: 'pattern', pattern: 'solid', bgColor: {argb: 'FF00FF00'}},
+        fill: { type: 'pattern', pattern: 'solid', bgColor: { argb: 'FF00FF00' } },
       },
     },
   ],
@@ -515,7 +505,7 @@ containsWS.addConditionalFormatting({
       type: 'containsText',
       operator: 'containsBlanks',
       style: {
-        fill: {type: 'pattern', pattern: 'solid', bgColor: {argb: 'FFFF0000'}},
+        fill: { type: 'pattern', pattern: 'solid', bgColor: { argb: 'FFFF0000' } },
       },
     },
   ],
@@ -529,7 +519,7 @@ containsWS.addConditionalFormatting({
       type: 'containsText',
       operator: 'notContainsBlanks',
       style: {
-        fill: {type: 'pattern', pattern: 'solid', bgColor: {argb: 'FF0000FF'}},
+        fill: { type: 'pattern', pattern: 'solid', bgColor: { argb: 'FF0000FF' } },
       },
     },
   ],
@@ -543,7 +533,7 @@ containsWS.addConditionalFormatting({
       type: 'containsText',
       operator: 'containsErrors',
       style: {
-        fill: {type: 'pattern', pattern: 'solid', bgColor: {argb: 'FF00FF00'}},
+        fill: { type: 'pattern', pattern: 'solid', bgColor: { argb: 'FF00FF00' } },
       },
     },
   ],
@@ -557,7 +547,7 @@ containsWS.addConditionalFormatting({
       type: 'containsText',
       operator: 'notContainsErrors',
       style: {
-        fill: {type: 'pattern', pattern: 'solid', bgColor: {argb: 'FFFF0000'}},
+        fill: { type: 'pattern', pattern: 'solid', bgColor: { argb: 'FFFF0000' } },
       },
     },
   ],
@@ -575,48 +565,48 @@ dateWS.addConditionalFormatting({
       type: 'timePeriod',
       timePeriod: 'lastWeek',
       style: {
-        fill: {type: 'pattern', pattern: 'solid', bgColor: {argb: 'FFFF0000'}},
+        fill: { type: 'pattern', pattern: 'solid', bgColor: { argb: 'FFFF0000' } },
       },
     },
     {
       type: 'timePeriod',
       timePeriod: 'thisWeek',
       style: {
-        fill: {type: 'pattern', pattern: 'solid', bgColor: {argb: 'FF00FF00'}},
+        fill: { type: 'pattern', pattern: 'solid', bgColor: { argb: 'FF00FF00' } },
       },
     },
     {
       type: 'timePeriod',
       timePeriod: 'nextWeek',
       style: {
-        fill: {type: 'pattern', pattern: 'solid', bgColor: {argb: 'FF0000FF'}},
+        fill: { type: 'pattern', pattern: 'solid', bgColor: { argb: 'FF0000FF' } },
       },
     },
     {
       type: 'timePeriod',
       timePeriod: 'yesterday',
-      style: {font: {italic: true}},
+      style: { font: { italic: true } },
     },
     {
       type: 'timePeriod',
       timePeriod: 'today',
-      style: {font: {bold: true}},
+      style: { font: { bold: true } },
     },
     {
       type: 'timePeriod',
       timePeriod: 'tomorrow',
-      style: {font: {underline: true}},
+      style: { font: { underline: true } },
     },
     {
       type: 'timePeriod',
       timePeriod: 'last7Days',
-      style: {font: {strike: true}},
+      style: { font: { strike: true } },
     },
     {
       type: 'timePeriod',
       timePeriod: 'lastMonth',
       style: {
-        fill: {type: 'pattern', pattern: 'solid', bgColor: {argb: 'FFFFFF00'}},
+        fill: { type: 'pattern', pattern: 'solid', bgColor: { argb: 'FFFFFF00' } },
       },
     },
     {
@@ -636,7 +626,7 @@ dateWS.addConditionalFormatting({
       type: 'timePeriod',
       timePeriod: 'nextMonth',
       style: {
-        fill: {type: 'pattern', pattern: 'solid', bgColor: {argb: 'FF00FFFF'}},
+        fill: { type: 'pattern', pattern: 'solid', bgColor: { argb: 'FF00FFFF' } },
       },
     },
   ],

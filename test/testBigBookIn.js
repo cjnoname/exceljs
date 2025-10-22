@@ -4,8 +4,8 @@ const ColumnSum = require('./utils/column-sum');
 
 const Excel = require('../excel');
 
-const {Workbook} = Excel;
-const {WorkbookReader} = Excel.stream.xlsx;
+const { Workbook } = Excel;
+const { WorkbookReader } = Excel.stream.xlsx;
 
 if (process.argv[2] === 'help') {
   console.log('Usage:');

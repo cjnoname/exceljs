@@ -9,9 +9,8 @@ const expectations = [
     create() {
       return new AppHeadingPairsXform();
     },
-    preparedModel: [{name: 'Sheet1'}],
-    xml:
-      '<HeadingPairs><vt:vector size="2" baseType="variant"><vt:variant><vt:lpstr>Worksheets</vt:lpstr></vt:variant><vt:variant><vt:i4>1</vt:i4></vt:variant></vt:vector></HeadingPairs>',
+    preparedModel: [{ name: 'Sheet1' }],
+    xml: '<HeadingPairs><vt:vector size="2" baseType="variant"><vt:variant><vt:lpstr>Worksheets</vt:lpstr></vt:variant><vt:variant><vt:i4>1</vt:i4></vt:variant></vt:vector></HeadingPairs>',
     tests: ['render', 'renderIn'],
   },
   {
@@ -19,9 +18,8 @@ const expectations = [
     create() {
       return new AppHeadingPairsXform();
     },
-    preparedModel: [{name: 'Sheet1'}, {name: 'Sheet2'}],
-    xml:
-      '<HeadingPairs><vt:vector size="2" baseType="variant"><vt:variant><vt:lpstr>Worksheets</vt:lpstr></vt:variant><vt:variant><vt:i4>2</vt:i4></vt:variant></vt:vector></HeadingPairs>',
+    preparedModel: [{ name: 'Sheet1' }, { name: 'Sheet2' }],
+    xml: '<HeadingPairs><vt:vector size="2" baseType="variant"><vt:variant><vt:lpstr>Worksheets</vt:lpstr></vt:variant><vt:variant><vt:i4>2</vt:i4></vt:variant></vt:vector></HeadingPairs>',
     tests: ['render', 'renderIn'],
   },
 ];

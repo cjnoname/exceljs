@@ -9,7 +9,7 @@ class BlipXform extends BaseXform {
 
   constructor() {
     super();
-    this.model = {rId: ''};
+    this.model = { rId: '' };
   }
 
   get tag(): string {

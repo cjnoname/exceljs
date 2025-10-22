@@ -133,7 +133,7 @@ class CellMatrix {
   }
 
   findSheetRow(sheet: Sheet | undefined, address: CellAddress, create: boolean): Row | undefined {
-    const {row} = address;
+    const { row } = address;
     if (sheet && sheet[row]) {
       return sheet[row];
     }
@@ -144,14 +144,12 @@ class CellMatrix {
   }
 
   findRowCell(row: Row | undefined, address: CellAddress, create: boolean): Cell | undefined {
-    const {col} = address;
+    const { col } = address;
     if (row && row[col]) {
       return row[col];
     }
     if (create) {
-      return (row![col] = this.template
-        ? Object.assign(address, JSON.parse(JSON.stringify(this.template)))
-        : address);
+      return (row![col] = this.template ? Object.assign(address, JSON.parse(JSON.stringify(this.template))) : address);
     }
     return undefined;
   }

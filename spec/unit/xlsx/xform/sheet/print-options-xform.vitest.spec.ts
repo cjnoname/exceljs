@@ -19,7 +19,7 @@ const expectations = [
     create() {
       return new PrintOptionsXform();
     },
-    preparedModel: {showGridLines: true},
+    preparedModel: { showGridLines: true },
     xml: '<printOptions gridLines="1"/>',
     parsedModel: {
       showGridLines: true,
@@ -34,7 +34,7 @@ const expectations = [
     create() {
       return new PrintOptionsXform();
     },
-    preparedModel: {showRowColHeaders: true},
+    preparedModel: { showRowColHeaders: true },
     xml: '<printOptions headings="1"/>',
     parsedModel: {
       showGridLines: false,
@@ -49,7 +49,7 @@ const expectations = [
     create() {
       return new PrintOptionsXform();
     },
-    preparedModel: {horizontalCentered: true, verticalCentered: true},
+    preparedModel: { horizontalCentered: true, verticalCentered: true },
     xml: '<printOptions horizontalCentered="1" verticalCentered="1"/>',
     parsedModel: {
       showGridLines: false,

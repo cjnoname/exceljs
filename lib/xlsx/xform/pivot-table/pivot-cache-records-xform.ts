@@ -7,7 +7,7 @@ interface CacheRecordsModel {
 }
 
 class PivotCacheRecordsXform extends BaseXform {
-  public map: {[key: string]: any};
+  public map: { [key: string]: any };
 
   constructor() {
     super();
@@ -25,7 +25,7 @@ class PivotCacheRecordsXform extends BaseXform {
   }
 
   render(xmlStream: any, model: CacheRecordsModel): void {
-    const {sourceSheet, cacheFields} = model;
+    const { sourceSheet, cacheFields } = model;
     const sourceBodyRows = sourceSheet.getSheetValues().slice(2);
 
     xmlStream.openXml(XmlStream.StdDocAttributes);

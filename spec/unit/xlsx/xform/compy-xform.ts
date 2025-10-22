@@ -13,9 +13,9 @@ interface CompyXformOptions {
 class CompyXform extends BaseXform {
   public tag: string;
   public attrs?: any;
-  public children: Array<{name: string; tag: string; xform: any}>;
-  public map: {[key: string]: {name: string; tag: string; xform: any}};
-  public parser?: {name: string; tag: string; xform: any};
+  public children: Array<{ name: string; tag: string; xform: any }>;
+  public map: { [key: string]: { name: string; tag: string; xform: any } };
+  public parser?: { name: string; tag: string; xform: any };
   declare public model: any;
 
   constructor(options: CompyXformOptions) {

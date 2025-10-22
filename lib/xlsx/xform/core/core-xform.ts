@@ -24,27 +24,27 @@ interface CoreModel {
 }
 
 class CoreXform extends BaseXform {
-  public map: {[key: string]: any};
+  public map: { [key: string]: any };
   public parser: any;
 
   constructor() {
     super();
 
     this.map = {
-      'dc:creator': new StringXform({tag: 'dc:creator'}),
-      'dc:title': new StringXform({tag: 'dc:title'}),
-      'dc:subject': new StringXform({tag: 'dc:subject'}),
-      'dc:description': new StringXform({tag: 'dc:description'}),
-      'dc:identifier': new StringXform({tag: 'dc:identifier'}),
-      'dc:language': new StringXform({tag: 'dc:language'}),
-      'cp:keywords': new StringXform({tag: 'cp:keywords'}),
-      'cp:category': new StringXform({tag: 'cp:category'}),
-      'cp:lastModifiedBy': new StringXform({tag: 'cp:lastModifiedBy'}),
-      'cp:lastPrinted': new DateXform({tag: 'cp:lastPrinted', format: CoreXform.DateFormat}),
-      'cp:revision': new IntegerXform({tag: 'cp:revision'}),
-      'cp:version': new StringXform({tag: 'cp:version'}),
-      'cp:contentStatus': new StringXform({tag: 'cp:contentStatus'}),
-      'cp:contentType': new StringXform({tag: 'cp:contentType'}),
+      'dc:creator': new StringXform({ tag: 'dc:creator' }),
+      'dc:title': new StringXform({ tag: 'dc:title' }),
+      'dc:subject': new StringXform({ tag: 'dc:subject' }),
+      'dc:description': new StringXform({ tag: 'dc:description' }),
+      'dc:identifier': new StringXform({ tag: 'dc:identifier' }),
+      'dc:language': new StringXform({ tag: 'dc:language' }),
+      'cp:keywords': new StringXform({ tag: 'cp:keywords' }),
+      'cp:category': new StringXform({ tag: 'cp:category' }),
+      'cp:lastModifiedBy': new StringXform({ tag: 'cp:lastModifiedBy' }),
+      'cp:lastPrinted': new DateXform({ tag: 'cp:lastPrinted', format: CoreXform.DateFormat }),
+      'cp:revision': new IntegerXform({ tag: 'cp:revision' }),
+      'cp:version': new StringXform({ tag: 'cp:version' }),
+      'cp:contentStatus': new StringXform({ tag: 'cp:contentStatus' }),
+      'cp:contentType': new StringXform({ tag: 'cp:contentType' }),
       'dcterms:created': new DateXform({
         tag: 'dcterms:created',
         attrs: CoreXform.DateAttrs,
@@ -145,7 +145,7 @@ class CoreXform extends BaseXform {
     return dt.toISOString().replace(/[.]\d{3}/, '');
   };
 
-  static DateAttrs = {'xsi:type': 'dcterms:W3CDTF'};
+  static DateAttrs = { 'xsi:type': 'dcterms:W3CDTF' };
 
   static CORE_PROPERTY_ATTRIBUTES = {
     'xmlns:cp': 'http://schemas.openxmlformats.org/package/2006/metadata/core-properties',

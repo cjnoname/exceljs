@@ -1,4 +1,4 @@
-import {EventEmitter} from 'events';
+import { EventEmitter } from 'events';
 import parseSax from '../../utils/parse-sax.js';
 
 import _ from '../../utils/under-dash.js';
@@ -24,11 +24,11 @@ class WorksheetReader extends EventEmitter {
   name: string;
   state?: string;
   _columns: any[] | null;
-  _keys: {[key: string]: any};
+  _keys: { [key: string]: any };
   _dimensions: any;
-  hyperlinks?: {[key: string]: any};
+  hyperlinks?: { [key: string]: any };
 
-  constructor({workbook, id, iterator, options}: WorksheetReaderOptions) {
+  constructor({ workbook, id, iterator, options }: WorksheetReaderOptions) {
     super();
 
     this.workbook = workbook;
@@ -110,7 +110,7 @@ class WorksheetReader extends EventEmitter {
   async read(): Promise<void> {
     try {
       for await (const events of this.parse()) {
-        for (const {eventType, value} of events) {
+        for (const { eventType, value } of events) {
           this.emit(eventType, value);
         }
       }
@@ -122,7 +122,7 @@ class WorksheetReader extends EventEmitter {
 
   async *[Symbol.asyncIterator](): AsyncIterableIterator<any> {
     for await (const events of this.parse()) {
-      for (const {eventType, value} of events) {
+      for (const { eventType, value } of events) {
         if (eventType === 'row') {
           yield value;
         }
@@ -130,11 +130,11 @@ class WorksheetReader extends EventEmitter {
     }
   }
 
-  async *parse(): AsyncIterableIterator<Array<{eventType: string; value: any}>> {
-    const {iterator, options} = this;
+  async *parse(): AsyncIterableIterator<Array<{ eventType: string; value: any }>> {
+    const { iterator, options } = this;
     let emitSheet = false;
     let emitHyperlinks = false;
-    let hyperlinks: {[key: string]: any} | null = null;
+    let hyperlinks: { [key: string]: any } | null = null;
     switch (options.worksheets) {
       case 'emit':
         emitSheet = true;
@@ -159,7 +159,7 @@ class WorksheetReader extends EventEmitter {
     }
 
     // references
-    const {sharedStrings, styles, properties} = this.workbook;
+    const { sharedStrings, styles, properties } = this.workbook;
 
     // xml position
     let inCols = false;
@@ -172,8 +172,8 @@ class WorksheetReader extends EventEmitter {
     let c: any = null;
     let current: any = null;
     for await (const events of parseSax(iterator)) {
-      const worksheetEvents: Array<{eventType: string; value: any}> = [];
-      for (const {eventType, value} of events) {
+      const worksheetEvents: Array<{ eventType: string; value: any }> = [];
+      for (const { eventType, value } of events) {
         if (eventType === 'opentag') {
           const node = value;
           if (emitSheet) {
@@ -224,18 +224,18 @@ class WorksheetReader extends EventEmitter {
                 break;
               case 'f':
                 if (c) {
-                  current = c.f = {text: ''};
+                  current = c.f = { text: '' };
                 }
                 break;
               case 'v':
                 if (c) {
-                  current = c.v = {text: ''};
+                  current = c.v = { text: '' };
                 }
                 break;
               case 'is':
               case 't':
                 if (c) {
-                  current = c.v = {text: ''};
+                  current = c.v = { text: '' };
                 }
                 break;
               case 'mergeCell':
@@ -259,7 +259,7 @@ class WorksheetReader extends EventEmitter {
                     rId: node.attributes['r:id'],
                   };
                   if (emitHyperlinks) {
-                    worksheetEvents.push({eventType: 'hyperlink', value: hyperlink});
+                    worksheetEvents.push({ eventType: 'hyperlink', value: hyperlink });
                   } else {
                     hyperlinks![hyperlink.ref] = hyperlink;
                   }
@@ -290,7 +290,7 @@ class WorksheetReader extends EventEmitter {
 
               case 'row':
                 this._dimensions.expandRow(row);
-                worksheetEvents.push({eventType: 'row', value: row});
+                worksheetEvents.push({ eventType: 'row', value: row });
                 row = null;
                 break;
 
@@ -337,7 +337,7 @@ class WorksheetReader extends EventEmitter {
                         break;
 
                       case 'e':
-                        cell.value = {error: c.v.text};
+                        cell.value = { error: c.v.text };
                         break;
 
                       case 'b':

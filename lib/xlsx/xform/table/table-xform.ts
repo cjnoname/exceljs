@@ -20,7 +20,7 @@ interface TableModel {
 }
 
 class TableXform extends BaseXform {
-  public map: {[key: string]: any};
+  public map: { [key: string]: any };
   public parser: any;
   public model: TableModel;
 
@@ -79,7 +79,7 @@ class TableXform extends BaseXform {
       this.parser.parseOpen(node);
       return true;
     }
-    const {name, attributes} = node;
+    const { name, attributes } = node;
     switch (name) {
       case this.tag:
         this.reset();

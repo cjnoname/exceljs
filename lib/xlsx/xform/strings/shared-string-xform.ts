@@ -10,10 +10,10 @@ import BaseXform from '../base-xform.js';
 //   <t></t>
 // </si>
 
-type SharedStringModel = string | {richText: any[]};
+type SharedStringModel = string | { richText: any[] };
 
 class SharedStringXform extends BaseXform {
-  public map: {[key: string]: any};
+  public map: { [key: string]: any };
   public parser: any;
 
   constructor(model?: SharedStringModel) {
@@ -49,7 +49,7 @@ class SharedStringXform extends BaseXform {
   }
 
   parseOpen(node: any): boolean {
-    const {name} = node;
+    const { name } = node;
     if (this.parser) {
       this.parser.parseOpen(node);
       return true;

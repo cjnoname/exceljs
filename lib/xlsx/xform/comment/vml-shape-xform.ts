@@ -13,7 +13,7 @@ interface ShapeModel {
 }
 
 class VmlShapeXform extends BaseXform {
-  public map: {[key: string]: any};
+  public map: { [key: string]: any };
   public parser: any;
   public model: any;
 
@@ -32,9 +32,9 @@ class VmlShapeXform extends BaseXform {
   render(xmlStream: any, model: ShapeModel, index?: number): void {
     xmlStream.openNode('v:shape', VmlShapeXform.V_SHAPE_ATTRIBUTES(model, index || 0));
 
-    xmlStream.leafNode('v:fill', {color2: 'infoBackground [80]'});
-    xmlStream.leafNode('v:shadow', {color: 'none [81]', obscured: 't'});
-    xmlStream.leafNode('v:path', {'o:connecttype': 'none'});
+    xmlStream.leafNode('v:fill', { color2: 'infoBackground [80]' });
+    xmlStream.leafNode('v:shadow', { color: 'none [81]', obscured: 't' });
+    xmlStream.leafNode('v:path', { 'o:connecttype': 'none' });
     this.map['v:textbox'].render(xmlStream, model);
     this.map['x:ClientData'].render(xmlStream, model);
 
@@ -85,8 +85,7 @@ class VmlShapeXform extends BaseXform {
     switch (name) {
       case this.tag:
         this.model.margins.inset = this.map['v:textbox'].model && this.map['v:textbox'].model.inset;
-        this.model.protection =
-          this.map['x:ClientData'].model && this.map['x:ClientData'].model.protection;
+        this.model.protection = this.map['x:ClientData'].model && this.map['x:ClientData'].model.protection;
         this.model.anchor = this.map['x:ClientData'].model && this.map['x:ClientData'].model.anchor;
         this.model.editAs = this.map['x:ClientData'].model && this.map['x:ClientData'].model.editAs;
         return false;

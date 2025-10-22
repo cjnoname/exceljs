@@ -19,7 +19,7 @@ const expectations = [
     create() {
       return new WorkbookCalcPropertiesXform();
     },
-    preparedModel: {fullCalcOnLoad: true},
+    preparedModel: { fullCalcOnLoad: true },
     xml: '<calcPr calcId="171027" fullCalcOnLoad="1"/>',
     parsedModel: {},
     tests: ['render', 'renderIn', 'parse'],

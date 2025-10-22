@@ -70,9 +70,7 @@ const testUtils = {
     const options = getOptions(docType);
     sheets = sheets || ['values'];
 
-    workbook.views = [
-      {x: 1, y: 2, width: 10000, height: 20000, firstSheet: 0, activeTab: 0},
-    ];
+    workbook.views = [{ x: 1, y: 2, width: 10000, height: 20000, firstSheet: 0, activeTab: 0 }];
 
     sheets.forEach(sheet => {
       const testSheet = _.get(testSheets, sheet);

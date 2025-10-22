@@ -81,7 +81,7 @@ class Image {
     }
   }
 
-  set model({type, imageId, range, hyperlinks}: ModelInput) {
+  set model({ type, imageId, range, hyperlinks }: ModelInput) {
     this.type = type;
     this.imageId = imageId;
 
@@ -89,8 +89,8 @@ class Image {
       if (typeof range === 'string') {
         const decoded = colCache.decode(range) as any;
         this.range = {
-          tl: new Anchor(this.worksheet, {col: decoded.left, row: decoded.top}, -1),
-          br: new Anchor(this.worksheet, {col: decoded.right, row: decoded.bottom}, 0),
+          tl: new Anchor(this.worksheet, { col: decoded.left, row: decoded.top }, -1),
+          br: new Anchor(this.worksheet, { col: decoded.right, row: decoded.bottom }, 0),
           editAs: 'oneCell',
         };
       } else {

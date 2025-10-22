@@ -9,9 +9,8 @@ const expectations = [
     create() {
       return new AppTitlesOfPartsXform();
     },
-    preparedModel: [{name: 'Sheet1'}],
-    xml:
-      '<TitlesOfParts><vt:vector size="1" baseType="lpstr"><vt:lpstr>Sheet1</vt:lpstr></vt:vector></TitlesOfParts>',
+    preparedModel: [{ name: 'Sheet1' }],
+    xml: '<TitlesOfParts><vt:vector size="1" baseType="lpstr"><vt:lpstr>Sheet1</vt:lpstr></vt:vector></TitlesOfParts>',
     tests: ['render', 'renderIn'],
   },
   {
@@ -19,9 +18,8 @@ const expectations = [
     create() {
       return new AppTitlesOfPartsXform();
     },
-    preparedModel: [{name: 'Sheet1'}, {name: 'Sheet2'}],
-    xml:
-      '<TitlesOfParts><vt:vector size="2" baseType="lpstr"><vt:lpstr>Sheet1</vt:lpstr><vt:lpstr>Sheet2</vt:lpstr></vt:vector></TitlesOfParts>',
+    preparedModel: [{ name: 'Sheet1' }, { name: 'Sheet2' }],
+    xml: '<TitlesOfParts><vt:vector size="2" baseType="lpstr"><vt:lpstr>Sheet1</vt:lpstr><vt:lpstr>Sheet2</vt:lpstr></vt:vector></TitlesOfParts>',
     tests: ['render', 'renderIn'],
   },
 ];

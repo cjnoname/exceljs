@@ -21,20 +21,17 @@ const expectations = [
     },
     preparedModel: {
       algorithmName: 'SHA-512',
-      hashValue:
-        'RHtx1KpAYT7nBzGCTInkHrbf2wTZxP3BT4Eo8PBHPTM4KfKArJTluFvizDvo6GnBCOO6JJu7qwKvMqnKHs7dcw==',
+      hashValue: 'RHtx1KpAYT7nBzGCTInkHrbf2wTZxP3BT4Eo8PBHPTM4KfKArJTluFvizDvo6GnBCOO6JJu7qwKvMqnKHs7dcw==',
       saltValue: '6tC6yotbNa8JaMaDvbUgxw==',
       spinCount: 100000,
       sheet: true,
       objects: false,
       scenarios: false,
     },
-    xml:
-      '<sheetProtection algorithmName="SHA-512" hashValue="RHtx1KpAYT7nBzGCTInkHrbf2wTZxP3BT4Eo8PBHPTM4KfKArJTluFvizDvo6GnBCOO6JJu7qwKvMqnKHs7dcw==" saltValue="6tC6yotbNa8JaMaDvbUgxw==" spinCount="100000" sheet="1" objects="1" scenarios="1"/>',
+    xml: '<sheetProtection algorithmName="SHA-512" hashValue="RHtx1KpAYT7nBzGCTInkHrbf2wTZxP3BT4Eo8PBHPTM4KfKArJTluFvizDvo6GnBCOO6JJu7qwKvMqnKHs7dcw==" saltValue="6tC6yotbNa8JaMaDvbUgxw==" spinCount="100000" sheet="1" objects="1" scenarios="1"/>',
     parsedModel: {
       algorithmName: 'SHA-512',
-      hashValue:
-        'RHtx1KpAYT7nBzGCTInkHrbf2wTZxP3BT4Eo8PBHPTM4KfKArJTluFvizDvo6GnBCOO6JJu7qwKvMqnKHs7dcw==',
+      hashValue: 'RHtx1KpAYT7nBzGCTInkHrbf2wTZxP3BT4Eo8PBHPTM4KfKArJTluFvizDvo6GnBCOO6JJu7qwKvMqnKHs7dcw==',
       saltValue: '6tC6yotbNa8JaMaDvbUgxw==',
       spinCount: 100000,
       sheet: true,
@@ -66,20 +63,17 @@ const expectations = [
     },
     preparedModel: {
       algorithmName: 'SHA-512',
-      hashValue:
-        'RHtx1KpAYT7nBzGCTInkHrbf2wTZxP3BT4Eo8PBHPTM4KfKArJTluFvizDvo6GnBCOO6JJu7qwKvMqnKHs7dcw==',
+      hashValue: 'RHtx1KpAYT7nBzGCTInkHrbf2wTZxP3BT4Eo8PBHPTM4KfKArJTluFvizDvo6GnBCOO6JJu7qwKvMqnKHs7dcw==',
       saltValue: '6tC6yotbNa8JaMaDvbUgxw==',
       spinCount: 100000,
       sheet: true,
       selectLockedCells: false,
       selectUnlockedCells: false,
     },
-    xml:
-      '<sheetProtection algorithmName="SHA-512" hashValue="RHtx1KpAYT7nBzGCTInkHrbf2wTZxP3BT4Eo8PBHPTM4KfKArJTluFvizDvo6GnBCOO6JJu7qwKvMqnKHs7dcw==" saltValue="6tC6yotbNa8JaMaDvbUgxw==" spinCount="100000" sheet="1" selectLockedCells="1" selectUnlockedCells="1"/>',
+    xml: '<sheetProtection algorithmName="SHA-512" hashValue="RHtx1KpAYT7nBzGCTInkHrbf2wTZxP3BT4Eo8PBHPTM4KfKArJTluFvizDvo6GnBCOO6JJu7qwKvMqnKHs7dcw==" saltValue="6tC6yotbNa8JaMaDvbUgxw==" spinCount="100000" sheet="1" selectLockedCells="1" selectUnlockedCells="1"/>',
     parsedModel: {
       algorithmName: 'SHA-512',
-      hashValue:
-        'RHtx1KpAYT7nBzGCTInkHrbf2wTZxP3BT4Eo8PBHPTM4KfKArJTluFvizDvo6GnBCOO6JJu7qwKvMqnKHs7dcw==',
+      hashValue: 'RHtx1KpAYT7nBzGCTInkHrbf2wTZxP3BT4Eo8PBHPTM4KfKArJTluFvizDvo6GnBCOO6JJu7qwKvMqnKHs7dcw==',
       saltValue: '6tC6yotbNa8JaMaDvbUgxw==',
       spinCount: 100000,
       sheet: true,

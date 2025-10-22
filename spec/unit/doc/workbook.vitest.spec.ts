@@ -38,7 +38,7 @@ function createSimpleWorkbook() {
   };
 
   // number formula
-  ws.getCell('A2').value = {formula: 'A1', result: 7};
+  ws.getCell('A2').value = { formula: 'A1', result: 7 };
   ws.getCell('A2').name = 'TheFormula';
 
   // string formula
@@ -49,8 +49,8 @@ function createSimpleWorkbook() {
   ws.getCell('B2').name = 'TheFormula';
 
   // date formula
-  ws.getCell('C2').value = {formula: 'D1', result: new Date()};
-  ws.getCell('C3').value = {formula: 'D1'};
+  ws.getCell('C2').value = { formula: 'D1', result: new Date() };
+  ws.getCell('C3').value = { formula: 'D1' };
 
   return wb;
 }
@@ -104,7 +104,7 @@ describe('Workbook', () => {
         {
           font: {
             size: 12,
-            color: {theme: 0},
+            color: { theme: 0 },
             name: 'Calibri',
             family: 2,
             scheme: 'minor',
@@ -115,7 +115,7 @@ describe('Workbook', () => {
           font: {
             italic: true,
             size: 12,
-            color: {theme: 0},
+            color: { theme: 0 },
             name: 'Calibri',
             scheme: 'minor',
           },
@@ -124,7 +124,7 @@ describe('Workbook', () => {
         {
           font: {
             size: 12,
-            color: {theme: 1},
+            color: { theme: 1 },
             name: 'Calibri',
             family: 2,
             scheme: 'minor',
@@ -134,7 +134,7 @@ describe('Workbook', () => {
         {
           font: {
             size: 12,
-            color: {argb: 'FFFF6600'},
+            color: { argb: 'FFFF6600' },
             name: 'Calibri',
             scheme: 'minor',
           },
@@ -143,7 +143,7 @@ describe('Workbook', () => {
         {
           font: {
             size: 12,
-            color: {theme: 1},
+            color: { theme: 1 },
             name: 'Calibri',
             family: 2,
             scheme: 'minor',
@@ -153,7 +153,7 @@ describe('Workbook', () => {
         {
           font: {
             size: 12,
-            color: {argb: 'FFCCFFCC'},
+            color: { argb: 'FFCCFFCC' },
             name: 'Calibri',
             scheme: 'minor',
           },
@@ -162,7 +162,7 @@ describe('Workbook', () => {
         {
           font: {
             size: 12,
-            color: {theme: 1},
+            color: { theme: 1 },
             name: 'Calibri',
             family: 2,
             scheme: 'minor',
@@ -173,7 +173,7 @@ describe('Workbook', () => {
           font: {
             bold: true,
             size: 12,
-            color: {theme: 1},
+            color: { theme: 1 },
             name: 'Calibri',
             family: 2,
             scheme: 'minor',
@@ -183,9 +183,7 @@ describe('Workbook', () => {
       ],
     };
 
-    expect(ws.getCell('A1').text).toBe(
-      'This is a colorful text with in-cell format'
-    );
+    expect(ws.getCell('A1').text).toBe('This is a colorful text with in-cell format');
     expect(ws.getCell('A1').type).toBe(Enums.ValueType.RichText);
   });
 
@@ -233,8 +231,7 @@ describe('Workbook', () => {
       ws.getCell('A2').value = '2.1';
       ws.getCell('A2').alignment = styles.namedAlignments.topLeft;
       ws.getCell('B2').value = '2.2';
-      ws.getCell('B2').alignment =
-        styles.namedAlignments.middleCentre;
+      ws.getCell('B2').alignment = styles.namedAlignments.middleCentre;
       ws.getCell('C2').value = '2.3';
       ws.getCell('C2').alignment = styles.namedAlignments.bottomRight;
       ws.getRow(2).numFmt = styles.numFmts.numFmt2;
@@ -246,25 +243,13 @@ describe('Workbook', () => {
       expect(ws.getRow(4).values).toEqual([, '2.1', '2.2', '2.3']);
 
       for (let i = 1; i <= 3; i++) {
-        expect(ws.getCell(`A${i}`).font).toEqual(
-          styles.fonts.arialBlackUI14
-        );
-        expect(ws.getCell(`B${i}`).font).toEqual(
-          styles.fonts.comicSansUdB16
-        );
-        expect(ws.getCell(`C${i}`).fill).toEqual(
-          styles.fills.redDarkVertical
-        );
+        expect(ws.getCell(`A${i}`).font).toEqual(styles.fonts.arialBlackUI14);
+        expect(ws.getCell(`B${i}`).font).toEqual(styles.fonts.comicSansUdB16);
+        expect(ws.getCell(`C${i}`).fill).toEqual(styles.fills.redDarkVertical);
       }
-      expect(ws.getCell('A4').alignment).toEqual(
-        styles.namedAlignments.topLeft
-      );
-      expect(ws.getCell('B4').alignment).toEqual(
-        styles.namedAlignments.middleCentre
-      );
-      expect(ws.getCell('C4').alignment).toEqual(
-        styles.namedAlignments.bottomRight
-      );
+      expect(ws.getCell('A4').alignment).toEqual(styles.namedAlignments.topLeft);
+      expect(ws.getCell('B4').alignment).toEqual(styles.namedAlignments.middleCentre);
+      expect(ws.getCell('C4').alignment).toEqual(styles.namedAlignments.bottomRight);
 
       expect(ws.getRow(1).numFmt).toBe(styles.numFmts.numFmt1);
       expect(ws.getRow(2).numFmt).toBe(styles.numFmts.numFmt1);
@@ -286,8 +271,7 @@ describe('Workbook', () => {
       ws.getCell('A2').value = '2.1';
       ws.getCell('A2').alignment = styles.namedAlignments.topLeft;
       ws.getCell('B2').value = '2.2';
-      ws.getCell('B2').alignment =
-        styles.namedAlignments.middleCentre;
+      ws.getCell('B2').alignment = styles.namedAlignments.middleCentre;
       ws.getCell('C2').value = '2.3';
       ws.getCell('C2').alignment = styles.namedAlignments.bottomRight;
       ws.getRow(2).numFmt = styles.numFmts.numFmt2;
@@ -306,26 +290,18 @@ describe('Workbook', () => {
       expect(ws.getRow(3).values).toEqual([, '3.1', '3.2', '3.3']);
 
       for (let i = 1; i <= 2; i++) {
-        expect(ws.getCell(`A${i}`).font).toEqual(
-          styles.fonts.arialBlackUI14
-        );
+        expect(ws.getCell(`A${i}`).font).toEqual(styles.fonts.arialBlackUI14);
         expect(ws.getCell(`A${i}`).alignment).toBeUndefined();
-        expect(ws.getCell(`B${i}`).font).toEqual(
-          styles.fonts.comicSansUdB16
-        );
+        expect(ws.getCell(`B${i}`).font).toEqual(styles.fonts.comicSansUdB16);
         expect(ws.getCell(`B${i}`).alignment).toBeUndefined();
-        expect(ws.getCell(`C${i}`).fill).toEqual(
-          styles.fills.redDarkVertical
-        );
+        expect(ws.getCell(`C${i}`).fill).toEqual(styles.fills.redDarkVertical);
         expect(ws.getCell(`C${i}`).alignment).toBeUndefined();
       }
 
       expect(ws.getRow(1).numFmt).toBe(styles.numFmts.numFmt1);
       expect(ws.getRow(2).numFmt).toBe(styles.numFmts.numFmt1);
       expect(ws.getRow(3).numFmt).toBeUndefined();
-      expect(ws.getRow(3).font).toEqual(
-        styles.fonts.broadwayRedOutline20
-      );
+      expect(ws.getRow(3).font).toEqual(styles.fonts.broadwayRedOutline20);
     });
   });
 });

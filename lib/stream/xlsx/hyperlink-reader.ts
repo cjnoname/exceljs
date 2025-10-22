@@ -1,4 +1,4 @@
-import {EventEmitter} from 'events';
+import { EventEmitter } from 'events';
 import parseSax from '../../utils/parse-sax.js';
 
 import Enums from '../../doc/enums.js';
@@ -23,9 +23,9 @@ class HyperlinkReader extends EventEmitter {
   id: number;
   iterator: any;
   options: any;
-  hyperlinks?: {[key: string]: Hyperlink};
+  hyperlinks?: { [key: string]: Hyperlink };
 
-  constructor({workbook, id, iterator, options}: HyperlinkReaderOptions) {
+  constructor({ workbook, id, iterator, options }: HyperlinkReaderOptions) {
     super();
 
     this.workbook = workbook;
@@ -47,9 +47,9 @@ class HyperlinkReader extends EventEmitter {
   }
 
   async read(): Promise<void> {
-    const {iterator, options} = this;
+    const { iterator, options } = this;
     let emitHyperlinks = false;
-    let hyperlinks: {[key: string]: Hyperlink} | null = null;
+    let hyperlinks: { [key: string]: Hyperlink } | null = null;
     switch (options.hyperlinks) {
       case 'emit':
         emitHyperlinks = true;
@@ -68,7 +68,7 @@ class HyperlinkReader extends EventEmitter {
 
     try {
       for await (const events of parseSax(iterator)) {
-        for (const {eventType, value} of events) {
+        for (const { eventType, value } of events) {
           if (eventType === 'opentag') {
             const node = value;
             if (node.name === 'Relationship') {
