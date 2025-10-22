@@ -46,10 +46,9 @@ async function* parseSax(iterable: any): AsyncGenerator<SaxEvent[]> {
   }, {
     xmlMode: true,
     decodeEntities: true,
-    // 性能优化选项
-    recognizeSelfClosing: true,  // 识别自闭合标签，减少事件
-    lowerCaseAttributeNames: false,  // XML 区分大小写，不需要转小写
-    lowerCaseTags: false  // XML 区分大小写，不需要转小写
+    recognizeSelfClosing: true,  
+    lowerCaseAttributeNames: false, 
+    lowerCaseTags: false 
   });
   
   for await (const chunk of iterable) {
