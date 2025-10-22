@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import Excel from '../../../lib/index.js';
+import Excel from '../../../index.js';
 
 describe('Worksheet', () => {
   describe('Shared Formulae', () => {

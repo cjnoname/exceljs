@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeAll, afterAll, beforeEach, afterEach } from 'vitest';
-import ExcelJS from '../../../lib/index.js';
+import ExcelJS from '../../../index.js';
 import fs from 'fs';
 
 describe('github issues: Date field with cache style', () => {

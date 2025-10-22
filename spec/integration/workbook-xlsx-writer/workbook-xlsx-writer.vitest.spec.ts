@@ -4,7 +4,7 @@ import { promisify } from 'util';
 
 import testUtils from '../../utils/index';
 
-import ExcelJS from '../../../lib/index.js';
+import ExcelJS from '../../../index.js';
 
 const TEST_XLSX_FILE_NAME = './spec/out/wb-xlsx-writer.test.xlsx';
 const IMAGE_FILENAME = `${__dirname}/../data/image.png`;

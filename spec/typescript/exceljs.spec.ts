@@ -1,6 +1,6 @@
 import 'regenerator-runtime/runtime';
 
-import { Workbook } from '../../lib/index';
+import { Workbook } from '../../index';
 
 describe('typescript', () => {
   it('can create and buffer xlsx', async () => {

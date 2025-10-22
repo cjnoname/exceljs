@@ -1,9 +1,9 @@
 // Core exports - shared by all environments
-import Workbook from './doc/workbook.js';
-import ModelContainer from './doc/modelcontainer.js';
-import WorkbookWriter from './stream/xlsx/workbook-writer.js';
-import WorkbookReader from './stream/xlsx/workbook-reader.js';
-import Enums from './doc/enums.js';
+import Workbook from './lib/doc/workbook.js';
+import ModelContainer from './lib/doc/modelcontainer.js';
+import WorkbookWriter from './lib/stream/xlsx/workbook-writer.js';
+import WorkbookReader from './lib/stream/xlsx/workbook-reader.js';
+import Enums from './lib/doc/enums.js';
 
 const stream = {
   xlsx: {
@@ -22,4 +22,4 @@ Object.assign(ExcelJS, Enums);
 
 export default ExcelJS;
 export { Workbook, ModelContainer, WorkbookWriter, WorkbookReader, stream };
-export * from './doc/enums.js';
+export * from './lib/doc/enums.js';

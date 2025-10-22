@@ -3,7 +3,7 @@ import path from 'path';
 
 import testutils from '../utils/index';
 
-import { ValueType, Workbook } from '../../lib/index.js';
+import { ValueType, Workbook } from '../../index.js';
 import Range from '../../lib/doc/range.js';
 
 describe('Worksheet', () => {

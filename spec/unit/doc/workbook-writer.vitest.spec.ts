@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import Stream from 'stream';
-import Excel from '../../../lib/index.js';
+import Excel from '../../../index.js';
 
 describe('Workbook Writer', () => {
   it('returns undefined for non-existant sheet', () => {

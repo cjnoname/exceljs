@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import ExcelJS from '../../../lib/index.js';
+import ExcelJS from '../../../index.js';
 
 // this file to contain integration tests created from github issues
 const TEST_XLSX_FILE_NAME = './spec/out/issue-703.test.xlsx';

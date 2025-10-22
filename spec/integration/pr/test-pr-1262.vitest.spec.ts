@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import ExcelJS from '../../../lib/index.js';
+import ExcelJS from '../../../index.js';
 
 describe('github issues', () => {
   it('pull request 1262 - protect should work with streaming workbook writer', async () => {

@@ -1,7 +1,7 @@
 /* eslint-disable no-sparse-arrays */
 import { describe, it, expect } from 'vitest';
 import { styles } from '../../utils/vitest-utils.js';
-import Excel from '../../../lib/index.js';
+import Excel from '../../../index.js';
 import Enums from '../../../lib/doc/enums.js';
 
 // =============================================================================
