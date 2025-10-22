@@ -58,6 +58,7 @@
     "benchmark": "node --expose-gc benchmark.js",
     "build:types": "tsgo",
     "build:bundle": "rolldown -c rolldown.config.js",
+    "analyze": "ANALYZE=1 rolldown -c rolldown.config.js",
     "install-build": "npm install && npm run build",
     "prepublishOnly": "npm run clean && npm run build",
     "preversion": "npm run clean && npm run build && npm run test:version",

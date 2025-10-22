@@ -10,11 +10,17 @@ const browserPolyfills = {
   vm: false,
 };
 
-const getPlugins = (_minify = false) => {
-  const plugins = [];
-
-  return plugins;
-};
+const createAnalyzePlugin = (filename, open = false) =>
+  process.env.ANALYZE
+    ? [
+        visualizer({
+          filename,
+          open,
+          gzipSize: true,
+          brotliSize: true,
+        }),
+      ]
+    : [];
 
 export default defineConfig([
   // Browser: exceljs.iife.js (for development/debugging with <script> tag)
@@ -39,7 +45,6 @@ export default defineConfig([
       },
     },
     plugins: [
-      ...getPlugins(false),
       {
         name: 'copy-license',
         writeBundle() {
@@ -49,6 +54,7 @@ export default defineConfig([
           fs.copyFileSync('./LICENSE', './dist/LICENSE');
         },
       },
+      ...createAnalyzePlugin('./dist/stats-iife.html'),
     ],
   },
   // Browser: exceljs.iife.min.js (for production with <script> tag)
@@ -73,7 +79,7 @@ export default defineConfig([
         process: 'process',
       },
     },
-    plugins: getPlugins(true),
+    plugins: createAnalyzePlugin('./dist/stats-iife-min.html'),
   },
   // Browser: exceljs.browser.mjs (ESM for modern bundlers like Webpack/Vite)
   {
@@ -94,7 +100,7 @@ export default defineConfig([
         process: 'process',
       },
     },
-    plugins: getPlugins(false),
+    plugins: createAnalyzePlugin('./dist/stats-browser.html'),
   },
   // Node.js: exceljs.node.cjs (CJS bundle for CommonJS projects)
   {
@@ -108,7 +114,7 @@ export default defineConfig([
       banner,
       exports: 'named',
     },
-    plugins: getPlugins(false),
+    plugins: createAnalyzePlugin('./dist/stats-node-cjs.html'),
   },
   // Node.js: exceljs.node.mjs (ESM bundle for ES modules projects)
   {
@@ -121,14 +127,6 @@ export default defineConfig([
       sourcemap: true,
       banner,
     },
-    plugins: [
-      ...getPlugins(false),
-      visualizer({
-        filename: './dist/stats.html',
-        open: true,
-        gzipSize: true,
-        brotliSize: true,
-      }),
-    ],
+    plugins: createAnalyzePlugin('./dist/stats-node-esm.html', true),
   },
 ]);
