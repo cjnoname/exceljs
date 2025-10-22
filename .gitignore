@@ -19,7 +19,6 @@ lib/**/*.js.map
 !lib/exceljs.nodejs.js
 !lib/exceljs.browser.js
 !lib/exceljs.bare.js
-!rollup.config.js
 !benchmark.js
 !vitest.*.js
 
