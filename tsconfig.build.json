@@ -1,0 +1,16 @@
+{
+  "extends": "./tsconfig.json",
+  "include": ["src/**/*"],
+  "exclude": [
+    "node_modules",
+    "**/*.d.ts",
+    "**/*.spec.ts",
+    "**/*.test.ts",
+    "spec",
+    "test",
+    "vitest.config.ts",
+    "vitest.browser.config.ts",
+    "rolldown.config.js",
+    "benchmark.js"
+  ]
+}

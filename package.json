@@ -56,7 +56,7 @@
     "format": "prettier --write \"**/*.{js,ts,json,md}\"",
     "lint:staged": "lint-staged",
     "benchmark": "node --expose-gc benchmark.js",
-    "build:types": "tsgo",
+    "build:types": "tsgo --project tsconfig.build.json",
     "build:bundle": "rolldown -c rolldown.config.js",
     "analyze": "ANALYZE=1 rolldown -c rolldown.config.js",
     "install-build": "npm install && npm run build",
