@@ -115,13 +115,16 @@ class WorkbookWriter {
     // The original implementation used archiver which consumed the stream internally
     // Now we need to manually pipe data to fflate
     
-    // Pipe stream data to zipFile
-    stream.on('data', (chunk: Buffer) => {
+    // Pipe stream data to zipFile with cleanup
+    const onData = (chunk: Buffer) => {
       zipFile.push(chunk);
-    });
+    };
     
-    // Use once for automatic cleanup
+    stream.on('data', onData);
+    
+    // Use once for automatic cleanup and also clean up data listener
     stream.once('finish', () => {
+      stream.removeListener('data', onData);
       zipFile.push(new Uint8Array(0), true); // Signal end
       stream.emit('zipped');
     });
@@ -152,7 +155,8 @@ class WorkbookWriter {
     const commitWorksheet = function(worksheet: any): Promise<void> {
       if (!worksheet.committed) {
         return new Promise(resolve => {
-          worksheet.stream.on('zipped', () => {
+          // Use once to automatically clean up listener
+          worksheet.stream.once('zipped', () => {
             resolve();
           });
           worksheet.commit();
@@ -414,10 +418,19 @@ class WorkbookWriter {
 
   _finalize(): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.stream.on('error', reject);
-      this.stream.on('finish', () => {
+      const onError = (err: Error) => {
+        this.stream.removeListener('finish', onFinish);
+        reject(err);
+      };
+      
+      const onFinish = () => {
+        this.stream.removeListener('error', onError);
         resolve(this);
-      });
+      };
+      
+      this.stream.once('error', onError);
+      this.stream.once('finish', onFinish);
+      
       // fflate Zip doesn't have 'error' event or 'finalize' method
       // Just end the zip by calling end()
       this.zip.end();

@@ -189,7 +189,10 @@ class XLSX {
       const name = filename.substr(0, lastDot);
       await new Promise<void>((resolve, reject) => {
         const streamBuf = new StreamBuf();
-        streamBuf.on('finish', () => {
+        
+        const onFinish = () => {
+          stream.removeListener('error', onError);
+          streamBuf.removeListener('error', onError);
           model.mediaIndex[filename] = model.media.length;
           model.mediaIndex[name] = model.media.length;
           const medium = {
@@ -200,10 +203,18 @@ class XLSX {
           };
           model.media.push(medium);
           resolve();
-        });
-        stream.on('error', (error: Error) => {
+        };
+        
+        const onError = (error: Error) => {
+          streamBuf.removeListener('finish', onFinish);
+          stream.removeListener('error', onError);
+          streamBuf.removeListener('error', onError);
           reject(error);
-        });
+        };
+        
+        streamBuf.once('finish', onFinish);
+        stream.on('error', onError);
+        streamBuf.on('error', onError);
         stream.pipe(streamBuf);
       });
     }
@@ -231,12 +242,24 @@ class XLSX {
     await new Promise<void>((resolve, reject) => {
       // TODO: stream entry into buffer and store the xml in the model.themes[]
       const streamBuf = new StreamBuf();
-      stream.on('error', reject);
-      streamBuf.on('error', reject);
-      streamBuf.on('finish', () => {
+      
+      const onFinish = () => {
+        stream.removeListener('error', onError);
+        streamBuf.removeListener('error', onError);
         model.themes[name] = streamBuf.read().toString();
         resolve();
-      });
+      };
+      
+      const onError = (err: Error) => {
+        streamBuf.removeListener('finish', onFinish);
+        stream.removeListener('error', onError);
+        streamBuf.removeListener('error', onError);
+        reject(err);
+      };
+      
+      streamBuf.once('finish', onFinish);
+      stream.on('error', onError);
+      streamBuf.on('error', onError);
       stream.pipe(streamBuf);
     });
   }
@@ -250,8 +273,15 @@ class XLSX {
       let zipEnded = false;
       let filesStarted = 0;
       
+      const cleanup = () => {
+        stream.removeListener('data', onData);
+        stream.removeListener('end', onEnd);
+        stream.removeListener('error', onError);
+      };
+      
       const checkCompletion = () => {
         if (zipEnded && filesProcessed === filesStarted) {
+          cleanup();
           resolve();
         }
       };
@@ -263,6 +293,7 @@ class XLSX {
         
         file.ondata = (err, data, final) => {
           if (err) {
+            cleanup();
             reject(err);
             return;
           }
@@ -295,17 +326,24 @@ class XLSX {
       
       unzipper.register(UnzipInflate);
       
-      stream.on('data', (chunk: Buffer) => {
+      const onData = (chunk: Buffer) => {
         unzipper.push(chunk);
-      });
+      };
       
-      stream.on('end', () => {
+      const onEnd = () => {
         unzipper.push(new Uint8Array(0), true);
         zipEnded = true;
         checkCompletion();
-      });
+      };
       
-      stream.on('error', reject);
+      const onError = (err: Error) => {
+        cleanup();
+        reject(err);
+      };
+      
+      stream.on('data', onData);
+      stream.on('end', onEnd);
+      stream.on('error', onError);
     });
 
     return this.loadFromFiles(allFiles, options);
@@ -782,18 +820,26 @@ class XLSX {
     const stream = fs.createWriteStream(filename);
 
     return new Promise((resolve, reject) => {
-      stream.on('finish', () => {
+      const onFinish = () => {
+        stream.removeListener('error', onError);
         resolve();
-      });
-      stream.on('error', (error: Error) => {
+      };
+      
+      const onError = (error: Error) => {
+        stream.removeListener('finish', onFinish);
         reject(error);
-      });
+      };
+      
+      stream.once('finish', onFinish);
+      stream.on('error', onError);
 
       this.write(stream, options)
         .then(() => {
           stream.end();
         })
         .catch(err => {
+          stream.removeListener('finish', onFinish);
+          stream.removeListener('error', onError);
           reject(err);
         });
     });

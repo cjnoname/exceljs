@@ -106,15 +106,33 @@ class CSV {
           return datum;
         };
 
-      const csvStream = parse(options.parserOptions)
-        .on('data', (data: any[]) => {
-          worksheet.addRow(data.map(map));
-        })
-        .on('end', () => {
-          csvStream.emit('worksheet', worksheet);
-        });
+      const onData = (data: any[]) => {
+        worksheet.addRow(data.map(map));
+      };
+      
+      const onEnd = () => {
+        csvStream.emit('worksheet', worksheet);
+      };
+      
+      const onWorksheet = (ws: any) => {
+        csvStream.removeListener('data', onData);
+        csvStream.removeListener('end', onEnd);
+        csvStream.removeListener('error', onError);
+        resolve(ws);
+      };
+      
+      const onError = (err: Error) => {
+        csvStream.removeListener('data', onData);
+        csvStream.removeListener('end', onEnd);
+        csvStream.removeListener('worksheet', onWorksheet);
+        reject(err);
+      };
 
-      csvStream.on('worksheet', resolve).on('error', reject);
+      const csvStream = parse(options.parserOptions)
+        .on('data', onData)
+        .on('end', onEnd);
+
+      csvStream.once('worksheet', onWorksheet).on('error', onError);
 
       stream.pipe(csvStream);
     });
@@ -130,10 +148,19 @@ class CSV {
       const worksheet = this.workbook.getWorksheet(options.sheetName || options.sheetId);
 
       const csvStream = format(options.formatterOptions);
-      stream.on('finish', () => {
+      
+      const onFinish = () => {
+        csvStream.removeListener('error', onError);
         resolve();
-      });
-      csvStream.on('error', reject);
+      };
+      
+      const onError = (err: Error) => {
+        stream.removeListener('finish', onFinish);
+        reject(err);
+      };
+      
+      stream.once('finish', onFinish);
+      csvStream.on('error', onError);
       csvStream.pipe(stream);
 
       const {dateFormat, dateUTC} = options;

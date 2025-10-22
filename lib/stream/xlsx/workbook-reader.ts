@@ -160,18 +160,29 @@ class WorkbookReader extends EventEmitter {
       // Register deflate decompressor (compression type 8)
       unzipper.register(UnzipInflate);
       
-      // Stream chunks directly to unzipper without buffering entire file
-      stream.on('data', (chunk: Buffer) => {
+      // Define event handlers
+      const onData = (chunk: Buffer) => {
         unzipper.push(chunk);
-      });
+      };
       
-      stream.on('end', () => {
+      const onEnd = () => {
         unzipper.push(new Uint8Array(0), true);
         zipEnded = true;
         checkCompletion();
-      });
+      };
       
-      stream.on('error', reject);
+      const onError = (err: Error) => {
+        // Clean up listeners on error
+        stream.removeListener('data', onData);
+        stream.removeListener('end', onEnd);
+        stream.removeListener('error', onError);
+        reject(err);
+      };
+      
+      // Stream chunks directly to unzipper without buffering entire file
+      stream.on('data', onData);
+      stream.on('end', onEnd);
+      stream.on('error', onError);
     });
 
     // worksheets, deferred for parsing after shared strings reading
@@ -237,8 +248,19 @@ class WorkbookReader extends EventEmitter {
                   waitingWorkSheets.push({sheetNo, path: tmpPath, tempFileCleanupCallback});
 
                   const tempStream = fs.createWriteStream(tmpPath);
-                  tempStream.on('error', reject);
-                  tempStream.on('finish', resolve);
+                  
+                  const onFinish = () => {
+                    tempStream.removeListener('error', onError);
+                    resolve();
+                  };
+                  
+                  const onError = (err: Error) => {
+                    tempStream.removeListener('finish', onFinish);
+                    reject(err);
+                  };
+                  
+                  tempStream.once('finish', onFinish);
+                  tempStream.on('error', onError);
                   // data is already a Uint8Array, no need to convert
                   tempStream.write(data);
                   tempStream.end();
