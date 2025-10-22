@@ -3,7 +3,7 @@ import fs from 'fs';
 
 import testutils from '../utils/index';
 
-import ExcelJS, { ValueType, Workbook } from '../../index.js';
+import ExcelJS, { ValueType, Workbook } from '../../lib/index.js';
 
 const TEST_FILE_NAME = './spec/out/wb-xlsx-reader.test.xlsx';
 

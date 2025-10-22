@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeAll, afterAll, beforeEach, afterEach } from 'vitest';
-import ExcelJS from '../../../index.js';
+import ExcelJS from '../../../lib/index.js';
 
 const TEST_CSV_FILE_NAME = './spec/out/issue-995-encoding.test.csv';
 const HEBREW_TEST_STRING = 'משהו שכתוב בעברית';

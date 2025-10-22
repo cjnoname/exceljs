@@ -2,7 +2,7 @@ import tools from './tools';
 import testValuesJson from './data/sheet-values.json' with { type: 'json' };
 const testValues = tools.fix(testValuesJson);
 import utils from '../../lib/utils/utils.js';
-import { stream, ValueType } from '../../index.js';
+import { stream, ValueType } from '../../lib/index.js';
 
 function fillFormula(f) {
   return Object.assign({ formula: undefined }, f);

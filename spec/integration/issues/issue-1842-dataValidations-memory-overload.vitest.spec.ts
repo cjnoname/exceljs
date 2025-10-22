@@ -2,7 +2,7 @@ import { describe, it, expect, beforeAll, afterAll, beforeEach, afterEach } from
 import { join } from 'path';
 import { readFileSync } from 'fs';
 
-import ExcelJS from '../../../index.js';
+import ExcelJS from '../../../lib/index.js';
 
 const fileName = './spec/integration/data/test-issue-1842.xlsx';
 

@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeAll, afterAll, beforeEach, afterEach } from 'vitest';
-import ExcelJS from '../../../index.js';
+import ExcelJS from '../../../lib/index.js';
 
 describe('github issues', () => {
   describe('issue 539 - <contentType /> element', () => {

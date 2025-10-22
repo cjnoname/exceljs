@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeAll, afterAll, beforeEach, afterEach } from 'vitest';
-import ExcelJS from '../../../index.js';
+import ExcelJS from '../../../lib/index.js';
 
 describe('github issues', () => {
   it('pull request 1220 - The worksheet should not be undefined', async () => {

@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeAll, afterAll, beforeEach, afterEach } from 'vitest';
 import testutils from '../utils/index';
 
-import ExcelJS, { stream, ValueType } from '../../index.js';
+import ExcelJS, { stream, ValueType } from '../../lib/index.js';
 
 const CONCATENATE_HELLO_WORLD = 'CONCATENATE("Hello", ", ", "World!")';
 
