@@ -37,7 +37,6 @@ interface StyleIndex {
 // StylesXform is used to generate and parse the styles.xml file
 // it manages the collections of fonts, number formats, alignments, etc
 class StylesXform extends BaseXform {
-  public map: { [key: string]: any };
   public index?: StyleIndex;
   public weakMap?: WeakMap<any, number>;
   public parser: any;
