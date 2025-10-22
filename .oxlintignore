@@ -2,3 +2,6 @@ build
 dist
 out
 spec/manual/public/
+node_modules
+*.min.js
+*.map
