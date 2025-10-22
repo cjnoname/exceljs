@@ -10,24 +10,34 @@ interface Readable extends EventEmitter {
 
 async function* iterateStream(stream: Readable): AsyncGenerator<any> {
   const contents: any[] = [];
+  let resolveDataPromise: (() => void) | null = null;
   
-  const onData = (data: any) => contents.push(data);
+  const onData = (data: any) => {
+    contents.push(data);
+    if (resolveDataPromise) {
+      resolveDataPromise();
+      resolveDataPromise = null;
+    }
+  };
   stream.on('data', onData);
-
-  let resolveStreamEndedPromise: () => void;
-  const streamEndedPromise = new Promise<void>(resolve => (resolveStreamEndedPromise = resolve));
 
   let ended = false;
   const onEnd = () => {
     ended = true;
-    resolveStreamEndedPromise!();
+    if (resolveDataPromise) {
+      resolveDataPromise();
+      resolveDataPromise = null;
+    }
   };
   stream.on('end', onEnd);
 
   let error: Error | false = false;
   const onError = (err: Error) => {
     error = err;
-    resolveStreamEndedPromise!();
+    if (resolveDataPromise) {
+      resolveDataPromise();
+      resolveDataPromise = null;
+    }
   };
   stream.on('error', onError);
 
@@ -36,7 +46,9 @@ async function* iterateStream(stream: Readable): AsyncGenerator<any> {
       if (contents.length === 0) {
         stream.resume();
         // eslint-disable-next-line no-await-in-loop
-        await Promise.race([once(stream, 'data'), streamEndedPromise]);
+        await new Promise<void>(resolve => {
+          resolveDataPromise = resolve;
+        });
       } else {
         stream.pause();
         const data = contents.shift();
@@ -49,23 +61,7 @@ async function* iterateStream(stream: Readable): AsyncGenerator<any> {
     stream.removeListener('data', onData);
     stream.removeListener('end', onEnd);
     stream.removeListener('error', onError);
-    resolveStreamEndedPromise!();
   }
-}
-
-function once(eventEmitter: EventEmitter, type: string): Promise<void> {
-  // TODO: Use require('events').once when node v10 is dropped
-  return new Promise(resolve => {
-    let fired = false;
-    const handler = () => {
-      if (!fired) {
-        fired = true;
-        eventEmitter.removeListener(type, handler);
-        resolve();
-      }
-    };
-    eventEmitter.addListener(type, handler);
-  });
 }
 
 export default iterateStream;

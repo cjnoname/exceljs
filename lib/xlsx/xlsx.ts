@@ -190,9 +190,14 @@ class XLSX {
       await new Promise<void>((resolve, reject) => {
         const streamBuf = new StreamBuf();
         
-        const onFinish = () => {
+        const cleanup = () => {
           stream.removeListener('error', onError);
           streamBuf.removeListener('error', onError);
+          streamBuf.removeListener('finish', onFinish);
+        };
+        
+        const onFinish = () => {
+          cleanup();
           model.mediaIndex[filename] = model.media.length;
           model.mediaIndex[name] = model.media.length;
           const medium = {
@@ -206,9 +211,7 @@ class XLSX {
         };
         
         const onError = (error: Error) => {
-          streamBuf.removeListener('finish', onFinish);
-          stream.removeListener('error', onError);
-          streamBuf.removeListener('error', onError);
+          cleanup();
           reject(error);
         };
         
@@ -243,17 +246,20 @@ class XLSX {
       // TODO: stream entry into buffer and store the xml in the model.themes[]
       const streamBuf = new StreamBuf();
       
-      const onFinish = () => {
+      const cleanup = () => {
         stream.removeListener('error', onError);
         streamBuf.removeListener('error', onError);
+        streamBuf.removeListener('finish', onFinish);
+      };
+      
+      const onFinish = () => {
+        cleanup();
         model.themes[name] = streamBuf.read().toString();
         resolve();
       };
       
       const onError = (err: Error) => {
-        streamBuf.removeListener('finish', onFinish);
-        stream.removeListener('error', onError);
-        streamBuf.removeListener('error', onError);
+        cleanup();
         reject(err);
       };
       
@@ -820,13 +826,18 @@ class XLSX {
     const stream = fs.createWriteStream(filename);
 
     return new Promise((resolve, reject) => {
-      const onFinish = () => {
+      const cleanup = () => {
+        stream.removeListener('finish', onFinish);
         stream.removeListener('error', onError);
+      };
+      
+      const onFinish = () => {
+        cleanup();
         resolve();
       };
       
       const onError = (error: Error) => {
-        stream.removeListener('finish', onFinish);
+        cleanup();
         reject(error);
       };
       
@@ -838,8 +849,7 @@ class XLSX {
           stream.end();
         })
         .catch(err => {
-          stream.removeListener('finish', onFinish);
-          stream.removeListener('error', onError);
+          cleanup();
           reject(err);
         });
     });

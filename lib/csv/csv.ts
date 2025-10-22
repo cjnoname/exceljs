@@ -119,17 +119,20 @@ class CSV {
         csvStream.emit('worksheet', worksheet);
       };
       
-      const onWorksheet = (ws: any) => {
+      const cleanup = () => {
         csvStream.removeListener('data', onData);
         csvStream.removeListener('end', onEnd);
+        csvStream.removeListener('worksheet', onWorksheet);
         csvStream.removeListener('error', onError);
+      };
+      
+      const onWorksheet = (ws: any) => {
+        cleanup();
         resolve(ws);
       };
       
       const onError = (err: Error) => {
-        csvStream.removeListener('data', onData);
-        csvStream.removeListener('end', onEnd);
-        csvStream.removeListener('worksheet', onWorksheet);
+        cleanup();
         reject(err);
       };
 
@@ -154,13 +157,18 @@ class CSV {
 
       const csvStream = format(options.formatterOptions);
       
-      const onFinish = () => {
+      const cleanup = () => {
+        stream.removeListener('finish', onFinish);
         csvStream.removeListener('error', onError);
+      };
+      
+      const onFinish = () => {
+        cleanup();
         resolve();
       };
       
       const onError = (err: Error) => {
-        stream.removeListener('finish', onFinish);
+        cleanup();
         reject(err);
       };
       
