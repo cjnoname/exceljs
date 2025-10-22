@@ -58,8 +58,7 @@
     "format": "prettier --write \"**/*.{js,ts,json,md}\"",
     "lint:staged": "lint-staged",
     "clean": "rm -rf build/ && rm -rf dist",
-    "benchmark": "node --expose-gc benchmark",
-    "benchmark:debug": "node --expose-gc --inspect-brk --trace-deopt benchmark",
+    "benchmark": "node --expose-gc --import @oxc-node/core/register benchmark.ts",
     "build:types": "tsgo",
     "build:bundle": "rolldown -c rolldown.config.js",
     "build": "npm run build:types && npm run build:bundle",
@@ -113,6 +112,7 @@
     "uuid": "^13.0.0"
   },
   "devDependencies": {
+    "@oxc-node/core": "^0.0.32",
     "@types/node": "^24.9.1",
     "@typescript/native-preview": "^7.0.0-dev.20251021.1",
     "@vitest/browser": "^3.2.4",
