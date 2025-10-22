@@ -22,7 +22,10 @@
   "exports": {
     ".": {
       "types": "./dist/types/index.d.ts",
-      "browser": "./lib/exceljs.browser.js",
+      "browser": {
+        "import": "./dist/exceljs.esm.js",
+        "default": "./dist/exceljs.esm.js"
+      },
       "import": "./dist/esm/index.js",
       "require": "./dist/cjs/index.js",
       "default": "./dist/esm/index.js"
