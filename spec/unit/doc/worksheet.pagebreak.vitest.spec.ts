@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import Excel from '../../../lib/exceljs.nodejs.js';
+import Excel from '../../../index.js';
 
 describe('Worksheet', () => {
   describe('Page Breaks', () => {

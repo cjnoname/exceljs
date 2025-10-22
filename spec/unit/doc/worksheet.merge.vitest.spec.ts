@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { styles } from '../../utils/vitest-utils.js';
-import Excel from '../../../lib/exceljs.nodejs.js';
+import Excel from '../../../index.js';
 import Dimensions from '../../../lib/doc/range.js';
 import Enums from '../../../lib/doc/enums.js';
 

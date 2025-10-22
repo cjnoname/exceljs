@@ -13,7 +13,6 @@ export default defineConfig({
     },
   },
   optimizeDeps: {
-    exclude: ['@aws-sdk/client-s3'], // Exclude AWS SDK
     include: ['buffer'],
   },
   define: {

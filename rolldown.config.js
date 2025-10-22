@@ -19,7 +19,7 @@ const getPlugins = (_minify = false) => {
 export default defineConfig([
   // Browser: exceljs.js (for development/debugging with <script> tag)
   {
-    input: './lib/exceljs.bare.ts',
+    input: './index.ts',
     output: {
       file: './dist/exceljs.js',
       format: 'iife',
@@ -52,7 +52,7 @@ export default defineConfig([
   },
   // Browser: exceljs.min.js (for production with <script> tag)
   {
-    input: './lib/exceljs.bare.ts',
+    input: './index.ts',
     output: {
       file: './dist/exceljs.min.js',
       format: 'iife',
@@ -75,7 +75,7 @@ export default defineConfig([
   },
   // Browser: exceljs.esm.js (ESM for modern bundlers like Webpack/Vite)
   {
-    input: './lib/exceljs.browser.ts',
+    input: './index.ts',
     output: {
       file: './dist/exceljs.esm.js',
       format: 'esm',
@@ -95,7 +95,7 @@ export default defineConfig([
   },
   // Node.js: CJS bundle for CommonJS projects
   {
-    input: './lib/exceljs.nodejs.ts',
+    input: './index.ts',
     platform: 'node',
     output: {
       file: './dist/cjs/index.js',
@@ -108,7 +108,7 @@ export default defineConfig([
   },
   // Node.js: ESM bundle for ES modules projects
   {
-    input: './lib/exceljs.nodejs.ts',
+    input: './index.ts',
     platform: 'node',
     output: {
       file: './dist/esm/index.js',
