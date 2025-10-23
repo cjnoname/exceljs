@@ -3,7 +3,6 @@ import BaseXform from '../base-xform.js';
 import RelationshipXform from './relationship-xform.js';
 
 class RelationshipsXform extends BaseXform {
-  public map: { Relationship: RelationshipXform };
   public parser: any;
   private _values?: any[];
 
