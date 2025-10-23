@@ -1,170 +1,337 @@
-# ExcelJS
+# ExcelTS# ExcelJS
 
-[![Build Status](https://github.com/exceljs/exceljs/actions/workflows/tests.yml/badge.svg?branch=master&event=push)](https://github.com/exceljs/exceljs/actions/workflows/tests.yml)
 
-Read, manipulate and write spreadsheet data and styles to XLSX and JSON.
 
-Reverse engineered from Excel spreadsheet files as a project.
+[![Build Status](https://github.com/cjnoname/exceljs/actions/workflows/tests.yml/badge.svg?branch=master&event=push)](https://github.com/cjnoname/exceljs/actions/workflows/tests.yml)[![Build Status](https://github.com/exceljs/exceljs/actions/workflows/tests.yml/badge.svg?branch=master&event=push)](https://github.com/exceljs/exceljs/actions/workflows/tests.yml)
 
-# Translations
 
-- [中文文档](README_zh.md)
 
-# Installation
+Modern TypeScript Excel Workbook Manager - Read, manipulate and write spreadsheet data and styles to XLSX and JSON.Read, manipulate and write spreadsheet data and styles to XLSX and JSON.
 
-```shell
-npm install exceljs
+
+
+## About This ProjectReverse engineered from Excel spreadsheet files as a project.
+
+
+
+ExcelTS is a modernized fork of [ExcelJS](https://github.com/exceljs/exceljs) with:# Translations
+
+
+
+- ✅ **Full TypeScript Support** - Complete type definitions and modern TypeScript patterns- [中文文档](README_zh.md)
+
+- ✅ **Updated Dependencies** - All dependencies upgraded to latest stable versions
+
+- ✅ **Modern Build System** - Using Rolldown for faster builds# Installation
+
+- ✅ **Enhanced Testing** - Migrated to Vitest with browser testing support
+
+- ✅ **ESM First** - Native ES Module support with CommonJS compatibility```shell
+
+- ✅ **Node 20+** - Optimized for modern Node.js versionsnpm install exceljs
+
 ```
+
+## Translations
 
 # New Features!
 
-- Merged [Add pivot table with limitations #2551](https://github.com/exceljs/exceljs/pull/2551). <br/> Many thanks to Protobi and <a href="https://github.com/mikez">Michael</a> for this contribution!
-- Merged [fix: styles rendering in case when "numFmt" is present in conditional formatting rules (resolves #1814) #1815](https://github.com/exceljs/exceljs/pull/1815). <br/> Many thanks to [@andreykrupskii](https://github.com/andreykrupskii) for this contribution!
-- Merged [inlineStr cell type support #1575 #1576](https://github.com/exceljs/exceljs/pull/1576). <br/> Many thanks to [@drdmitry](https://github.com/drdmitry) for this contribution!
-- Merged [Fix parsing of boolean attributes #1849](https://github.com/exceljs/exceljs/pull/1849). <br/> Many thanks to [@bno1](https://github.com/bno1) for this contribution!
-- Merged [add optional custom auto-filter to table #1670](https://github.com/exceljs/exceljs/pull/1670). <br/> Many thanks to [@thambley](https://github.com/thambley) for this contribution!
-- Merged [Deep copy inherited style #1850](https://github.com/exceljs/exceljs/pull/1850). <br/> Many thanks to [@ikzhr](https://github.com/ikzhr) for this contribution!
-- Merged [Upgrade actions/cache and actions/setup-node #1846](https://github.com/exceljs/exceljs/pull/1846). <br/> Many thanks to [@cclauss](https://github.com/cclauss) for this contribution!
-- Merged [Check object keys in isEqual #1831](https://github.com/exceljs/exceljs/pull/1831). <br/> Many thanks to [@bno1](https://github.com/bno1) for this contribution!
-- Merged [Add v17 to testing workflow #1856](https://github.com/exceljs/exceljs/pull/1856). <br/> Many thanks to [@Siemienik](https://github.com/Siemienik) for this contribution!
-- Merged [Upgrade jszip to its latest version to date. This version does not have any vulnerability found by Snyk so far #1895](https://github.com/exceljs/exceljs/pull/1895). <br/> Many thanks to [@ValerioSevilla](https://github.com/ValerioSevilla) for this contribution!
-- Merged [Update README.md #1677](https://github.com/exceljs/exceljs/pull/1677). <br/> Many thanks to [@xjrcode](https://github.com/xjrcode) for this contribution!
-- Merged [(docs): set prototype of RegExp correctly. #1700](https://github.com/exceljs/exceljs/pull/1700). <br/> Many thanks to [@joeldenning](https://github.com/joeldenning) for this contribution!
-- Merged [Added timeouts to github actions #1733](https://github.com/exceljs/exceljs/pull/1733). <br/> Many thanks to [@alexbjorlig](https://github.com/alexbjorlig) for this contribution!
-- Merged [fix issue 1676 #1701](https://github.com/exceljs/exceljs/pull/1701). <br/> Many thanks to [@skypesky](https://github.com/skypesky) for this contribution!
-- Merged [ExcelJS/ExcelJS#2237 : Update CI Tests, Drop support for Node v8 #2242](https://github.com/exceljs/exceljs/pull/2242). <br/> Many thanks to [@Siemienik](https://github.com/Siemienik) for this contribution!
-- Merged [Fix types for getWorksheet() #2223](https://github.com/exceljs/exceljs/pull/2223). <br/> Many thanks to [@hfhchan-plb](https://github.com/hfhchan-plb) for this contribution!
-- Merged [add characters cannot be used for worksheet name #2126](https://github.com/exceljs/exceljs/pull/2126). <br/> Many thanks to [@tkm-kj](https://github.com/tkm-kj) for this contribution!
-- Merged [Fix issue #1753 Reject promise when workbook reader is writing to temporary file stream and error occurs #1756](https://github.com/exceljs/exceljs/pull/1756). <br/> Many thanks to [@pauliusg](https://github.com/pauliusg) for this contribution!
-- Merged [README.md to have correct link for Streaming XLSX #2186](https://github.com/exceljs/exceljs/pull/2186). <br/> Many thanks to [@wulfsolter](https://github.com/wulfsolter) for this contribution!
-- Merged [Added a polyfill of promise.finally to support lower versions of Firefox. #1982](https://github.com/exceljs/exceljs/pull/1982). <br/> Many thanks to [@DemoJj](https://github.com/DemoJj) for this contribution!
-- Merged [Fix read this.worksheet before assign it #1934](https://github.com/exceljs/exceljs/pull/1934). <br/> Many thanks to [@ZyqGitHub1](https://github.com/ZyqGitHub1) for this contribution!
-- Merged [chore: upgrade jszip to ^3.10.1 #2211](https://github.com/exceljs/exceljs/pull/2211). <br/> Many thanks to [@jarrod-cocoon](https://github.com/jarrod-cocoon) for this contribution!
-- Merged [fixed spelling error in README.md file #2208](https://github.com/exceljs/exceljs/pull/2208). <br/> Many thanks to [@HugoP27](https://github.com/HugoP27) for this contribution!
-- Merged [fix: Fix xlsx.writeFile() not catching error when error occurs #2244](https://github.com/exceljs/exceljs/pull/2244). <br/> Many thanks to [@zurmokeeper](https://github.com/zurmokeeper) for this contribution!
-- Merged [Improve worksheets' naming validation logic. #2257](https://github.com/exceljs/exceljs/pull/2257). <br/> Many thanks to [@Siemienik](https://github.com/Siemienik) for this contribution!
-- Merged [fix issue 2125 - spliceRows remove last row #2140](https://github.com/exceljs/exceljs/pull/2140). <br/> Many thanks to [@babu-ch](https://github.com/babu-ch) for this contribution!
-- Merged [fix: fix the loss of column attributes due to incorrect column order #2222](https://github.com/exceljs/exceljs/pull/2222). <br/> Many thanks to [@cpaiyueyue](https://github.com/cpaiyueyue) for this contribution!
-- Merged [Fix: Sheet Properties Types #2327](https://github.com/exceljs/exceljs/pull/2327). <br/> Many thanks to [@albeniraouf](https://github.com/albeniraouf) for this contribution!
-- Merged [Use node 18 LTS for tsc, and benchmark. Add node 20. to test matrix. … #2354](https://github.com/exceljs/exceljs/pull/2354). <br/> Many thanks to [@Siemienik](https://github.com/Siemienik) for this contribution!
-- Merged [Add missing tooltip attribute to CellHyperlinkValue index.d.ts #2350](https://github.com/exceljs/exceljs/pull/2350). <br/> Many thanks to [@NiklasPor](https://github.com/NiklasPor) for this contribution!
-- Merged [Increase resilience to generating large workbooks #2320](https://github.com/exceljs/exceljs/pull/2320). <br/> Many thanks to [@hfhchan-plb](https://github.com/hfhchan-plb) for this contribution!
-- Merged [repair all 'c2fo.io' links ('c2fo.github.io') #2324](https://github.com/exceljs/exceljs/pull/2324). <br/> Many thanks to [@justintunev7](https://github.com/justintunev7) for this contribution!
-- Merged [fix: fix type definitions about last column, formula values and protection #2309](https://github.com/exceljs/exceljs/pull/2309). <br/> Many thanks to [@gltjk](https://github.com/gltjk) for this contribution!
-- Merged [fix: add spinCount field for WorksheetProtection type #2284](https://github.com/exceljs/exceljs/pull/2284). <br/> Many thanks to [@damingerdai](https://github.com/damingerdai) for this contribution!
-- Merged [Add type definition for WorksheetModel.merges #2281](https://github.com/exceljs/exceljs/pull/2281). <br/> Many thanks to [@ytjmt](https://github.com/ytjmt) for this contribution!
+- [中文文档](README_zh.md)
 
-# Contributions
+- Merged [Add pivot table with limitations #2551](https://github.com/exceljs/exceljs/pull/2551). <br/> Many thanks to Protobi and <a href="https://github.com/mikez">Michael</a> for this contribution!
+
+## Installation- Merged [fix: styles rendering in case when "numFmt" is present in conditional formatting rules (resolves #1814) #1815](https://github.com/exceljs/exceljs/pull/1815). <br/> Many thanks to [@andreykrupskii](https://github.com/andreykrupskii) for this contribution!
+
+- Merged [inlineStr cell type support #1575 #1576](https://github.com/exceljs/exceljs/pull/1576). <br/> Many thanks to [@drdmitry](https://github.com/drdmitry) for this contribution!
+
+```shell- Merged [Fix parsing of boolean attributes #1849](https://github.com/exceljs/exceljs/pull/1849). <br/> Many thanks to [@bno1](https://github.com/bno1) for this contribution!
+
+npm install excelts- Merged [add optional custom auto-filter to table #1670](https://github.com/exceljs/exceljs/pull/1670). <br/> Many thanks to [@thambley](https://github.com/thambley) for this contribution!
+
+```- Merged [Deep copy inherited style #1850](https://github.com/exceljs/exceljs/pull/1850). <br/> Many thanks to [@ikzhr](https://github.com/ikzhr) for this contribution!
+
+- Merged [Upgrade actions/cache and actions/setup-node #1846](https://github.com/exceljs/exceljs/pull/1846). <br/> Many thanks to [@cclauss](https://github.com/cclauss) for this contribution!
+
+```shell- Merged [Check object keys in isEqual #1831](https://github.com/exceljs/exceljs/pull/1831). <br/> Many thanks to [@bno1](https://github.com/bno1) for this contribution!
+
+pnpm add excelts- Merged [Add v17 to testing workflow #1856](https://github.com/exceljs/exceljs/pull/1856). <br/> Many thanks to [@Siemienik](https://github.com/Siemienik) for this contribution!
+
+```- Merged [Upgrade jszip to its latest version to date. This version does not have any vulnerability found by Snyk so far #1895](https://github.com/exceljs/exceljs/pull/1895). <br/> Many thanks to [@ValerioSevilla](https://github.com/ValerioSevilla) for this contribution!
+
+- Merged [Update README.md #1677](https://github.com/exceljs/exceljs/pull/1677). <br/> Many thanks to [@xjrcode](https://github.com/xjrcode) for this contribution!
+
+```shell- Merged [(docs): set prototype of RegExp correctly. #1700](https://github.com/exceljs/exceljs/pull/1700). <br/> Many thanks to [@joeldenning](https://github.com/joeldenning) for this contribution!
+
+yarn add excelts- Merged [Added timeouts to github actions #1733](https://github.com/exceljs/exceljs/pull/1733). <br/> Many thanks to [@alexbjorlig](https://github.com/alexbjorlig) for this contribution!
+
+```- Merged [fix issue 1676 #1701](https://github.com/exceljs/exceljs/pull/1701). <br/> Many thanks to [@skypesky](https://github.com/skypesky) for this contribution!
+
+- Merged [ExcelJS/ExcelJS#2237 : Update CI Tests, Drop support for Node v8 #2242](https://github.com/exceljs/exceljs/pull/2242). <br/> Many thanks to [@Siemienik](https://github.com/Siemienik) for this contribution!
+
+## Quick Start- Merged [Fix types for getWorksheet() #2223](https://github.com/exceljs/exceljs/pull/2223). <br/> Many thanks to [@hfhchan-plb](https://github.com/hfhchan-plb) for this contribution!
+
+- Merged [add characters cannot be used for worksheet name #2126](https://github.com/exceljs/exceljs/pull/2126). <br/> Many thanks to [@tkm-kj](https://github.com/tkm-kj) for this contribution!
+
+### Creating a Workbook- Merged [Fix issue #1753 Reject promise when workbook reader is writing to temporary file stream and error occurs #1756](https://github.com/exceljs/exceljs/pull/1756). <br/> Many thanks to [@pauliusg](https://github.com/pauliusg) for this contribution!
+
+- Merged [README.md to have correct link for Streaming XLSX #2186](https://github.com/exceljs/exceljs/pull/2186). <br/> Many thanks to [@wulfsolter](https://github.com/wulfsolter) for this contribution!
+
+```javascript- Merged [Added a polyfill of promise.finally to support lower versions of Firefox. #1982](https://github.com/exceljs/exceljs/pull/1982). <br/> Many thanks to [@DemoJj](https://github.com/DemoJj) for this contribution!
+
+import { Workbook } from 'excelts';- Merged [Fix read this.worksheet before assign it #1934](https://github.com/exceljs/exceljs/pull/1934). <br/> Many thanks to [@ZyqGitHub1](https://github.com/ZyqGitHub1) for this contribution!
+
+- Merged [chore: upgrade jszip to ^3.10.1 #2211](https://github.com/exceljs/exceljs/pull/2211). <br/> Many thanks to [@jarrod-cocoon](https://github.com/jarrod-cocoon) for this contribution!
+
+const workbook = new Workbook();- Merged [fixed spelling error in README.md file #2208](https://github.com/exceljs/exceljs/pull/2208). <br/> Many thanks to [@HugoP27](https://github.com/HugoP27) for this contribution!
+
+const sheet = workbook.addWorksheet('My Sheet');- Merged [fix: Fix xlsx.writeFile() not catching error when error occurs #2244](https://github.com/exceljs/exceljs/pull/2244). <br/> Many thanks to [@zurmokeeper](https://github.com/zurmokeeper) for this contribution!
+
+- Merged [Improve worksheets' naming validation logic. #2257](https://github.com/exceljs/exceljs/pull/2257). <br/> Many thanks to [@Siemienik](https://github.com/Siemienik) for this contribution!
+
+// Add data- Merged [fix issue 2125 - spliceRows remove last row #2140](https://github.com/exceljs/exceljs/pull/2140). <br/> Many thanks to [@babu-ch](https://github.com/babu-ch) for this contribution!
+
+sheet.addRow(['Name', 'Age', 'Email']);- Merged [fix: fix the loss of column attributes due to incorrect column order #2222](https://github.com/exceljs/exceljs/pull/2222). <br/> Many thanks to [@cpaiyueyue](https://github.com/cpaiyueyue) for this contribution!
+
+sheet.addRow(['John Doe', 30, 'john@example.com']);- Merged [Fix: Sheet Properties Types #2327](https://github.com/exceljs/exceljs/pull/2327). <br/> Many thanks to [@albeniraouf](https://github.com/albeniraouf) for this contribution!
+
+sheet.addRow(['Jane Smith', 25, 'jane@example.com']);- Merged [Use node 18 LTS for tsc, and benchmark. Add node 20. to test matrix. … #2354](https://github.com/exceljs/exceljs/pull/2354). <br/> Many thanks to [@Siemienik](https://github.com/Siemienik) for this contribution!
+
+- Merged [Add missing tooltip attribute to CellHyperlinkValue index.d.ts #2350](https://github.com/exceljs/exceljs/pull/2350). <br/> Many thanks to [@NiklasPor](https://github.com/NiklasPor) for this contribution!
+
+// Save to file- Merged [Increase resilience to generating large workbooks #2320](https://github.com/exceljs/exceljs/pull/2320). <br/> Many thanks to [@hfhchan-plb](https://github.com/hfhchan-plb) for this contribution!
+
+await workbook.xlsx.writeFile('output.xlsx');- Merged [repair all 'c2fo.io' links ('c2fo.github.io') #2324](https://github.com/exceljs/exceljs/pull/2324). <br/> Many thanks to [@justintunev7](https://github.com/justintunev7) for this contribution!
+
+```- Merged [fix: fix type definitions about last column, formula values and protection #2309](https://github.com/exceljs/exceljs/pull/2309). <br/> Many thanks to [@gltjk](https://github.com/gltjk) for this contribution!
+
+- Merged [fix: add spinCount field for WorksheetProtection type #2284](https://github.com/exceljs/exceljs/pull/2284). <br/> Many thanks to [@damingerdai](https://github.com/damingerdai) for this contribution!
+
+### Reading a Workbook- Merged [Add type definition for WorksheetModel.merges #2281](https://github.com/exceljs/exceljs/pull/2281). <br/> Many thanks to [@ytjmt](https://github.com/ytjmt) for this contribution!
+
+
+
+```javascript# Contributions
+
+import { Workbook } from 'excelts';
 
 Contributions are very welcome! It helps me know what features are desired or what bugs are causing the most pain.
 
-I have just one request; If you submit a pull request for a bugfix, please add a unit-test or integration-test (in the spec folder) that catches the problem.
+const workbook = new Workbook();
+
+await workbook.xlsx.readFile('input.xlsx');I have just one request; If you submit a pull request for a bugfix, please add a unit-test or integration-test (in the spec folder) that catches the problem.
+
 Even a PR that just has a failing test is fine - I can analyse what the test is doing and fix the code from that.
 
-Note: Please try to avoid modifying the package version in a PR.
-Versions are updated on release and any change will most likely result in merge collisions.
+const worksheet = workbook.getWorksheet(1);
 
-To be clear, all contributions added to this library will be included in the library's MIT licence.
+worksheet.eachRow((row, rowNumber) => {Note: Please try to avoid modifying the package version in a PR.
 
-### Let's chat together:
+  console.log('Row ' + rowNumber + ' = ' + JSON.stringify(row.values));Versions are updated on release and any change will most likely result in merge collisions.
 
-[![SiemaTeam](https://discordapp.com/api/guilds/976854442009825321/widget.png?style=banner2)](https://discord.gg/siema)
+});
 
-# Contents
+```To be clear, all contributions added to this library will be included in the library's MIT licence.
 
-<ul>
-  <li><a href="#importing">Importing</a></li>
-  <li>
-    <a href="#interface">Interface</a>
-    <ul>
-      <li><a href="#create-a-workbook">Create a Workbook</a></li>
-      <li><a href="#set-workbook-properties">Set Workbook Properties</a></li>
-      <li><a href="#workbook-views">Workbook Views</a></li>
-      <li><a href="#add-a-worksheet">Add a Worksheet</a></li>
-      <li><a href="#remove-a-worksheet">Remove a Worksheet</a></li>
-      <li><a href="#access-worksheets">Access Worksheets</a></li>
-      <li><a href="#worksheet-state">Worksheet State</a></li>
+
+
+### Styling Cells### Let's chat together:
+
+
+
+```javascript[![SiemaTeam](https://discordapp.com/api/guilds/976854442009825321/widget.png?style=banner2)](https://discord.gg/siema)
+
+// Set cell value and style
+
+const cell = worksheet.getCell('A1');# Contents
+
+cell.value = 'Hello';
+
+cell.font = {<ul>
+
+  name: 'Arial',  <li><a href="#importing">Importing</a></li>
+
+  size: 16,  <li>
+
+  bold: true,    <a href="#interface">Interface</a>
+
+  color: { argb: 'FFFF0000' }    <ul>
+
+};      <li><a href="#create-a-workbook">Create a Workbook</a></li>
+
+cell.fill = {      <li><a href="#set-workbook-properties">Set Workbook Properties</a></li>
+
+  type: 'pattern',      <li><a href="#workbook-views">Workbook Views</a></li>
+
+  pattern: 'solid',      <li><a href="#add-a-worksheet">Add a Worksheet</a></li>
+
+  fgColor: { argb: 'FFFFFF00' }      <li><a href="#remove-a-worksheet">Remove a Worksheet</a></li>
+
+};      <li><a href="#access-worksheets">Access Worksheets</a></li>
+
+```      <li><a href="#worksheet-state">Worksheet State</a></li>
+
       <li><a href="#worksheet-properties">Worksheet Properties</a></li>
-      <li><a href="#page-setup">Page Setup</a></li>
+
+## Features      <li><a href="#page-setup">Page Setup</a></li>
+
       <li><a href="#headers-and-footers">Headers and Footers</a></li>
-      <li>
-        <a href="#worksheet-views">Worksheet Views</a>
-        <ul>
-          <li><a href="#frozen-views">Frozen Views</a></li>
-          <li><a href="#split-views">Split Views</a></li>
-        </ul>
-      </li>
+
+- **Excel Operations**      <li>
+
+  - Create, read, and modify XLSX files        <a href="#worksheet-views">Worksheet Views</a>
+
+  - Multiple worksheet support        <ul>
+
+  - Cell styling (fonts, colors, borders, fills)          <li><a href="#frozen-views">Frozen Views</a></li>
+
+  - Cell merging and formatting          <li><a href="#split-views">Split Views</a></li>
+
+  - Row and column properties        </ul>
+
+  - Freeze panes and split views      </li>
+
       <li><a href="#auto-filters">Auto Filters</a></li>
-      <li><a href="#columns">Columns</a></li>
-      <li><a href="#rows">Rows</a>
-        <ul>
-          <li><a href="#add-rows">Add Rows</a></li>
-          <li><a href="#handling-individual-cells">Handling Individual Cells</a></li>
-          <li><a href="#merged-cells">Merged Cells</a></li>
-          <li><a href="#insert-rows">Insert Rows</a></li>
+
+- **Data Handling**      <li><a href="#columns">Columns</a></li>
+
+  - Rich text support      <li><a href="#rows">Rows</a>
+
+  - Formulas and calculated values        <ul>
+
+  - Data validation          <li><a href="#add-rows">Add Rows</a></li>
+
+  - Conditional formatting          <li><a href="#handling-individual-cells">Handling Individual Cells</a></li>
+
+  - Images and charts          <li><a href="#merged-cells">Merged Cells</a></li>
+
+  - Hyperlinks          <li><a href="#insert-rows">Insert Rows</a></li>
+
           <li><a href="#splice">Splice</a></li>
-          <li><a href="#duplicate-a-row">Duplicate Row</a></li>
-        </ul>
-      </li>
-      <li><a href="#defined-names">Defined Names</a></li>
-      <li><a href="#data-validations">Data Validations</a></li>
-      <li><a href="#cell-comments">Cell Comments</a></li>
-      <li><a href="#tables">Tables</a></li>
+
+- **Advanced Features**          <li><a href="#duplicate-a-row">Duplicate Row</a></li>
+
+  - Streaming for large files        </ul>
+
+  - CSV import/export      </li>
+
+  - Pivot tables      <li><a href="#defined-names">Defined Names</a></li>
+
+  - Tables with auto-filters      <li><a href="#data-validations">Data Validations</a></li>
+
+  - Page setup and printing options      <li><a href="#cell-comments">Cell Comments</a></li>
+
+  - Data protection      <li><a href="#tables">Tables</a></li>
+
       <li><a href="#styles">Styles</a>
-        <ul>
+
+## API Documentation        <ul>
+
           <li><a href="#number-formats">Number Formats</a></li>
-          <li><a href="#fonts">Fonts</a></li>
+
+For detailed API documentation, please refer to the [original ExcelJS documentation](https://github.com/exceljs/exceljs#interface) which remains largely compatible.          <li><a href="#fonts">Fonts</a></li>
+
           <li><a href="#alignment">Alignment</a></li>
-          <li><a href="#borders">Borders</a></li>
+
+## Browser Support          <li><a href="#borders">Borders</a></li>
+
           <li><a href="#fills">Fills</a></li>
-          <li><a href="#rich-text">Rich Text</a></li>
+
+ExcelTS supports both Node.js and browser environments:          <li><a href="#rich-text">Rich Text</a></li>
+
         </ul>
-      </li>
-      <li><a href="#conditional-formatting">Conditional Formatting</a></li>
-      <li><a href="#outline-levels">Outline Levels</a></li>
+
+```javascript      </li>
+
+// Browser usage      <li><a href="#conditional-formatting">Conditional Formatting</a></li>
+
+import { Workbook } from 'excelts/browser';      <li><a href="#outline-levels">Outline Levels</a></li>
+
       <li><a href="#images">Images</a></li>
-      <li><a href="#sheet-protection">Sheet Protection</a></li>
-      <li><a href="#file-io">File I/O</a>
-        <ul>
+
+const workbook = new Workbook();      <li><a href="#sheet-protection">Sheet Protection</a></li>
+
+// ... use workbook API      <li><a href="#file-io">File I/O</a>
+
+```        <ul>
+
           <li><a href="#xlsx">XLSX</a>
-            <ul>
+
+## Requirements            <ul>
+
               <li><a href="#reading-xlsx">Reading XLSX</a></li>
-              <li><a href="#writing-xlsx">Writing XLSX</a></li>
-            </ul>
+
+- Node.js >= 20.0.0              <li><a href="#writing-xlsx">Writing XLSX</a></li>
+
+- Modern browsers with ES Module support            </ul>
+
           </li>
-          <li><a href="#csv">CSV</a>
+
+## License          <li><a href="#csv">CSV</a>
+
             <ul>
-              <li><a href="#reading-csv">Reading CSV</a></li>
+
+MIT License              <li><a href="#reading-csv">Reading CSV</a></li>
+
               <li><a href="#writing-csv">Writing CSV</a></li>
-            </ul>
+
+Based on [ExcelJS](https://github.com/exceljs/exceljs) by [Guyon Roche](https://github.com/guyonroche)            </ul>
+
           </li>
-          <li><a href="#streaming-io">Streaming I/O</a>
+
+## Credits          <li><a href="#streaming-io">Streaming I/O</a>
+
             <ul>
-              <li><a href="#streaming-xlsx">Streaming XLSX</a></li>
+
+This project is a fork of ExcelJS with modernization improvements. All credit for the original implementation goes to:              <li><a href="#streaming-xlsx">Streaming XLSX</a></li>
+
             </ul>
-          </li>
-        </ul>
+
+- **Guyon Roche** - Original author of ExcelJS          </li>
+
+- All [ExcelJS contributors](https://github.com/exceljs/exceljs/graphs/contributors)        </ul>
+
       </li>
-    </ul>
+
+## Contributing    </ul>
+
   </li>
-  <li><a href="#browser">Browser</a></li>
+
+Contributions are welcome! Please feel free to submit a Pull Request.  <li><a href="#browser">Browser</a></li>
+
   <li>
-    <a href="#value-types">Value Types</a>
+
+## Links    <a href="#value-types">Value Types</a>
+
     <ul>
-      <li><a href="#null-value">Null Value</a></li>
-      <li><a href="#merge-cell">Merge Cell</a></li>
-      <li><a href="#number-value">Number Value</a></li>
+
+- [GitHub Repository](https://github.com/cjnoname/exceljs)      <li><a href="#null-value">Null Value</a></li>
+
+- [Original ExcelJS](https://github.com/exceljs/exceljs)      <li><a href="#merge-cell">Merge Cell</a></li>
+
+- [Issue Tracker](https://github.com/cjnoname/exceljs/issues)      <li><a href="#number-value">Number Value</a></li>
+
       <li><a href="#string-value">String Value</a></li>
-      <li><a href="#date-value">Date Value</a></li>
+
+## Changelog      <li><a href="#date-value">Date Value</a></li>
+
       <li><a href="#hyperlink-value">Hyperlink Value</a></li>
-      <li>
+
+### 0.1.0 (2025-10-23)      <li>
+
         <a href="#formula-value">Formula Value</a>
-        <ul>
-          <li><a href="#shared-formula">Shared Formula</a></li>
-          <li><a href="#formula-type">Formula Type</a></li>
-          <li><a href="#array-formula">Array Formula</a></li>
-        </ul>
-      </li>
+
+- Initial release of ExcelTS        <ul>
+
+- Full TypeScript rewrite          <li><a href="#shared-formula">Shared Formula</a></li>
+
+- Updated all dependencies to latest versions          <li><a href="#formula-type">Formula Type</a></li>
+
+- Migrated to Vitest for testing          <li><a href="#array-formula">Array Formula</a></li>
+
+- Switched to Rolldown for bundling        </ul>
+
+- Modern ES Module support      </li>
+
       <li><a href="#rich-text-value">Rich Text Value</a></li>
       <li><a href="#boolean-value">Boolean Value</a></li>
       <li><a href="#error-value">Error Value</a></li>

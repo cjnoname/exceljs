@@ -1,16 +1,27 @@
 {
-  "name": "exceljs",
-  "version": "4.4.0",
-  "description": "Excel Workbook Manager - Read and Write xlsx and csv Files.",
+  "name": "excelts",
+  "version": "0.1.0",
+  "description": "TypeScript Excel Workbook Manager - Read and Write xlsx and csv Files.",
   "private": false,
   "license": "MIT",
   "author": {
-    "name": "Guyon Roche",
-    "email": "guyon@live.com"
+    "name": "cjnoname",
+    "email": "powerfulj87@gmail.com"
   },
+  "contributors": [
+    {
+      "name": "Guyon Roche",
+      "email": "guyon@live.com",
+      "url": "https://github.com/guyonroche"
+    }
+  ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/exceljs/exceljs.git"
+    "url": "https://github.com/cjnoname/exceljs.git"
+  },
+  "homepage": "https://github.com/cjnoname/exceljs#readme",
+  "bugs": {
+    "url": "https://github.com/cjnoname/exceljs/issues"
   },
   "type": "module",
   "engines": {
@@ -76,10 +87,15 @@
     ]
   },
   "keywords": [
+    "excelts",
+    "typescript",
+    "excel",
     "xlsx",
     "json",
     "csv",
-    "excel",
+    "spreadsheet",
+    "workbook",
+    "exceljs",
     "font",
     "border",
     "fill",
@@ -88,8 +104,6 @@
     "number format",
     "alignment",
     "office",
-    "spreadsheet",
-    "workbook",
     "defined names",
     "data validations",
     "rich text",
@@ -98,7 +112,10 @@
     "views",
     "frozen",
     "split",
-    "pageSetup"
+    "pageSetup",
+    "modern",
+    "esm",
+    "xlsx"
   ],
   "dependencies": {
     "dayjs": "^1.11.18",
