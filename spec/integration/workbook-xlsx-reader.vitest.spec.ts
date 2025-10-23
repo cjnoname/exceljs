@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeAll, afterAll, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect, beforeAll, beforeEach, afterEach } from 'vitest';
 import fs from 'fs';
 
 import testutils from '../utils/index';
@@ -18,7 +18,7 @@ describe('WorkbookReader', () => {
 
         return wb.xlsx.writeFile(TEST_FILE_NAME).then(() => testutils.checkTestBookReader(TEST_FILE_NAME));
       },
-      { timeout: 10000 }
+       10000 
     );
   });
 
@@ -50,7 +50,7 @@ describe('WorkbookReader', () => {
             }
           );
         },
-        { timeout: 10000 }
+       10000
       );
 
       it('should parse fine if the limit is not exceeded', () => {
@@ -90,7 +90,7 @@ describe('WorkbookReader', () => {
             }
           );
         },
-        { timeout: 10000 }
+         10000
       );
 
       it('should parse fine if the limit is not exceeded', () => {

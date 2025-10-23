@@ -2,7 +2,7 @@ import { describe, it, beforeAll, afterAll } from 'vitest';
 import { Readable } from 'stream';
 import express from 'express';
 import testutils from '../utils/index';
-import { Workbook, WorkbookWriter, WorkbookReader } from '../../src/index.js';
+import { Workbook } from '../../src/index.js';
 
 describe('Express', () => {
   let server: any;

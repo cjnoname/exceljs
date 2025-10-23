@@ -114,12 +114,13 @@
     "@types/node": "^24.9.1",
     "@types/unzipper": "^0.10.11",
     "@typescript/native-preview": "^7.0.0-dev.20251022.1",
-    "@vitest/browser": "^3.2.4",
-    "@vitest/ui": "^3.2.4",
-    "express": "^4.16.4",
+    "@vitest/browser": "^4.0.1",
+    "@vitest/browser-playwright": "^4.0.1",
+    "@vitest/ui": "^4.0.1",
+    "express": "^5.1.0",
     "fast-xml-parser": "^5.3.0",
     "husky": "^9.1.7",
-    "oxlint": "^1.23.0",
+    "oxlint": "^1.24.0",
     "playwright": "^1.56.1",
     "prettier": "^3.6.2",
     "rimraf": "^6.0.1",
@@ -128,6 +129,6 @@
     "tslib": "^2.8.1",
     "typescript": "^5.9.3",
     "vite-tsconfig-paths": "^5.1.4",
-    "vitest": "^3.2.4"
+    "vitest": "^4.0.1"
   }
 }

@@ -1,5 +1,5 @@
-import { describe, it, expect, beforeAll, afterAll, beforeEach, afterEach } from 'vitest';
-import { Workbook, WorkbookWriter, WorkbookReader } from '../../../src/index.js';
+import { describe, it, expect } from 'vitest';
+import { Workbook } from '../../../src/index.js';
 
 const TEST_CSV_FILE_NAME = './spec/out/issue-995-encoding.test.csv';
 const HEBREW_TEST_STRING = 'משהו שכתוב בעברית';
@@ -25,6 +25,6 @@ describe('github issues', () => {
           expect(ws2.getCell('A1').value).toBe(HEBREW_TEST_STRING);
         });
     },
-    { timeout: 6000 }
+    6000
   );
 });
