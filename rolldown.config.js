@@ -129,4 +129,17 @@ export default defineConfig([
     },
     plugins: createAnalyzePlugin('./dist/stats-node-esm.html', true),
   },
+  // Node.js: exceljs.node-master.mjs (ESM bundle with master's WorkbookReader for benchmarking)
+  {
+    input: './src/index-master.ts',
+    platform: 'node',
+    external: ['@aws-sdk/client-s3'],
+    output: {
+      file: './dist/exceljs.node-master.mjs',
+      format: 'esm',
+      sourcemap: true,
+      banner,
+    },
+    plugins: [],
+  },
 ]);
