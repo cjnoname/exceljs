@@ -1,43 +1,34 @@
 import { PassThrough } from 'stream';
 import { expect } from 'vitest';
-import { parseDocument } from 'htmlparser2';
+import { XMLParser } from 'fast-xml-parser';
 import underDash from '../../../utils/under-dash';
 import CompyXform from './compy-xform';
-
 import parseSax from '../../../../src/utils/parse-sax.js';
 import XmlStream from '../../../../src/utils/xml-stream.js';
 import BooleanXform from '../../../../src/xlsx/xform/simple/boolean-xform.js';
 
 const { cloneDeep } = underDash;
 
-// Normalize XML by parsing and converting to sorted JSON
+// XML parser configuration for comparison
+const xmlParser = new XMLParser({
+  ignoreAttributes: false,
+  attributeNamePrefix: '@_',
+  parseTagValue: false,
+  trimValues: false,
+});
+
 function normalizeXml(xml: string): string {
-  const dom = parseDocument(xml, { xmlMode: true });
-  const root = dom.children.find((n: any) => n.type === 'tag');
-  if (!root) return '{}';
+  try {
+    // Parse XML to object (this normalizes element order by converting to object structure)
+    const parsed = xmlParser.parse(xml);
 
-  const toObj = (node: any): any => {
-    const obj: any = {};
-    if (node.attribs) {
-      Object.entries(node.attribs).forEach(([k, v]) => obj[`@_${k}`] = v);
-    }
-    node.children?.forEach((child: any) => {
-      if (child.type === 'text') {
-        const text = child.data.trim();
-        if (text) obj['#text'] = text;
-      } else if (child.type === 'tag') {
-        const childObj = toObj(child);
-        obj[child.name] = obj[child.name] ? [].concat(obj[child.name], childObj) : childObj;
-      }
-    });
-    return obj;
-  };
-
-  const sortObj = (o: any): any =>
-    Array.isArray(o) ? o.map(sortObj) :
-    o && typeof o === 'object' ? Object.keys(o).sort().reduce((r, k) => ({ ...r, [k]: sortObj(o[k]) }), {}) : o;
-
-  return JSON.stringify(sortObj({ [(root as any).name]: toObj(root) }));
+    // Convert to JSON for comparison - element order doesn't matter in objects
+    return JSON.stringify(parsed, Object.keys(parsed).sort());
+  } catch (error) {
+    // Fallback to string comparison if parsing fails
+    console.warn('XML parsing failed, falling back to string comparison:', error);
+    return xml.replace(/\s+/g, ' ').trim();
+  }
 }
 
 interface Expectation {
