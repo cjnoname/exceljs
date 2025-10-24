@@ -1,7 +1,6 @@
 import fs from 'fs';
 import { EventEmitter } from 'events';
-import { PassThrough } from 'stream';
-import * as nodeStream from 'stream';
+import { PassThrough, Readable } from 'stream';
 import os from 'os';
 import { join } from 'path';
 import {Parse} from 'unzipper';
@@ -57,7 +56,7 @@ class WorkbookReader extends EventEmitter {
   }
 
   _getStream(input: any): any {
-    if (input instanceof nodeStream.Readable) {
+    if (input instanceof Readable) {
       return input;
     }
     if (typeof input === 'string') {
