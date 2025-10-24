@@ -3,8 +3,11 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { describe } from 'vitest';
 import { testXformHelper } from '../test-xform-helper';
-
 import { DrawingXform } from '../../../../../src/xlsx/xform/drawing/drawing-xform.js';
+import { drawing10 } from './data/drawing.1.0.js';
+import { drawing11 } from './data/drawing.1.1.js';
+import { drawing13 } from './data/drawing.1.3.js';
+import { drawing14 } from './data/drawing.1.4.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -17,12 +20,6 @@ const options = {
   mediaIndex: { image1: 0, image2: 1 },
   media: [{}, {}],
 };
-
-// Import data files
-const drawing10 = await import('./data/drawing.1.0.js').then(m => m.default);
-const drawing11 = await import('./data/drawing.1.1.js').then(m => m.default);
-const drawing13 = await import('./data/drawing.1.3.js').then(m => m.default);
-const drawing14 = await import('./data/drawing.1.4.js').then(m => m.default);
 
 const expectations = [
   {

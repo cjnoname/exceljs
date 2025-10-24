@@ -7,7 +7,7 @@ const TEST_XLSX_FILE_NAME = './spec/out/workbook-styles.test.xlsx';
 
 // =============================================================================
 // Sample Data
-import richTextSample from '../data/rich-text-sample';
+import {richTextSample} from '../data/rich-text-sample';
 import richTextSampleA1 from '../data/rich-text-sample-a1.json';
 import { PassThrough } from 'stream';
 

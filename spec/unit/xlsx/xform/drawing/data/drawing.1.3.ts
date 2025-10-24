@@ -1,4 +1,4 @@
-export default {
+export const drawing13 = {
   anchors: [
     {
       range: {

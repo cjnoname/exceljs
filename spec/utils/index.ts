@@ -4,8 +4,8 @@ import { Column } from '../../src/doc/column.js';
 import { testWorkbookReader } from './test-workbook-reader';
 import { dataValidations } from './test-data-validation-sheet';
 import { conditionalFormatting } from './test-conditional-formatting-sheet';
-import values from './test-values-sheet';
-import splice from './test-spliced-sheet';
+import {values} from './test-values-sheet';
+import { splice } from './test-spliced-sheet';
 import views from './data/views.json' with { type: 'json' };
 import testValues from './data/sheet-values.json' with { type: 'json' };
 import styles from './data/styles.json' with { type: 'json' };
@@ -72,7 +72,7 @@ const testUtils = {
     workbook.views = [{ x: 1, y: 2, width: 10000, height: 20000, firstSheet: 0, activeTab: 0 }];
 
     sheets.forEach(sheet => {
-      const testSheet = get(testSheets, sheet, undefined);
+      const testSheet = get(testSheets, sheet);
       testSheet.addSheet(workbook, options);
     });
 
@@ -100,7 +100,7 @@ const testUtils = {
     }
 
     sheets.forEach(sheet => {
-      const testSheet =get(testSheets, sheet, undefined);
+      const testSheet = get(testSheets, sheet);
       testSheet.checkSheet(workbook, options);
     });
   },

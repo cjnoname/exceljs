@@ -1,11 +1,11 @@
 import { PassThrough } from 'stream';
 import { expect } from 'vitest';
 import { XMLParser } from 'fast-xml-parser';
-import { cloneDeep } from '../../../utils/under-dash.js';
 import { CompyXform } from './compy-xform.js';
 import { parseSax } from '../../../../src/utils/parse-sax.js';
 import { XmlStream } from '../../../../src/utils/xml-stream.js';
 import { BooleanXform } from '../../../../src/xlsx/xform/simple/boolean-xform.js';
+import { cloneDeep } from '../../../../src/utils/under-dash.js';
 
 // XML parser configuration for comparison
 const xmlParser = new XMLParser({
@@ -154,7 +154,7 @@ const its: { [key: string]: (expectation: Expectation) => () => Promise<void> } 
       const model = await xform.parse(parseSax(stream));
 
       // eliminate the undefined
-      const clone = cloneDeep(model, false);
+    const clone = cloneDeep(model, false);
 
       expect(clone).toEqual(result);
     };

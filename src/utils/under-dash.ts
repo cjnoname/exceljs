@@ -128,3 +128,44 @@ export function deepMerge<T = any>(...args: any[]): T {
   }
   return target;
 }
+
+export function cloneDeep(obj: any, preserveUndefined?: boolean): any {
+  if (preserveUndefined === undefined) {
+    preserveUndefined = true;
+  }
+  let clone: any;
+  if (obj === null) {
+    return null;
+  }
+  if (obj instanceof Date) {
+    return obj;
+  }
+  if (obj instanceof Array) {
+    clone = [];
+    obj.forEach((value: any, index: number) => {
+      if (value !== undefined) {
+        clone[index] = cloneDeep(value, preserveUndefined);
+      } else if (preserveUndefined) {
+        clone[index] = undefined;
+      }
+    });
+  } else if (typeof obj === 'object') {
+    clone = {};
+    Object.keys(obj).forEach(name => {
+      const value = obj[name];
+      if (value !== undefined) {
+        clone[name] = cloneDeep(value, preserveUndefined);
+      } else if (preserveUndefined) {
+        clone[name] = undefined;
+      }
+    });
+  } else {
+    return obj;
+  }
+  return clone;
+}
+
+export function get<T = any>(obj: any, path: string, defaultValue?: T): T {
+  const keys = path.split('.');
+  return keys.reduce((result, key) => result?.[key], obj) ?? defaultValue;
+}

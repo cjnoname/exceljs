@@ -1,4 +1,4 @@
-export default {
+export const drawing11 = {
   anchors: [
     {
       anchorType: 'xdr:twoCellAnchor',
