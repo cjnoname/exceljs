@@ -3,9 +3,6 @@
 # Harden script
 set -euo pipefail
 
-LOG_FILE="/tmp/husky-prepush-$(date +%Y%m%d-%H%M%S).log"
-echo "=== Pre-push hook started at $(date) ===" | tee "$LOG_FILE" >&2
-
 # If running under WSL, ensure we use Linux node, not Windows one mounted at /mnt/c/...
 case "$(uname -r)" in
   *Microsoft*|*microsoft*|*WSL*)
@@ -28,22 +25,17 @@ case "$(uname -r)" in
  esac
 
 # Load nvm if available so the correct Node version is used
-echo "Loading nvm..." | tee -a "$LOG_FILE" >&2
 if [ -s "$HOME/.nvm/nvm.sh" ]; then
   . "$HOME/.nvm/nvm.sh"
-  echo "nvm loaded" | tee -a "$LOG_FILE" >&2
   if [ -f .nvmrc ]; then
     nvm use --silent >/dev/null 2>&1 || true
-    echo "nvm use completed" | tee -a "$LOG_FILE" >&2
   fi
 fi
 
 # Load asdf if used
-echo "Checking asdf..." | tee -a "$LOG_FILE" >&2
 if command -v asdf >/dev/null 2>&1; then
   # shellcheck disable=SC1091
   . "$HOME/.asdf/asdf.sh" || true
-  echo "asdf loaded" | tee -a "$LOG_FILE" >&2
 fi
 
 if ! command -v node >/dev/null 2>&1; then
@@ -56,22 +48,14 @@ if ! command -v npm >/dev/null 2>&1 && command -v pnpm >/dev/null 2>&1; then
   PKG_MGR="pnpm"
 fi
 
-LOG_FILE="/tmp/husky-prepush-$(date +%Y%m%d-%H%M%S).log"
-
-echo "▶ Running $PKG_MGR run check ..." | tee -a "$LOG_FILE" >&2
-echo "  Node version: $(node --version)" | tee -a "$LOG_FILE" >&2
-echo "  Working directory: $(pwd)" | tee -a "$LOG_FILE" >&2
-echo "  PATH: $PATH" | tee -a "$LOG_FILE" >&2
-echo "  Log file: $LOG_FILE" | tee -a "$LOG_FILE" >&2
+echo "▶ Running $PKG_MGR run check ..."
 START_TIME=$(date +%s)
 
-$PKG_MGR run check 2>&1 | tee -a "$LOG_FILE" || {
-  echo "\n❌ Pre-push hook: $PKG_MGR run check failed. Fix issues before pushing." | tee -a "$LOG_FILE" >&2
-  echo "Check log: $LOG_FILE" >&2
+$PKG_MGR run check || {
+  echo "\n❌ Pre-push hook: $PKG_MGR run check failed. Fix issues before pushing." >&2
   exit 1
 }
 
 END_TIME=$(date +%s)
 ELAPSED=$((END_TIME - START_TIME))
-echo "✅ Pre-push hook: checks passed in ${ELAPSED}s. Proceeding with git push." | tee -a "$LOG_FILE" >&2
-echo "Full log saved to: $LOG_FILE" >&2
+echo "✅ Pre-push hook: checks passed in ${ELAPSED}s. Proceeding with git push."
