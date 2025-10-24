@@ -81,6 +81,7 @@
   },
   "lint-staged": {
     "*.{js,ts}": [
+      "tsgo --noEmit",
       "prettier --write",
       "oxlint --fix",
       "eslint --fix"
