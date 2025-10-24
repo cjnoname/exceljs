@@ -61,7 +61,7 @@
   "scripts": {
     "local": "nodemon src/local.ts",
     "example": "nodemon example/xxx.ts",
-    "check": "concurrently --raw \"npm run type\" \"npm run lint\",",
+    "check": "concurrently --raw \"npm run type\" \"npm run lint\"",
     "test": "vitest run && npm run test:browser",
     "test:browser": "rimraf dist && npm run build:browser && vitest run --config vitest.browser.config.ts",
     "test:watch": "vitest",
