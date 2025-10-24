@@ -3,6 +3,9 @@
 # Harden script
 set -euo pipefail
 
+LOG_FILE="/tmp/husky-prepush-$(date +%Y%m%d-%H%M%S).log"
+echo "=== Pre-push hook started at $(date) ===" | tee "$LOG_FILE" >&2
+
 # If running under WSL, ensure we use Linux node, not Windows one mounted at /mnt/c/...
 case "$(uname -r)" in
   *Microsoft*|*microsoft*|*WSL*)
@@ -25,17 +28,22 @@ case "$(uname -r)" in
  esac
 
 # Load nvm if available so the correct Node version is used
+echo "Loading nvm..." | tee -a "$LOG_FILE" >&2
 if [ -s "$HOME/.nvm/nvm.sh" ]; then
   . "$HOME/.nvm/nvm.sh"
+  echo "nvm loaded" | tee -a "$LOG_FILE" >&2
   if [ -f .nvmrc ]; then
     nvm use --silent >/dev/null 2>&1 || true
+    echo "nvm use completed" | tee -a "$LOG_FILE" >&2
   fi
 fi
 
 # Load asdf if used
+echo "Checking asdf..." | tee -a "$LOG_FILE" >&2
 if command -v asdf >/dev/null 2>&1; then
   # shellcheck disable=SC1091
   . "$HOME/.asdf/asdf.sh" || true
+  echo "asdf loaded" | tee -a "$LOG_FILE" >&2
 fi
 
 if ! command -v node >/dev/null 2>&1; then
