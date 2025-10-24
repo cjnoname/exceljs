@@ -1,4 +1,4 @@
-import { v4 as uuidv4 } from 'uuid';
+import { v4 } from 'uuid';
 import { BaseXform } from '../../base-xform.js';
 import { CompositeXform } from '../../composite-xform.js';
 
@@ -43,7 +43,7 @@ class CfRuleExtXform extends CompositeXform {
 
   prepare(model) {
     if (CfRuleExtXform.isExt(model)) {
-      model.x14Id = `{${uuidv4()}}`.toUpperCase();
+      model.x14Id = `{${v4()}}`.toUpperCase();
     }
   }
 
@@ -77,7 +77,7 @@ class CfRuleExtXform extends CompositeXform {
     xmlStream.openNode(this.tag, {
       type: 'iconSet',
       priority: model.priority,
-      id: model.x14Id || `{${uuidv4()}}`,
+      id: model.x14Id || `{${v4()}}`,
     });
 
     this.iconSetXform.render(xmlStream, model);

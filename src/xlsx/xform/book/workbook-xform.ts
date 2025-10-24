@@ -4,7 +4,7 @@ import { BaseXform } from '../base-xform.js';
 import { StaticXform } from '../static-xform.js';
 import { ListXform } from '../list-xform.js';
 import { DefinedNamesXform } from './defined-name-xform.js';
-import { WorksheetXform as SheetXform } from './sheet-xform.js';
+import { WorksheetXform  } from './sheet-xform.js';
 import { WorkbookViewXform } from './workbook-view-xform.js';
 import { WorkbookPropertiesXform } from './workbook-properties-xform.js';
 import { WorkbookCalcPropertiesXform } from './workbook-calc-properties-xform.js';
@@ -24,7 +24,7 @@ class WorkbookXform extends BaseXform {
         count: false,
         childXform: new WorkbookViewXform(),
       }),
-      sheets: new ListXform({ tag: 'sheets', count: false, childXform: new SheetXform() }),
+      sheets: new ListXform({ tag: 'sheets', count: false, childXform: new WorksheetXform() }),
       definedNames: new ListXform({
         tag: 'definedNames',
         count: false,

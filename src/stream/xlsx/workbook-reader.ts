@@ -3,11 +3,11 @@ import { EventEmitter } from 'events';
 import { PassThrough } from 'stream';
 import * as nodeStream from 'stream';
 import os from 'os';
-import { join as pathJoin } from 'path';
+import { join } from 'path';
 import {Parse} from 'unzipper';
 import { iterateStream } from '../../utils/iterate-stream.js';
 import { parseSax } from '../../utils/parse-sax.js';
-import { StylesXform as StyleManager } from '../../xlsx/xform/style/styles-xform.js';
+import { StylesXform } from '../../xlsx/xform/style/styles-xform.js';
 import { WorkbookXform } from '../../xlsx/xform/book/workbook-xform.js';
 import { RelationshipsXform } from '../../xlsx/xform/core/relationships-xform.js';
 import { WorksheetReader } from './worksheet-reader.js';
@@ -52,7 +52,7 @@ class WorkbookReader extends EventEmitter {
       ...options,
     };
 
-    this.styles = new StyleManager();
+    this.styles = new StylesXform();
     this.styles.init();
   }
 
@@ -142,8 +142,8 @@ class WorkbookReader extends EventEmitter {
                 yield* this._parseWorksheet(iterateStream(entry), sheetNo);
               } else {
                 // Worksheet arrives before sharedStrings - write to temp file asynchronously
-                const tmpDir = fs.mkdtempSync(pathJoin(os.tmpdir(), 'exceljs-'));
-                const path = pathJoin(tmpDir, `sheet${sheetNo}.xml`);
+                const tmpDir = fs.mkdtempSync(join(os.tmpdir(), 'exceljs-'));
+                const path = join(tmpDir, `sheet${sheetNo}.xml`);
                 const tempFileCleanupCallback = () => {
                   fs.rm(tmpDir, { recursive: true, force: true }, () => {});
                 };
@@ -339,7 +339,7 @@ class WorkbookReader extends EventEmitter {
   async _parseStyles(entry: any): Promise<void> {
     this._emitEntry({ type: 'styles' });
     if (this.options.styles === 'cache') {
-      this.styles = new StyleManager();
+      this.styles = new StylesXform();
       await this.styles.parseStream(iterateStream(entry));
     }
   }
