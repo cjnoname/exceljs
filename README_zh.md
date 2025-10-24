@@ -127,8 +127,18 @@ const workbook = new Workbook();
 
 ## 系统要求
 
-- Node.js >= 20.0.0
-- 支持 ES Module 的现代浏览器
+### Node.js
+- **Node.js >= 14.0.0**（原生支持 ES2020）
+- 推荐：Node.js >= 20.0.0 以获得最佳性能
+
+### 浏览器（无需 Polyfills）
+- **Chrome >= 85**（2020年8月）
+- **Edge >= 85**（2020年8月）
+- **Firefox >= 79**（2020年7月）
+- **Safari >= 14**（2020年9月）
+- **Opera >= 71**（2020年9月）
+
+所有 ES2020 特性（可选链 `?.`、空值合并 `??`、Promise.allSettled 等）在这些版本中都原生支持。
 
 ## API 文档
 

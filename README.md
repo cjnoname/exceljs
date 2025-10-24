@@ -127,8 +127,18 @@ const workbook = new Workbook();
 
 ## Requirements
 
-- Node.js >= 20.0.0
-- Modern browsers with ES Module support
+### Node.js
+- **Node.js >= 14.0.0** (ES2020 native support)
+- Recommended: Node.js >= 20.0.0 for best performance
+
+### Browsers (No Polyfills Required)
+- **Chrome >= 85** (August 2020)
+- **Edge >= 85** (August 2020)
+- **Firefox >= 79** (July 2020)
+- **Safari >= 14** (September 2020)
+- **Opera >= 71** (September 2020)
+
+All ES2020 features (optional chaining `?.`, nullish coalescing `??`, Promise.allSettled, etc.) are natively supported in these versions.
 
 ## API Documentation
 
