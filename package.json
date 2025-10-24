@@ -58,7 +58,7 @@
     "type": "tsgo --noEmit",
     "format": "prettier --write \"**/*.{js,ts,json,md}\"",
     "lint:staged": "lint-staged",
-    "benchmark": "npm run build && node --expose-gc benchmark.js",
+    "benchmark": "rimraf dist && npm run build:esm && node --expose-gc scripts/benchmark.js",
     "build:types": "tsgo --project tsconfig.build.json",
     "build:esm": "tsgo --project tsconfig.esm.json",
     "build:cjs": "tsgo --project tsconfig.cjs.json && node scripts/fix-cjs-imports.mjs",

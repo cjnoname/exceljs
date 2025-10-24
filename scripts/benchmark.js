@@ -1,4 +1,4 @@
-import { WorkbookReader } from "./dist/exceljs.node.mjs";
+import { WorkbookReader } from "../dist/esm/index.js";
 
 const runs = 3;
 
