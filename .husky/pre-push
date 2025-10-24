@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 set -e
 
-npm run check || exit 1
+npm run check < /dev/null || exit 1
