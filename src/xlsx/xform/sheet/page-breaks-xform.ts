@@ -1,7 +1,7 @@
 import { BaseXform } from '../base-xform.js';
 
 class PageBreaksXform extends BaseXform {
-  declare model: any;
+  declare public model: any;
 
   get tag(): string {
     return 'brk';

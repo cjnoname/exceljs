@@ -40,13 +40,13 @@ interface EachCellOptions {
 
 class Row {
   // Type declarations only - no runtime overhead
-  declare _worksheet: any;
-  declare _number: number;
-  declare _cells: any[];
-  declare style: any;
-  declare _hidden?: boolean;
-  declare _outlineLevel?: number;
-  declare height?: number;
+  declare public _worksheet: any;
+  declare public _number: number;
+  declare public _cells: any[];
+  declare public style: any;
+  declare public _hidden?: boolean;
+  declare public _outlineLevel?: number;
+  declare public height?: number;
 
   constructor(worksheet: any, number: number) {
     this._worksheet = worksheet;

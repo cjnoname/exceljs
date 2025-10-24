@@ -43,10 +43,10 @@ function getEffectiveCellType(cell) {
 }
 
 class CellXform extends BaseXform {
-  declare richTextXform: any;
-  declare parser: any;
-  declare t: any;
-  declare currentNode: any;
+  declare private richTextXform: any;
+  declare public parser: any;
+  declare private t: any;
+  declare private currentNode: any;
 
   constructor() {
     super();

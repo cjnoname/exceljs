@@ -26,7 +26,7 @@ interface SheetViewModel {
 }
 
 class SheetViewXform extends BaseXform {
-  declare model: SheetViewModel;
+  declare public model: SheetViewModel;
   declare private sheetView: any;
   declare private pane: any;
   declare private selections: any;

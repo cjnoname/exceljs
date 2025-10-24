@@ -4,8 +4,8 @@ interface CacheFieldConfig {
 }
 
 class CacheField {
-  declare name: string;
-  declare sharedItems: string[] | null;
+  declare private name: string;
+  declare private sharedItems: string[] | null;
 
   constructor({ name, sharedItems }: CacheFieldConfig) {
     // string type

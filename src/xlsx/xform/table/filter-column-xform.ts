@@ -10,9 +10,9 @@ interface FilterColumnModel {
 }
 
 class FilterColumnXform extends BaseXform {
-  declare map: { [key: string]: ListXform };
-  declare parser: any;
-  declare model: FilterColumnModel;
+  declare public map: { [key: string]: ListXform };
+  declare public parser: any;
+  declare public model: FilterColumnModel;
 
   constructor() {
     super();

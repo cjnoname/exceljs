@@ -9,7 +9,7 @@ interface TableStyleModel {
 }
 
 class TableStyleInfoXform extends BaseXform {
-  declare model: TableStyleModel;
+  declare public model: TableStyleModel;
 
   constructor() {
     super();

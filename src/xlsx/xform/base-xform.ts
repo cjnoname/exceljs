@@ -11,8 +11,8 @@ interface ParseEvent {
 
 // Base class for Xforms
 class BaseXform {
-  declare map?: { [key: string]: any };
-  declare model?: any;
+  declare public map?: { [key: string]: any };
+  declare public model?: any;
 
   // ============================================================
   // Virtual Interface

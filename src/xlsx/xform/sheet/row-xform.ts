@@ -22,11 +22,11 @@ interface RowModel {
 }
 
 class RowXform extends BaseXform {
-  declare maxItems?: number;
-  declare map: { [key: string]: any };
-  declare model: RowModel;
-  declare parser: any;
-  declare numRowsSeen: number;
+  declare private maxItems?: number;
+  declare public map: { [key: string]: any };
+  declare public model: RowModel;
+  declare public parser: any;
+  declare private numRowsSeen: number;
 
   constructor(options?: RowXformOptions) {
     super();

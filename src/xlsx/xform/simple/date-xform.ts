@@ -9,10 +9,10 @@ interface DateXformOptions {
 }
 
 class DateXform extends BaseXform {
-  declare tag: string;
-  declare attr?: string;
-  declare attrs?: any;
-  declare text: string[];
+  declare private tag: string;
+  declare private attr?: string;
+  declare private attrs?: any;
+  declare private text: string[];
   declare private _format: (dt: Date) => string;
   declare private _parse: (str: string) => Date;
 

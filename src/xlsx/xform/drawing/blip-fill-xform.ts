@@ -2,9 +2,9 @@ import { BaseXform } from '../base-xform.js';
 import { BlipXform } from './blip-xform.js';
 
 class BlipFillXform extends BaseXform {
-  declare map: { [key: string]: BlipXform };
-  declare parser: any;
-  declare model: any;
+  declare public map: { [key: string]: BlipXform };
+  declare public parser: any;
+  declare public model: any;
 
   constructor() {
     super();

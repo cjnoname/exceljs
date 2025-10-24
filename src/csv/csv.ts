@@ -46,8 +46,8 @@ const SpecialValues: { [key: string]: any } = {
 /* eslint-ensable quote-props */
 
 class CSV {
-  declare workbook: any;
-  declare worksheet: any;
+  declare public workbook: any;
+  declare public worksheet: any;
 
   constructor(workbook: any) {
     this.workbook = workbook;

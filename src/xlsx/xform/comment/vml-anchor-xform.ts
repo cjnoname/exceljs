@@ -19,7 +19,7 @@ interface RenderModel {
 
 // render the triangle in the cell for the comment
 class VmlAnchorXform extends BaseXform {
-  declare text: string;
+  declare private text: string;
 
   constructor() {
     super();

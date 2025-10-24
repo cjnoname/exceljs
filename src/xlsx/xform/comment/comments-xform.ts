@@ -7,9 +7,9 @@ interface CommentsModel {
 }
 
 class CommentsXform extends BaseXform {
-  declare map: { [key: string]: CommentXform };
-  declare parser: any;
-  declare model: CommentsModel;
+  declare public map: { [key: string]: CommentXform };
+  declare public parser: any;
+  declare public model: CommentsModel;
 
   constructor() {
     super();

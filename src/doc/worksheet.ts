@@ -106,28 +106,28 @@ interface WorksheetModel {
 
 class Worksheet {
   // Type declarations only - no runtime overhead
-  declare _workbook: any;
-  declare id: number;
-  declare orderNo: number;
-  declare _name: string;
-  declare state: string;
-  declare _rows: any[];
-  declare _columns: any[] | null;
-  declare _keys: { [key: string]: any };
-  declare _merges: { [key: string]: Range };
-  declare rowBreaks: any[];
-  declare properties: any;
-  declare pageSetup: PageSetup;
-  declare headerFooter: HeaderFooter;
-  declare dataValidations: DataValidations;
-  declare views: any[];
-  declare autoFilter: any;
-  declare _media: any[];
-  declare sheetProtection: any;
-  declare tables: { [key: string]: Table };
-  declare pivotTables: any[];
-  declare conditionalFormattings: any[];
-  declare _headerRowCount?: number;
+  declare public _workbook: any;
+  declare public id: number;
+  declare public orderNo: number;
+  declare public _name: string;
+  declare public state: string;
+  declare public _rows: any[];
+  declare public _columns: any[] | null;
+  declare public _keys: { [key: string]: any };
+  declare public _merges: { [key: string]: Range };
+  declare public rowBreaks: any[];
+  declare public properties: any;
+  declare public pageSetup: PageSetup;
+  declare public headerFooter: HeaderFooter;
+  declare public dataValidations: DataValidations;
+  declare public views: any[];
+  declare public autoFilter: any;
+  declare public _media: any[];
+  declare public sheetProtection: any;
+  declare public tables: { [key: string]: Table };
+  declare public pivotTables: any[];
+  declare public conditionalFormattings: any[];
+  declare public _headerRowCount?: number;
 
   constructor(options: WorksheetOptions) {
     options = options || {};

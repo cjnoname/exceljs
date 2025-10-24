@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { WorkbookReader } from './dist/exceljs.node.mjs';
 
 const runs = 3;

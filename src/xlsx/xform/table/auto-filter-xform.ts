@@ -7,9 +7,9 @@ interface AutoFilterModel {
 }
 
 class AutoFilterXform extends BaseXform {
-  declare map: { [key: string]: FilterColumnXform };
-  declare parser: any;
-  declare model: AutoFilterModel;
+  declare public map: { [key: string]: FilterColumnXform };
+  declare public parser: any;
+  declare public model: AutoFilterModel;
 
   constructor() {
     super();

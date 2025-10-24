@@ -12,7 +12,7 @@ interface HeaderFooterModel {
 }
 
 class HeaderFooterXform extends BaseXform {
-  declare currentNode?: string;
+  declare private currentNode?: string;
 
   get tag(): string {
     return 'headerFooter';

@@ -11,7 +11,7 @@ interface PivotTableModel {
 }
 
 class PivotTableXform extends BaseXform {
-  declare map: { [key: string]: any };
+  declare public map: { [key: string]: any };
 
   constructor() {
     super();

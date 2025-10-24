@@ -1,4 +1,3 @@
-/* eslint-disable no-sparse-arrays */
 import { describe, it, expect } from 'vitest';
 import { createSheetMock } from '../../utils/vitest-utils.js';
 import { Enums } from '../../../src/doc/enums.js';

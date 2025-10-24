@@ -13,8 +13,8 @@ import { BaseXform } from '../base-xform.js';
 type SharedStringModel = string | { richText: any[] };
 
 class SharedStringXform extends BaseXform {
-  declare map: { [key: string]: any };
-  declare parser: any;
+  declare public map: { [key: string]: any };
+  declare public parser: any;
 
   constructor(model?: SharedStringModel) {
     super();

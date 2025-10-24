@@ -30,8 +30,8 @@ interface FontOptions {
 
 // Font encapsulates translation from font model to xlsx
 class FontXform extends BaseXform {
-  declare options: FontOptions;
-  declare parser: any;
+  declare private options: FontOptions;
+  declare public parser: any;
 
   constructor(options?: FontOptions) {
     super();

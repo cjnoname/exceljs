@@ -9,8 +9,8 @@ interface MergeData {
 }
 
 class Merges {
-  declare merges: { [key: string]: Range };
-  declare hash?: { [key: string]: Range };
+  declare private merges: { [key: string]: Range };
+  declare private hash?: { [key: string]: Range };
 
   constructor() {
     // optional mergeCells is array of ranges (like the xml)

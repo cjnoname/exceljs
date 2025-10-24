@@ -8,9 +8,9 @@ interface SharedStringsModel {
 }
 
 class SharedStringsXform extends BaseXform {
-  declare hash: { [key: string]: number };
-  declare rich: { [key: string]: number };
-  declare parser: any;
+  declare private hash: { [key: string]: number };
+  declare private rich: { [key: string]: number };
+  declare public parser: any;
   declare private _sharedStringXform?: SharedStringXform;
   declare private _values?: SharedStringsModel;
 

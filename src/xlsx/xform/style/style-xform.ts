@@ -23,9 +23,9 @@ interface StyleOptions {
 
 // Style assists translation from style model to/from xlsx
 class StyleXform extends BaseXform {
-  declare xfId: boolean;
-  declare map: { alignment: AlignmentXform; protection: ProtectionXform };
-  declare parser: any;
+  declare private xfId: boolean;
+  declare public map: { alignment: AlignmentXform; protection: ProtectionXform };
+  declare public parser: any;
 
   constructor(options?: StyleOptions) {
     super();

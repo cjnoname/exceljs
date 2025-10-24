@@ -1,4 +1,3 @@
-/* eslint-disable no-sparse-arrays */
 import { describe, it, expect } from 'vitest';
 import { styles } from '../../utils/vitest-utils.js';
 import { Workbook, WorkbookWriter, WorkbookReader } from '../../../src/index.js';

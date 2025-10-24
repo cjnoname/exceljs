@@ -1,7 +1,7 @@
 import { BaseXform } from '../base-xform.js';
 
 class HLinkClickXform extends BaseXform {
-  declare model: any;
+  declare public model: any;
 
   constructor() {
     super();

@@ -2,7 +2,7 @@ import { BaseXform } from '../../base-xform.js';
 
 class VmlProtectionXform extends BaseXform {
   declare private _model: { tag?: string };
-  declare text: string;
+  declare private text: string;
 
   constructor(model?: { tag?: string }) {
     super();

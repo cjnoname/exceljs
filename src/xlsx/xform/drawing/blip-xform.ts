@@ -5,7 +5,7 @@ interface BlipModel {
 }
 
 class BlipXform extends BaseXform {
-  declare model: BlipModel;
+  declare public model: BlipModel;
 
   constructor() {
     super();

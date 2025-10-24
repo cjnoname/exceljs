@@ -12,16 +12,16 @@ interface ListXformOptions {
 }
 
 class ListXform extends BaseXform {
-  declare tag: string;
-  declare always: boolean;
-  declare count?: boolean;
-  declare empty?: boolean;
-  declare $count: string;
-  declare $?: any;
-  declare childXform: any;
-  declare maxItems?: number;
-  declare parser: any;
-  declare model: any[];
+  declare protected tag: string;
+  declare protected always: boolean;
+  declare protected count?: boolean;
+  declare protected empty?: boolean;
+  declare public $count: string;
+  declare public $?: any;
+  declare protected childXform: any;
+  declare protected maxItems?: number;
+  declare public parser: any;
+  declare public model: any[];
 
   constructor(options: ListXformOptions) {
     super();
