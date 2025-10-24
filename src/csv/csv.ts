@@ -1,16 +1,16 @@
-import fs from 'fs';
-import { StreamBuf } from '../utils/stream-buf.js';
-import { format, parse } from 'fast-csv';
-import customParseFormat from 'dayjs/plugin/customParseFormat';
-import utc from 'dayjs/plugin/utc';
-import dayjs from 'dayjs';
-import { utils } from '../utils/utils.js';
+import fs from "fs";
+import { StreamBuf } from "../utils/stream-buf.js";
+import { format, parse } from "fast-csv";
+import customParseFormat from "dayjs/plugin/customParseFormat.js";
+import utc from "dayjs/plugin/utc.js";
+import dayjs from "dayjs";
+import { utils } from "../utils/utils.js";
 
 dayjs.extend(customParseFormat);
 dayjs.extend(utc);
 
 const {
-  fs: { exists },
+  fs: { exists }
 } = utils;
 
 interface ReadOptions {
@@ -34,13 +34,13 @@ interface WriteOptions {
 const SpecialValues: { [key: string]: any } = {
   true: true,
   false: false,
-  '#N/A': { error: '#N/A' },
-  '#REF!': { error: '#REF!' },
-  '#NAME?': { error: '#NAME?' },
-  '#DIV/0!': { error: '#DIV/0!' },
-  '#NULL!': { error: '#NULL!' },
-  '#VALUE!': { error: '#VALUE!' },
-  '#NUM!': { error: '#NUM!' },
+  "#N/A": { error: "#N/A" },
+  "#REF!": { error: "#REF!" },
+  "#NAME?": { error: "#NAME?" },
+  "#DIV/0!": { error: "#DIV/0!" },
+  "#NULL!": { error: "#NULL!" },
+  "#VALUE!": { error: "#VALUE!" },
+  "#NUM!": { error: "#NUM!" }
 };
 
 class CSV {
@@ -75,15 +75,15 @@ class CSV {
       const worksheet = this.workbook.addWorksheet(options.sheetName);
 
       const dateFormats = options.dateFormats || [
-        'YYYY-MM-DD[T]HH:mm:ssZ',
-        'YYYY-MM-DD[T]HH:mm:ss',
-        'MM-DD-YYYY',
-        'YYYY-MM-DD',
+        "YYYY-MM-DD[T]HH:mm:ssZ",
+        "YYYY-MM-DD[T]HH:mm:ss",
+        "MM-DD-YYYY",
+        "YYYY-MM-DD"
       ];
       const map =
         options.map ||
         function (datum: any): any {
-          if (datum === '') {
+          if (datum === "") {
             return null;
           }
           const datumNumber = Number(datum);
@@ -115,14 +115,14 @@ class CSV {
       };
 
       const onEnd = () => {
-        csvStream.emit('worksheet', worksheet);
+        csvStream.emit("worksheet", worksheet);
       };
 
       const cleanup = () => {
-        csvStream.removeListener('data', onData);
-        csvStream.removeListener('end', onEnd);
-        csvStream.removeListener('worksheet', onWorksheet);
-        csvStream.removeListener('error', onError);
+        csvStream.removeListener("data", onData);
+        csvStream.removeListener("end", onEnd);
+        csvStream.removeListener("worksheet", onWorksheet);
+        csvStream.removeListener("error", onError);
       };
 
       const onWorksheet = (ws: any) => {
@@ -135,9 +135,9 @@ class CSV {
         reject(err);
       };
 
-      const csvStream = parse(options.parserOptions).on('data', onData).on('end', onEnd);
+      const csvStream = parse(options.parserOptions).on("data", onData).on("end", onEnd);
 
-      csvStream.once('worksheet', onWorksheet).on('error', onError);
+      csvStream.once("worksheet", onWorksheet).on("error", onError);
 
       stream.pipe(csvStream);
     });
@@ -155,8 +155,8 @@ class CSV {
       const csvStream = format(options.formatterOptions);
 
       const cleanup = () => {
-        stream.removeListener('finish', onFinish);
-        csvStream.removeListener('error', onError);
+        stream.removeListener("finish", onFinish);
+        csvStream.removeListener("error", onError);
       };
 
       const onFinish = () => {
@@ -169,8 +169,8 @@ class CSV {
         reject(err);
       };
 
-      stream.once('finish', onFinish);
-      csvStream.on('error', onError);
+      stream.once("finish", onFinish);
+      csvStream.on("error", onError);
       csvStream.pipe(stream);
 
       const { dateFormat, dateUTC } = options;
@@ -179,21 +179,23 @@ class CSV {
         ((value: any) => {
           if (value) {
             if (value.text || value.hyperlink) {
-              return value.hyperlink || value.text || '';
+              return value.hyperlink || value.text || "";
             }
             if (value.formula || value.result) {
-              return value.result || '';
+              return value.result || "";
             }
             if (value instanceof Date) {
               if (dateFormat) {
-                return dateUTC ? dayjs.utc(value).format(dateFormat) : dayjs(value).format(dateFormat);
+                return dateUTC
+                  ? dayjs.utc(value).format(dateFormat)
+                  : dayjs(value).format(dateFormat);
               }
               return dateUTC ? dayjs.utc(value).format() : dayjs(value).format();
             }
             if (value.error) {
               return value.error;
             }
-            if (typeof value === 'object') {
+            if (typeof value === "object") {
               return JSON.stringify(value);
             }
           }
@@ -223,7 +225,7 @@ class CSV {
     options = options || {};
 
     const streamOptions = {
-      encoding: (options.encoding || 'utf8') as BufferEncoding,
+      encoding: (options.encoding || "utf8") as BufferEncoding
     };
     const stream = fs.createWriteStream(filename, streamOptions);
 

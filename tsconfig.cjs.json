@@ -1,0 +1,31 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es2022",
+    "lib": ["ESNext"],
+    "moduleResolution": "node10",
+    "outDir": "./dist/cjs",
+    "declaration": false,
+    "declarationMap": false,
+    "emitDeclarationOnly": false,
+    "sourceMap": true,
+    "verbatimModuleSyntax": false,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "allowImportingTsExtensions": false
+  },
+  "include": ["src/**/*"],
+  "exclude": [
+    "node_modules",
+    "**/*.d.ts",
+    "**/*.test.ts",
+    "src/__test__",
+    "src/index.browser.ts",
+    "test",
+    "vitest.config.ts",
+    "vitest.browser.config.ts",
+    "rolldown.config.js",
+    "benchmark.js"
+  ]
+}

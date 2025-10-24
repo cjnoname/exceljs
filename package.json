@@ -31,12 +31,11 @@
     ".": {
       "types": "./dist/types/index.d.ts",
       "browser": {
-        "import": "./dist/exceljs.browser.mjs",
-        "default": "./dist/exceljs.browser.mjs"
+        "import": "./dist/esm/index.browser.js"
       },
-      "import": "./dist/exceljs.node.mjs",
-      "require": "./dist/exceljs.node.cjs",
-      "default": "./dist/exceljs.node.mjs"
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js",
+      "default": "./dist/esm/index.js"
     },
     "./package.json": "./package.json"
   },
@@ -50,9 +49,9 @@
   ],
   "scripts": {
     "test": "vitest run && npm run test:browser",
-    "test:browser": "npm run build && vitest run --config vitest.browser.config.ts",
+    "test:browser": "rimraf dist && npm run build:browser && vitest run --config vitest.browser.config.ts",
     "test:watch": "vitest",
-    "build": "rimraf dist && npm run build:types && npm run build:bundle",
+    "build": "rimraf dist && npm run build:types && npm run build:esm && npm run build:cjs && npm run build:browser",
     "clean": "pnpm dlx --reporter=silent rimraf \"**/node_modules\" pnpm-lock.yaml \"**/dist\" -g && pnpm i",
     "lint": "eslint && oxlint",
     "lint:fix": "eslint --fix && oxlint --fix",
@@ -61,7 +60,9 @@
     "lint:staged": "lint-staged",
     "benchmark": "npm run build && node --expose-gc benchmark.js",
     "build:types": "tsgo --project tsconfig.build.json",
-    "build:bundle": "rolldown -c rolldown.config.js",
+    "build:esm": "tsgo --project tsconfig.esm.json",
+    "build:cjs": "tsgo --project tsconfig.cjs.json && node scripts/fix-cjs-imports.mjs",
+    "build:browser": "rolldown -c rolldown.config.js",
     "analyze": "ANALYZE=1 rolldown -c rolldown.config.js",
     "prepublishOnly": "npm run clean && npm run build",
     "preversion": "npm run clean && npm run build && npm run test:version",
