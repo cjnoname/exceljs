@@ -872,4 +872,3 @@ class XLSX {
 }
 
 export { XLSX };
-export default XLSX;

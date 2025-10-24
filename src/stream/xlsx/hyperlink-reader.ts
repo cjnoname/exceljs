@@ -105,4 +105,3 @@ class HyperlinkReader extends EventEmitter {
 }
 
 export { HyperlinkReader };
-export default HyperlinkReader;

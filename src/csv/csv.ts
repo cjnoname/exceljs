@@ -238,4 +238,3 @@ class CSV {
 }
 
 export { CSV };
-export default CSV;

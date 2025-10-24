@@ -138,4 +138,3 @@ class SheetRelsWriter {
 }
 
 export { SheetRelsWriter };
-export default SheetRelsWriter;

@@ -92,7 +92,7 @@ function createWriteStream(_path: string): any {
 
 const noop = () => {};
 
-export default {
+export const fs = {
   readFile,
   writeFile,
   readFileSync: () => {

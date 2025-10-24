@@ -80,8 +80,7 @@ class StreamBase64 extends Duplex {
   wrap(_stream: any): this {
     // not implemented
     throw new Error('Not Implemented');
-  }
+    }
 }
 
 export { StreamBase64 };
-export default StreamBase64;

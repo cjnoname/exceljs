@@ -389,4 +389,3 @@ class WorksheetReader extends EventEmitter {
 }
 
 export { WorksheetReader };
-export default WorksheetReader;

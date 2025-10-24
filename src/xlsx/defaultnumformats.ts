@@ -162,4 +162,3 @@ const defaultNumFormats: { [key: number]: NumFormat } = {
 };
 
 export { defaultNumFormats };
-export default defaultNumFormats;

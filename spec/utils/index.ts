@@ -1,4 +1,3 @@
-import _ from './under-dash-custom';
 import { fix } from './tools';
 import { Row } from '../../src/doc/row.js';
 import { Column } from '../../src/doc/column.js';
@@ -15,6 +14,7 @@ import pageSetup from './data/page-setup.json' with { type: 'json' };
 import conditionalFormattingData from './data/conditional-formatting.json' with { type: 'json' };
 import headerFooter from './data/header-footer.json' with { type: 'json' };
 import { expect } from 'vitest';
+import { get } from './under-dash';
 
 const testSheets = {
   dataValidations,
@@ -72,7 +72,7 @@ const testUtils = {
     workbook.views = [{ x: 1, y: 2, width: 10000, height: 20000, firstSheet: 0, activeTab: 0 }];
 
     sheets.forEach(sheet => {
-      const testSheet = _.get(testSheets, sheet, undefined);
+      const testSheet = get(testSheets, sheet, undefined);
       testSheet.addSheet(workbook, options);
     });
 
@@ -100,7 +100,7 @@ const testUtils = {
     }
 
     sheets.forEach(sheet => {
-      const testSheet = _.get(testSheets, sheet, undefined);
+      const testSheet =get(testSheets, sheet, undefined);
       testSheet.checkSheet(workbook, options);
     });
   },

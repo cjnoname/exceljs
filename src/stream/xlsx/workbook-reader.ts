@@ -391,4 +391,3 @@ namespace WorkbookReader {
 }
 
 export { WorkbookReader };
-export default WorkbookReader;

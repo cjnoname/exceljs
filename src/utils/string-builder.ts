@@ -35,4 +35,3 @@ class StringBuilder {
 }
 
 export { StringBuilder };
-export default StringBuilder;

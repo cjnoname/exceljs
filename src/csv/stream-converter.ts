@@ -151,4 +151,3 @@ class StreamConverter {
 }
 
 export { StreamConverter };
-export default StreamConverter;

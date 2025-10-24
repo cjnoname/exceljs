@@ -89,4 +89,3 @@ class StutteredPipe extends events.EventEmitter {
 }
 
 export { StutteredPipe };
-export default StutteredPipe;

@@ -18,4 +18,3 @@ const RelType = {
 };
 
 export { RelType };
-export default RelType;
