@@ -48,16 +48,22 @@ if ! command -v npm >/dev/null 2>&1 && command -v pnpm >/dev/null 2>&1; then
   PKG_MGR="pnpm"
 fi
 
-echo "▶ Running $PKG_MGR run check ..." >&2
-echo "  Node version: $(node --version)" >&2
-echo "  Working directory: $(pwd)" >&2
+LOG_FILE="/tmp/husky-prepush-$(date +%Y%m%d-%H%M%S).log"
+
+echo "▶ Running $PKG_MGR run check ..." | tee -a "$LOG_FILE" >&2
+echo "  Node version: $(node --version)" | tee -a "$LOG_FILE" >&2
+echo "  Working directory: $(pwd)" | tee -a "$LOG_FILE" >&2
+echo "  PATH: $PATH" | tee -a "$LOG_FILE" >&2
+echo "  Log file: $LOG_FILE" | tee -a "$LOG_FILE" >&2
 START_TIME=$(date +%s)
 
-$PKG_MGR run check 2>&1 || {
-  echo "\n❌ Pre-push hook: $PKG_MGR run check failed. Fix issues before pushing." >&2
+$PKG_MGR run check 2>&1 | tee -a "$LOG_FILE" || {
+  echo "\n❌ Pre-push hook: $PKG_MGR run check failed. Fix issues before pushing." | tee -a "$LOG_FILE" >&2
+  echo "Check log: $LOG_FILE" >&2
   exit 1
 }
 
 END_TIME=$(date +%s)
 ELAPSED=$((END_TIME - START_TIME))
-echo "✅ Pre-push hook: checks passed in ${ELAPSED}s. Proceeding with git push." >&2
+echo "✅ Pre-push hook: checks passed in ${ELAPSED}s. Proceeding with git push." | tee -a "$LOG_FILE" >&2
+echo "Full log saved to: $LOG_FILE" >&2
