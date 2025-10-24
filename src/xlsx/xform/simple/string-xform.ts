@@ -1,4 +1,4 @@
-import BaseXform from '../base-xform.js';
+import { BaseXform } from '../base-xform.js';
 
 interface StringXformOptions {
   tag: string;
@@ -61,4 +61,3 @@ class StringXform extends BaseXform {
 }
 
 export { StringXform };
-export default StringXform;

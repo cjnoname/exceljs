@@ -1,9 +1,9 @@
 /* eslint-disable max-classes-per-file */
-import colCache from '../utils/col-cache.js';
+import { colCache } from '../utils/col-cache.js';
 import { Enums } from './enums.js';
 import { Note } from './note.js';
 
-import _ from '../utils/under-dash.js';
+import { escapeHtml } from '../utils/under-dash.js';
 import { slideFormula } from '../utils/shared-formula.js';
 
 interface HyperlinkValueData {
@@ -289,7 +289,7 @@ class Cell {
   }
 
   get html(): string {
-    return _.escapeHtml(this.text);
+    return escapeHtml(this.text);
   }
 
   toString(): string {
@@ -1195,4 +1195,3 @@ const Value = {
 };
 
 export { Cell };
-export default Cell;

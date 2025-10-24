@@ -1,5 +1,5 @@
-import XmlStream from '../../../utils/xml-stream.js';
-import BaseXform from '../base-xform.js';
+import { XmlStream } from '../../../utils/xml-stream.js';
+import { BaseXform } from '../base-xform.js';
 
 interface CacheRecordsModel {
   sourceSheet: any;
@@ -108,4 +108,3 @@ class PivotCacheRecordsXform extends BaseXform {
 }
 
 export { PivotCacheRecordsXform };
-export default PivotCacheRecordsXform;

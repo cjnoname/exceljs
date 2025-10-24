@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 
-import TwoCellAnchorXform from '../../../../../src/xlsx/xform/drawing/two-cell-anchor-xform.js';
+import { TwoCellAnchorXform } from '../../../../../src/xlsx/xform/drawing/two-cell-anchor-xform.js';
 
 describe('TwoCellAnchorXform', () => {
   describe('reconcile', () => {

@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-import colCache from '../../../src/utils/col-cache.js';
-import Cell from '../../../src/doc/cell.js';
-import Enums from '../../../src/doc/enums.js';
+import { colCache } from '../../../src/utils/col-cache.js';
+import { Cell } from '../../../src/doc/cell.js';
+import { Enums } from '../../../src/doc/enums.js';
 
 interface SheetMock {
   rows: any[];

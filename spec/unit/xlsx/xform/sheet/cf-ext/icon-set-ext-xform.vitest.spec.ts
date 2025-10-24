@@ -1,7 +1,7 @@
 import { describe } from 'vitest';
-import testXformHelper from '../../test-xform-helper';
+import { testXformHelper } from '../../test-xform-helper';
 
-import IconSetExtXform from '../../../../../../src/xlsx/xform/sheet/cf-ext/icon-set-ext-xform.js';
+import { IconSetExtXform } from '../../../../../../src/xlsx/xform/sheet/cf-ext/icon-set-ext-xform.js';
 
 const expectations = [
   {

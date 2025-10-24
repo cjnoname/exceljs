@@ -1,4 +1,4 @@
-import BaseXform from '../base-xform.js';
+import { BaseXform } from '../base-xform.js';
 
 interface CalcPropertiesModel {
   fullCalcOnLoad?: boolean;
@@ -28,4 +28,3 @@ class WorkbookCalcPropertiesXform extends BaseXform {
 }
 
 export { WorkbookCalcPropertiesXform };
-export default WorkbookCalcPropertiesXform;

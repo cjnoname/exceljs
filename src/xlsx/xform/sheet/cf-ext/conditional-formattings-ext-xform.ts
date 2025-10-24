@@ -1,7 +1,7 @@
-import CompositeXform from '../../composite-xform.js';
+import { CompositeXform } from '../../composite-xform.js';
 
-import CfRuleExtXform from './cf-rule-ext-xform.js';
-import ConditionalFormattingExtXform from './conditional-formatting-ext-xform.js';
+import { CfRuleExtXform } from './cf-rule-ext-xform.js';
+import { ConditionalFormattingExtXform } from './conditional-formatting-ext-xform.js';
 
 class ConditionalFormattingsExtXform extends CompositeXform {
   cfXform: ConditionalFormattingExtXform;
@@ -50,4 +50,3 @@ class ConditionalFormattingsExtXform extends CompositeXform {
 }
 
 export { ConditionalFormattingsExtXform };
-export default ConditionalFormattingsExtXform;

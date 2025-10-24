@@ -1,4 +1,4 @@
-import BaseXform from '../base-xform.js';
+import { BaseXform } from '../base-xform.js';
 
 interface WorkbookViewModel {
   x?: number;
@@ -61,4 +61,3 @@ class WorkbookViewXform extends BaseXform {
 }
 
 export { WorkbookViewXform };
-export default WorkbookViewXform;

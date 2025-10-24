@@ -1,6 +1,6 @@
-import BaseXform from '../base-xform.js';
-import VmlTextboxXform from './vml-textbox-xform.js';
-import VmlClientDataXform from './vml-client-data-xform.js';
+import { BaseXform } from '../base-xform.js';
+import { VmlTextboxXform } from './vml-textbox-xform.js';
+import { VmlClientDataXform } from './vml-client-data-xform.js';
 
 interface ShapeModel {
   note: {
@@ -106,4 +106,3 @@ class VmlShapeXform extends BaseXform {
 }
 
 export { VmlShapeXform };
-export default VmlShapeXform;

@@ -1,7 +1,7 @@
 /* eslint-disable max-classes-per-file */
 import { Duplex } from 'stream';
-import utils from './utils.js';
-import StringBuf from './string-buf.js';
+import { utils } from './utils.js';
+import { StringBuf } from './string-buf.js';
 
 // =============================================================================
 // data chunks - encapsulating incoming data
@@ -389,4 +389,3 @@ utils.inherits(StreamBuf, Duplex as any, {
 });
 
 export { StreamBuf };
-export default StreamBuf;

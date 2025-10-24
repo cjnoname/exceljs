@@ -1,4 +1,4 @@
-import BaseXform from '../base-xform.js';
+import { BaseXform } from '../base-xform.js';
 
 class HLinkClickXform extends BaseXform {
   declare model: any;
@@ -45,4 +45,5 @@ class HLinkClickXform extends BaseXform {
   }
 }
 
-export default HLinkClickXform;
+
+export { HLinkClickXform };

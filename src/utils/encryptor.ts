@@ -49,4 +49,3 @@ const Encryptor = {
   },
 };
 export { Encryptor };
-export default Encryptor;

@@ -1,4 +1,4 @@
-import BaseXform from '../base-xform.js';
+import { BaseXform } from '../base-xform.js';
 
 interface TablePartModel {
   rId: string;
@@ -35,4 +35,3 @@ class TablePartXform extends BaseXform {
 }
 
 export { TablePartXform };
-export default TablePartXform;

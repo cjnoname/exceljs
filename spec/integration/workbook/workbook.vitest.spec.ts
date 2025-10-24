@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import testUtils from '../../utils/index';
+import { testUtils } from '../../utils/index';
 
 import { Workbook, WorkbookWriter, WorkbookReader } from '../../../src/index.js';
 import { ValueType } from '../../../src/doc/enums';

@@ -1,6 +1,7 @@
 // Vitest-specific testUtils - ES6 module version
-import Row from '../../src/doc/row.js';
-import Column from '../../src/doc/column.js';
+import { Row } from '../../src/doc/row.js';
+import { Column } from '../../src/doc/column.js';
+import { fix } from './tools';
 
 // Local utility functions
 const _ = {
@@ -22,44 +23,6 @@ const _ = {
   },
 };
 
-const tools = {
-  dtMatcher: /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[.]\d{3}Z$/,
-  fix: function fix(o: any): any {
-    let clone: any;
-    if (o instanceof Array) {
-      clone = [];
-    } else if (typeof o === 'object') {
-      clone = {};
-    } else if (typeof o === 'string' && tools.dtMatcher.test(o)) {
-      return new Date(o);
-    } else {
-      return o;
-    }
-    if (Array.isArray(o)) {
-      o.forEach((value: any, index: number) => {
-        if (value !== undefined) {
-          clone[index] = fix(value);
-        }
-      });
-    } else {
-      Object.keys(o).forEach(name => {
-        const value = o[name];
-        if (value !== undefined) {
-          clone[name] = fix(value);
-        }
-      });
-    }
-    return clone;
-  },
-
-  concatenateFormula(...args: string[]): { formula: string } {
-    const values = args.map(value => `"${value}"`);
-    return {
-      formula: `CONCATENATE(${values.join(',')})`,
-    };
-  },
-};
-
 // Load JSON data files
 import viewsData from './data/views.json';
 import sheetValuesData from './data/sheet-values.json';
@@ -69,13 +32,13 @@ import pageSetupData from './data/page-setup.json';
 import conditionalFormattingData from './data/conditional-formatting.json';
 import headerFooterData from './data/header-footer.json';
 
-export const views = tools.fix(viewsData);
-export const testValues = tools.fix(sheetValuesData);
-export const styles = tools.fix(stylesData);
-export const properties = tools.fix(sheetPropertiesData);
-export const pageSetup = tools.fix(pageSetupData);
-export const conditionalFormatting = tools.fix(conditionalFormattingData);
-export const headerFooter = tools.fix(headerFooterData);
+export const views = fix(viewsData);
+export const testValues = fix(sheetValuesData);
+export const styles = fix(stylesData);
+export const properties = fix(sheetPropertiesData);
+export const pageSetup = fix(pageSetupData);
+export const conditionalFormatting = fix(conditionalFormattingData);
+export const headerFooter = fix(headerFooterData);
 
 export function createSheetMock(): any {
   return {

@@ -1,7 +1,7 @@
 import { describe, it, beforeAll, afterAll } from 'vitest';
 import { Readable } from 'stream';
 import express from 'express';
-import testutils from '../utils/index';
+import { testUtils } from '../utils/index';
 import { Workbook } from '../../src/index.js';
 
 describe('Express', () => {
@@ -10,7 +10,7 @@ describe('Express', () => {
   beforeAll(() => {
     const app: any = express();
     app.get('/workbook', (req: any, res: any) => {
-      const wb = testutils.createTestBook(new Workbook(), 'xlsx', undefined);
+      const wb = testUtils.createTestBook(new Workbook(), 'xlsx', undefined);
       res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
       res.setHeader('Content-Disposition', 'attachment; filename=Report.xlsx');
       wb.xlsx.write(res).then(() => {
@@ -30,6 +30,6 @@ describe('Express', () => {
 
     const wb2 = new Workbook();
     await wb2.xlsx.read(Readable.fromWeb(response.body as any));
-    testutils.checkTestBook(wb2, 'xlsx', undefined, {});
+    testUtils.checkTestBook(wb2, 'xlsx', undefined, {});
   }, 5000);
 });

@@ -1,4 +1,4 @@
-import BaseXform from '../base-xform.js';
+import { BaseXform } from '../base-xform.js';
 
 const isDefined = (attr: any): boolean => typeof attr !== 'undefined';
 
@@ -46,4 +46,3 @@ class OutlinePropertiesXform extends BaseXform {
 }
 
 export { OutlinePropertiesXform };
-export default OutlinePropertiesXform;

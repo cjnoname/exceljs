@@ -1,35 +1,34 @@
-import _ from '../../../utils/under-dash.js';
 
-import colCache from '../../../utils/col-cache.js';
-import XmlStream from '../../../utils/xml-stream.js';
+import { colCache } from '../../../utils/col-cache.js';
+import { XmlStream } from '../../../utils/xml-stream.js';
 
-import RelType from '../../rel-type.js';
+import { RelType } from '../../rel-type.js';
 
-import Merges from './merges.js';
+import { Merges } from './merges.js';
 
-import BaseXform from '../base-xform.js';
-import ListXform from '../list-xform.js';
-import RowXform from './row-xform.js';
-import ColXform from './col-xform.js';
-import DimensionXform from './dimension-xform.js';
-import HyperlinkXform from './hyperlink-xform.js';
-import MergeCellXform from './merge-cell-xform.js';
-import DataValidationsXform from './data-validations-xform.js';
-import SheetPropertiesXform from './sheet-properties-xform.js';
-import SheetFormatPropertiesXform from './sheet-format-properties-xform.js';
-import SheetViewXform from './sheet-view-xform.js';
-import SheetProtectionXform from './sheet-protection-xform.js';
-import PageMarginsXform from './page-margins-xform.js';
-import PageSetupXform from './page-setup-xform.js';
-import PrintOptionsXform from './print-options-xform.js';
-import AutoFilterXform from './auto-filter-xform.js';
-import PictureXform from './picture-xform.js';
-import DrawingXform from './drawing-xform.js';
-import TablePartXform from './table-part-xform.js';
-import RowBreaksXform from './row-breaks-xform.js';
-import HeaderFooterXform from './header-footer-xform.js';
-import ConditionalFormattingsXform from './cf/conditional-formattings-xform.js';
-import ExtListXform from './ext-lst-xform.js';
+import { BaseXform } from '../base-xform.js';
+import { ListXform } from '../list-xform.js';
+import { RowXform } from './row-xform.js';
+import { ColXform } from './col-xform.js';
+import { DimensionXform } from './dimension-xform.js';
+import { HyperlinkXform } from './hyperlink-xform.js';
+import { MergeCellXform } from './merge-cell-xform.js';
+import { DataValidationsXform } from './data-validations-xform.js';
+import { SheetPropertiesXform } from './sheet-properties-xform.js';
+import { SheetFormatPropertiesXform } from './sheet-format-properties-xform.js';
+import { SheetViewXform } from './sheet-view-xform.js';
+import { SheetProtectionXform } from './sheet-protection-xform.js';
+import { PageMarginsXform } from './page-margins-xform.js';
+import { PageSetupXform } from './page-setup-xform.js';
+import { PrintOptionsXform } from './print-options-xform.js';
+import { AutoFilterXform } from './auto-filter-xform.js';
+import { PictureXform } from './picture-xform.js';
+import { DrawingXform } from './drawing-xform.js';
+import { TablePartXform } from './table-part-xform.js';
+import { RowBreaksXform } from './row-breaks-xform.js';
+import { HeaderFooterXform } from './header-footer-xform.js';
+import { ConditionalFormattingsXform } from './cf/conditional-formattings-xform.js';
+import { ExtLstXform } from './ext-lst-xform.js';
 
 const mergeRule = (rule, extRule) => {
   Object.keys(extRule).forEach(key => {
@@ -136,7 +135,7 @@ class WorkSheetXform extends BaseXform {
       sheetProtection: new SheetProtectionXform(),
       tableParts: new ListXform({ tag: 'tableParts', count: true, childXform: new TablePartXform() }),
       conditionalFormatting: new ConditionalFormattingsXform(),
-      extLst: new ExtListXform(),
+      extLst: new ExtLstXform(),
     };
   }
 
@@ -551,4 +550,3 @@ WorkSheetXform.WORKSHEET_ATTRIBUTES = {
 };
 
 export { WorkSheetXform };
-export default WorkSheetXform;

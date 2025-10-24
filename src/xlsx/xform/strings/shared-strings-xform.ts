@@ -1,6 +1,6 @@
-import XmlStream from '../../../utils/xml-stream.js';
-import BaseXform from '../base-xform.js';
-import SharedStringXform from './shared-string-xform.js';
+import { XmlStream } from '../../../utils/xml-stream.js';
+import { BaseXform } from '../base-xform.js';
+import { SharedStringXform } from './shared-string-xform.js';
 
 interface SharedStringsModel {
   values: any[];
@@ -136,4 +136,3 @@ class SharedStringsXform extends BaseXform {
 }
 
 export { SharedStringsXform };
-export default SharedStringsXform;

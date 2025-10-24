@@ -1,9 +1,9 @@
-import tools from './tools';
+import { fix } from './tools';
 import conditionalFormattingJson from './data/conditional-formatting.json' with { type: 'json' };
 import { expect } from 'vitest';
 
 const self = {
-  conditionalFormattings: tools.fix(conditionalFormattingJson),
+  conditionalFormattings: fix(conditionalFormattingJson),
   getConditionalFormatting(type) {
     return self.conditionalFormattings[type] || null;
   },
@@ -35,4 +35,5 @@ const self = {
   },
 };
 
-export default self;
+const conditionalFormatting = self;
+export { conditionalFormatting };

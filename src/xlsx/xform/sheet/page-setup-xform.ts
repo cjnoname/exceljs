@@ -1,6 +1,5 @@
-import BaseXform from '../base-xform.js';
+import { BaseXform } from '../base-xform.js';
 
-import _ from '../../../utils/under-dash.js';
 
 function booleanToXml(model: boolean): string | undefined {
   return model ? '1' : undefined;
@@ -121,4 +120,3 @@ class PageSetupXform extends BaseXform {
 }
 
 export { PageSetupXform };
-export default PageSetupXform;

@@ -1,4 +1,4 @@
-import BaseXform from '../base-xform.js';
+import { BaseXform } from '../base-xform.js';
 
 abstract class BaseCellAnchorXform extends BaseXform {
   declare map: { [key: string]: any };
@@ -51,4 +51,5 @@ abstract class BaseCellAnchorXform extends BaseXform {
   }
 }
 
-export default BaseCellAnchorXform;
+
+export { BaseCellAnchorXform };

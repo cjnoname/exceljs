@@ -1,6 +1,5 @@
-import _ from '../utils/under-dash.js';
 
-import colCache from '../utils/col-cache.js';
+import { colCache } from '../utils/col-cache.js';
 import { Range } from './range.js';
 import { Row } from './row.js';
 import { Column } from './column.js';
@@ -1058,4 +1057,3 @@ Please leave feedback at https://github.com/exceljs/exceljs/discussions/2575`
 }
 
 export { Worksheet };
-export default Worksheet;

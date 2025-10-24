@@ -2,7 +2,7 @@
 import { describe, it, expect } from 'vitest';
 import { styles } from '../../utils/vitest-utils.js';
 import { Workbook, WorkbookWriter, WorkbookReader } from '../../../src/index.js';
-import Enums from '../../../src/doc/enums.js';
+import { Enums } from '../../../src/doc/enums.js';
 
 // =============================================================================
 // Helpers

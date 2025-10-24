@@ -1,4 +1,4 @@
-import BaseXform from '../base-xform.js';
+import { BaseXform } from '../base-xform.js';
 
 interface HeaderFooterModel {
   differentFirst?: boolean;
@@ -157,4 +157,3 @@ class HeaderFooterXform extends BaseXform {
 }
 
 export { HeaderFooterXform };
-export default HeaderFooterXform;

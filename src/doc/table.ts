@@ -1,5 +1,5 @@
 /* eslint-disable max-classes-per-file */
-import colCache from '../utils/col-cache.js';
+import { colCache } from '../utils/col-cache.js';
 
 interface ColumnModel {
   name: string;
@@ -510,4 +510,3 @@ class Table {
 }
 
 export { Table };
-export default Table;

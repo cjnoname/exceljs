@@ -1,4 +1,4 @@
-import BaseXform from '../../base-xform.js';
+import { BaseXform } from '../../base-xform.js';
 
 class SqrefExtXform extends BaseXform {
   get tag() {
@@ -23,4 +23,3 @@ class SqrefExtXform extends BaseXform {
 }
 
 export { SqrefExtXform };
-export default SqrefExtXform;

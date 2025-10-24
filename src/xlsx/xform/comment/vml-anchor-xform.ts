@@ -1,4 +1,4 @@
-import BaseXform from '../base-xform.js';
+import { BaseXform } from '../base-xform.js';
 
 interface AnchorModel {
   left: number;
@@ -80,4 +80,3 @@ class VmlAnchorXform extends BaseXform {
 }
 
 export { VmlAnchorXform };
-export default VmlAnchorXform;

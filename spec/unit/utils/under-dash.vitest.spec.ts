@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import _ from '../../../src/utils/under-dash.js';
+import { isEqual, escapeHtml } from '../../../src/utils/under-dash.js';
 import util from 'util';
 
 describe('under-dash', () => {
@@ -42,7 +42,7 @@ describe('under-dash', () => {
           const b = values[j];
 
           const assertion = `${showVal(a)} ${i === j ? '==' : '!='} ${showVal(b)}`;
-          expect(_.isEqual(a, b), `expected ${assertion}`).toBe(i === j);
+          expect(isEqual(a, b), `expected ${assertion}`).toBe(i === j);
         }
       }
     });
@@ -54,7 +54,7 @@ describe('under-dash', () => {
           const b = [values[j]];
 
           const assertion = `${showVal(a)} ${i === j ? '==' : '!='} ${showVal(b)}`;
-          expect(_.isEqual(a, b), `expected ${assertion}`).toBe(i === j);
+          expect(isEqual(a, b), `expected ${assertion}`).toBe(i === j);
         }
       }
     });
@@ -66,7 +66,7 @@ describe('under-dash', () => {
           const b = { key: values[j] };
 
           const assertion = `${showVal(a)} ${i === j ? '==' : '!='} ${showVal(b)}`;
-          expect(_.isEqual(a, b), `expected ${assertion}`).toBe(i === j);
+          expect(isEqual(a, b), `expected ${assertion}`).toBe(i === j);
         }
       }
     });

@@ -1,4 +1,4 @@
-import BaseXform from '../../../../src/xlsx/xform/base-xform.js';
+import { BaseXform } from '../../../../src/xlsx/xform/base-xform.js';
 
 interface CompyXformOptions {
   tag: string;
@@ -91,4 +91,4 @@ class CompyXform extends BaseXform {
   }
 }
 
-export default CompyXform;
+export { CompyXform };

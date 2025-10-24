@@ -1,6 +1,6 @@
-import TextXform from './text-xform.js';
-import FontXform from '../style/font-xform.js';
-import BaseXform from '../base-xform.js';
+import { TextXform } from './text-xform.js';
+import { FontXform } from '../style/font-xform.js';
+import { BaseXform } from '../base-xform.js';
 
 // <r>
 //   <rPr>
@@ -106,4 +106,5 @@ class RichTextXform extends BaseXform {
   };
 }
 
-export default RichTextXform;
+
+export { RichTextXform };

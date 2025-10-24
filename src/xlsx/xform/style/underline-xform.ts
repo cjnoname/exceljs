@@ -1,4 +1,4 @@
-import BaseXform from '../base-xform.js';
+import { BaseXform } from '../base-xform.js';
 
 type UnderlineType = boolean | 'single' | 'double' | 'singleAccounting' | 'doubleAccounting';
 
@@ -46,4 +46,3 @@ class UnderlineXform extends BaseXform {
 }
 
 export { UnderlineXform };
-export default UnderlineXform;

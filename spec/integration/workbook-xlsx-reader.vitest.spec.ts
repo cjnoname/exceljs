@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeAll, beforeEach, afterEach } from 'vitest';
 import fs from 'fs';
 
-import testutils from '../utils/index';
+import { testUtils } from '../utils/index';
 
 import { ValueType, Workbook } from '../../src/index.js';
 
@@ -14,9 +14,9 @@ describe('WorkbookReader', () => {
     it(
       'xlsx file',
       async () => {
-        const wb = testutils.createTestBook(new Workbook(), 'xlsx');
+        const wb = testUtils.createTestBook(new Workbook(), 'xlsx');
 
-        return wb.xlsx.writeFile(TEST_FILE_NAME).then(() => testutils.checkTestBookReader(TEST_FILE_NAME));
+        return wb.xlsx.writeFile(TEST_FILE_NAME).then(() => testUtils.checkTestBookReader(TEST_FILE_NAME));
       },
        10000 
     );

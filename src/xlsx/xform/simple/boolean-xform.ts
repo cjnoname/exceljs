@@ -1,4 +1,4 @@
-import BaseXform from '../base-xform.js';
+import { BaseXform } from '../base-xform.js';
 
 interface BooleanXformOptions {
   tag: string;
@@ -37,4 +37,3 @@ class BooleanXform extends BaseXform {
 }
 
 export { BooleanXform };
-export default BooleanXform;

@@ -1,6 +1,5 @@
-import _ from '../utils/under-dash.js';
-import colCache from '../utils/col-cache.js';
-import CellMatrix from '../utils/cell-matrix.js';
+import { colCache } from '../utils/col-cache.js';
+import { CellMatrix } from '../utils/cell-matrix.js';
 import { Range } from './range.js';
 
 const rangeRegexp = /[$](\w+)[$](\d+)(:[$](\w+)[$](\d+))?/;
@@ -207,4 +206,3 @@ class DefinedNames {
 }
 
 export { DefinedNames };
-export default DefinedNames;

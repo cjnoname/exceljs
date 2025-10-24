@@ -1,15 +1,15 @@
 /* eslint-disable max-classes-per-file */
 import { Enums } from '../../../doc/enums.js';
-import XmlStream from '../../../utils/xml-stream.js';
-import BaseXform from '../base-xform.js';
-import StaticXform from '../static-xform.js';
-import ListXform from '../list-xform.js';
-import FontXform from './font-xform.js';
-import FillXform from './fill-xform.js';
-import BorderXform from './border-xform.js';
-import NumFmtXform from './numfmt-xform.js';
-import StyleXform from './style-xform.js';
-import DxfXform from './dxf-xform.js';
+import { XmlStream } from '../../../utils/xml-stream.js';
+import { BaseXform } from '../base-xform.js';
+import { StaticXform } from '../static-xform.js';
+import { ListXform } from '../list-xform.js';
+import { FontXform } from './font-xform.js';
+import { FillXform } from './fill-xform.js';
+import { BorderXform } from './border-xform.js';
+import { NumFmtXform } from './numfmt-xform.js';
+import { StyleXform } from './style-xform.js';
+import { DxfXform } from './dxf-xform.js';
 
 // custom numfmt ids start here
 const NUMFMT_BASE = 164;
@@ -551,4 +551,3 @@ class StylesXformMock extends StylesXform {
 StylesXform.Mock = StylesXformMock;
 
 export { StylesXform };
-export default StylesXform;

@@ -1,17 +1,17 @@
-import CompositeXform from '../../composite-xform.js';
+import { CompositeXform } from '../../composite-xform.js';
 
-import SqRefExtXform from './sqref-ext-xform.js';
-import CfRuleExtXform from './cf-rule-ext-xform.js';
+import { SqrefExtXform } from './sqref-ext-xform.js';
+import { CfRuleExtXform } from './cf-rule-ext-xform.js';
 
 class ConditionalFormattingExtXform extends CompositeXform {
-  sqRef: SqRefExtXform;
+  sqRef: SqrefExtXform;
   cfRule: CfRuleExtXform;
 
   constructor() {
     super();
 
     this.map = {
-      'xm:sqref': (this.sqRef = new SqRefExtXform()),
+      'xm:sqref': (this.sqRef = new SqrefExtXform()),
       'x14:cfRule': (this.cfRule = new CfRuleExtXform()),
     };
   }
@@ -63,4 +63,3 @@ class ConditionalFormattingExtXform extends CompositeXform {
 }
 
 export { ConditionalFormattingExtXform };
-export default ConditionalFormattingExtXform;

@@ -1,6 +1,6 @@
-import BaseXform from '../base-xform.js';
-import CacheField from './cache-field.js';
-import XmlStream from '../../../utils/xml-stream.js';
+import { BaseXform } from '../base-xform.js';
+import { CacheField } from './cache-field.js';
+import { XmlStream } from '../../../utils/xml-stream.js';
 
 interface CacheDefinitionModel {
   sourceSheet: any;
@@ -84,4 +84,3 @@ class PivotCacheDefinitionXform extends BaseXform {
 }
 
 export { PivotCacheDefinitionXform };
-export default PivotCacheDefinitionXform;

@@ -2,7 +2,7 @@ import { describe, it, expect, beforeAll, afterAll, beforeEach, afterEach } from
 import fs from 'fs';
 import { promisify } from 'util';
 
-import testUtils from '../../utils/index';
+import { testUtils } from '../../utils/index';
 
 import { Workbook, WorkbookWriter, WorkbookReader } from '../../../src/index.js';
 

@@ -1,4 +1,4 @@
-import BaseXform from '../base-xform.js';
+import { BaseXform } from '../base-xform.js';
 
 interface TableStyleModel {
   theme?: string | null;
@@ -59,4 +59,3 @@ class TableStyleInfoXform extends BaseXform {
 }
 
 export { TableStyleInfoXform };
-export default TableStyleInfoXform;

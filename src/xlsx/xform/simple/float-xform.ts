@@ -1,4 +1,4 @@
-import BaseXform from '../base-xform.js';
+import { BaseXform } from '../base-xform.js';
 
 interface FloatXformOptions {
   tag: string;
@@ -61,4 +61,3 @@ class FloatXform extends BaseXform {
 }
 
 export { FloatXform };
-export default FloatXform;

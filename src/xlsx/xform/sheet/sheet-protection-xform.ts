@@ -1,6 +1,5 @@
-import BaseXform from '../base-xform.js';
+import { BaseXform } from '../base-xform.js';
 
-import _ from '../../../utils/under-dash.js';
 
 function booleanToXml(model: boolean, value: string): string | undefined {
   return model ? value : undefined;
@@ -111,4 +110,3 @@ class SheetProtectionXform extends BaseXform {
 }
 
 export { SheetProtectionXform };
-export default SheetProtectionXform;

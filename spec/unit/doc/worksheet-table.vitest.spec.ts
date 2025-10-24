@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import colCache from '../../../src/utils/col-cache.js';
+import { colCache } from '../../../src/utils/col-cache.js';
 import { Workbook, WorkbookWriter, WorkbookReader } from '../../../src/index.js';
 
 const spliceArray = (a: any[], index: number, count: number, ...rest: any[]) => {

@@ -23,4 +23,3 @@ class DataValidations {
 }
 
 export { DataValidations };
-export default DataValidations;

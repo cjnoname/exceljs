@@ -1,9 +1,9 @@
 import { v4 as uuidv4 } from 'uuid';
-import BaseXform from '../../base-xform.js';
-import CompositeXform from '../../composite-xform.js';
+import { BaseXform } from '../../base-xform.js';
+import { CompositeXform } from '../../composite-xform.js';
 
-import DatabarExtXform from './databar-ext-xform.js';
-import IconSetExtXform from './icon-set-ext-xform.js';
+import { DatabarExtXform } from './databar-ext-xform.js';
+import { IconSetExtXform } from './icon-set-ext-xform.js';
 
 const extIcons = {
   '3Triangles': true,
@@ -99,4 +99,3 @@ class CfRuleExtXform extends CompositeXform {
 }
 
 export { CfRuleExtXform };
-export default CfRuleExtXform;

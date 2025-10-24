@@ -1,5 +1,4 @@
-import _ from './under-dash.js';
-import colCache from './col-cache.js';
+import { colCache } from './col-cache.js';
 
 interface CellAddress {
   sheetName?: string;
@@ -180,4 +179,3 @@ class CellMatrix {
 }
 
 export { CellMatrix };
-export default CellMatrix;

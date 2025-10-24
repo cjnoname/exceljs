@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import Stream from 'stream';
+import { Stream } from 'stream';
 import { Workbook, WorkbookWriter, WorkbookReader } from '../../../src/index.js';
 
 describe('Workbook Writer', () => {

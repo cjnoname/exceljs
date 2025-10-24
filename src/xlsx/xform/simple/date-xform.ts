@@ -1,4 +1,4 @@
-import BaseXform from '../base-xform.js';
+import { BaseXform } from '../base-xform.js';
 
 interface DateXformOptions {
   tag: string;
@@ -80,4 +80,3 @@ class DateXform extends BaseXform {
 }
 
 export { DateXform };
-export default DateXform;

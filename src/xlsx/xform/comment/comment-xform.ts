@@ -1,5 +1,5 @@
-import RichTextXform from '../strings/rich-text-xform.js';
-import BaseXform from '../base-xform.js';
+import { RichTextXform } from '../strings/rich-text-xform.js';
+import { BaseXform } from '../base-xform.js';
 
 interface NoteText {
   font?: any;
@@ -103,4 +103,3 @@ class CommentXform extends BaseXform {
 }
 
 export { CommentXform };
-export default CommentXform;

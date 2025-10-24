@@ -1,5 +1,5 @@
-import BaseXform from '../../base-xform.js';
-import ConditionalFormattingXform from './conditional-formatting-xform.js';
+import { BaseXform } from '../../base-xform.js';
+import { ConditionalFormattingXform } from './conditional-formatting-xform.js';
 
 class ConditionalFormattingsXform extends BaseXform {
   cfXform: ConditionalFormattingXform;
@@ -92,4 +92,3 @@ class ConditionalFormattingsXform extends BaseXform {
 }
 
 export { ConditionalFormattingsXform };
-export default ConditionalFormattingsXform;

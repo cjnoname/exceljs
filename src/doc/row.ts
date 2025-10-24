@@ -1,7 +1,6 @@
-import _ from '../utils/under-dash.js';
 
 import { Enums } from './enums.js';
-import colCache from '../utils/col-cache.js';
+import { colCache } from '../utils/col-cache.js';
 import { Cell } from './cell.js';
 
 interface CellAddress {
@@ -454,4 +453,3 @@ class Row {
 }
 
 export { Row };
-export default Row;

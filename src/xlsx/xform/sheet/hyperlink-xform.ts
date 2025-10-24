@@ -1,4 +1,4 @@
-import BaseXform from '../base-xform.js';
+import { BaseXform } from '../base-xform.js';
 
 interface HyperlinkModel {
   address: string;
@@ -59,4 +59,3 @@ class HyperlinkXform extends BaseXform {
 }
 
 export { HyperlinkXform };
-export default HyperlinkXform;

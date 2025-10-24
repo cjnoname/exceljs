@@ -90,4 +90,3 @@ class StringBuf {
 }
 
 export { StringBuf };
-export default StringBuf;

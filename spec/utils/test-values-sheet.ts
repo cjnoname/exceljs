@@ -1,4 +1,4 @@
-import tools from './tools';
+import { fix } from './tools';
 import { ValueType } from '../../src/index.js';
 import testValuesJson from './data/sheet-values.json' with { type: 'json' };
 import stylesJson from './data/styles.json' with { type: 'json' };
@@ -7,11 +7,11 @@ import pageSetupJson from './data/page-setup.json' with { type: 'json' };
 import headerFooterJson from './data/header-footer.json' with { type: 'json' };
 
 const self = {
-  testValues: tools.fix(testValuesJson),
-  styles: tools.fix(stylesJson),
-  properties: tools.fix(propertiesJson),
-  pageSetup: tools.fix(pageSetupJson),
-  headerFooter: tools.fix(headerFooterJson),
+  testValues: fix(testValuesJson),
+  styles: fix(stylesJson),
+  properties: fix(propertiesJson),
+  pageSetup: fix(pageSetupJson),
+  headerFooter: fix(headerFooterJson),
 
   addSheet(wb, options) {
     // call it sheet1 so this sheet can be used for csv testing

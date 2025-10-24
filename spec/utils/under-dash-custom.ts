@@ -1,4 +1,4 @@
-import underDash from '../../src/utils/under-dash.js';
+import * as underDashFunctions from '../../src/utils/under-dash.js';
 
 const _ = Object.assign(
   {
@@ -53,7 +53,7 @@ const _ = Object.assign(
       return clone;
     },
   },
-  underDash
+  underDashFunctions
 );
 
 export default _;

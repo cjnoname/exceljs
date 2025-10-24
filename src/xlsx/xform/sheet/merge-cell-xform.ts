@@ -1,4 +1,4 @@
-import BaseXform from '../base-xform.js';
+import { BaseXform } from '../base-xform.js';
 
 class MergeCellXform extends BaseXform {
   get tag(): string {
@@ -25,4 +25,3 @@ class MergeCellXform extends BaseXform {
 }
 
 export { MergeCellXform };
-export default MergeCellXform;

@@ -17,4 +17,3 @@ class ModelContainer {
 }
 
 export { ModelContainer };
-export default ModelContainer;

@@ -1,9 +1,9 @@
-import BaseXform from '../base-xform.js';
-import StaticXform from '../static-xform.js';
-import BlipFillXform from './blip-fill-xform.js';
-import NvPicPrXform from './nv-pic-pr-xform.js';
+import { BaseXform } from '../base-xform.js';
+import { StaticXform } from '../static-xform.js';
+import { BlipFillXform } from './blip-fill-xform.js';
+import { NvPicPrXform } from './nv-pic-pr-xform.js';
 
-import spPrJSON from './sp-pr.js';
+import { spPrJSON } from './sp-pr.js';
 
 interface PicModel {
   index?: number;
@@ -82,4 +82,5 @@ class PicXform extends BaseXform {
   }
 }
 
-export default PicXform;
+
+export { PicXform };

@@ -1,8 +1,8 @@
-import tools from './tools';
+import { fix, concatenateFormula } from './tools';
 import dataValidationsJson from './data/data-validations.json' with { type: 'json' };
 
 const self = {
-  dataValidations: tools.fix(dataValidationsJson),
+  dataValidations: fix(dataValidationsJson),
   createDataValidations(type, operator) {
     const dataValidation = {
       type,
@@ -33,44 +33,44 @@ const self = {
     ws.getCell('E1').name = 'Nephews';
     ws.getCell('F1').value = 'Louie';
     ws.getCell('F1').name = 'Nephews';
-    ws.getCell('A1').value = tools.concatenateFormula('Named List');
+    ws.getCell('A1').value = concatenateFormula('Named List');
     ws.getCell('B1').dataValidation = self.dataValidations.B1;
 
-    ws.getCell('A3').value = tools.concatenateFormula('Literal List');
+    ws.getCell('A3').value = concatenateFormula('Literal List');
     ws.getCell('B3').dataValidation = self.dataValidations.B3;
 
     ws.getCell('D5').value = 'Tom';
     ws.getCell('E5').value = 'Dick';
     ws.getCell('F5').value = 'Harry';
-    ws.getCell('A5').value = tools.concatenateFormula('Range List');
+    ws.getCell('A5').value = concatenateFormula('Range List');
     ws.getCell('B5').dataValidation = self.dataValidations.B5;
 
     self.dataValidations.operators.forEach((operator, cIndex) => {
       const col = 3 + cIndex;
-      ws.getCell(7, col).value = tools.concatenateFormula(operator);
+      ws.getCell(7, col).value = concatenateFormula(operator);
     });
     self.dataValidations.types.forEach((type, rIndex) => {
       const row = 8 + rIndex;
-      ws.getCell(row, 1).value = tools.concatenateFormula(type);
+      ws.getCell(row, 1).value = concatenateFormula(type);
       self.dataValidations.operators.forEach((operator, cIndex) => {
         const col = 3 + cIndex;
         ws.getCell(row, col).dataValidation = self.createDataValidations(type, operator);
       });
     });
 
-    ws.getCell('A13').value = tools.concatenateFormula('Prompt');
+    ws.getCell('A13').value = concatenateFormula('Prompt');
     ws.getCell('B13').dataValidation = self.dataValidations.B13;
 
-    ws.getCell('D13').value = tools.concatenateFormula('Error');
+    ws.getCell('D13').value = concatenateFormula('Error');
     ws.getCell('E13').dataValidation = self.dataValidations.E13;
 
-    ws.getCell('A15').value = tools.concatenateFormula('Terse');
+    ws.getCell('A15').value = concatenateFormula('Terse');
     ws.getCell('B15').dataValidation = self.dataValidations.B15;
 
-    ws.getCell('A17').value = tools.concatenateFormula('Decimal');
+    ws.getCell('A17').value = concatenateFormula('Decimal');
     ws.getCell('B17').dataValidation = self.dataValidations.B17;
 
-    ws.getCell('A19').value = tools.concatenateFormula('Any');
+    ws.getCell('A19').value = concatenateFormula('Any');
     ws.getCell('B19').dataValidation = self.dataValidations.B19;
 
     ws.getCell('A20').value = new Date();
@@ -84,7 +84,7 @@ const self = {
 
     // two rows of the same validation to test dataValidation optimisation
     ['A22', 'A23'].forEach(address => {
-      ws.getCell(address).value = tools.concatenateFormula('Five Numbers');
+      ws.getCell(address).value = concatenateFormula('Five Numbers');
     });
     ['B22', 'C22', 'D22', 'E22', 'F22', 'B23', 'C23', 'D23', 'E23', 'F23'].forEach(address => {
       ws.getCell(address).dataValidation = JSON.parse(JSON.stringify(self.dataValidations.shared));
@@ -101,7 +101,7 @@ const self = {
 
     self.dataValidations.types.forEach((type, rIndex) => {
       const row = 8 + rIndex;
-      ws.getCell(row, 1).value = tools.concatenateFormula(type);
+      ws.getCell(row, 1).value = concatenateFormula(type);
       self.dataValidations.operators.forEach((operator, cIndex) => {
         const col = 3 + cIndex;
         expect(ws.getCell(row, col).dataValidation).to.deep.equal(self.createDataValidations(type, operator));
@@ -121,4 +121,5 @@ const self = {
   },
 };
 
-export default self;
+const dataValidations = self;
+export { dataValidations };

@@ -1,5 +1,5 @@
-import BaseXform from '../base-xform.js';
-import IntegerXform from '../simple/integer-xform.js';
+import { BaseXform } from '../base-xform.js';
+import { IntegerXform } from '../simple/integer-xform.js';
 
 interface PositionModel {
   nativeCol: number;
@@ -87,4 +87,5 @@ class CellPositionXform extends BaseXform {
   }
 }
 
-export default CellPositionXform;
+
+export { CellPositionXform };

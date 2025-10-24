@@ -1,4 +1,4 @@
-import _ from '../utils/under-dash.js';
+import { deepMerge } from '../utils/under-dash.js';
 
 interface NoteText {
   text: string;
@@ -68,7 +68,7 @@ class Note {
         break;
     }
     // Suitable for all cell comments
-    return _.deepMerge<NoteModel>({}, Note.DEFAULT_CONFIGS, value);
+    return deepMerge<NoteModel>({}, Note.DEFAULT_CONFIGS, value);
   }
 
   set model(value: NoteModel) {

@@ -1,13 +1,12 @@
 import { EventEmitter } from 'events';
-import parseSax from '../../utils/parse-sax.js';
+import { parseSax } from '../../utils/parse-sax.js';
 
-import _ from '../../utils/under-dash.js';
-import utils from '../../utils/utils.js';
-import colCache from '../../utils/col-cache.js';
-import Dimensions from '../../doc/range.js';
+import { utils } from '../../utils/utils.js';
+import { colCache } from '../../utils/col-cache.js';
+import { Dimensions } from '../../doc/range.js';
 
-import Row from '../../doc/row.js';
-import Column from '../../doc/column.js';
+import { Row } from '../../doc/row.js';
+import { Column } from '../../doc/column.js';
 
 interface WorksheetReaderOptions {
   workbook: any;

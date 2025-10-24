@@ -1,5 +1,5 @@
-import BaseXform from '../base-xform.js';
-import colCache from '../../../utils/col-cache.js';
+import { BaseXform } from '../base-xform.js';
+import { colCache } from '../../../utils/col-cache.js';
 
 interface DefinedNameModel {
   name: string;
@@ -104,4 +104,3 @@ function extractRanges(parsedText: string): string[] {
 }
 
 export { DefinedNamesXform };
-export default DefinedNamesXform;

@@ -1,13 +1,13 @@
 import { describe } from 'vitest';
-import testXformHelper from '../test-xform-helper';
+import { testXformHelper } from '../test-xform-helper';
 
-import DefinedNameXform from '../../../../../src/xlsx/xform/book/defined-name-xform.js';
+import { DefinedNamesXform } from '../../../../../src/xlsx/xform/book/defined-name-xform.js';
 
 const expectations = [
   {
     title: 'Defined Names',
     create() {
-      return new DefinedNameXform();
+      return new DefinedNamesXform();
     },
     preparedModel: { name: 'foo', ranges: ['bar!$A$1:$C$1'] },
     xml: '<definedName name="foo">bar!$A$1:$C$1</definedName>',
@@ -17,7 +17,7 @@ const expectations = [
   {
     title: 'Print Area',
     create() {
-      return new DefinedNameXform();
+      return new DefinedNamesXform();
     },
     preparedModel: {
       name: '_xlnm.Print_Area',
@@ -35,7 +35,7 @@ const expectations = [
   {
     title: 'String with something that looks like a range',
     create() {
-      return new DefinedNameXform();
+      return new DefinedNamesXform();
     },
     preparedModel: { name: 'foo', ranges: [] },
     xml: '<definedName name="foo">"OFFSET($A$10;0;0;0;1)"</definedName>',

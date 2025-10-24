@@ -1,8 +1,8 @@
-import XmlStream from '../../../utils/xml-stream.js';
-import BaseXform from '../base-xform.js';
-import StringXform from '../simple/string-xform.js';
-import AppHeadingPairsXform from './app-heading-pairs-xform.js';
-import AppTitleOfPartsXform from './app-titles-of-parts-xform.js';
+import { XmlStream } from '../../../utils/xml-stream.js';
+import { BaseXform } from '../base-xform.js';
+import { StringXform } from '../simple/string-xform.js';
+import { AppHeadingPairsXform } from './app-heading-pairs-xform.js';
+import { AppTitlesOfPartsXform } from './app-titles-of-parts-xform.js';
 
 interface AppModel {
   worksheets: any[];
@@ -21,7 +21,7 @@ class AppXform extends BaseXform {
       Company: new StringXform({ tag: 'Company' }),
       Manager: new StringXform({ tag: 'Manager' }),
       HeadingPairs: new AppHeadingPairsXform(),
-      TitleOfParts: new AppTitleOfPartsXform(),
+      TitleOfParts: new AppTitlesOfPartsXform(),
     };
   }
 
@@ -106,4 +106,3 @@ class AppXform extends BaseXform {
 }
 
 export { AppXform };
-export default AppXform;

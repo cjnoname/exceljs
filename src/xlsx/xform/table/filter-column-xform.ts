@@ -1,7 +1,7 @@
-import BaseXform from '../base-xform.js';
-import ListXform from '../list-xform.js';
-import CustomFilterXform from './custom-filter-xform.js';
-import FilterXform from './filter-xform.js';
+import { BaseXform } from '../base-xform.js';
+import { ListXform } from '../list-xform.js';
+import { CustomFilterXform } from './custom-filter-xform.js';
+import { FilterXform } from './filter-xform.js';
 
 interface FilterColumnModel {
   colId?: string;
@@ -103,4 +103,3 @@ class FilterColumnXform extends BaseXform {
 }
 
 export { FilterColumnXform };
-export default FilterColumnXform;

@@ -1,4 +1,4 @@
-import BaseXform from '../base-xform.js';
+import { BaseXform } from '../base-xform.js';
 
 class AppTitlesOfPartsXform extends BaseXform {
   render(xmlStream: any, model: any[]): void {
@@ -26,4 +26,3 @@ class AppTitlesOfPartsXform extends BaseXform {
 }
 
 export { AppTitlesOfPartsXform };
-export default AppTitlesOfPartsXform;

@@ -1,10 +1,10 @@
-import BaseXform from '../base-xform.js';
+import { BaseXform } from '../base-xform.js';
 
 interface WorkbookPropertiesModel {
   date1904?: boolean;
 }
 
-class WorksheetPropertiesXform extends BaseXform {
+class WorkbookPropertiesXform extends BaseXform {
   render(xmlStream: any, model: WorkbookPropertiesModel): void {
     xmlStream.leafNode('workbookPr', {
       date1904: model.date1904 ? 1 : undefined,
@@ -30,5 +30,4 @@ class WorksheetPropertiesXform extends BaseXform {
   }
 }
 
-export { WorksheetPropertiesXform };
-export default WorksheetPropertiesXform;
+export { WorkbookPropertiesXform };

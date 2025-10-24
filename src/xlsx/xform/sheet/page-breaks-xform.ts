@@ -1,4 +1,4 @@
-import BaseXform from '../base-xform.js';
+import { BaseXform } from '../base-xform.js';
 
 class PageBreaksXform extends BaseXform {
   declare model: any;
@@ -27,4 +27,3 @@ class PageBreaksXform extends BaseXform {
 }
 
 export { PageBreaksXform };
-export default PageBreaksXform;

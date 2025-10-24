@@ -1,7 +1,7 @@
-import BaseCellAnchorXform from './base-cell-anchor-xform.js';
-import StaticXform from '../static-xform.js';
-import CellPositionXform from './cell-position-xform.js';
-import PicXform from './pic-xform.js';
+import { BaseCellAnchorXform } from './base-cell-anchor-xform.js';
+import { StaticXform } from '../static-xform.js';
+import { CellPositionXform } from './cell-position-xform.js';
+import { PicXform } from './pic-xform.js';
 
 interface TwoCellModel {
   range: {
@@ -67,4 +67,5 @@ class TwoCellAnchorXform extends BaseCellAnchorXform {
   }
 }
 
-export default TwoCellAnchorXform;
+export { TwoCellAnchorXform };
+

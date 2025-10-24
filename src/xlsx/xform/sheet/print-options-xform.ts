@@ -1,6 +1,5 @@
-import BaseXform from '../base-xform.js';
+import { BaseXform } from '../base-xform.js';
 
-import _ from '../../../utils/under-dash.js';
 
 function booleanToXml(model: boolean): string | undefined {
   return model ? '1' : undefined;
@@ -55,4 +54,3 @@ class PrintOptionsXform extends BaseXform {
 }
 
 export { PrintOptionsXform };
-export default PrintOptionsXform;

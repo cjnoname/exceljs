@@ -1,6 +1,6 @@
-import XmlStream from '../../../utils/xml-stream.js';
-import BaseXform from '../base-xform.js';
-import RelationshipXform from './relationship-xform.js';
+import { XmlStream } from '../../../utils/xml-stream.js';
+import { BaseXform } from '../base-xform.js';
+import { RelationshipXform } from './relationship-xform.js';
 
 class RelationshipsXform extends BaseXform {
   declare parser: any;
@@ -73,4 +73,3 @@ class RelationshipsXform extends BaseXform {
 }
 
 export { RelationshipsXform };
-export default RelationshipsXform;

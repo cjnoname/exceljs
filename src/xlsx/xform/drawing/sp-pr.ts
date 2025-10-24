@@ -1,4 +1,4 @@
-export default {
+export const spPrJSON = {
   tag: 'xdr:spPr',
   c: [
     {

@@ -1,4 +1,4 @@
-import BaseXform from '../base-xform.js';
+import { BaseXform } from '../base-xform.js';
 
 interface ColorModel {
   argb?: string;
@@ -70,4 +70,3 @@ class ColorXform extends BaseXform {
 }
 
 export { ColorXform };
-export default ColorXform;

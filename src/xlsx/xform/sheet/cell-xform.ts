@@ -1,9 +1,9 @@
-import utils from '../../../utils/utils.js';
-import BaseXform from '../base-xform.js';
-import Range from '../../../doc/range.js';
+import { utils } from '../../../utils/utils.js';
+import { BaseXform } from '../base-xform.js';
+import { Range } from '../../../doc/range.js';
 import { Enums } from '../../../doc/enums.js';
 
-import RichTextXform from '../strings/rich-text-xform.js';
+import { RichTextXform } from '../strings/rich-text-xform.js';
 
 function getValueType(v) {
   if (v === null || v === undefined) {
@@ -43,7 +43,7 @@ function getEffectiveCellType(cell) {
 }
 
 class CellXform extends BaseXform {
-  declare richTextXForm: any;
+  declare richTextXform: any;
   declare parser: any;
   declare t: any;
   declare currentNode: any;
@@ -51,7 +51,7 @@ class CellXform extends BaseXform {
   constructor() {
     super();
 
-    this.richTextXForm = new RichTextXform();
+    this.richTextXform = new RichTextXform();
   }
 
   get tag() {
@@ -239,7 +239,7 @@ class CellXform extends BaseXform {
           xmlStream.addAttribute('t', 'inlineStr');
           xmlStream.openNode('is');
           model.value.richText.forEach(text => {
-            this.richTextXForm.render(xmlStream, text);
+            this.richTextXform.render(xmlStream, text);
           });
           xmlStream.closeNode('is');
         } else {
@@ -310,7 +310,7 @@ class CellXform extends BaseXform {
         return true;
 
       case 'r':
-        this.parser = this.richTextXForm;
+        this.parser = this.richTextXform;
         this.parser.parseOpen(node);
         return true;
 
@@ -499,4 +499,3 @@ class CellXform extends BaseXform {
 }
 
 export { CellXform };
-export default CellXform;

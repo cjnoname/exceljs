@@ -1,4 +1,4 @@
-import BaseXform from '../base-xform.js';
+import { BaseXform } from '../base-xform.js';
 
 //   <t xml:space="preserve"> is </t>
 
@@ -40,4 +40,5 @@ class TextXform extends BaseXform {
   }
 }
 
-export default TextXform;
+
+export { TextXform };

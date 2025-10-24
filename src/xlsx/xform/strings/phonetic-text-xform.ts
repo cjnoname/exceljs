@@ -1,6 +1,6 @@
-import TextXform from './text-xform.js';
-import RichTextXform from './rich-text-xform.js';
-import BaseXform from '../base-xform.js';
+import { TextXform } from './text-xform.js';
+import { RichTextXform } from './rich-text-xform.js';
+import { BaseXform } from '../base-xform.js';
 
 // <rPh sb="0" eb="1">
 //   <t>(its pronounciation in KATAKANA)</t>
@@ -105,4 +105,3 @@ class PhoneticTextXform extends BaseXform {
 }
 
 export { PhoneticTextXform };
-export default PhoneticTextXform;

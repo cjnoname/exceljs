@@ -1,5 +1,5 @@
-import colCache from '../../../utils/col-cache.js';
-import BaseXform from '../base-xform.js';
+import { colCache } from '../../../utils/col-cache.js';
+import { BaseXform } from '../base-xform.js';
 
 const VIEW_STATES: { [key: string]: string } = {
   frozen: 'frozen',
@@ -220,4 +220,3 @@ class SheetViewXform extends BaseXform {
 }
 
 export { SheetViewXform };
-export default SheetViewXform;

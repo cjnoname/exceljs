@@ -263,4 +263,3 @@ class Workbook {
 }
 
 export { Workbook };
-export default Workbook;

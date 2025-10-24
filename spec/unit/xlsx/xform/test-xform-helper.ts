@@ -1,13 +1,13 @@
 import { PassThrough } from 'stream';
 import { expect } from 'vitest';
 import { XMLParser } from 'fast-xml-parser';
-import underDash from '../../../utils/under-dash';
-import CompyXform from './compy-xform';
-import parseSax from '../../../../src/utils/parse-sax.js';
-import XmlStream from '../../../../src/utils/xml-stream.js';
-import BooleanXform from '../../../../src/xlsx/xform/simple/boolean-xform.js';
+import _ from '../../../utils/under-dash-custom.js';
+import { CompyXform } from './compy-xform.js';
+import { parseSax } from '../../../../src/utils/parse-sax.js';
+import { XmlStream } from '../../../../src/utils/xml-stream.js';
+import { BooleanXform } from '../../../../src/xlsx/xform/simple/boolean-xform.js';
 
-const { cloneDeep } = underDash;
+const { cloneDeep } = _;
 
 // XML parser configuration for comparison
 const xmlParser = new XMLParser({
@@ -47,7 +47,7 @@ function getExpectation<K extends keyof Expectation>(expectation: Expectation, n
   if (!expectation.hasOwnProperty(name)) {
     throw new Error(`Expectation missing required field: ${name}`);
   }
-  return cloneDeep((expectation as any)[name]);
+  return cloneDeep((expectation as any)[name], true);
 }
 
 // ===============================================================================================================
@@ -197,7 +197,7 @@ const its: { [key: string]: (expectation: Expectation) => () => Promise<void> } 
   },
 };
 
-export default function testXform(expectations: Expectation[]) {
+export function testXformHelper(expectations: Expectation[]) {
   expectations.forEach((expectation: Expectation) => {
     const tests = getExpectation(expectation, 'tests');
     describe(expectation.title, () => {

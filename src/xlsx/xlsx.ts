@@ -2,31 +2,31 @@ import fs from 'fs';
 import { Unzip, UnzipFile, UnzipInflate } from 'fflate';
 import { PassThrough } from 'stream';
 import { ZipWriter } from '../utils/zip-stream.js';
-import StreamBuf from '../utils/stream-buf.js';
+import { StreamBuf } from '../utils/stream-buf.js';
 
-import utils from '../utils/utils.js';
-import XmlStream from '../utils/xml-stream.js';
+import { utils } from '../utils/utils.js';
+import { XmlStream } from '../utils/xml-stream.js';
 import { bufferToString } from '../utils/browser-buffer-decode.js';
 
-import StylesXform from './xform/style/styles-xform.js';
+import { StylesXform } from './xform/style/styles-xform.js';
 
-import CoreXform from './xform/core/core-xform.js';
-import SharedStringsXform from './xform/strings/shared-strings-xform.js';
-import RelationshipsXform from './xform/core/relationships-xform.js';
-import ContentTypesXform from './xform/core/content-types-xform.js';
-import AppXform from './xform/core/app-xform.js';
-import WorkbookXform from './xform/book/workbook-xform.js';
-import WorksheetXform from './xform/sheet/worksheet-xform.js';
-import DrawingXform from './xform/drawing/drawing-xform.js';
-import TableXform from './xform/table/table-xform.js';
-import PivotCacheRecordsXform from './xform/pivot-table/pivot-cache-records-xform.js';
-import PivotCacheDefinitionXform from './xform/pivot-table/pivot-cache-definition-xform.js';
-import PivotTableXform from './xform/pivot-table/pivot-table-xform.js';
-import CommentsXform from './xform/comment/comments-xform.js';
-import VmlNotesXform from './xform/comment/vml-notes-xform.js';
+import { CoreXform } from './xform/core/core-xform.js';
+import { SharedStringsXform } from './xform/strings/shared-strings-xform.js';
+import { RelationshipsXform } from './xform/core/relationships-xform.js';
+import { ContentTypesXform } from './xform/core/content-types-xform.js';
+import { AppXform } from './xform/core/app-xform.js';
+import { WorkbookXform } from './xform/book/workbook-xform.js';
+import { WorkSheetXform } from './xform/sheet/worksheet-xform.js';
+import { DrawingXform } from './xform/drawing/drawing-xform.js';
+import { TableXform } from './xform/table/table-xform.js';
+import { PivotCacheRecordsXform } from './xform/pivot-table/pivot-cache-records-xform.js';
+import { PivotCacheDefinitionXform } from './xform/pivot-table/pivot-cache-definition-xform.js';
+import { PivotTableXform } from './xform/pivot-table/pivot-table-xform.js';
+import { CommentsXform } from './xform/comment/comments-xform.js';
+import { VmlNotesXform } from './xform/comment/vml-notes-xform.js';
 
-import theme1Xml from './xml/theme1.js';
-import RelType from './rel-type.js';
+import { theme1Xml } from './xml/theme1.js';
+import { RelType } from './rel-type.js';
 
 function fsReadFileAsync(filename: string, options?: any): Promise<Buffer> {
   return new Promise((resolve, reject) => {
@@ -84,7 +84,7 @@ class XLSX {
 
   reconcile(model: any, options?: any): void {
     const workbookXform = new WorkbookXform();
-    const worksheetXform = new WorksheetXform(options);
+    const worksheetXform = new WorkSheetXform(options);
     const drawingXform = new DrawingXform();
     const tableXform = new TableXform();
 
@@ -153,7 +153,7 @@ class XLSX {
   }
 
   async _processWorksheetEntry(stream: any, model: any, sheetNo: number, options: any, path: string): Promise<void> {
-    const xform = new WorksheetXform(options);
+    const xform = new WorkSheetXform(options);
     const worksheet = await xform.parseStream(stream);
     if (!worksheet) {
       throw new Error(`Failed to parse worksheet ${path}`);
@@ -624,7 +624,7 @@ class XLSX {
 
   async addWorksheets(zip: any, model: any): Promise<void> {
     // preparation phase
-    const worksheetXform = new WorksheetXform();
+    const worksheetXform = new WorkSheetXform();
     const relationshipsXform = new RelationshipsXform();
     const commentsXform = new CommentsXform();
     const vmlNotesXform = new VmlNotesXform();
@@ -776,7 +776,7 @@ class XLSX {
 
     // prepare all of the things before the render
     const workbookXform = new WorkbookXform();
-    const worksheetXform = new WorksheetXform();
+    const worksheetXform = new WorkSheetXform();
 
     workbookXform.prepare(model);
 

@@ -1,5 +1,5 @@
-import BaseXform from '../base-xform.js';
-import FilterColumnXform from './filter-column-xform.js';
+import { BaseXform } from '../base-xform.js';
+import { FilterColumnXform } from './filter-column-xform.js';
 
 interface AutoFilterModel {
   autoFilterRef: string;
@@ -87,4 +87,3 @@ class AutoFilterXform extends BaseXform {
 }
 
 export { AutoFilterXform };
-export default AutoFilterXform;

@@ -1,39 +1,38 @@
-import _ from '../../utils/under-dash.js';
 
-import RelType from '../../xlsx/rel-type.js';
+import { RelType } from '../../xlsx/rel-type.js';
 
-import colCache from '../../utils/col-cache.js';
-import Encryptor from '../../utils/encryptor.js';
-import Dimensions from '../../doc/range.js';
-import StringBuf from '../../utils/string-buf.js';
+import { colCache } from '../../utils/col-cache.js';
+import { Encryptor } from '../../utils/encryptor.js';
+import { Dimensions } from '../../doc/range.js';
+import { StringBuf } from '../../utils/string-buf.js';
 
-import Row from '../../doc/row.js';
-import Column from '../../doc/column.js';
+import { Row } from '../../doc/row.js';
+import { Column } from '../../doc/column.js';
 
-import SheetRelsWriter from './sheet-rels-writer.js';
-import SheetCommentsWriter from './sheet-comments-writer.js';
-import DataValidations from '../../doc/data-validations.js';
+import { SheetRelsWriter } from './sheet-rels-writer.js';
+import { SheetCommentsWriter } from './sheet-comments-writer.js';
+import { DataValidations } from '../../doc/data-validations.js';
 
 const xmlBuffer = new StringBuf();
 
 // ============================================================================================
 // Xforms
-import ListXform from '../../xlsx/xform/list-xform.js';
-import DataValidationsXform from '../../xlsx/xform/sheet/data-validations-xform.js';
-import SheetPropertiesXform from '../../xlsx/xform/sheet/sheet-properties-xform.js';
-import SheetFormatPropertiesXform from '../../xlsx/xform/sheet/sheet-format-properties-xform.js';
-import ColXform from '../../xlsx/xform/sheet/col-xform.js';
-import RowXform from '../../xlsx/xform/sheet/row-xform.js';
-import HyperlinkXform from '../../xlsx/xform/sheet/hyperlink-xform.js';
-import SheetViewXform from '../../xlsx/xform/sheet/sheet-view-xform.js';
-import SheetProtectionXform from '../../xlsx/xform/sheet/sheet-protection-xform.js';
-import PageMarginsXform from '../../xlsx/xform/sheet/page-margins-xform.js';
-import PageSetupXform from '../../xlsx/xform/sheet/page-setup-xform.js';
-import AutoFilterXform from '../../xlsx/xform/sheet/auto-filter-xform.js';
-import PictureXform from '../../xlsx/xform/sheet/picture-xform.js';
-import ConditionalFormattingsXform from '../../xlsx/xform/sheet/cf/conditional-formattings-xform.js';
-import HeaderFooterXform from '../../xlsx/xform/sheet/header-footer-xform.js';
-import RowBreaksXform from '../../xlsx/xform/sheet/row-breaks-xform.js';
+import { ListXform } from '../../xlsx/xform/list-xform.js';
+import { DataValidationsXform } from '../../xlsx/xform/sheet/data-validations-xform.js';
+import { SheetPropertiesXform } from '../../xlsx/xform/sheet/sheet-properties-xform.js';
+import { SheetFormatPropertiesXform } from '../../xlsx/xform/sheet/sheet-format-properties-xform.js';
+import { ColXform } from '../../xlsx/xform/sheet/col-xform.js';
+import { RowXform } from '../../xlsx/xform/sheet/row-xform.js';
+import { HyperlinkXform } from '../../xlsx/xform/sheet/hyperlink-xform.js';
+import { SheetViewXform } from '../../xlsx/xform/sheet/sheet-view-xform.js';
+import { SheetProtectionXform } from '../../xlsx/xform/sheet/sheet-protection-xform.js';
+import { PageMarginsXform } from '../../xlsx/xform/sheet/page-margins-xform.js';
+import { PageSetupXform } from '../../xlsx/xform/sheet/page-setup-xform.js';
+import { AutoFilterXform } from '../../xlsx/xform/sheet/auto-filter-xform.js';
+import { PictureXform } from '../../xlsx/xform/sheet/picture-xform.js';
+import { ConditionalFormattingsXform } from '../../xlsx/xform/sheet/cf/conditional-formattings-xform.js';
+import { HeaderFooterXform } from '../../xlsx/xform/sheet/header-footer-xform.js';
+import { RowBreaksXform } from '../../xlsx/xform/sheet/row-breaks-xform.js';
 
 // since prepare and render are functional, we can use singletons
 const xform: any = {

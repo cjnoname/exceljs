@@ -1,5 +1,4 @@
-import _ from './under-dash.js';
-import utils from './utils.js';
+import { utils } from './utils.js';
 
 // constants
 const OPEN_ANGLE = '<';
@@ -184,4 +183,3 @@ class XmlStream {
 }
 
 export { XmlStream };
-export default XmlStream;

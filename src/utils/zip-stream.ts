@@ -1,6 +1,6 @@
 import events from 'events';
 import { Zip, ZipPassThrough } from 'fflate';
-import StreamBuf from './stream-buf.js';
+import { StreamBuf } from './stream-buf.js';
 import { stringToBuffer } from './browser-buffer-encode.js';
 
 interface ZipWriterOptions {

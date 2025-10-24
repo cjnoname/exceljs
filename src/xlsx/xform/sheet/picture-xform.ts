@@ -1,4 +1,4 @@
-import BaseXform from '../base-xform.js';
+import { BaseXform } from '../base-xform.js';
 
 interface PictureModel {
   rId: string;
@@ -35,4 +35,3 @@ class PictureXform extends BaseXform {
 }
 
 export { PictureXform };
-export default PictureXform;

@@ -1,5 +1,5 @@
-import BaseXform from './base-xform.js';
-import XmlStream from '../../utils/xml-stream.js';
+import { BaseXform } from './base-xform.js';
+import { XmlStream } from '../../utils/xml-stream.js';
 
 interface StaticModel {
   tag: string;
@@ -72,4 +72,3 @@ class StaticXform extends BaseXform {
 }
 
 export { StaticXform };
-export default StaticXform;

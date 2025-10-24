@@ -1,10 +1,10 @@
-import BaseXform from '../base-xform.js';
-import AlignmentXform from './alignment-xform.js';
-import BorderXform from './border-xform.js';
-import FillXform from './fill-xform.js';
-import FontXform from './font-xform.js';
-import NumFmtXform from './numfmt-xform.js';
-import ProtectionXform from './protection-xform.js';
+import { BaseXform } from '../base-xform.js';
+import { AlignmentXform } from './alignment-xform.js';
+import { BorderXform } from './border-xform.js';
+import { FillXform } from './fill-xform.js';
+import { FontXform } from './font-xform.js';
+import { NumFmtXform } from './numfmt-xform.js';
+import { ProtectionXform } from './protection-xform.js';
 
 // <xf numFmtId="[numFmtId]" fontId="[fontId]" fillId="[fillId]" borderId="[xf.borderId]" xfId="[xfId]">
 //   Optional <alignment>
@@ -121,4 +121,3 @@ class DxfXform extends BaseXform {
 }
 
 export { DxfXform };
-export default DxfXform;

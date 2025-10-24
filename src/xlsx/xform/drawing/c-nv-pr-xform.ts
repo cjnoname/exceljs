@@ -1,6 +1,6 @@
-import BaseXform from '../base-xform.js';
-import HLinkClickXform from './hlink-click-xform.js';
-import ExtLstXform from './ext-lst-xform.js';
+import { BaseXform } from '../base-xform.js';
+import { HLinkClickXform } from './hlink-click-xform.js';
+import { ExtLstXform } from './ext-lst-xform.js';
 
 interface CNvPrModel {
   index: number;
@@ -73,4 +73,5 @@ class CNvPrXform extends BaseXform {
   }
 }
 
-export default CNvPrXform;
+
+export { CNvPrXform };

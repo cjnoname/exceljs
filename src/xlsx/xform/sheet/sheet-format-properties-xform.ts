@@ -1,6 +1,5 @@
-import BaseXform from '../base-xform.js';
+import { BaseXform } from '../base-xform.js';
 
-import _ from '../../../utils/under-dash.js';
 
 interface SheetFormatPropertiesModel {
   defaultRowHeight: number;
@@ -62,4 +61,3 @@ class SheetFormatPropertiesXform extends BaseXform {
 }
 
 export { SheetFormatPropertiesXform };
-export default SheetFormatPropertiesXform;

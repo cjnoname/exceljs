@@ -1,13 +1,13 @@
-import BaseXform from '../../base-xform.js';
-import CompositeXform from '../../composite-xform.js';
+import { BaseXform } from '../../base-xform.js';
+import { CompositeXform } from '../../composite-xform.js';
 
-import Range from '../../../../doc/range.js';
+import { Range } from '../../../../doc/range.js';
 
-import DatabarXform from './databar-xform.js';
-import ExtLstRefXform from './ext-lst-ref-xform.js';
-import FormulaXform from './formula-xform.js';
-import ColorScaleXform from './color-scale-xform.js';
-import IconSetXform from './icon-set-xform.js';
+import { DatabarXform } from './databar-xform.js';
+import { ExtLstRefXform } from './ext-lst-ref-xform.js';
+import { FormulaXform } from './formula-xform.js';
+import { ColorScaleXform } from './color-scale-xform.js';
+import { IconSetXform } from './icon-set-xform.js';
 
 const extIcons = {
   '3Triangles': true,
@@ -305,4 +305,3 @@ class CfRuleXform extends CompositeXform {
 }
 
 export { CfRuleXform };
-export default CfRuleXform;

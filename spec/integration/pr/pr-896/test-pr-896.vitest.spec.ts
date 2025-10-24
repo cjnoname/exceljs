@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeAll, afterAll, beforeEach, afterEach } from 'vitest';
 import { Workbook, WorkbookWriter, WorkbookReader } from '../../../../src/index.js';
-import tools from '../../../utils/tools';
+import { fix } from '../../../utils/tools';
 import sheetProperties from '../../../utils/data/sheet-properties.json' assert { type: 'json' };
 import pageSetup from '../../../utils/data/page-setup.json' assert { type: 'json' };
 
@@ -23,8 +23,8 @@ const TEST_NOTE = {
 describe('pr related issues', () => {
   describe('pr 896 add xml:space="preserve" for all whitespaces', () => {
     it('should store cell text and comment with leading new line', () => {
-      const properties = tools.fix(sheetProperties);
-      const pageSetup2 = tools.fix(pageSetup);
+      const properties = fix(sheetProperties);
+      const pageSetup2 = fix(pageSetup);
 
       const wb = new Workbook();
       const ws = wb.addWorksheet('sheet1', {

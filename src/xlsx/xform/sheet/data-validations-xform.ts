@@ -1,9 +1,9 @@
-import BaseXform from '../base-xform.js';
-import Range from '../../../doc/range.js';
+import { BaseXform } from '../base-xform.js';
+import { Range } from '../../../doc/range.js';
 
-import _ from '../../../utils/under-dash.js';
-import utils from '../../../utils/utils.js';
-import colCache from '../../../utils/col-cache.js';
+import { utils } from '../../../utils/utils.js';
+import { colCache } from '../../../utils/col-cache.js';
+import { isEqual } from '../../../utils/under-dash.js';
 
 function assign(definedName: any, attributes: any, name: string, defaultValue?: any): void {
   const value = attributes[name];
@@ -36,7 +36,7 @@ function optimiseDataValidations(model: any): any[] {
   const matchCol = (addr: any, height: number, col: number): boolean => {
     for (let i = 0; i < height; i++) {
       const otherAddress = colCache.encodeAddress(addr.row + i, col);
-      if (!model[otherAddress] || !_.isEqual(model[addr.address], model[otherAddress])) {
+        if (!model[otherAddress] || !isEqual(model[addr.address], model[otherAddress])) {
         return false;
       }
     }
@@ -57,7 +57,7 @@ function optimiseDataValidations(model: any): any[] {
         // iterate downwards - finding matching cells
         let height = 1;
         let otherAddress = colCache.encodeAddress(addr.row + height, addr.col);
-        while (model[otherAddress] && _.isEqual(dv.dataValidation, model[otherAddress])) {
+        while (model[otherAddress] && isEqual(dv.dataValidation, model[otherAddress])) {
           height++;
           otherAddress = colCache.encodeAddress(addr.row + height, addr.col);
         }
@@ -261,4 +261,3 @@ class DataValidationsXform extends BaseXform {
 }
 
 export { DataValidationsXform };
-export default DataValidationsXform;

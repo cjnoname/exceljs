@@ -1,6 +1,6 @@
-import CompositeXform from '../../composite-xform.js';
-import ColorXform from '../../style/color-xform.js';
-import CfvoXform from './cfvo-xform.js';
+import { CompositeXform } from '../../composite-xform.js';
+import { ColorXform } from '../../style/color-xform.js';
+import { CfvoXform } from './cfvo-xform.js';
 
 class ColorScaleXform extends CompositeXform {
   cfvoXform: CfvoXform;
@@ -45,4 +45,3 @@ class ColorScaleXform extends CompositeXform {
 }
 
 export { ColorScaleXform };
-export default ColorScaleXform;

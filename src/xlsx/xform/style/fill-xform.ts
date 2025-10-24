@@ -1,6 +1,6 @@
 /* eslint-disable max-classes-per-file */
-import BaseXform from '../base-xform.js';
-import ColorXform from './color-xform.js';
+import { BaseXform } from '../base-xform.js';
+import { ColorXform } from './color-xform.js';
 
 interface StopModel {
   position: number;
@@ -388,4 +388,3 @@ class FillXform extends BaseXform {
 }
 
 export { FillXform };
-export default FillXform;

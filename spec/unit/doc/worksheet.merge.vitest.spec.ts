@@ -1,8 +1,8 @@
 import { describe, it, expect } from 'vitest';
 import { styles } from '../../utils/vitest-utils.js';
 import { Workbook, WorkbookWriter, WorkbookReader } from '../../../src/index.js';
-import Dimensions from '../../../src/doc/range.js';
-import Enums from '../../../src/doc/enums.js';
+import { Dimensions } from '../../../src/doc/range.js';
+import { Enums } from '../../../src/doc/enums.js';
 
 describe('Worksheet', () => {
   describe('Merge Cells', () => {

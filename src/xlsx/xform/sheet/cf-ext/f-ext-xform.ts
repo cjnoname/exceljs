@@ -1,4 +1,4 @@
-import BaseXform from '../../base-xform.js';
+import { BaseXform } from '../../base-xform.js';
 
 class FExtXform extends BaseXform {
   get tag() {
@@ -23,4 +23,3 @@ class FExtXform extends BaseXform {
 }
 
 export { FExtXform };
-export default FExtXform;

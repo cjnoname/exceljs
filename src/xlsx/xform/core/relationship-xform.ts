@@ -1,4 +1,4 @@
-import BaseXform from '../base-xform.js';
+import { BaseXform } from '../base-xform.js';
 
 interface RelationshipModel {
   Id?: string;
@@ -29,4 +29,5 @@ class RelationshipXform extends BaseXform {
   }
 }
 
-export default RelationshipXform;
+
+export { RelationshipXform };

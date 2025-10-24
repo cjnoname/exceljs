@@ -1,4 +1,4 @@
-import BaseXform from '../base-xform.js';
+import { BaseXform } from '../base-xform.js';
 
 class DimensionXform extends BaseXform {
   declare model: any;
@@ -29,4 +29,3 @@ class DimensionXform extends BaseXform {
 }
 
 export { DimensionXform };
-export default DimensionXform;

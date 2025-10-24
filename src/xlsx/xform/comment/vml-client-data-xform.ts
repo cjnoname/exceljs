@@ -1,8 +1,8 @@
-import BaseXform from '../base-xform.js';
+import { BaseXform } from '../base-xform.js';
 
-import VmlAnchorXform from './vml-anchor-xform.js';
-import VmlProtectionXform from './style/vml-protection-xform.js';
-import VmlPositionXform from './style/vml-position-xform.js';
+import { VmlAnchorXform } from './vml-anchor-xform.js';
+import { VmlProtectionXform } from './style/vml-protection-xform.js';
+import { VmlPositionXform } from './style/vml-position-xform.js';
 
 const POSITION_TYPE = ['twoCells', 'oneCells', 'absolute'];
 
@@ -116,4 +116,3 @@ class VmlClientDataXform extends BaseXform {
 }
 
 export { VmlClientDataXform };
-export default VmlClientDataXform;

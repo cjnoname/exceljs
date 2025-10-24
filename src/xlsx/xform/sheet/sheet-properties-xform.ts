@@ -1,7 +1,7 @@
-import BaseXform from '../base-xform.js';
-import ColorXform from '../style/color-xform.js';
-import PageSetupPropertiesXform from './page-setup-properties-xform.js';
-import OutlinePropertiesXform from './outline-properties-xform.js';
+import { BaseXform } from '../base-xform.js';
+import { ColorXform } from '../style/color-xform.js';
+import { PageSetupPropertiesXform } from './page-setup-properties-xform.js';
+import { OutlinePropertiesXform } from './outline-properties-xform.js';
 
 interface SheetPropertiesModel {
   tabColor?: any;
@@ -97,4 +97,3 @@ class SheetPropertiesXform extends BaseXform {
 }
 
 export { SheetPropertiesXform };
-export default SheetPropertiesXform;

@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import StringBuf from '../../../src/utils/string-buf.js';
+import { StringBuf } from '../../../src/utils/string-buf.js';
 
 describe('StringBuf', () => {
   // StringBuf is a lightweight string-builder used by the streaming writers to build

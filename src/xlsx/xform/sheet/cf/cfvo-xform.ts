@@ -1,4 +1,4 @@
-import BaseXform from '../../base-xform.js';
+import { BaseXform } from '../../base-xform.js';
 
 class CfvoXform extends BaseXform {
   get tag(): string {
@@ -25,4 +25,3 @@ class CfvoXform extends BaseXform {
 }
 
 export { CfvoXform };
-export default CfvoXform;

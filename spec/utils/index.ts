@@ -1,11 +1,10 @@
-// @ts-nocheck
 import _ from './under-dash-custom';
-import tools from './tools';
-import Row from '../../src/doc/row.js';
-import Column from '../../src/doc/column.js';
-import testWorkbookReader from './test-workbook-reader';
-import dataValidations from './test-data-validation-sheet';
-import conditionalFormatting from './test-conditional-formatting-sheet';
+import { fix } from './tools';
+import { Row } from '../../src/doc/row.js';
+import { Column } from '../../src/doc/column.js';
+import { testWorkbookReader } from './test-workbook-reader';
+import { dataValidations } from './test-data-validation-sheet';
+import { conditionalFormatting } from './test-conditional-formatting-sheet';
 import values from './test-values-sheet';
 import splice from './test-spliced-sheet';
 import views from './data/views.json' with { type: 'json' };
@@ -24,7 +23,7 @@ const testSheets = {
   splice,
 };
 
-function getOptions(docType, options) {
+function getOptions(docType, options?) {
   let result;
   switch (docType) {
     case 'xlsx':
@@ -58,13 +57,13 @@ function getOptions(docType, options) {
 }
 
 const testUtils = {
-  views: tools.fix(views),
-  testValues: tools.fix(testValues),
-  styles: tools.fix(styles),
-  properties: tools.fix(properties),
-  pageSetup: tools.fix(pageSetup),
-  conditionalFormatting: tools.fix(conditionalFormattingData),
-  headerFooter: tools.fix(headerFooter),
+  views: fix(views),
+  testValues: fix(testValues),
+  styles: fix(styles),
+  properties: fix(properties),
+  pageSetup: fix(pageSetup),
+  conditionalFormatting: fix(conditionalFormattingData),
+  headerFooter: fix(headerFooter),
 
   createTestBook(workbook: any, docType?: string, sheets?: string[]) {
     const options = getOptions(docType);
@@ -73,7 +72,7 @@ const testUtils = {
     workbook.views = [{ x: 1, y: 2, width: 10000, height: 20000, firstSheet: 0, activeTab: 0 }];
 
     sheets.forEach(sheet => {
-      const testSheet = _.get(testSheets, sheet);
+      const testSheet = _.get(testSheets, sheet, undefined);
       testSheet.addSheet(workbook, options);
     });
 
@@ -101,7 +100,7 @@ const testUtils = {
     }
 
     sheets.forEach(sheet => {
-      const testSheet = _.get(testSheets, sheet);
+      const testSheet = _.get(testSheets, sheet, undefined);
       testSheet.checkSheet(workbook, options);
     });
   },
@@ -175,4 +174,4 @@ const testUtils = {
   },
 };
 
-export default testUtils;
+export { testUtils };

@@ -1,5 +1,5 @@
-import utils from '../../../utils/utils.js';
-import BaseXform from '../base-xform.js';
+import { utils } from '../../../utils/utils.js';
+import { BaseXform } from '../base-xform.js';
 
 interface SheetModel {
   id: number;
@@ -39,4 +39,3 @@ class WorksheetXform extends BaseXform {
 }
 
 export { WorksheetXform };
-export default WorksheetXform;

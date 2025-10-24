@@ -1,4 +1,4 @@
-import BaseXform from '../base-xform.js';
+import { BaseXform } from '../base-xform.js';
 
 class CNvPicPrXform extends BaseXform {
   get tag(): string {
@@ -35,4 +35,5 @@ class CNvPicPrXform extends BaseXform {
   }
 }
 
-export default CNvPicPrXform;
+
+export { CNvPicPrXform };

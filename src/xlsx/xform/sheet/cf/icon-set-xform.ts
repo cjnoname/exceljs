@@ -1,6 +1,6 @@
-import BaseXform from '../../base-xform.js';
-import CompositeXform from '../../composite-xform.js';
-import CfvoXform from './cfvo-xform.js';
+import { BaseXform } from '../../base-xform.js';
+import { CompositeXform } from '../../composite-xform.js';
+import { CfvoXform } from './cfvo-xform.js';
 
 class IconSetXform extends CompositeXform {
   cfvoXform: CfvoXform;
@@ -46,4 +46,3 @@ class IconSetXform extends CompositeXform {
 }
 
 export { IconSetXform };
-export default IconSetXform;

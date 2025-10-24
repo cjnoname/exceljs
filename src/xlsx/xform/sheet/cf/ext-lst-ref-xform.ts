@@ -1,6 +1,6 @@
 /* eslint-disable max-classes-per-file */
-import BaseXform from '../../base-xform.js';
-import CompositeXform from '../../composite-xform.js';
+import { BaseXform } from '../../base-xform.js';
+import { CompositeXform } from '../../composite-xform.js';
 
 class X14IdXform extends BaseXform {
   get tag(): string {
@@ -87,4 +87,3 @@ class ExtLstRefXform extends CompositeXform {
 }
 
 export { ExtLstRefXform };
-export default ExtLstRefXform;

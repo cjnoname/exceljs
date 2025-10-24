@@ -1,15 +1,14 @@
-import _ from '../../../utils/under-dash.js';
-import colCache from '../../../utils/col-cache.js';
-import XmlStream from '../../../utils/xml-stream.js';
-import BaseXform from '../base-xform.js';
-import StaticXform from '../static-xform.js';
-import ListXform from '../list-xform.js';
-import DefinedNameXform from './defined-name-xform.js';
-import SheetXform from './sheet-xform.js';
-import WorkbookViewXform from './workbook-view-xform.js';
-import WorkbookPropertiesXform from './workbook-properties-xform.js';
-import WorkbookCalcPropertiesXform from './workbook-calc-properties-xform.js';
-import WorkbookPivotCacheXform from './workbook-pivot-cache-xform.js';
+import { colCache } from '../../../utils/col-cache.js';
+import { XmlStream } from '../../../utils/xml-stream.js';
+import { BaseXform } from '../base-xform.js';
+import { StaticXform } from '../static-xform.js';
+import { ListXform } from '../list-xform.js';
+import { DefinedNamesXform } from './defined-name-xform.js';
+import { WorksheetXform as SheetXform } from './sheet-xform.js';
+import { WorkbookViewXform } from './workbook-view-xform.js';
+import { WorkbookPropertiesXform } from './workbook-properties-xform.js';
+import { WorkbookCalcPropertiesXform } from './workbook-calc-properties-xform.js';
+import { WorkbookPivotCacheXform } from './workbook-pivot-cache-xform.js';
 
 class WorkbookXform extends BaseXform {
   declare parser: any;
@@ -29,7 +28,7 @@ class WorkbookXform extends BaseXform {
       definedNames: new ListXform({
         tag: 'definedNames',
         count: false,
-        childXform: new DefinedNameXform(),
+        childXform: new DefinedNamesXform(),
       }),
       calcPr: new WorkbookCalcPropertiesXform(),
       pivotCaches: new ListXform({
@@ -260,4 +259,3 @@ class WorkbookXform extends BaseXform {
 }
 
 export { WorkbookXform };
-export default WorkbookXform;

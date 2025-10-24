@@ -1,4 +1,4 @@
-import BaseXform from '../base-xform.js';
+import { BaseXform } from '../base-xform.js';
 
 /** https://en.wikipedia.org/wiki/Office_Open_XML_file_formats#DrawingML */
 const EMU_PER_PIXEL_AT_96_DPI = 9525;
@@ -51,4 +51,5 @@ class ExtXform extends BaseXform {
   }
 }
 
-export default ExtXform;
+
+export { ExtXform };

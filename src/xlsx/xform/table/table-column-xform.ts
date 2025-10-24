@@ -1,4 +1,4 @@
-import BaseXform from '../base-xform.js';
+import { BaseXform } from '../base-xform.js';
 
 interface TableColumnModel {
   id?: number;
@@ -56,4 +56,3 @@ class TableColumnXform extends BaseXform {
 }
 
 export { TableColumnXform };
-export default TableColumnXform;

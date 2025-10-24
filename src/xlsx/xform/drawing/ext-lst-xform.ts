@@ -1,4 +1,4 @@
-import BaseXform from '../base-xform.js';
+import { BaseXform } from '../base-xform.js';
 
 class ExtLstXform extends BaseXform {
   get tag(): string {
@@ -40,4 +40,5 @@ class ExtLstXform extends BaseXform {
   }
 }
 
-export default ExtLstXform;
+
+export { ExtLstXform };

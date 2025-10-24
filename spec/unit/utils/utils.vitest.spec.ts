@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import utils from '../../../src/utils/utils.js';
+import { utils } from '../../../src/utils/utils.js';
 
 describe('utils', () => {
   describe('xmlEncode', () => {

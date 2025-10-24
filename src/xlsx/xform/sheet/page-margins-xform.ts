@@ -1,6 +1,5 @@
-import BaseXform from '../base-xform.js';
+import { BaseXform } from '../base-xform.js';
 
-import _ from '../../../utils/under-dash.js';
 
 interface PageMarginsModel {
   left?: number;
@@ -57,4 +56,3 @@ class PageMarginsXform extends BaseXform {
 }
 
 export { PageMarginsXform };
-export default PageMarginsXform;

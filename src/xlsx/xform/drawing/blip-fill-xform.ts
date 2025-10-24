@@ -1,5 +1,5 @@
-import BaseXform from '../base-xform.js';
-import BlipXform from './blip-xform.js';
+import { BaseXform } from '../base-xform.js';
+import { BlipXform } from './blip-xform.js';
 
 class BlipFillXform extends BaseXform {
   declare map: { [key: string]: BlipXform };
@@ -72,4 +72,5 @@ class BlipFillXform extends BaseXform {
   }
 }
 
-export default BlipFillXform;
+
+export { BlipFillXform };

@@ -1,4 +1,4 @@
-import BaseXform from '../base-xform.js';
+import { BaseXform } from '../base-xform.js';
 
 interface FilterModel {
   val: string;
@@ -40,4 +40,3 @@ class FilterXform extends BaseXform {
 }
 
 export { FilterXform };
-export default FilterXform;

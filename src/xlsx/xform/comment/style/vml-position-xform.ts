@@ -1,4 +1,4 @@
-import BaseXform from '../../base-xform.js';
+import { BaseXform } from '../../base-xform.js';
 
 class VmlPositionXform extends BaseXform {
   declare private _model: { tag?: string };
@@ -41,4 +41,3 @@ class VmlPositionXform extends BaseXform {
 }
 
 export { VmlPositionXform };
-export default VmlPositionXform;

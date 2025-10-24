@@ -1,17 +1,17 @@
 import fs from 'fs';
 import { EventEmitter } from 'events';
 import { PassThrough } from 'stream';
-import nodeStream from 'stream';
+import * as nodeStream from 'stream';
 import os from 'os';
 import { join as pathJoin } from 'path';
 import {Parse} from 'unzipper';
-import iterateStream from '../../utils/iterate-stream.js';
-import parseSax from '../../utils/parse-sax.js';
-import StyleManager from '../../xlsx/xform/style/styles-xform.js';
-import WorkbookXform from '../../xlsx/xform/book/workbook-xform.js';
-import RelationshipsXform from '../../xlsx/xform/core/relationships-xform.js';
-import WorksheetReader from './worksheet-reader.js';
-import HyperlinkReader from './hyperlink-reader.js';
+import { iterateStream } from '../../utils/iterate-stream.js';
+import { parseSax } from '../../utils/parse-sax.js';
+import { StylesXform as StyleManager } from '../../xlsx/xform/style/styles-xform.js';
+import { WorkbookXform } from '../../xlsx/xform/book/workbook-xform.js';
+import { RelationshipsXform } from '../../xlsx/xform/core/relationships-xform.js';
+import { WorksheetReader } from './worksheet-reader.js';
+import { HyperlinkReader } from './hyperlink-reader.js';
 
 interface WorkbookReaderOptions {
   worksheets?: string;

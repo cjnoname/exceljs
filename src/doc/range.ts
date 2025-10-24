@@ -1,4 +1,4 @@
-import colCache from '../utils/col-cache.js';
+import { colCache } from '../utils/col-cache.js';
 
 interface RangeModel {
   top: number;
@@ -272,4 +272,4 @@ class Range {
 }
 
 export { Range };
-export default Range;
+export { Range as Dimensions };

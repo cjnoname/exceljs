@@ -1,6 +1,6 @@
-import BaseXform from '../base-xform.js';
-import AlignmentXform from './alignment-xform.js';
-import ProtectionXform from './protection-xform.js';
+import { BaseXform } from '../base-xform.js';
+import { AlignmentXform } from './alignment-xform.js';
+import { ProtectionXform } from './protection-xform.js';
 
 // <xf numFmtId="[numFmtId]" fontId="[fontId]" fillId="[fillId]" borderId="[xf.borderId]" xfId="[xfId]">
 //   Optional <alignment>
@@ -140,4 +140,3 @@ class StyleXform extends BaseXform {
 }
 
 export { StyleXform };
-export default StyleXform;

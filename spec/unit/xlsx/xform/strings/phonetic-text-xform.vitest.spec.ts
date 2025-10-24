@@ -1,7 +1,7 @@
 import { describe } from 'vitest';
-import testXformHelper from '../test-xform-helper';
+import { testXformHelper } from '../test-xform-helper';
 
-import PhoneticTextXform from '../../../../../src/xlsx/xform/strings/phonetic-text-xform.js';
+import { PhoneticTextXform } from '../../../../../src/xlsx/xform/strings/phonetic-text-xform.js';
 
 const expectations = [
   {

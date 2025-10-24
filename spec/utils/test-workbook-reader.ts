@@ -1,7 +1,7 @@
-import tools from './tools';
+import { fix } from './tools';
 import testValuesJson from './data/sheet-values.json' with { type: 'json' };
-const testValues = tools.fix(testValuesJson);
-import utils from '../../src/utils/utils.js';
+const testValues = fix(testValuesJson);
+import { utils } from '../../src/utils/utils.js';
 import { WorkbookReader, ValueType } from '../../src/index.js';
 
 function fillFormula(f) {
@@ -20,11 +20,11 @@ import stylesJson from './data/styles.json' with { type: 'json' };
 import propertiesJson from './data/sheet-properties.json' with { type: 'json' };
 import pageSetupJson from './data/page-setup.json' with { type: 'json' };
 
-export default {
-  testValues: tools.fix(testValuesJson),
-  styles: tools.fix(stylesJson),
-  properties: tools.fix(propertiesJson),
-  pageSetup: tools.fix(pageSetupJson),
+const testWorkbookReader = {
+  testValues: fix(testValuesJson),
+  styles: fix(stylesJson),
+  properties: fix(propertiesJson),
+  pageSetup: fix(pageSetupJson),
 
   checkBook(filename: string): Promise<void> {
     const wb = new WorkbookReader({});
@@ -145,3 +145,5 @@ export default {
     });
   },
 };
+
+export { testWorkbookReader };

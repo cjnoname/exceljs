@@ -1,5 +1,5 @@
-import BaseXform from '../base-xform.js';
-import utils from '../../../utils/utils.js';
+import { BaseXform } from '../base-xform.js';
+import { utils } from '../../../utils/utils.js';
 
 const Enums = {
   ReadingOrder: {
@@ -176,4 +176,3 @@ class AlignmentXform extends BaseXform {
 }
 
 export { AlignmentXform };
-export default AlignmentXform;
