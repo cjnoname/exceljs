@@ -6,8 +6,9 @@
     "lib": ["ESNext", "DOM"],
     "moduleResolution": "bundler",
     "outDir": "./dist/esm",
-    "declaration": false,
-    "declarationMap": false,
+    "declaration": true,
+    "declarationMap": true,
+    "declarationDir": "./dist/types",
     "emitDeclarationOnly": false,
     "sourceMap": true
   },
