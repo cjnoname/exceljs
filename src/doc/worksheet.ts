@@ -279,7 +279,9 @@ class Worksheet {
     }
 
     if (name && name.length > 31) {
-      console.warn(`Worksheet name ${name} exceeds 31 chars. This will be truncated`);
+      if (process.env.NODE_ENV !== "production") {
+        console.warn(`Worksheet name ${name} exceeds 31 chars. This will be truncated`);
+      }
       name = name.substring(0, 31);
     }
 

@@ -54,8 +54,6 @@
   },
   "files": [
     "dist",
-    "src",
-    "index.js",
     "LICENSE",
     "README.md",
     "README_zh.md"
@@ -77,8 +75,8 @@
     "build:browser": "rolldown -c rolldown.config.js",
     "analyze": "cross-env ANALYZE=1 rolldown -c rolldown.config.js",
     "prepublishOnly": "npm run clean && npm run build",
-    "preversion": "npm run build && npm run build && npm run test",
-    "postversion": "git push --no-verify && git push --tags --no-verify",
+    "preversion": "npm run lint && npm run type && npm run build && npm run test",
+    "postversion": "git push --follow-tags",
     "prepare": "husky"
   },
   "lint-staged": {

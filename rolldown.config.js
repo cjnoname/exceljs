@@ -28,13 +28,37 @@ const createAnalyzePlugin = (filename, open = false) =>
       ]
     : [];
 
+// Common config shared by both builds
+const commonConfig = {
+  input: "./src/index.browser.ts",
+  external: ["@aws-sdk/client-s3"],
+  platform: "browser",
+  tsconfig: "./tsconfig.json",
+  resolve: {
+    alias: browserPolyfills
+  },
+  transform: {
+    inject: {
+      Buffer: ["buffer", "Buffer"],
+      process: "process"
+    }
+  }
+};
+
+const copyLicensePlugin = {
+  name: "copy-license",
+  writeBundle() {
+    if (!fs.existsSync("./dist")) {
+      fs.mkdirSync("./dist", { recursive: true });
+    }
+    fs.copyFileSync("./LICENSE", "./dist/LICENSE");
+  }
+};
+
 export default defineConfig([
   // Browser: exceljs.iife.js (for development/debugging with <script> tag)
   {
-    input: "./src/index.browser.ts",
-    external: ["@aws-sdk/client-s3"],
-    platform: "browser",
-    tsconfig: "./tsconfig.json",
+    ...commonConfig,
     output: {
       dir: "./dist/browser",
       format: "iife",
@@ -44,34 +68,11 @@ export default defineConfig([
       exports: "named",
       entryFileNames: "exceljs.iife.js"
     },
-    resolve: {
-      alias: browserPolyfills
-    },
-    transform: {
-      inject: {
-        Buffer: ["buffer", "Buffer"],
-        process: "process"
-      }
-    },
-    plugins: [
-      {
-        name: "copy-license",
-        writeBundle() {
-          if (!fs.existsSync("./dist")) {
-            fs.mkdirSync("./dist", { recursive: true });
-          }
-          fs.copyFileSync("./LICENSE", "./dist/LICENSE");
-        }
-      },
-      ...createAnalyzePlugin("./dist/stats-iife.html")
-    ]
+    plugins: [copyLicensePlugin, ...createAnalyzePlugin("./dist/stats-iife.html")]
   },
   // Browser: exceljs.iife.min.js (for production with <script> tag)
   {
-    input: "./src/index.browser.ts",
-    external: ["@aws-sdk/client-s3"],
-    platform: "browser",
-    tsconfig: "./tsconfig.json",
+    ...commonConfig,
     output: {
       dir: "./dist/browser",
       format: "iife",
@@ -81,15 +82,6 @@ export default defineConfig([
       exports: "named",
       minify: true,
       entryFileNames: "exceljs.iife.min.js"
-    },
-    resolve: {
-      alias: browserPolyfills
-    },
-    transform: {
-      inject: {
-        Buffer: ["buffer", "Buffer"],
-        process: "process"
-      }
     },
     plugins: createAnalyzePlugin("./dist/stats-iife-min.html", true)
   }
