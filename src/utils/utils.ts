@@ -7,7 +7,6 @@ const inherits = function <T extends new (...args: any[]) => any, S extends new 
   statics?: any,
   prototype?: any
 ): void {
-  // eslint-disable-next-line no-underscore-dangle
   (cls as any).super_ = superCtor;
 
   if (!prototype) {
@@ -43,7 +42,6 @@ interface PathInfo {
   name: string;
 }
 
-// eslint-disable-next-line no-control-regex
 const xmlDecodeRegex = /[<>&'"\x7F\x00-\x08\x0B-\x0C\x0E-\x1F]/;
 const utils = {
   nop(): void {},
@@ -63,11 +61,9 @@ const utils = {
   },
   inherits,
   dateToExcel(d: Date, date1904?: boolean): number {
-    // eslint-disable-next-line no-mixed-operators
     return 25569 + d.getTime() / (24 * 3600 * 1000) - (date1904 ? 1462 : 0);
   },
   excelToDate(v: number, date1904?: boolean): Date {
-    // eslint-disable-next-line no-mixed-operators
     const millisecondSinceEpoch = Math.round((v - 25569 + (date1904 ? 1462 : 0)) * 24 * 3600 * 1000);
     return new Date(millisecondSinceEpoch);
   },

@@ -218,7 +218,6 @@ ws.getCell('D2').numFmt = 'd-mmm-yyyy';
 ws.getCell('D2').font = fonts.comicSansUdB16;
 ws.getCell('D2').border = borders.doubleRed;
 
-// eslint-disable-next-line prefer-template
 ws.getCell('E2').value = ['Hello', 'World'].join(', ') + '!';
 
 ws.getCell('F2').value = true;

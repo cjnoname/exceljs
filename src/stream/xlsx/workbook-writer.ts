@@ -218,7 +218,6 @@ class WorkbookWriter {
     const useSharedStrings = options.useSharedStrings !== undefined ? options.useSharedStrings : this.useSharedStrings;
 
     if (options.tabColor) {
-      // eslint-disable-next-line no-console
       console.trace('tabColor option has moved to { properties: tabColor: {...} }');
       options.properties = Object.assign(
         {

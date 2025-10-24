@@ -1,4 +1,3 @@
-/* eslint-disable max-classes-per-file */
 import { CompositeXform } from '../composite-xform.js';
 import { ConditionalFormattingsExtXform } from './cf-ext/conditional-formattings-ext-xform.js';
 

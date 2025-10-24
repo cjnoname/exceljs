@@ -1,4 +1,3 @@
-/* eslint-disable max-classes-per-file */
 import { Duplex } from 'stream';
 import { utils } from './utils.js';
 import { StringBuf } from './string-buf.js';
@@ -45,7 +44,6 @@ class StringBufChunk {
 
   // copy to target buffer
   copy(target: Buffer, targetOffset: number, offset: number, length: number): number {
-    // eslint-disable-next-line no-underscore-dangle
     return (this._data as any)._buf.copy(target, targetOffset, offset, length);
   }
 

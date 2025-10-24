@@ -408,7 +408,6 @@ class XLSX {
     }));
 
     for (const entry of entries) {
-      /* eslint-disable no-await-in-loop */
       if (!entry.dir) {
         let entryName = entry.name;
         if (entryName[0] === '/') {

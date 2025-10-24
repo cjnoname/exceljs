@@ -31,7 +31,6 @@ class SheetCommentsWriter {
 
   get commentsStream(): any {
     if (!this._commentsStream) {
-      // eslint-disable-next-line no-underscore-dangle
       this._commentsStream = this._workbook._openStream(`xl/comments${this.id}.xml`);
     }
     return this._commentsStream;
@@ -39,7 +38,6 @@ class SheetCommentsWriter {
 
   get vmlStream(): any {
     if (!this._vmlStream) {
-      // eslint-disable-next-line no-underscore-dangle
       this._vmlStream = this._workbook._openStream(`xl/drawings/vmlDrawing${this.id}.vml`);
     }
     return this._vmlStream;

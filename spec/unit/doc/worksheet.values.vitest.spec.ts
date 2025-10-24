@@ -1,4 +1,3 @@
-/* eslint-disable no-sparse-arrays */
 import { describe, it, expect } from 'vitest';
 import { Workbook, WorkbookWriter, WorkbookReader } from '../../../src/index.js';
 import { Enums } from '../../../src/doc/enums.js';

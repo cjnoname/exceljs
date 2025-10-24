@@ -1,4 +1,3 @@
-// eslint-disable-next-line node/no-unsupported-features/node-builtins
 const textEncoder = typeof (global as any).TextEncoder === 'undefined' ? null : new (global as any).TextEncoder();
 import { Buffer } from 'buffer';
 

@@ -1,4 +1,3 @@
-/* eslint-disable max-classes-per-file */
 import { BaseXform } from '../../base-xform.js';
 import { CompositeXform } from '../../composite-xform.js';
 

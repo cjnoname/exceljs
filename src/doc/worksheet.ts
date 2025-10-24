@@ -274,7 +274,6 @@ class Worksheet {
     }
 
     if (name && name.length > 31) {
-      // eslint-disable-next-line no-console
       console.warn(`Worksheet name ${name} exceeds 31 chars. This will be truncated`);
       name = name.substring(0, 31);
     }
@@ -384,12 +383,10 @@ class Worksheet {
       // must iterate over all rows whether they exist yet or not
       for (let i = 0; i < nRows; i++) {
         const rowArguments: any[] = [start, count];
-        // eslint-disable-next-line no-loop-func
         inserts.forEach(insert => {
           rowArguments.push(insert[i] || null);
         });
         const row = this.getRow(i + 1);
-        // eslint-disable-next-line prefer-spread
         row.splice.apply(row, rowArguments);
       }
     } else {
@@ -569,7 +566,6 @@ class Worksheet {
     const rSrc = this.getRow(src);
     const rDst = this.getRow(dest);
     rDst.style = copyStyle(rSrc.style);
-    // eslint-disable-next-line no-loop-func
     rSrc.eachCell({ includeEmpty: styleEmpty }, (cell: any, colNumber: number) => {
       rDst.getCell(colNumber).style = copyStyle(cell.style);
     });
@@ -589,7 +585,6 @@ class Worksheet {
       const rDst = this._rows[rowNum + i];
       rDst.style = rSrc.style;
       rDst.height = rSrc.height;
-      // eslint-disable-next-line no-loop-func
       rSrc.eachCell({ includeEmpty: true }, (cell: any, colNumber: number) => {
         rDst.getCell(colNumber).style = cell.style;
       });
@@ -616,8 +611,7 @@ class Worksheet {
           rDst.values = rSrc.values;
           rDst.style = rSrc.style;
           rDst.height = rSrc.height;
-          // eslint-disable-next-line no-loop-func
-          rSrc.eachCell({ includeEmpty: true }, (cell: any, colNumber: number) => {
+            rSrc.eachCell({ includeEmpty: true }, (cell: any, colNumber: number) => {
             rDst.getCell(colNumber).style = cell.style;
           });
           this._rows[i - 1] = undefined;
@@ -634,8 +628,7 @@ class Worksheet {
           rDst.values = rSrc.values;
           rDst.style = rSrc.style;
           rDst.height = rSrc.height;
-          // eslint-disable-next-line no-loop-func
-          rSrc.eachCell({ includeEmpty: true }, (cell: any, colNumber: number) => {
+            rSrc.eachCell({ includeEmpty: true }, (cell: any, colNumber: number) => {
             rDst.getCell(colNumber).style = cell.style;
 
             // remerge cells accounting for insert offset
@@ -814,7 +807,6 @@ class Worksheet {
       if (Array.isArray(results[0])) {
         getResult = (row: number, col: number) => (results as any[][])[row - top][col - left];
       } else {
-        // eslint-disable-next-line no-mixed-operators
         getResult = (row: number, col: number) => (results as any[])[(row - top) * width + (col - left)];
       }
     } else {
@@ -932,7 +924,6 @@ class Worksheet {
   // =========================================================================
   // Pivot Tables
   addPivotTable(model: any): any {
-    // eslint-disable-next-line no-console
     console.warn(
       `Warning: Pivot Table support is experimental. 
 Please leave feedback at https://github.com/exceljs/exceljs/discussions/2575`

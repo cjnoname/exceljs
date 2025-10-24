@@ -25,7 +25,6 @@ async function save() {
 
   const values = [100000, 10000, 1, 0, -1, undefined, null, NaN, Infinity, -Infinity, 31415.9265];
 
-  /*eslint-disable no-await-in-loop*/
   for (let index = 0; index < values.length; index += 1) {
     const value = values[index];
 
@@ -35,7 +34,6 @@ async function save() {
 
     await wb.xlsx.writeFile(`${index + 2}-${filename}`);
   }
-  /*eslint-enable no-await-in-loop*/
 }
 
 save().catch(error => {

@@ -85,7 +85,6 @@ describe('Column', () => {
     sheet.getCell(2, 1).value = 'b';
     sheet.getCell(4, 1).value = 'd';
 
-    // eslint-disable-next-line no-sparse-arrays
     expect(sheet.getColumn(1).values).toEqual([, 'a', 'b', , 'd']);
   });
   it('sets column values', () => {
@@ -124,7 +123,6 @@ describe('Column', () => {
   });
   it('sets sparse column values', () => {
     const sheet = createSheetMock();
-    // eslint-disable-next-line no-sparse-arrays
     sheet.getColumn(1).values = [, , 2, 3, , 5, , 7, , , , 11];
 
     expect(sheet.getCell(1, 1).value).toBe(null);

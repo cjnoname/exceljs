@@ -98,7 +98,6 @@ export function isObject(val: any): val is Record<string, any> {
 export function deepMerge<T = any>(...args: any[]): T {
   const target: any = args[0] || {};
   const { length } = args;
-  // eslint-disable-next-line one-var
   let src: any, clone: any, copyIsArray: boolean;
 
   function assignValue(val: any, key: string | number): void {

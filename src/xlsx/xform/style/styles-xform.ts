@@ -1,4 +1,3 @@
-/* eslint-disable max-classes-per-file */
 import { Enums } from '../../../doc/enums.js';
 import { XmlStream } from '../../../utils/xml-stream.js';
 import { BaseXform } from '../base-xform.js';

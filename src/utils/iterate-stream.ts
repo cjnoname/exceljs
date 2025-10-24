@@ -45,7 +45,6 @@ async function* iterateStream(stream: Readable): AsyncGenerator<any> {
     while (!ended || contents.length > 0) {
       if (contents.length === 0) {
         stream.resume();
-        // eslint-disable-next-line no-await-in-loop
         await new Promise<void>(resolve => {
           resolveDataPromise = resolve;
         });

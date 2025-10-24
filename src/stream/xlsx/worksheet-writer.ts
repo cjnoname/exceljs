@@ -241,7 +241,6 @@ class WorksheetWriter {
 
   get stream(): any {
     if (!this._stream) {
-      // eslint-disable-next-line no-underscore-dangle
       this._stream = this._workbook._openStream(`xl/worksheets/sheet${this.id}.xml`);
 
       // DO NOT pause stream - fflate migration requires data events to flow
@@ -682,7 +681,6 @@ class WorksheetWriter {
   }
 
   _writeHyperlinks(): void {
-    // eslint-disable-next-line no-underscore-dangle
     this.stream.write(xform.hyperlinks.toXml(this._sheetRelsWriter._hyperlinks));
   }
 

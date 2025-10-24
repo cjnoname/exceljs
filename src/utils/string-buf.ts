@@ -82,7 +82,6 @@ class StringBuf {
       if (this.length + inBuf.length > this.capacity) {
         this._grow(this.length + inBuf.length);
       }
-      // eslint-disable-next-line no-underscore-dangle
       inBuf._buf.copy(this._buf, this._inPos, 0, inBuf.length);
       this._inPos += inBuf.length;
     }

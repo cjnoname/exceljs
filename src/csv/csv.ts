@@ -31,7 +31,6 @@ interface WriteOptions {
   encoding?: string;
 }
 
-/* eslint-disable quote-props */
 const SpecialValues: { [key: string]: any } = {
   true: true,
   false: false,
@@ -43,7 +42,6 @@ const SpecialValues: { [key: string]: any } = {
   '#VALUE!': { error: '#VALUE!' },
   '#NUM!': { error: '#NUM!' },
 };
-/* eslint-ensable quote-props */
 
 class CSV {
   declare public workbook: any;

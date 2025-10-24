@@ -1,4 +1,3 @@
-// eslint-disable-next-line node/no-unsupported-features/node-builtins
 const textDecoder =
   typeof (global as any).TextDecoder === 'undefined' ? null : new (global as any).TextDecoder('utf-8');
 

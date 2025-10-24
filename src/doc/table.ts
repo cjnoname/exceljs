@@ -1,4 +1,3 @@
-/* eslint-disable max-classes-per-file */
 import { colCache } from '../utils/col-cache.js';
 
 interface ColumnModel {
@@ -57,7 +56,6 @@ class Column {
     (this.column as any)[name] = value;
   }
 
-  /* eslint-disable lines-between-class-members */
   get name(): string {
     return this.column.name;
   }
@@ -106,7 +104,6 @@ class Column {
   set totalsRowFormula(value: string | undefined) {
     this._set('totalsRowFormula', value);
   }
-  /* eslint-enable lines-between-class-members */
 }
 
 class Table {
@@ -436,7 +433,6 @@ class Table {
     target[prop] = value;
   }
 
-  /* eslint-disable lines-between-class-members */
   get ref(): string {
     return this.table.ref;
   }
@@ -506,7 +502,6 @@ class Table {
   set showColumnStripes(value: boolean | undefined) {
     this.table.style.showColumnStripes = value;
   }
-  /* eslint-enable lines-between-class-members */
 }
 
 export { Table };

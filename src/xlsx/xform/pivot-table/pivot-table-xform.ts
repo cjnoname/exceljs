@@ -159,7 +159,6 @@ class PivotTableXform extends BaseXform {
 // Helpers
 
 function renderPivotFields(pivotTable: PivotTableModel): string {
-  /* eslint-disable no-nested-ternary */
   return pivotTable.cacheFields
     .map((cacheField: any, fieldIndex: number) => {
       const fieldType =

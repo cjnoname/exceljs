@@ -1,4 +1,3 @@
-/* eslint-disable max-classes-per-file */
 import { utils } from '../../utils/utils.js';
 import { RelType } from '../../xlsx/rel-type.js';
 
@@ -53,7 +52,6 @@ class SheetRelsWriter {
 
   get stream(): any {
     if (!this._stream) {
-      // eslint-disable-next-line no-underscore-dangle
       this._stream = this._workbook._openStream(`xl/worksheets/_rels/sheet${this.id}.xml.rels`);
     }
     return this._stream;
