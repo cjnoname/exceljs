@@ -39,31 +39,31 @@ yarn add excelts
 ### 创建工作簿
 
 ```javascript
-import { Workbook } from 'excelts';
+import { Workbook } from "excelts";
 
 const workbook = new Workbook();
-const sheet = workbook.addWorksheet('我的工作表');
+const sheet = workbook.addWorksheet("我的工作表");
 
 // 添加数据
-sheet.addRow(['姓名', '年龄', '邮箱']);
-sheet.addRow(['张三', 30, 'zhang@example.com']);
-sheet.addRow(['李四', 25, 'li@example.com']);
+sheet.addRow(["姓名", "年龄", "邮箱"]);
+sheet.addRow(["张三", 30, "zhang@example.com"]);
+sheet.addRow(["李四", 25, "li@example.com"]);
 
 // 保存文件
-await workbook.xlsx.writeFile('output.xlsx');
+await workbook.xlsx.writeFile("output.xlsx");
 ```
 
 ### 读取工作簿
 
 ```javascript
-import { Workbook } from 'excelts';
+import { Workbook } from "excelts";
 
 const workbook = new Workbook();
-await workbook.xlsx.readFile('input.xlsx');
+await workbook.xlsx.readFile("input.xlsx");
 
 const worksheet = workbook.getWorksheet(1);
 worksheet.eachRow((row, rowNumber) => {
-  console.log('第 ' + rowNumber + ' 行 = ' + JSON.stringify(row.values));
+  console.log("第 " + rowNumber + " 行 = " + JSON.stringify(row.values));
 });
 ```
 
@@ -71,18 +71,18 @@ worksheet.eachRow((row, rowNumber) => {
 
 ```javascript
 // 设置单元格值和样式
-const cell = worksheet.getCell('A1');
-cell.value = '你好';
+const cell = worksheet.getCell("A1");
+cell.value = "你好";
 cell.font = {
-  name: 'Arial',
+  name: "Arial",
   size: 16,
   bold: true,
-  color: { argb: 'FFFF0000' }
+  color: { argb: "FFFF0000" }
 };
 cell.fill = {
-  type: 'pattern',
-  pattern: 'solid',
-  fgColor: { argb: 'FFFFFF00' }
+  type: "pattern",
+  pattern: "solid",
+  fgColor: { argb: "FFFFFF00" }
 };
 ```
 
@@ -119,7 +119,7 @@ ExcelTS 同时支持 Node.js 和浏览器环境：
 
 ```javascript
 // 浏览器使用
-import { Workbook } from 'excelts/browser';
+import { Workbook } from "excelts/browser";
 
 const workbook = new Workbook();
 // ... 使用 workbook API
@@ -128,10 +128,12 @@ const workbook = new Workbook();
 ## 系统要求
 
 ### Node.js
+
 - **Node.js >= 14.0.0**（原生支持 ES2020）
 - 推荐：Node.js >= 20.0.0 以获得最佳性能
 
 ### 浏览器（无需 Polyfills）
+
 - **Chrome >= 85**（2020年8月）
 - **Edge >= 85**（2020年8月）
 - **Firefox >= 79**（2020年7月）

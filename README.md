@@ -39,31 +39,31 @@ yarn add excelts
 ### Creating a Workbook
 
 ```javascript
-import { Workbook } from 'excelts';
+import { Workbook } from "excelts";
 
 const workbook = new Workbook();
-const sheet = workbook.addWorksheet('My Sheet');
+const sheet = workbook.addWorksheet("My Sheet");
 
 // Add data
-sheet.addRow(['Name', 'Age', 'Email']);
-sheet.addRow(['John Doe', 30, 'john@example.com']);
-sheet.addRow(['Jane Smith', 25, 'jane@example.com']);
+sheet.addRow(["Name", "Age", "Email"]);
+sheet.addRow(["John Doe", 30, "john@example.com"]);
+sheet.addRow(["Jane Smith", 25, "jane@example.com"]);
 
 // Save to file
-await workbook.xlsx.writeFile('output.xlsx');
+await workbook.xlsx.writeFile("output.xlsx");
 ```
 
 ### Reading a Workbook
 
 ```javascript
-import { Workbook } from 'excelts';
+import { Workbook } from "excelts";
 
 const workbook = new Workbook();
-await workbook.xlsx.readFile('input.xlsx');
+await workbook.xlsx.readFile("input.xlsx");
 
 const worksheet = workbook.getWorksheet(1);
 worksheet.eachRow((row, rowNumber) => {
-  console.log('Row ' + rowNumber + ' = ' + JSON.stringify(row.values));
+  console.log("Row " + rowNumber + " = " + JSON.stringify(row.values));
 });
 ```
 
@@ -71,18 +71,18 @@ worksheet.eachRow((row, rowNumber) => {
 
 ```javascript
 // Set cell value and style
-const cell = worksheet.getCell('A1');
-cell.value = 'Hello';
+const cell = worksheet.getCell("A1");
+cell.value = "Hello";
 cell.font = {
-  name: 'Arial',
+  name: "Arial",
   size: 16,
   bold: true,
-  color: { argb: 'FFFF0000' }
+  color: { argb: "FFFF0000" }
 };
 cell.fill = {
-  type: 'pattern',
-  pattern: 'solid',
-  fgColor: { argb: 'FFFFFF00' }
+  type: "pattern",
+  pattern: "solid",
+  fgColor: { argb: "FFFFFF00" }
 };
 ```
 
@@ -119,7 +119,7 @@ ExcelTS supports both Node.js and browser environments:
 
 ```javascript
 // Browser usage
-import { Workbook } from 'excelts/browser';
+import { Workbook } from "excelts/browser";
 
 const workbook = new Workbook();
 // ... use workbook API
@@ -128,10 +128,12 @@ const workbook = new Workbook();
 ## Requirements
 
 ### Node.js
+
 - **Node.js >= 14.0.0** (ES2020 native support)
 - Recommended: Node.js >= 20.0.0 for best performance
 
 ### Browsers (No Polyfills Required)
+
 - **Chrome >= 85** (August 2020)
 - **Edge >= 85** (August 2020)
 - **Firefox >= 79** (July 2020)
