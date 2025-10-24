@@ -25,4 +25,5 @@ class AppTitlesOfPartsXform extends BaseXform {
   }
 }
 
+export { AppTitlesOfPartsXform };
 export default AppTitlesOfPartsXform;

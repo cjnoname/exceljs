@@ -110,4 +110,5 @@ class SheetProtectionXform extends BaseXform {
   }
 }
 
+export { SheetProtectionXform };
 export default SheetProtectionXform;

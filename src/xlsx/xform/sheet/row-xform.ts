@@ -164,4 +164,5 @@ class RowXform extends BaseXform {
   }
 }
 
+export { RowXform };
 export default RowXform;

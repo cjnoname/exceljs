@@ -161,4 +161,5 @@ const defaultNumFormats: { [key: number]: NumFormat } = {
   81: { 'th-th': 'd/m/bb' },
 };
 
+export { defaultNumFormats };
 export default defaultNumFormats;

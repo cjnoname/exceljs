@@ -44,4 +44,5 @@ class ColorScaleXform extends CompositeXform {
   }
 }
 
+export { ColorScaleXform };
 export default ColorScaleXform;

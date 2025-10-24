@@ -107,4 +107,5 @@ class PivotCacheRecordsXform extends BaseXform {
   };
 }
 
+export { PivotCacheRecordsXform };
 export default PivotCacheRecordsXform;

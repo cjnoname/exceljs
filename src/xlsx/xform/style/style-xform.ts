@@ -139,4 +139,5 @@ class StyleXform extends BaseXform {
   }
 }
 
+export { StyleXform };
 export default StyleXform;

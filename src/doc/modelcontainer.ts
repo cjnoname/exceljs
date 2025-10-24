@@ -1,4 +1,4 @@
-import XLSX from '../xlsx/xlsx.js';
+import { XLSX } from '../xlsx/xlsx.js';
 
 class ModelContainer {
   model: any;
@@ -16,4 +16,5 @@ class ModelContainer {
   }
 }
 
+export { ModelContainer };
 export default ModelContainer;

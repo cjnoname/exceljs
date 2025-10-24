@@ -158,4 +158,5 @@ class TableXform extends BaseXform {
   };
 }
 
+export { TableXform };
 export default TableXform;

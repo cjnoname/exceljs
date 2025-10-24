@@ -304,4 +304,5 @@ class CfRuleXform extends CompositeXform {
   }
 }
 
+export { CfRuleXform };
 export default CfRuleXform;

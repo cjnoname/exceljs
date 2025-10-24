@@ -86,4 +86,5 @@ class CommentsXform extends BaseXform {
   };
 }
 
+export { CommentsXform };
 export default CommentsXform;

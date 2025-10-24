@@ -105,4 +105,5 @@ class AppXform extends BaseXform {
   };
 }
 
+export { AppXform };
 export default AppXform;

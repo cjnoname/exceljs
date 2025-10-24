@@ -24,4 +24,5 @@ class CfvoXform extends BaseXform {
   }
 }
 
+export { CfvoXform };
 export default CfvoXform;

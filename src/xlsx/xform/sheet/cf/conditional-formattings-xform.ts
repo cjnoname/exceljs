@@ -91,4 +91,5 @@ class ConditionalFormattingsXform extends BaseXform {
   }
 }
 
+export { ConditionalFormattingsXform };
 export default ConditionalFormattingsXform;

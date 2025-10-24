@@ -79,4 +79,5 @@ class VmlAnchorXform extends BaseXform {
   }
 }
 
+export { VmlAnchorXform };
 export default VmlAnchorXform;

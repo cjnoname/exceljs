@@ -86,4 +86,5 @@ class ExtLstRefXform extends CompositeXform {
   }
 }
 
+export { ExtLstRefXform };
 export default ExtLstRefXform;

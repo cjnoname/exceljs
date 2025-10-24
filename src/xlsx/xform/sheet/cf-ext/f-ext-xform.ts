@@ -22,4 +22,5 @@ class FExtXform extends BaseXform {
   }
 }
 
+export { FExtXform };
 export default FExtXform;

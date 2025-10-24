@@ -48,4 +48,5 @@ class DatabarXform extends CompositeXform {
   }
 }
 
+export { DatabarXform };
 export default DatabarXform;

@@ -55,4 +55,5 @@ class TableColumnXform extends BaseXform {
   }
 }
 
+export { TableColumnXform };
 export default TableColumnXform;

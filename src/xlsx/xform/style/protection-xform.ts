@@ -62,4 +62,5 @@ class ProtectionXform extends BaseXform {
   }
 }
 
+export { ProtectionXform };
 export default ProtectionXform;

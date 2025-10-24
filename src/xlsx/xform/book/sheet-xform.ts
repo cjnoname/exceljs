@@ -38,4 +38,5 @@ class WorksheetXform extends BaseXform {
   }
 }
 
+export { WorksheetXform };
 export default WorksheetXform;

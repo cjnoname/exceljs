@@ -45,4 +45,5 @@ class UnderlineXform extends BaseXform {
   }
 }
 
+export { UnderlineXform };
 export default UnderlineXform;

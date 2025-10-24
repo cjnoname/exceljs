@@ -104,4 +104,5 @@ class PhoneticTextXform extends BaseXform {
   }
 }
 
+export { PhoneticTextXform };
 export default PhoneticTextXform;

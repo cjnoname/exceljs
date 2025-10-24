@@ -183,4 +183,5 @@ class XmlStream {
   };
 }
 
+export { XmlStream };
 export default XmlStream;

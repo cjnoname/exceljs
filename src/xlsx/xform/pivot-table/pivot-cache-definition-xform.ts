@@ -83,4 +83,5 @@ class PivotCacheDefinitionXform extends BaseXform {
   };
 }
 
+export { PivotCacheDefinitionXform };
 export default PivotCacheDefinitionXform;

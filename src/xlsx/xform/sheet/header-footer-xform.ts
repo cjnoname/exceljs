@@ -156,4 +156,5 @@ class HeaderFooterXform extends BaseXform {
   }
 }
 
+export { HeaderFooterXform };
 export default HeaderFooterXform;

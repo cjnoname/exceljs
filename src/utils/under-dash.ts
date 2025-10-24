@@ -132,4 +132,5 @@ const _ = {
   },
 };
 
+export { _ };
 export default _;

@@ -135,4 +135,5 @@ class SharedStringsXform extends BaseXform {
   }
 }
 
+export { SharedStringsXform };
 export default SharedStringsXform;

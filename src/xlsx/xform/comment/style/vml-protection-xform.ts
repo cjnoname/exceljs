@@ -37,4 +37,5 @@ class VmlProtectionXform extends BaseXform {
   }
 }
 
+export { VmlProtectionXform };
 export default VmlProtectionXform;

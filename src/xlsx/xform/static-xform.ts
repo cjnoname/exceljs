@@ -71,4 +71,5 @@ class StaticXform extends BaseXform {
   }
 }
 
+export { StaticXform };
 export default StaticXform;

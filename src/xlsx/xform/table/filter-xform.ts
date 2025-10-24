@@ -39,4 +39,5 @@ class FilterXform extends BaseXform {
   }
 }
 
+export { FilterXform };
 export default FilterXform;

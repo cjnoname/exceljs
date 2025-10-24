@@ -59,4 +59,5 @@ class CompositeXform extends BaseXform {
   }
 }
 
+export { CompositeXform };
 export default CompositeXform;

@@ -67,4 +67,5 @@ class NumFmtXform extends BaseXform {
   }
 }
 
+export { NumFmtXform };
 export default NumFmtXform;

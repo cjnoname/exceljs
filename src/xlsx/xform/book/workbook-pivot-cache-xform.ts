@@ -31,4 +31,5 @@ class WorkbookPivotCacheXform extends BaseXform {
   }
 }
 
+export { WorkbookPivotCacheXform };
 export default WorkbookPivotCacheXform;

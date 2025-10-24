@@ -93,4 +93,5 @@ class ColXform extends BaseXform {
   }
 }
 
+export { ColXform };
 export default ColXform;

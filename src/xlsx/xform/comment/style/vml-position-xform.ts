@@ -40,4 +40,5 @@ class VmlPositionXform extends BaseXform {
   }
 }
 
+export { VmlPositionXform };
 export default VmlPositionXform;

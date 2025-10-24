@@ -133,4 +133,5 @@ class SheetCommentsWriter {
   }
 }
 
+export { SheetCommentsWriter };
 export default SheetCommentsWriter;

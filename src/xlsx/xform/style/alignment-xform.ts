@@ -175,4 +175,5 @@ class AlignmentXform extends BaseXform {
   }
 }
 
+export { AlignmentXform };
 export default AlignmentXform;

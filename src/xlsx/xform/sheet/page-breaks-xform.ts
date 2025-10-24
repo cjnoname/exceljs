@@ -26,4 +26,5 @@ class PageBreaksXform extends BaseXform {
   }
 }
 
+export { PageBreaksXform };
 export default PageBreaksXform;

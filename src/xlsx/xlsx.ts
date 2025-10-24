@@ -872,4 +872,5 @@ class XLSX {
   static RelType = RelType;
 }
 
+export { XLSX };
 export default XLSX;

@@ -120,4 +120,5 @@ class DxfXform extends BaseXform {
   }
 }
 
+export { DxfXform };
 export default DxfXform;

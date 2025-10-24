@@ -1,7 +1,7 @@
 import { EventEmitter } from 'events';
 import parseSax from '../../utils/parse-sax.js';
 
-import Enums from '../../doc/enums.js';
+import { Enums } from '../../doc/enums.js';
 import RelType from '../../xlsx/rel-type.js';
 
 interface HyperlinkReaderOptions {
@@ -104,4 +104,5 @@ class HyperlinkReader extends EventEmitter {
   }
 }
 
+export { HyperlinkReader };
 export default HyperlinkReader;

@@ -24,4 +24,5 @@ class TypedStack<T> {
   }
 }
 
+export { TypedStack };
 export default TypedStack;

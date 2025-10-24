@@ -198,4 +198,5 @@ function renderPivotField(fieldType: string | null, sharedItems: string[] | null
   `;
 }
 
+export { PivotTableXform };
 export default PivotTableXform;

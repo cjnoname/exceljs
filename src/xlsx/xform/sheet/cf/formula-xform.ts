@@ -22,4 +22,5 @@ class FormulaXform extends BaseXform {
   }
 }
 
+export { FormulaXform };
 export default FormulaXform;

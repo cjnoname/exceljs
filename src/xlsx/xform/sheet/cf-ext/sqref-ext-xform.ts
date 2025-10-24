@@ -22,4 +22,5 @@ class SqrefExtXform extends BaseXform {
   }
 }
 
+export { SqrefExtXform };
 export default SqrefExtXform;

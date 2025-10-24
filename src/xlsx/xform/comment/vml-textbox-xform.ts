@@ -81,4 +81,5 @@ class VmlTextboxXform extends BaseXform {
   }
 }
 
+export { VmlTextboxXform };
 export default VmlTextboxXform;

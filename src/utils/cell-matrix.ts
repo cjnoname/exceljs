@@ -179,4 +179,5 @@ class CellMatrix {
   }
 }
 
+export { CellMatrix };
 export default CellMatrix;

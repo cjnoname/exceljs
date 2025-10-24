@@ -36,4 +36,5 @@ class PageSetupPropertiesXform extends BaseXform {
   }
 }
 
+export { PageSetupPropertiesXform };
 export default PageSetupPropertiesXform;

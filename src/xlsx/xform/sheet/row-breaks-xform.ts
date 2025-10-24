@@ -33,4 +33,5 @@ class RowBreaksXform extends ListXform {
   }
 }
 
+export { RowBreaksXform };
 export default RowBreaksXform;

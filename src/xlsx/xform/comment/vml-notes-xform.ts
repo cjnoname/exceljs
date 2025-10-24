@@ -113,4 +113,5 @@ class VmlNotesXform extends BaseXform {
   };
 }
 
+export { VmlNotesXform };
 export default VmlNotesXform;

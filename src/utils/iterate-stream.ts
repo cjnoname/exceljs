@@ -64,4 +64,5 @@ async function* iterateStream(stream: Readable): AsyncGenerator<any> {
   }
 }
 
+export { iterateStream };
 export default iterateStream;

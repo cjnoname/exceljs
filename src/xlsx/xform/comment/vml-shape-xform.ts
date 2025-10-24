@@ -105,4 +105,5 @@ class VmlShapeXform extends BaseXform {
   });
 }
 
+export { VmlShapeXform };
 export default VmlShapeXform;

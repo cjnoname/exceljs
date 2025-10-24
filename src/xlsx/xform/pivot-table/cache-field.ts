@@ -48,4 +48,5 @@ class CacheField {
   }
 }
 
+export { CacheField };
 export default CacheField;

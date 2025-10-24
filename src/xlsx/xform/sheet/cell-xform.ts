@@ -1,7 +1,7 @@
 import utils from '../../../utils/utils.js';
 import BaseXform from '../base-xform.js';
 import Range from '../../../doc/range.js';
-import Enums from '../../../doc/enums.js';
+import { Enums } from '../../../doc/enums.js';
 
 import RichTextXform from '../strings/rich-text-xform.js';
 
@@ -498,4 +498,5 @@ class CellXform extends BaseXform {
   }
 }
 
+export { CellXform };
 export default CellXform;

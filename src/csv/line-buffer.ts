@@ -80,4 +80,5 @@ class LineBuffer extends EventEmitter {
   }
 }
 
+export { LineBuffer };
 export default LineBuffer;

@@ -36,4 +36,5 @@ class BooleanXform extends BaseXform {
   }
 }
 
+export { BooleanXform };
 export default BooleanXform;

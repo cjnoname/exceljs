@@ -60,4 +60,5 @@ class FloatXform extends BaseXform {
   }
 }
 
+export { FloatXform };
 export default FloatXform;

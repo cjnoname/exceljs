@@ -60,4 +60,5 @@ class StringXform extends BaseXform {
   }
 }
 
+export { StringXform };
 export default StringXform;

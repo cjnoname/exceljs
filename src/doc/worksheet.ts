@@ -1,14 +1,14 @@
 import _ from '../utils/under-dash.js';
 
 import colCache from '../utils/col-cache.js';
-import Range from './range.js';
-import Row from './row.js';
-import Column from './column.js';
-import Enums from './enums.js';
-import Image from './image.js';
-import Table from './table.js';
-import DataValidations from './data-validations.js';
-import Encryptor from '../utils/encryptor.js';
+import { Range } from './range.js';
+import { Row } from './row.js';
+import { Column } from './column.js';
+import { Enums } from './enums.js';
+import { Image } from './image.js';
+import { Table } from './table.js';
+import { DataValidations } from './data-validations.js';
+import { Encryptor } from '../utils/encryptor.js';
 
 import { makePivotTable } from './pivot-table.js';
 import { copyStyle } from '../utils/copy-style.js';
@@ -1057,4 +1057,5 @@ Please leave feedback at https://github.com/exceljs/exceljs/discussions/2575`
   }
 }
 
+export { Worksheet };
 export default Worksheet;

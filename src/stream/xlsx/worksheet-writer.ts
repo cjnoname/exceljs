@@ -760,4 +760,5 @@ class WorksheetWriter {
   }
 }
 
+export { WorksheetWriter };
 export default WorksheetWriter;

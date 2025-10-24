@@ -550,4 +550,5 @@ WorkSheetXform.WORKSHEET_ATTRIBUTES = {
   'xmlns:x14ac': 'http://schemas.microsoft.com/office/spreadsheetml/2009/9/ac',
 };
 
+export { WorkSheetXform };
 export default WorkSheetXform;

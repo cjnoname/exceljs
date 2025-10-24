@@ -69,4 +69,5 @@ class ColorXform extends BaseXform {
   }
 }
 
+export { ColorXform };
 export default ColorXform;

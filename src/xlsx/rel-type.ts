@@ -1,4 +1,4 @@
-export default {
+const RelType = {
   OfficeDocument: 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument',
   Worksheet: 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet',
   CalcChain: 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/calcChain',
@@ -16,3 +16,6 @@ export default {
   PivotCacheRecords: 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/pivotCacheRecords',
   PivotTable: 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/pivotTable',
 };
+
+export { RelType };
+export default RelType;

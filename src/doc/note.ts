@@ -88,4 +88,4 @@ class Note {
   }
 }
 
-export default Note;
+export { Note };

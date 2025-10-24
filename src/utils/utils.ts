@@ -212,6 +212,7 @@ const utils = {
   },
 };
 
+export { utils };
 export default utils;
 
 // Named exports for convenient destructuring

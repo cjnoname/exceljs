@@ -437,4 +437,5 @@ class WorkbookWriter {
   }
 }
 
+export { WorkbookWriter };
 export default WorkbookWriter;

@@ -387,4 +387,5 @@ class FillXform extends BaseXform {
   static GradientFillXform = GradientFillXform;
 }
 
+export { FillXform };
 export default FillXform;

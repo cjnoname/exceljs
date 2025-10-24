@@ -98,4 +98,5 @@ class CfRuleExtXform extends CompositeXform {
   }
 }
 
+export { CfRuleExtXform };
 export default CfRuleExtXform;

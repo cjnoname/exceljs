@@ -90,4 +90,5 @@ class ExtLstXform extends CompositeXform {
   }
 }
 
+export { ExtLstXform };
 export default ExtLstXform;

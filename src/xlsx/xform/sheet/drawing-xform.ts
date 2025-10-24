@@ -34,4 +34,5 @@ class DrawingXform extends BaseXform {
   }
 }
 
+export { DrawingXform };
 export default DrawingXform;

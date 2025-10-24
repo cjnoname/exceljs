@@ -122,4 +122,5 @@ class FontXform extends BaseXform {
   };
 }
 
+export { FontXform };
 export default FontXform;

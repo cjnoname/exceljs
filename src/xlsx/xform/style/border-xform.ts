@@ -228,4 +228,5 @@ class BorderXform extends BaseXform {
   }
 }
 
+export { BorderXform };
 export default BorderXform;

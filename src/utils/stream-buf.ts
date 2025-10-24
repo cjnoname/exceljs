@@ -388,4 +388,5 @@ utils.inherits(StreamBuf, Duplex as any, {
   },
 });
 
+export { StreamBuf };
 export default StreamBuf;

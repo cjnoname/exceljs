@@ -72,4 +72,5 @@ class RelationshipsXform extends BaseXform {
   };
 }
 
+export { RelationshipsXform };
 export default RelationshipsXform;

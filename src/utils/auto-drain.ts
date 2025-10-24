@@ -12,4 +12,5 @@ class AutoDrain extends EventEmitter {
   }
 }
 
+export { AutoDrain };
 export default AutoDrain;

@@ -56,4 +56,5 @@ class PageMarginsXform extends BaseXform {
   }
 }
 
+export { PageMarginsXform };
 export default PageMarginsXform;

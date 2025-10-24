@@ -103,4 +103,5 @@ function extractRanges(parsedText: string): string[] {
   return ranges;
 }
 
+export { DefinedNamesXform };
 export default DefinedNamesXform;

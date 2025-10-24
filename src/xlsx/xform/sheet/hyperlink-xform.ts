@@ -58,4 +58,5 @@ class HyperlinkXform extends BaseXform {
   }
 }
 
+export { HyperlinkXform };
 export default HyperlinkXform;

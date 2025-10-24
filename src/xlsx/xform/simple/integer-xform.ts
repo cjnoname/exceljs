@@ -68,4 +68,5 @@ class IntegerXform extends BaseXform {
   }
 }
 
+export { IntegerXform };
 export default IntegerXform;

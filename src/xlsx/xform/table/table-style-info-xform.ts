@@ -58,4 +58,5 @@ class TableStyleInfoXform extends BaseXform {
   }
 }
 
+export { TableStyleInfoXform };
 export default TableStyleInfoXform;

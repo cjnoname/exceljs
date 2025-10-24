@@ -1,7 +1,7 @@
-import Worksheet from './worksheet.js';
-import DefinedNames from './defined-names.js';
-import XLSX from '../xlsx/xlsx.js';
-import CSV from '../csv/csv.js';
+import { Worksheet } from './worksheet.js';
+import { DefinedNames } from './defined-names.js';
+import { XLSX } from '../xlsx/xlsx.js';
+import { CSV } from '../csv/csv.js';
 
 interface WorksheetModel {
   id: number;
@@ -262,4 +262,5 @@ class Workbook {
   }
 }
 
+export { Workbook };
 export default Workbook;

@@ -51,7 +51,7 @@ export const ErrorValue = {
 
 export type ErrorValueType = (typeof ErrorValue)[keyof typeof ErrorValue];
 
-export default {
+export const Enums = {
   ValueType,
   FormulaType,
   RelationshipType,

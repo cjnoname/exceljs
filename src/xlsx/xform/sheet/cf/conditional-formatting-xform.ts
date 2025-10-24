@@ -44,4 +44,5 @@ class ConditionalFormattingXform extends CompositeXform {
   }
 }
 
+export { ConditionalFormattingXform };
 export default ConditionalFormattingXform;

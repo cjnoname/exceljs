@@ -311,4 +311,5 @@ const colCache = {
   },
 };
 
+export { colCache };
 export default colCache;

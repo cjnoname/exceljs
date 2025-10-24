@@ -45,4 +45,5 @@ class OutlinePropertiesXform extends BaseXform {
   }
 }
 
+export { OutlinePropertiesXform };
 export default OutlinePropertiesXform;

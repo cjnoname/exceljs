@@ -42,4 +42,5 @@ class CustomFilterXform extends BaseXform {
   }
 }
 
+export { CustomFilterXform };
 export default CustomFilterXform;

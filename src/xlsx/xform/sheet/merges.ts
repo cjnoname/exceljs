@@ -1,6 +1,6 @@
 import Range from '../../../doc/range.js';
 import colCache from '../../../utils/col-cache.js';
-import Enums from '../../../doc/enums.js';
+import { Enums } from '../../../doc/enums.js';
 
 import _ from '../../../utils/under-dash.js';
 
@@ -61,4 +61,5 @@ class Merges {
   }
 }
 
+export { Merges };
 export default Merges;

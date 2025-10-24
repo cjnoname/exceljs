@@ -102,4 +102,5 @@ class FilterColumnXform extends BaseXform {
   }
 }
 
+export { FilterColumnXform };
 export default FilterColumnXform;

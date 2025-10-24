@@ -54,4 +54,5 @@ class PrintOptionsXform extends BaseXform {
   }
 }
 
+export { PrintOptionsXform };
 export default PrintOptionsXform;

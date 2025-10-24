@@ -34,4 +34,5 @@ class TablePartXform extends BaseXform {
   }
 }
 
+export { TablePartXform };
 export default TablePartXform;

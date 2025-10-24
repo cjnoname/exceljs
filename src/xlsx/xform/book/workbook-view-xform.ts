@@ -60,4 +60,5 @@ class WorkbookViewXform extends BaseXform {
   }
 }
 
+export { WorkbookViewXform };
 export default WorkbookViewXform;

@@ -37,4 +37,5 @@ class AutoFilterXform extends BaseXform {
   }
 }
 
+export { AutoFilterXform };
 export default AutoFilterXform;

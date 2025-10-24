@@ -28,4 +28,5 @@ class DimensionXform extends BaseXform {
   }
 }
 
+export { DimensionXform };
 export default DimensionXform;

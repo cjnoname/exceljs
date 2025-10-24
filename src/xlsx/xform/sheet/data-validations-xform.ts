@@ -260,4 +260,5 @@ class DataValidationsXform extends BaseXform {
   }
 }
 
+export { DataValidationsXform };
 export default DataValidationsXform;

@@ -120,4 +120,5 @@ class PageSetupXform extends BaseXform {
   }
 }
 
+export { PageSetupXform };
 export default PageSetupXform;

@@ -42,4 +42,5 @@ class CfvoExtXform extends CompositeXform {
   }
 }
 
+export { CfvoExtXform };
 export default CfvoExtXform;

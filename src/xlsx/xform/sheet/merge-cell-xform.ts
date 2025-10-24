@@ -24,4 +24,5 @@ class MergeCellXform extends BaseXform {
   }
 }
 
+export { MergeCellXform };
 export default MergeCellXform;

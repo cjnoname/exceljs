@@ -73,4 +73,5 @@ class IconSetExtXform extends CompositeXform {
   }
 }
 
+export { IconSetExtXform };
 export default IconSetExtXform;

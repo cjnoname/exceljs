@@ -509,4 +509,5 @@ class Table {
   /* eslint-enable lines-between-class-members */
 }
 
+export { Table };
 export default Table;

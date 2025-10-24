@@ -1,5 +1,5 @@
 import colCache from '../utils/col-cache.js';
-import Anchor from './anchor.js';
+import { Anchor } from './anchor.js';
 
 interface ImageHyperlinks {
   [key: string]: any;
@@ -106,4 +106,5 @@ class Image {
   }
 }
 
+export { Image };
 export default Image;

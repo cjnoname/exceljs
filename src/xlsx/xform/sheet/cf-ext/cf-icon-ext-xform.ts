@@ -24,4 +24,5 @@ class CfIconExtXform extends BaseXform {
   }
 }
 
+export { CfIconExtXform };
 export default CfIconExtXform;

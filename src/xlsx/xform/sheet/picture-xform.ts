@@ -34,4 +34,5 @@ class PictureXform extends BaseXform {
   }
 }
 
+export { PictureXform };
 export default PictureXform;

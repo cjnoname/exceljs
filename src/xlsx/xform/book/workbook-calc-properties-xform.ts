@@ -27,4 +27,5 @@ class WorkbookCalcPropertiesXform extends BaseXform {
   }
 }
 
+export { WorkbookCalcPropertiesXform };
 export default WorkbookCalcPropertiesXform;

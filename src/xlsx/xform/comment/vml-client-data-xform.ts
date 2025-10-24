@@ -115,4 +115,5 @@ class VmlClientDataXform extends BaseXform {
   }
 }
 
+export { VmlClientDataXform };
 export default VmlClientDataXform;

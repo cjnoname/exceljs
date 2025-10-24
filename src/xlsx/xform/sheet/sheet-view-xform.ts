@@ -219,4 +219,5 @@ class SheetViewXform extends BaseXform {
   reconcile(): void {}
 }
 
+export { SheetViewXform };
 export default SheetViewXform;

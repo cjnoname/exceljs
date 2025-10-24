@@ -79,4 +79,5 @@ class DateXform extends BaseXform {
   }
 }
 
+export { DateXform };
 export default DateXform;

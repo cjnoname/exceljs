@@ -61,4 +61,5 @@ class SheetFormatPropertiesXform extends BaseXform {
   }
 }
 
+export { SheetFormatPropertiesXform };
 export default SheetFormatPropertiesXform;

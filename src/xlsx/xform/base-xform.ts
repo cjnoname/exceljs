@@ -149,4 +149,5 @@ class BaseXform {
   }
 }
 
+export { BaseXform };
 export default BaseXform;

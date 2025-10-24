@@ -1,7 +1,7 @@
 import colCache from '../utils/col-cache.js';
 
 import _ from '../utils/under-dash.js';
-import Enums from './enums.js';
+import { Enums } from './enums.js';
 
 const DEFAULT_COLUMN_WIDTH = 9;
 
@@ -342,4 +342,5 @@ class Column {
   }
 }
 
+export { Column };
 export default Column;

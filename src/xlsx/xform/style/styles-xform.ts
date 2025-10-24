@@ -1,5 +1,5 @@
 /* eslint-disable max-classes-per-file */
-import Enums from '../../../doc/enums.js';
+import { Enums } from '../../../doc/enums.js';
 import XmlStream from '../../../utils/xml-stream.js';
 import BaseXform from '../base-xform.js';
 import StaticXform from '../static-xform.js';
@@ -550,4 +550,5 @@ class StylesXformMock extends StylesXform {
 // Assign Mock after class declaration to avoid "used before declaration" error
 StylesXform.Mock = StylesXformMock;
 
+export { StylesXform };
 export default StylesXform;
