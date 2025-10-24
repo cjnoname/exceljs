@@ -65,7 +65,7 @@
     "test": "vitest run && npm run test:browser",
     "test:browser": "rimraf dist && npm run build:browser && vitest run --config vitest.browser.config.ts",
     "test:watch": "vitest",
-    "build": "rimraf dist && npm run build:esm && npm run build:cjs && npm run build:browser",
+    "build": "rimraf dist && concurrently \"npm run build:esm\" \"npm run build:cjs\" \"npm run build:browser\"",
     "clean": "pnpm dlx --reporter=silent rimraf \"**/node_modules\" pnpm-lock.yaml \"**/dist\" -g && pnpm i",
     "lint": "eslint && oxlint",
     "lint:fix": "eslint --fix && oxlint --fix",
