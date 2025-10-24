@@ -1,8 +1,7 @@
-import { BaseXform } from '../../base-xform.js';
-import { CompositeXform } from '../../composite-xform.js';
-
-import { CfvoExtXform } from './cfvo-ext-xform.js';
-import { CfIconExtXform } from './cf-icon-ext-xform.js';
+import { BaseXform } from "../../base-xform.js";
+import { CompositeXform } from "../../composite-xform.js";
+import { CfvoExtXform } from "./cfvo-ext-xform.js";
+import { CfIconExtXform } from "./cf-icon-ext-xform.js";
 
 class IconSetExtXform extends CompositeXform {
   cfvoXform: CfvoExtXform;
@@ -12,13 +11,13 @@ class IconSetExtXform extends CompositeXform {
     super();
 
     this.map = {
-      'x14:cfvo': (this.cfvoXform = new CfvoExtXform()),
-      'x14:cfIcon': (this.cfIconXform = new CfIconExtXform()),
+      "x14:cfvo": (this.cfvoXform = new CfvoExtXform()),
+      "x14:cfIcon": (this.cfIconXform = new CfIconExtXform())
     };
   }
 
   get tag() {
-    return 'x14:iconSet';
+    return "x14:iconSet";
   }
 
   render(xmlStream, model) {
@@ -26,7 +25,7 @@ class IconSetExtXform extends CompositeXform {
       iconSet: BaseXform.toStringAttribute(model.iconSet),
       reverse: BaseXform.toBoolAttribute(model.reverse, false),
       showValue: BaseXform.toBoolAttribute(model.showValue, true),
-      custom: BaseXform.toBoolAttribute(model.icons, false),
+      custom: BaseXform.toBoolAttribute(model.icons, false)
     });
 
     model.cfvo.forEach(cfvo => {
@@ -46,20 +45,20 @@ class IconSetExtXform extends CompositeXform {
   createNewModel({ attributes }) {
     return {
       cfvo: [],
-      iconSet: BaseXform.toStringValue(attributes.iconSet, '3TrafficLights'),
+      iconSet: BaseXform.toStringValue(attributes.iconSet, "3TrafficLights"),
       reverse: BaseXform.toBoolValue(attributes.reverse, false),
-      showValue: BaseXform.toBoolValue(attributes.showValue, true),
+      showValue: BaseXform.toBoolValue(attributes.showValue, true)
     };
   }
 
   onParserClose(name, parser) {
-    const [, prop] = name.split(':');
+    const [, prop] = name.split(":");
     switch (prop) {
-      case 'cfvo':
+      case "cfvo":
         this.model.cfvo.push(parser.model);
         break;
 
-      case 'cfIcon':
+      case "cfIcon":
         if (!this.model.icons) {
           this.model.icons = [];
         }

@@ -1,12 +1,10 @@
-import { EventEmitter } from 'events';
-import { parseSax } from '../../utils/parse-sax.js';
-
-import { utils } from '../../utils/utils.js';
-import { colCache } from '../../utils/col-cache.js';
-import { Dimensions } from '../../doc/range.js';
-
-import { Row } from '../../doc/row.js';
-import { Column } from '../../doc/column.js';
+import { EventEmitter } from "events";
+import { parseSax } from "../../utils/parse-sax.js";
+import { utils } from "../../utils/utils.js";
+import { colCache } from "../../utils/col-cache.js";
+import { Dimensions } from "../../doc/range.js";
+import { Row } from "../../doc/row.js";
+import { Column } from "../../doc/column.js";
 
 interface WorksheetReaderOptions {
   workbook: any;
@@ -49,7 +47,7 @@ class WorksheetReader extends EventEmitter {
   // destroy - not a valid operation for a streaming writer
   // even though some streamers might be able to, it's a bad idea.
   destroy(): void {
-    throw new Error('Invalid Operation: destroy');
+    throw new Error("Invalid Operation: destroy");
   }
 
   // return the current dimensions of the writer
@@ -68,7 +66,7 @@ class WorksheetReader extends EventEmitter {
   // get a single column by col number. If it doesn't exist, it and any gaps before it
   // are created.
   getColumn(c: string | number): any {
-    if (typeof c === 'string') {
+    if (typeof c === "string") {
       // if it matches a key'd column, return that
       const col = this._keys[c];
       if (col) {
@@ -113,16 +111,16 @@ class WorksheetReader extends EventEmitter {
           this.emit(eventType, value);
         }
       }
-      this.emit('finished');
+      this.emit("finished");
     } catch (error) {
-      this.emit('error', error);
+      this.emit("error", error);
     }
   }
 
   async *[Symbol.asyncIterator](): AsyncIterableIterator<any> {
     for await (const events of this.parse()) {
       for (const { eventType, value } of events) {
-        if (eventType === 'row') {
+        if (eventType === "row") {
           yield value;
         }
       }
@@ -135,19 +133,19 @@ class WorksheetReader extends EventEmitter {
     let emitHyperlinks = false;
     let hyperlinks: { [key: string]: any } | null = null;
     switch (options.worksheets) {
-      case 'emit':
+      case "emit":
         emitSheet = true;
         break;
-      case 'prep':
+      case "prep":
         break;
       default:
         break;
     }
     switch (options.hyperlinks) {
-      case 'emit':
+      case "emit":
         emitHyperlinks = true;
         break;
-      case 'cache':
+      case "cache":
         this.hyperlinks = hyperlinks = {};
         break;
       default:
@@ -173,30 +171,30 @@ class WorksheetReader extends EventEmitter {
     for await (const events of parseSax(iterator)) {
       const worksheetEvents: Array<{ eventType: string; value: any }> = [];
       for (const { eventType, value } of events) {
-        if (eventType === 'opentag') {
+        if (eventType === "opentag") {
           const node = value;
           if (emitSheet) {
             switch (node.name) {
-              case 'cols':
+              case "cols":
                 inCols = true;
                 cols = [];
                 break;
-              case 'sheetData':
+              case "sheetData":
                 inRows = true;
                 break;
 
-              case 'col':
+              case "col":
                 if (inCols) {
                   cols!.push({
                     min: parseInt(node.attributes.min, 10),
                     max: parseInt(node.attributes.max, 10),
                     width: parseFloat(node.attributes.width),
-                    styleId: parseInt(node.attributes.style || '0', 10),
+                    styleId: parseInt(node.attributes.style || "0", 10)
                   });
                 }
                 break;
 
-              case 'row':
+              case "row":
                 if (inRows) {
                   const r = parseInt(node.attributes.r, 10);
                   row = new Row(this, r);
@@ -212,32 +210,32 @@ class WorksheetReader extends EventEmitter {
                   }
                 }
                 break;
-              case 'c':
+              case "c":
                 if (row) {
                   c = {
                     ref: node.attributes.r,
                     s: parseInt(node.attributes.s, 10),
-                    t: node.attributes.t,
+                    t: node.attributes.t
                   };
                 }
                 break;
-              case 'f':
+              case "f":
                 if (c) {
-                  current = c.f = { text: '' };
+                  current = c.f = { text: "" };
                 }
                 break;
-              case 'v':
+              case "v":
                 if (c) {
-                  current = c.v = { text: '' };
+                  current = c.v = { text: "" };
                 }
                 break;
-              case 'is':
-              case 't':
+              case "is":
+              case "t":
                 if (c) {
-                  current = c.v = { text: '' };
+                  current = c.v = { text: "" };
                 }
                 break;
-              case 'mergeCell':
+              case "mergeCell":
                 break;
               default:
                 break;
@@ -248,17 +246,17 @@ class WorksheetReader extends EventEmitter {
           //
           if (emitHyperlinks || hyperlinks) {
             switch (node.name) {
-              case 'hyperlinks':
+              case "hyperlinks":
                 inHyperlinks = true;
                 break;
-              case 'hyperlink':
+              case "hyperlink":
                 if (inHyperlinks) {
                   const hyperlink = {
                     ref: node.attributes.ref,
-                    rId: node.attributes['r:id'],
+                    rId: node.attributes["r:id"]
                   };
                   if (emitHyperlinks) {
-                    worksheetEvents.push({ eventType: 'hyperlink', value: hyperlink });
+                    worksheetEvents.push({ eventType: "hyperlink", value: hyperlink });
                   } else {
                     hyperlinks![hyperlink.ref] = hyperlink;
                   }
@@ -268,32 +266,32 @@ class WorksheetReader extends EventEmitter {
                 break;
             }
           }
-        } else if (eventType === 'text') {
+        } else if (eventType === "text") {
           // only text data is for sheet values
           if (emitSheet) {
             if (current) {
               current.text += value;
             }
           }
-        } else if (eventType === 'closetag') {
+        } else if (eventType === "closetag") {
           const node = value;
           if (emitSheet) {
             switch (node.name) {
-              case 'cols':
+              case "cols":
                 inCols = false;
                 this._columns = (Column as any).fromModel(cols);
                 break;
-              case 'sheetData':
+              case "sheetData":
                 inRows = false;
                 break;
 
-              case 'row':
+              case "row":
                 this._dimensions.expandRow(row);
-                worksheetEvents.push({ eventType: 'row', value: row });
+                worksheetEvents.push({ eventType: "row", value: row });
                 row = null;
                 break;
 
-              case 'c':
+              case "c":
                 if (row && c) {
                   const address = colCache.decodeAddress(c.ref);
                   const cell = row.getCell(address.col);
@@ -306,10 +304,10 @@ class WorksheetReader extends EventEmitter {
 
                   if (c.f) {
                     const cellValue: any = {
-                      formula: c.f.text,
+                      formula: c.f.text
                     };
                     if (c.v) {
-                      if (c.t === 'str') {
+                      if (c.t === "str") {
                         cellValue.result = utils.xmlDecode(c.v.text);
                       } else {
                         cellValue.result = parseFloat(c.v.text);
@@ -318,28 +316,28 @@ class WorksheetReader extends EventEmitter {
                     cell.value = cellValue;
                   } else if (c.v) {
                     switch (c.t) {
-                      case 's': {
+                      case "s": {
                         const index = parseInt(c.v.text, 10);
                         if (sharedStrings) {
                           cell.value = sharedStrings[index];
                         } else {
                           cell.value = {
-                            sharedString: index,
+                            sharedString: index
                           };
                         }
                         break;
                       }
 
-                      case 'inlineStr':
-                      case 'str':
+                      case "inlineStr":
+                      case "str":
                         cell.value = utils.xmlDecode(c.v.text);
                         break;
 
-                      case 'e':
+                      case "e":
                         cell.value = { error: c.v.text };
                         break;
 
-                      case 'b':
+                      case "b":
                         cell.value = parseInt(c.v.text, 10) !== 0;
                         break;
 
@@ -372,7 +370,7 @@ class WorksheetReader extends EventEmitter {
           }
           if (emitHyperlinks || hyperlinks) {
             switch (node.name) {
-              case 'hyperlinks':
+              case "hyperlinks":
                 inHyperlinks = false;
                 break;
               default:

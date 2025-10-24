@@ -1,6 +1,5 @@
 import { describe } from "vitest";
 import { testXformHelper } from "../../test-xform-helper";
-
 import { DatabarExtXform } from "../../../../../../xlsx/xform/sheet/cf-ext/databar-ext-xform.js";
 
 const expectations = [

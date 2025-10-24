@@ -1,6 +1,5 @@
-import { CompositeXform } from '../../composite-xform.js';
-
-import { FExtXform } from './f-ext-xform.js';
+import { CompositeXform } from "../../composite-xform.js";
+import { FExtXform } from "./f-ext-xform.js";
 
 class CfvoExtXform extends CompositeXform {
   fExtXform: FExtXform;
@@ -9,17 +8,17 @@ class CfvoExtXform extends CompositeXform {
     super();
 
     this.map = {
-      'xm:f': (this.fExtXform = new FExtXform()),
+      "xm:f": (this.fExtXform = new FExtXform())
     };
   }
 
   get tag() {
-    return 'x14:cfvo';
+    return "x14:cfvo";
   }
 
   render(xmlStream, model) {
     xmlStream.openNode(this.tag, {
-      type: model.type,
+      type: model.type
     });
     if (model.value !== undefined) {
       this.fExtXform.render(xmlStream, model.value);
@@ -29,13 +28,13 @@ class CfvoExtXform extends CompositeXform {
 
   createNewModel(node) {
     return {
-      type: node.attributes.type,
+      type: node.attributes.type
     };
   }
 
   onParserClose(name, parser) {
     switch (name) {
-      case 'xm:f':
+      case "xm:f":
         this.model.value = parser.model ? parseFloat(parser.model) : 0;
         break;
     }

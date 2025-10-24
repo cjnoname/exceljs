@@ -1,6 +1,5 @@
 import { describe } from "vitest";
 import { testXformHelper } from "../../test-xform-helper";
-
 import { CfRuleXform } from "../../../../../../xlsx/xform/sheet/cf/cf-rule-xform.js";
 
 const expectations = [

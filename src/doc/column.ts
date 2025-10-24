@@ -1,5 +1,4 @@
 import { colCache } from "../utils/col-cache.js";
-
 import { isEqual } from "../utils/under-dash.js";
 import { Enums } from "./enums.js";
 

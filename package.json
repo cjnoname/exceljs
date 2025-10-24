@@ -73,8 +73,8 @@
     "format": "prettier --write \"**/*.{js,ts,json,md}\"",
     "lint:staged": "lint-staged",
     "benchmark": "rimraf dist && npm run build:esm && node --expose-gc scripts/benchmark.js",
-    "build:esm": "tsgo --project tsconfig.esm.json",
-    "build:cjs": "tsgo --project tsconfig.cjs.json && node scripts/fix-cjs-imports.mjs",
+    "build:esm": "tsc --project tsconfig.esm.json",
+    "build:cjs": "tsc --project tsconfig.cjs.json && node scripts/fix-cjs-imports.mjs",
     "build:browser": "rolldown -c rolldown.config.js",
     "analyze": "cross-env ANALYZE=1 rolldown -c rolldown.config.js",
     "prepublishOnly": "npm run build",
@@ -84,7 +84,6 @@
   },
   "lint-staged": {
     "*.{js,ts}": [
-      "tsgo --noEmit",
       "prettier --write",
       "oxlint --fix",
       "eslint --fix"

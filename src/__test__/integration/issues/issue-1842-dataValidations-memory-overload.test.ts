@@ -1,9 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { join } from "path";
 import { readFileSync } from "fs";
-
 import { Workbook } from "../../../index.js";
-
 import { testDataPath } from "../../utils/test-file-helper.js";
 
 const fileName = testDataPath("test-issue-1842.xlsx");

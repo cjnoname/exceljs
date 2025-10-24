@@ -1,9 +1,8 @@
-import { BaseXform } from '../base-xform.js';
-import { StaticXform } from '../static-xform.js';
-import { BlipFillXform } from './blip-fill-xform.js';
-import { NvPicPrXform } from './nv-pic-pr-xform.js';
-
-import { spPrJSON } from './sp-pr.js';
+import { BaseXform } from "../base-xform.js";
+import { StaticXform } from "../static-xform.js";
+import { BlipFillXform } from "./blip-fill-xform.js";
+import { NvPicPrXform } from "./nv-pic-pr-xform.js";
+import { spPrJSON } from "./sp-pr.js";
 
 interface PicModel {
   index?: number;
@@ -19,14 +18,14 @@ class PicXform extends BaseXform {
     super();
 
     this.map = {
-      'xdr:nvPicPr': new NvPicPrXform(),
-      'xdr:blipFill': new BlipFillXform(),
-      'xdr:spPr': new StaticXform(spPrJSON),
+      "xdr:nvPicPr": new NvPicPrXform(),
+      "xdr:blipFill": new BlipFillXform(),
+      "xdr:spPr": new StaticXform(spPrJSON)
     };
   }
 
   get tag(): string {
-    return 'xdr:pic';
+    return "xdr:pic";
   }
 
   prepare(model: PicModel, options: { index: number }): void {
@@ -36,9 +35,9 @@ class PicXform extends BaseXform {
   render(xmlStream: any, model: PicModel): void {
     xmlStream.openNode(this.tag);
 
-    this.map['xdr:nvPicPr'].render(xmlStream, model);
-    this.map['xdr:blipFill'].render(xmlStream, model);
-    this.map['xdr:spPr'].render(xmlStream, model);
+    this.map["xdr:nvPicPr"].render(xmlStream, model);
+    this.map["xdr:blipFill"].render(xmlStream, model);
+    this.map["xdr:spPr"].render(xmlStream, model);
 
     xmlStream.closeNode();
   }
@@ -81,6 +80,5 @@ class PicXform extends BaseXform {
     }
   }
 }
-
 
 export { PicXform };

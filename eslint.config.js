@@ -101,7 +101,17 @@ export const getLintModuleConfiguration = ({ files, tsConfigPath, extraRules }) 
           ignore: ["^(?!public/).+"]
         }
       ],
-
+      "import-x/extensions": [
+        "error",
+        "ignorePackages",
+        {
+          js: "always",
+          jsx: "never",
+          ts: "never",
+          tsx: "never",
+          json: "always"
+        }
+      ],
       "unused-imports/no-unused-imports": "error",
       "unused-imports/no-unused-vars": [
         "off",

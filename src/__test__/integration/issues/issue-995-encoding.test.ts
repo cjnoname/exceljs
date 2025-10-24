@@ -1,6 +1,5 @@
 import { describe, it, expect } from "vitest";
 import { Workbook } from "../../../index.js";
-
 import { testFilePath } from "../../utils/test-file-helper.js";
 
 const TEST_CSV_FILE_NAME = testFilePath("issue-995-encoding.test", ".csv");

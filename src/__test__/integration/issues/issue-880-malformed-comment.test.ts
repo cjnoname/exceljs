@@ -1,8 +1,6 @@
 import { describe, it } from "vitest";
 import fs from "fs";
-
 import { Workbook } from "../../../index.js";
-
 // this file to contain integration tests created from github issues
 import { testFilePath, testDataPath } from "../../utils/test-file-helper.js";
 

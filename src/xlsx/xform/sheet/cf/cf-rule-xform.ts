@@ -1,18 +1,16 @@
-import { BaseXform } from '../../base-xform.js';
-import { CompositeXform } from '../../composite-xform.js';
-
-import { Range } from '../../../../doc/range.js';
-
-import { DatabarXform } from './databar-xform.js';
-import { ExtLstRefXform } from './ext-lst-ref-xform.js';
-import { FormulaXform } from './formula-xform.js';
-import { ColorScaleXform } from './color-scale-xform.js';
-import { IconSetXform } from './icon-set-xform.js';
+import { BaseXform } from "../../base-xform.js";
+import { CompositeXform } from "../../composite-xform.js";
+import { Range } from "../../../../doc/range.js";
+import { DatabarXform } from "./databar-xform.js";
+import { ExtLstRefXform } from "./ext-lst-ref-xform.js";
+import { FormulaXform } from "./formula-xform.js";
+import { ColorScaleXform } from "./color-scale-xform.js";
+import { IconSetXform } from "./icon-set-xform.js";
 
 const extIcons = {
-  '3Triangles': true,
-  '3Stars': true,
-  '5Boxes': true,
+  "3Triangles": true,
+  "3Stars": true,
+  "5Boxes": true
 };
 
 const getTextFormula = model => {
@@ -23,15 +21,15 @@ const getTextFormula = model => {
   const range = new Range(model.ref);
   const { tl } = range;
   switch (model.operator) {
-    case 'containsText':
+    case "containsText":
       return `NOT(ISERROR(SEARCH("${model.text}",${tl})))`;
-    case 'containsBlanks':
+    case "containsBlanks":
       return `LEN(TRIM(${tl}))=0`;
-    case 'notContainsBlanks':
+    case "notContainsBlanks":
       return `LEN(TRIM(${tl}))>0`;
-    case 'containsErrors':
+    case "containsErrors":
       return `ISERROR(${tl})`;
-    case 'notContainsErrors':
+    case "notContainsErrors":
       return `NOT(ISERROR(${tl}))`;
     default:
       return undefined;
@@ -46,25 +44,25 @@ const getTimePeriodFormula = model => {
   const range = new Range(model.ref);
   const { tl } = range;
   switch (model.timePeriod) {
-    case 'thisWeek':
+    case "thisWeek":
       return `AND(TODAY()-ROUNDDOWN(${tl},0)<=WEEKDAY(TODAY())-1,ROUNDDOWN(${tl},0)-TODAY()<=7-WEEKDAY(TODAY()))`;
-    case 'lastWeek':
+    case "lastWeek":
       return `AND(TODAY()-ROUNDDOWN(${tl},0)>=(WEEKDAY(TODAY())),TODAY()-ROUNDDOWN(${tl},0)<(WEEKDAY(TODAY())+7))`;
-    case 'nextWeek':
+    case "nextWeek":
       return `AND(ROUNDDOWN(${tl},0)-TODAY()>(7-WEEKDAY(TODAY())),ROUNDDOWN(${tl},0)-TODAY()<(15-WEEKDAY(TODAY())))`;
-    case 'yesterday':
+    case "yesterday":
       return `FLOOR(${tl},1)=TODAY()-1`;
-    case 'today':
+    case "today":
       return `FLOOR(${tl},1)=TODAY()`;
-    case 'tomorrow':
+    case "tomorrow":
       return `FLOOR(${tl},1)=TODAY()+1`;
-    case 'last7Days':
+    case "last7Days":
       return `AND(TODAY()-FLOOR(${tl},1)<=6,FLOOR(${tl},1)<=TODAY())`;
-    case 'lastMonth':
+    case "lastMonth":
       return `AND(MONTH(${tl})=MONTH(EDATE(TODAY(),0-1)),YEAR(${tl})=YEAR(EDATE(TODAY(),0-1)))`;
-    case 'thisMonth':
+    case "thisMonth":
       return `AND(MONTH(${tl})=MONTH(TODAY()),YEAR(${tl})=YEAR(TODAY()))`;
-    case 'nextMonth':
+    case "nextMonth":
       return `AND(MONTH(${tl})=MONTH(EDATE(TODAY(),0+1)),YEAR(${tl})=YEAR(EDATE(TODAY(),0+1)))`;
     default:
       return undefined;
@@ -74,14 +72,14 @@ const getTimePeriodFormula = model => {
 const opType = attributes => {
   const { type, operator } = attributes;
   switch (type) {
-    case 'containsText':
-    case 'containsBlanks':
-    case 'notContainsBlanks':
-    case 'containsErrors':
-    case 'notContainsErrors':
+    case "containsText":
+    case "containsBlanks":
+    case "notContainsBlanks":
+    case "containsErrors":
+    case "notContainsErrors":
       return {
-        type: 'containsText',
-        operator: type,
+        type: "containsText",
+        operator: type
       };
 
     default:
@@ -104,17 +102,17 @@ class CfRuleXform extends CompositeXform {
       extLst: (this.extLstRefXform = new ExtLstRefXform()),
       formula: (this.formulaXform = new FormulaXform()),
       colorScale: (this.colorScaleXform = new ColorScaleXform()),
-      iconSet: (this.iconSetXform = new IconSetXform()),
+      iconSet: (this.iconSetXform = new IconSetXform())
     };
   }
 
   get tag() {
-    return 'cfRule';
+    return "cfRule";
   }
 
   static isPrimitive(rule) {
     // is this rule primitive?
-    if (rule.type === 'iconSet') {
+    if (rule.type === "iconSet") {
       if (rule.custom || extIcons[rule.iconSet]) {
         return false;
       }
@@ -124,31 +122,31 @@ class CfRuleXform extends CompositeXform {
 
   render(xmlStream, model) {
     switch (model.type) {
-      case 'expression':
+      case "expression":
         this.renderExpression(xmlStream, model);
         break;
-      case 'cellIs':
+      case "cellIs":
         this.renderCellIs(xmlStream, model);
         break;
-      case 'top10':
+      case "top10":
         this.renderTop10(xmlStream, model);
         break;
-      case 'aboveAverage':
+      case "aboveAverage":
         this.renderAboveAverage(xmlStream, model);
         break;
-      case 'dataBar':
+      case "dataBar":
         this.renderDataBar(xmlStream, model);
         break;
-      case 'colorScale':
+      case "colorScale":
         this.renderColorScale(xmlStream, model);
         break;
-      case 'iconSet':
+      case "iconSet":
         this.renderIconSet(xmlStream, model);
         break;
-      case 'containsText':
+      case "containsText":
         this.renderText(xmlStream, model);
         break;
-      case 'timePeriod':
+      case "timePeriod":
         this.renderTimePeriod(xmlStream, model);
         break;
     }
@@ -156,9 +154,9 @@ class CfRuleXform extends CompositeXform {
 
   renderExpression(xmlStream, model) {
     xmlStream.openNode(this.tag, {
-      type: 'expression',
+      type: "expression",
       dxfId: model.dxfId,
-      priority: model.priority,
+      priority: model.priority
     });
 
     this.formulaXform.render(xmlStream, model.formulae[0]);
@@ -168,10 +166,10 @@ class CfRuleXform extends CompositeXform {
 
   renderCellIs(xmlStream, model) {
     xmlStream.openNode(this.tag, {
-      type: 'cellIs',
+      type: "cellIs",
       dxfId: model.dxfId,
       priority: model.priority,
-      operator: model.operator,
+      operator: model.operator
     });
 
     model.formulae.forEach(formula => {
@@ -183,28 +181,28 @@ class CfRuleXform extends CompositeXform {
 
   renderTop10(xmlStream, model) {
     xmlStream.leafNode(this.tag, {
-      type: 'top10',
+      type: "top10",
       dxfId: model.dxfId,
       priority: model.priority,
       percent: BaseXform.toBoolAttribute(model.percent, false),
       bottom: BaseXform.toBoolAttribute(model.bottom, false),
-      rank: BaseXform.toIntValue(model.rank, 10),
+      rank: BaseXform.toIntValue(model.rank, 10)
     });
   }
 
   renderAboveAverage(xmlStream, model) {
     xmlStream.leafNode(this.tag, {
-      type: 'aboveAverage',
+      type: "aboveAverage",
       dxfId: model.dxfId,
       priority: model.priority,
-      aboveAverage: BaseXform.toBoolAttribute(model.aboveAverage, true),
+      aboveAverage: BaseXform.toBoolAttribute(model.aboveAverage, true)
     });
   }
 
   renderDataBar(xmlStream, model) {
     xmlStream.openNode(this.tag, {
-      type: 'dataBar',
-      priority: model.priority,
+      type: "dataBar",
+      priority: model.priority
     });
 
     this.databarXform.render(xmlStream, model);
@@ -215,8 +213,8 @@ class CfRuleXform extends CompositeXform {
 
   renderColorScale(xmlStream, model) {
     xmlStream.openNode(this.tag, {
-      type: 'colorScale',
-      priority: model.priority,
+      type: "colorScale",
+      priority: model.priority
     });
 
     this.colorScaleXform.render(xmlStream, model);
@@ -231,8 +229,8 @@ class CfRuleXform extends CompositeXform {
     }
 
     xmlStream.openNode(this.tag, {
-      type: 'iconSet',
-      priority: model.priority,
+      type: "iconSet",
+      priority: model.priority
     });
 
     this.iconSetXform.render(xmlStream, model);
@@ -245,7 +243,7 @@ class CfRuleXform extends CompositeXform {
       type: model.operator,
       dxfId: model.dxfId,
       priority: model.priority,
-      operator: BaseXform.toStringAttribute(model.operator, 'containsText'),
+      operator: BaseXform.toStringAttribute(model.operator, "containsText")
     });
 
     const formula = getTextFormula(model);
@@ -258,10 +256,10 @@ class CfRuleXform extends CompositeXform {
 
   renderTimePeriod(xmlStream, model) {
     xmlStream.openNode(this.tag, {
-      type: 'timePeriod',
+      type: "timePeriod",
       dxfId: model.dxfId,
       priority: model.priority,
-      timePeriod: model.timePeriod,
+      timePeriod: model.timePeriod
     });
 
     const formula = getTimePeriodFormula(model);
@@ -281,21 +279,21 @@ class CfRuleXform extends CompositeXform {
       percent: BaseXform.toBoolValue(attributes.percent),
       bottom: BaseXform.toBoolValue(attributes.bottom),
       rank: BaseXform.toIntValue(attributes.rank),
-      aboveAverage: BaseXform.toBoolValue(attributes.aboveAverage),
+      aboveAverage: BaseXform.toBoolValue(attributes.aboveAverage)
     };
   }
 
   onParserClose(name, parser) {
     switch (name) {
-      case 'dataBar':
-      case 'extLst':
-      case 'colorScale':
-      case 'iconSet':
+      case "dataBar":
+      case "extLst":
+      case "colorScale":
+      case "iconSet":
         // merge parser model with ours
         Object.assign(this.model, parser.model);
         break;
 
-      case 'formula':
+      case "formula":
         // except - formula is a string and appends to formulae
         this.model.formulae = this.model.formulae || [];
         this.model.formulae.push(parser.model);

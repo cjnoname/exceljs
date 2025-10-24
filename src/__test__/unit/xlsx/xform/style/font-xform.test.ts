@@ -1,6 +1,5 @@
 import { describe } from "vitest";
 import { testXformHelper } from "../test-xform-helper";
-
 import { FontXform } from "../../../../../xlsx/xform/style/font-xform.js";
 
 const expectations = [

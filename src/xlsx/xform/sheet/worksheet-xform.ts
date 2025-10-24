@@ -1,34 +1,30 @@
-
-import { colCache } from '../../../utils/col-cache.js';
-import { XmlStream } from '../../../utils/xml-stream.js';
-
-import { RelType } from '../../rel-type.js';
-
-import { Merges } from './merges.js';
-
-import { BaseXform } from '../base-xform.js';
-import { ListXform } from '../list-xform.js';
-import { RowXform } from './row-xform.js';
-import { ColXform } from './col-xform.js';
-import { DimensionXform } from './dimension-xform.js';
-import { HyperlinkXform } from './hyperlink-xform.js';
-import { MergeCellXform } from './merge-cell-xform.js';
-import { DataValidationsXform } from './data-validations-xform.js';
-import { SheetPropertiesXform } from './sheet-properties-xform.js';
-import { SheetFormatPropertiesXform } from './sheet-format-properties-xform.js';
-import { SheetViewXform } from './sheet-view-xform.js';
-import { SheetProtectionXform } from './sheet-protection-xform.js';
-import { PageMarginsXform } from './page-margins-xform.js';
-import { PageSetupXform } from './page-setup-xform.js';
-import { PrintOptionsXform } from './print-options-xform.js';
-import { AutoFilterXform } from './auto-filter-xform.js';
-import { PictureXform } from './picture-xform.js';
-import { DrawingXform } from './drawing-xform.js';
-import { TablePartXform } from './table-part-xform.js';
-import { RowBreaksXform } from './row-breaks-xform.js';
-import { HeaderFooterXform } from './header-footer-xform.js';
-import { ConditionalFormattingsXform } from './cf/conditional-formattings-xform.js';
-import { ExtLstXform } from './ext-lst-xform.js';
+import { colCache } from "../../../utils/col-cache.js";
+import { XmlStream } from "../../../utils/xml-stream.js";
+import { RelType } from "../../rel-type.js";
+import { Merges } from "./merges.js";
+import { BaseXform } from "../base-xform.js";
+import { ListXform } from "../list-xform.js";
+import { RowXform } from "./row-xform.js";
+import { ColXform } from "./col-xform.js";
+import { DimensionXform } from "./dimension-xform.js";
+import { HyperlinkXform } from "./hyperlink-xform.js";
+import { MergeCellXform } from "./merge-cell-xform.js";
+import { DataValidationsXform } from "./data-validations-xform.js";
+import { SheetPropertiesXform } from "./sheet-properties-xform.js";
+import { SheetFormatPropertiesXform } from "./sheet-format-properties-xform.js";
+import { SheetViewXform } from "./sheet-view-xform.js";
+import { SheetProtectionXform } from "./sheet-protection-xform.js";
+import { PageMarginsXform } from "./page-margins-xform.js";
+import { PageSetupXform } from "./page-setup-xform.js";
+import { PrintOptionsXform } from "./print-options-xform.js";
+import { AutoFilterXform } from "./auto-filter-xform.js";
+import { PictureXform } from "./picture-xform.js";
+import { DrawingXform } from "./drawing-xform.js";
+import { TablePartXform } from "./table-part-xform.js";
+import { RowBreaksXform } from "./row-breaks-xform.js";
+import { HeaderFooterXform } from "./header-footer-xform.js";
+import { ConditionalFormattingsXform } from "./cf/conditional-formattings-xform.js";
+import { ExtLstXform } from "./ext-lst-xform.js";
 
 const mergeRule = (rule, extRule) => {
   Object.keys(extRule).forEach(key => {
@@ -77,7 +73,7 @@ const mergeConditionalFormattings = (model, extModel) => {
         // create new cf
         model.push({
           ref: extCf.ref,
-          rules: [extRule],
+          rules: [extRule]
         });
       }
     });
@@ -104,26 +100,30 @@ class WorkSheetXform extends BaseXform {
       sheetPr: new SheetPropertiesXform(),
       dimension: new DimensionXform(),
       sheetViews: new ListXform({
-        tag: 'sheetViews',
+        tag: "sheetViews",
         count: false,
-        childXform: new SheetViewXform(),
+        childXform: new SheetViewXform()
       }),
       sheetFormatPr: new SheetFormatPropertiesXform(),
-      cols: new ListXform({ tag: 'cols', count: false, childXform: new ColXform() }),
+      cols: new ListXform({ tag: "cols", count: false, childXform: new ColXform() }),
       sheetData: new ListXform({
-        tag: 'sheetData',
+        tag: "sheetData",
         count: false,
         empty: true,
         childXform: new RowXform({ maxItems: maxCols }),
-        maxItems: maxRows,
+        maxItems: maxRows
       }),
       autoFilter: new AutoFilterXform(),
-      mergeCells: new ListXform({ tag: 'mergeCells', count: true, childXform: new MergeCellXform() }),
+      mergeCells: new ListXform({
+        tag: "mergeCells",
+        count: true,
+        childXform: new MergeCellXform()
+      }),
       rowBreaks: new RowBreaksXform(),
       hyperlinks: new ListXform({
-        tag: 'hyperlinks',
+        tag: "hyperlinks",
         count: false,
-        childXform: new HyperlinkXform(),
+        childXform: new HyperlinkXform()
       }),
       pageMargins: new PageMarginsXform(),
       dataValidations: new DataValidationsXform(),
@@ -133,9 +133,13 @@ class WorkSheetXform extends BaseXform {
       picture: new PictureXform(),
       drawing: new DrawingXform(),
       sheetProtection: new SheetProtectionXform(),
-      tableParts: new ListXform({ tag: 'tableParts', count: true, childXform: new TablePartXform() }),
+      tableParts: new ListXform({
+        tag: "tableParts",
+        count: true,
+        childXform: new TablePartXform()
+      }),
       conditionalFormatting: new ConditionalFormattingsXform(),
-      extLst: new ExtLstXform(),
+      extLst: new ExtLstXform()
     };
   }
 
@@ -166,7 +170,7 @@ class WorkSheetXform extends BaseXform {
         Id: rId,
         Type: RelType.Hyperlink,
         Target: hyperlink.target,
-        TargetMode: 'External',
+        TargetMode: "External"
       });
     });
 
@@ -175,13 +179,13 @@ class WorkSheetXform extends BaseXform {
       const comment = {
         Id: nextRid(rels),
         Type: RelType.Comments,
-        Target: `../comments${model.id}.xml`,
+        Target: `../comments${model.id}.xml`
       };
       rels.push(comment);
       const vmlDrawing = {
         Id: nextRid(rels),
         Type: RelType.VmlDrawing,
-        Target: `../drawings/vmlDrawing${model.id}.vml`,
+        Target: `../drawings/vmlDrawing${model.id}.vml`
       };
       rels.push(vmlDrawing);
 
@@ -191,26 +195,26 @@ class WorkSheetXform extends BaseXform {
 
       options.commentRefs.push({
         commentName: `comments${model.id}`,
-        vmlDrawing: `vmlDrawing${model.id}`,
+        vmlDrawing: `vmlDrawing${model.id}`
       });
     }
 
     const drawingRelsHash = [];
     let bookImage;
     model.media.forEach(medium => {
-      if (medium.type === 'background') {
+      if (medium.type === "background") {
         const rId = nextRid(rels);
         bookImage = options.media[medium.imageId];
         rels.push({
           Id: rId,
           Type: RelType.Image,
-          Target: `../media/${bookImage.name}.${bookImage.extension}`,
+          Target: `../media/${bookImage.name}.${bookImage.extension}`
         });
         model.background = {
-          rId,
+          rId
         };
         model.image = options.media[medium.imageId];
-      } else if (medium.type === 'image') {
+      } else if (medium.type === "image") {
         let { drawing } = model;
         bookImage = options.media[medium.imageId];
         if (!drawing) {
@@ -218,45 +222,47 @@ class WorkSheetXform extends BaseXform {
             rId: nextRid(rels),
             name: `drawing${++options.drawingsCount}`,
             anchors: [],
-            rels: [],
+            rels: []
           };
           options.drawings.push(drawing);
           rels.push({
             Id: drawing.rId,
-            Type: 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/drawing',
-            Target: `../drawings/${drawing.name}.xml`,
+            Type: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/drawing",
+            Target: `../drawings/${drawing.name}.xml`
           });
         }
         let rIdImage =
-          this.preImageId === medium.imageId ? drawingRelsHash[medium.imageId] : drawingRelsHash[drawing.rels.length];
+          this.preImageId === medium.imageId
+            ? drawingRelsHash[medium.imageId]
+            : drawingRelsHash[drawing.rels.length];
         if (!rIdImage) {
           rIdImage = nextRid(drawing.rels);
           drawingRelsHash[drawing.rels.length] = rIdImage;
           drawing.rels.push({
             Id: rIdImage,
-            Type: 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/image',
-            Target: `../media/${bookImage.name}.${bookImage.extension}`,
+            Type: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/image",
+            Target: `../media/${bookImage.name}.${bookImage.extension}`
           });
         }
 
         const anchor: any = {
           picture: {
-            rId: rIdImage,
+            rId: rIdImage
           },
-          range: medium.range,
+          range: medium.range
         };
         if (medium.hyperlinks && medium.hyperlinks.hyperlink) {
           const rIdHyperLink = nextRid(drawing.rels);
           drawingRelsHash[drawing.rels.length] = rIdHyperLink;
           anchor.picture.hyperlinks = {
             tooltip: medium.hyperlinks.tooltip,
-            rId: rIdHyperLink,
+            rId: rIdHyperLink
           };
           drawing.rels.push({
             Id: rIdHyperLink,
             Type: RelType.Hyperlink,
             Target: medium.hyperlinks.hyperlink,
-            TargetMode: 'External',
+            TargetMode: "External"
           });
         }
         this.preImageId = medium.imageId;
@@ -272,7 +278,7 @@ class WorkSheetXform extends BaseXform {
       rels.push({
         Id: rId,
         Type: RelType.Table,
-        Target: `../tables/${table.target}`,
+        Target: `../tables/${table.target}`
       });
 
       // dynamic styles
@@ -289,7 +295,7 @@ class WorkSheetXform extends BaseXform {
       rels.push({
         Id: nextRid(rels),
         Type: RelType.PivotTable,
-        Target: '../pivotTables/pivotTable1.xml',
+        Target: "../pivotTables/pivotTable1.xml"
       });
     }
 
@@ -299,14 +305,14 @@ class WorkSheetXform extends BaseXform {
 
   render(xmlStream, model) {
     xmlStream.openXml(XmlStream.StdDocAttributes);
-    xmlStream.openNode('worksheet', WorkSheetXform.WORKSHEET_ATTRIBUTES);
+    xmlStream.openNode("worksheet", WorkSheetXform.WORKSHEET_ATTRIBUTES);
 
     const sheetFormatPropertiesModel: any = model.properties
       ? {
           defaultRowHeight: model.properties.defaultRowHeight,
           dyDescent: model.properties.dyDescent,
           outlineLevelCol: model.properties.outlineLevelCol,
-          outlineLevelRow: model.properties.outlineLevelRow,
+          outlineLevelRow: model.properties.outlineLevelRow
         }
       : undefined;
     if (model.properties && model.properties.defaultColWidth) {
@@ -318,16 +324,16 @@ class WorkSheetXform extends BaseXform {
       pageSetup:
         model.pageSetup && model.pageSetup.fitToPage
           ? {
-              fitToPage: model.pageSetup.fitToPage,
+              fitToPage: model.pageSetup.fitToPage
             }
-          : undefined,
+          : undefined
     };
     const pageMarginsModel = model.pageSetup && model.pageSetup.margins;
     const printOptionsModel = {
       showRowColHeaders: model.pageSetup && model.pageSetup.showRowColHeaders,
       showGridLines: model.pageSetup && model.pageSetup.showGridLines,
       horizontalCentered: model.pageSetup && model.pageSetup.horizontalCentered,
-      verticalCentered: model.pageSetup && model.pageSetup.verticalCentered,
+      verticalCentered: model.pageSetup && model.pageSetup.verticalCentered
     };
     const sheetProtectionModel = model.sheetProtection;
 
@@ -361,7 +367,7 @@ class WorkSheetXform extends BaseXform {
       // add a <legacyDrawing /> node for each comment
       model.rels.forEach(rel => {
         if (rel.Type === RelType.VmlDrawing) {
-          xmlStream.leafNode('legacyDrawing', { 'r:id': rel.Id });
+          xmlStream.leafNode("legacyDrawing", { "r:id": rel.Id });
         }
       });
     }
@@ -375,7 +381,7 @@ class WorkSheetXform extends BaseXform {
       return true;
     }
 
-    if (node.name === 'worksheet') {
+    if (node.name === "worksheet") {
       Object.values(this.map).forEach((xform: any) => {
         xform.reset();
       });
@@ -403,7 +409,7 @@ class WorkSheetXform extends BaseXform {
       return true;
     }
     switch (name) {
-      case 'worksheet': {
+      case "worksheet": {
         const properties = this.map.sheetFormatPr.model || {};
         if (this.map.sheetPr.model && this.map.sheetPr.model.tabColor) {
           properties.tabColor = this.map.sheetPr.model.tabColor;
@@ -417,12 +423,16 @@ class WorkSheetXform extends BaseXform {
               this.map.sheetPr.model.pageSetup &&
               this.map.sheetPr.model.pageSetup.fitToPage) ||
             false,
-          margins: this.map.pageMargins.model,
+          margins: this.map.pageMargins.model
         };
-        const pageSetup = Object.assign(sheetProperties, this.map.pageSetup.model, this.map.printOptions.model);
+        const pageSetup = Object.assign(
+          sheetProperties,
+          this.map.pageSetup.model,
+          this.map.printOptions.model
+        );
         const conditionalFormattings = mergeConditionalFormattings(
           this.map.conditionalFormatting.model,
-          this.map.extLst.model && this.map.extLst.model['x14:conditionalFormattings']
+          this.map.extLst.model && this.map.extLst.model["x14:conditionalFormattings"]
         );
         this.model = {
           dimensions: this.map.dimension.model,
@@ -438,7 +448,7 @@ class WorkSheetXform extends BaseXform {
           background: this.map.picture.model,
           drawing: this.map.drawing.model,
           tables: this.map.tableParts.model,
-          conditionalFormattings,
+          conditionalFormattings
         };
 
         if (this.map.autoFilter.model) {
@@ -507,10 +517,10 @@ class WorkSheetXform extends BaseXform {
         drawing.anchors.forEach(anchor => {
           if (anchor.medium) {
             const image = {
-              type: 'image',
+              type: "image",
               imageId: anchor.medium.index,
               range: anchor.range,
-              hyperlinks: anchor.picture.hyperlinks,
+              hyperlinks: anchor.picture.hyperlinks
             };
             model.media.push(image);
           }
@@ -520,12 +530,12 @@ class WorkSheetXform extends BaseXform {
 
     const backgroundRel = model.background && rels[model.background.rId];
     if (backgroundRel) {
-      const target = backgroundRel.Target.split('/media/')[1];
+      const target = backgroundRel.Target.split("/media/")[1];
       const imageId = options.mediaIndex && options.mediaIndex[target];
       if (imageId !== undefined) {
         model.media.push({
-          type: 'background',
-          imageId,
+          type: "background",
+          imageId
         });
       }
     }
@@ -542,11 +552,11 @@ class WorkSheetXform extends BaseXform {
 }
 
 WorkSheetXform.WORKSHEET_ATTRIBUTES = {
-  xmlns: 'http://schemas.openxmlformats.org/spreadsheetml/2006/main',
-  'xmlns:r': 'http://schemas.openxmlformats.org/officeDocument/2006/relationships',
-  'xmlns:mc': 'http://schemas.openxmlformats.org/markup-compatibility/2006',
-  'mc:Ignorable': 'x14ac',
-  'xmlns:x14ac': 'http://schemas.microsoft.com/office/spreadsheetml/2009/9/ac',
+  xmlns: "http://schemas.openxmlformats.org/spreadsheetml/2006/main",
+  "xmlns:r": "http://schemas.openxmlformats.org/officeDocument/2006/relationships",
+  "xmlns:mc": "http://schemas.openxmlformats.org/markup-compatibility/2006",
+  "mc:Ignorable": "x14ac",
+  "xmlns:x14ac": "http://schemas.microsoft.com/office/spreadsheetml/2009/9/ac"
 };
 
 export { WorkSheetXform };

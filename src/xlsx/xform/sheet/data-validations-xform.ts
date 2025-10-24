@@ -1,9 +1,8 @@
-import { BaseXform } from '../base-xform.js';
-import { Range } from '../../../doc/range.js';
-
-import { utils } from '../../../utils/utils.js';
-import { colCache } from '../../../utils/col-cache.js';
-import { isEqual } from '../../../utils/under-dash.js';
+import { BaseXform } from "../base-xform.js";
+import { Range } from "../../../doc/range.js";
+import { utils } from "../../../utils/utils.js";
+import { colCache } from "../../../utils/col-cache.js";
+import { isEqual } from "../../../utils/under-dash.js";
 
 function assign(definedName: any, attributes: any, name: string, defaultValue?: any): void {
   const value = attributes[name];
@@ -26,17 +25,21 @@ function assignBool(definedName: any, attributes: any, name: string, defaultValu
 function optimiseDataValidations(model: any): any[] {
   // Squeeze alike data validations together into rectangular ranges
   // to reduce file size and speed up Excel load time
-  if (!model) {return [];}
-  const dvList = Object.entries(model).map(([address, dataValidation]: [string, any]) => ({
-    address,
-    dataValidation,
-    marked: false,
-  })).sort((a: any, b: any) => a.address.localeCompare(b.address));
+  if (!model) {
+    return [];
+  }
+  const dvList = Object.entries(model)
+    .map(([address, dataValidation]: [string, any]) => ({
+      address,
+      dataValidation,
+      marked: false
+    }))
+    .sort((a: any, b: any) => a.address.localeCompare(b.address));
   const dvMap = Object.fromEntries(dvList.map(dv => [dv.address, dv]));
   const matchCol = (addr: any, height: number, col: number): boolean => {
     for (let i = 0; i < height; i++) {
       const otherAddress = colCache.encodeAddress(addr.row + i, col);
-        if (!model[otherAddress] || !isEqual(model[addr.address], model[otherAddress])) {
+      if (!model[otherAddress] || !isEqual(model[addr.address], model[otherAddress])) {
         return false;
       }
     }
@@ -50,7 +53,7 @@ function optimiseDataValidations(model: any): any[] {
           dvMap[addr.dimensions].marked = true;
           return {
             ...dv.dataValidation,
-            sqref: dv.address,
+            sqref: dv.address
           };
         }
 
@@ -82,12 +85,12 @@ function optimiseDataValidations(model: any): any[] {
           const right = addr.col + (width - 1);
           return {
             ...dv.dataValidation,
-            sqref: `${dv.address}:${colCache.encodeAddress(bottom, right)}`,
+            sqref: `${dv.address}:${colCache.encodeAddress(bottom, right)}`
           };
         }
         return {
           ...dv.dataValidation,
-          sqref: dv.address,
+          sqref: dv.address
         };
       }
       return null;
@@ -101,52 +104,52 @@ class DataValidationsXform extends BaseXform {
   declare private _formula: string[];
 
   get tag(): string {
-    return 'dataValidations';
+    return "dataValidations";
   }
 
   render(xmlStream: any, model: any): void {
     const optimizedModel = optimiseDataValidations(model);
     if (optimizedModel.length) {
-      xmlStream.openNode('dataValidations', { count: optimizedModel.length });
+      xmlStream.openNode("dataValidations", { count: optimizedModel.length });
 
       optimizedModel.forEach((value: any) => {
-        xmlStream.openNode('dataValidation');
+        xmlStream.openNode("dataValidation");
 
-        if (value.type !== 'any') {
-          xmlStream.addAttribute('type', value.type);
+        if (value.type !== "any") {
+          xmlStream.addAttribute("type", value.type);
 
-          if (value.operator && value.type !== 'list' && value.operator !== 'between') {
-            xmlStream.addAttribute('operator', value.operator);
+          if (value.operator && value.type !== "list" && value.operator !== "between") {
+            xmlStream.addAttribute("operator", value.operator);
           }
           if (value.allowBlank) {
-            xmlStream.addAttribute('allowBlank', '1');
+            xmlStream.addAttribute("allowBlank", "1");
           }
         }
         if (value.showInputMessage) {
-          xmlStream.addAttribute('showInputMessage', '1');
+          xmlStream.addAttribute("showInputMessage", "1");
         }
         if (value.promptTitle) {
-          xmlStream.addAttribute('promptTitle', value.promptTitle);
+          xmlStream.addAttribute("promptTitle", value.promptTitle);
         }
         if (value.prompt) {
-          xmlStream.addAttribute('prompt', value.prompt);
+          xmlStream.addAttribute("prompt", value.prompt);
         }
         if (value.showErrorMessage) {
-          xmlStream.addAttribute('showErrorMessage', '1');
+          xmlStream.addAttribute("showErrorMessage", "1");
         }
         if (value.errorStyle) {
-          xmlStream.addAttribute('errorStyle', value.errorStyle);
+          xmlStream.addAttribute("errorStyle", value.errorStyle);
         }
         if (value.errorTitle) {
-          xmlStream.addAttribute('errorTitle', value.errorTitle);
+          xmlStream.addAttribute("errorTitle", value.errorTitle);
         }
         if (value.error) {
-          xmlStream.addAttribute('error', value.error);
+          xmlStream.addAttribute("error", value.error);
         }
-        xmlStream.addAttribute('sqref', value.sqref);
+        xmlStream.addAttribute("sqref", value.sqref);
         (value.formulae || []).forEach((formula: any, index: number) => {
           xmlStream.openNode(`formula${index + 1}`);
-          if (value.type === 'date') {
+          if (value.type === "date") {
             xmlStream.writeText(utils.dateToExcel(new Date(formula)));
           } else {
             xmlStream.writeText(formula);
@@ -161,41 +164,41 @@ class DataValidationsXform extends BaseXform {
 
   parseOpen(node: any): boolean {
     switch (node.name) {
-      case 'dataValidations':
+      case "dataValidations":
         this.model = {};
         return true;
 
-      case 'dataValidation': {
+      case "dataValidation": {
         this._address = node.attributes.sqref;
-        const dataValidation: any = { type: node.attributes.type || 'any', formulae: [] };
+        const dataValidation: any = { type: node.attributes.type || "any", formulae: [] };
 
         if (node.attributes.type) {
-          assignBool(dataValidation, node.attributes, 'allowBlank');
+          assignBool(dataValidation, node.attributes, "allowBlank");
         }
-        assignBool(dataValidation, node.attributes, 'showInputMessage');
-        assignBool(dataValidation, node.attributes, 'showErrorMessage');
+        assignBool(dataValidation, node.attributes, "showInputMessage");
+        assignBool(dataValidation, node.attributes, "showErrorMessage");
 
         switch (dataValidation.type) {
-          case 'any':
-          case 'list':
-          case 'custom':
+          case "any":
+          case "list":
+          case "custom":
             break;
           default:
-            assign(dataValidation, node.attributes, 'operator', 'between');
+            assign(dataValidation, node.attributes, "operator", "between");
             break;
         }
-        assign(dataValidation, node.attributes, 'promptTitle');
-        assign(dataValidation, node.attributes, 'prompt');
-        assign(dataValidation, node.attributes, 'errorStyle');
-        assign(dataValidation, node.attributes, 'errorTitle');
-        assign(dataValidation, node.attributes, 'error');
+        assign(dataValidation, node.attributes, "promptTitle");
+        assign(dataValidation, node.attributes, "prompt");
+        assign(dataValidation, node.attributes, "errorStyle");
+        assign(dataValidation, node.attributes, "errorTitle");
+        assign(dataValidation, node.attributes, "error");
 
         this._dataValidation = dataValidation;
         return true;
       }
 
-      case 'formula1':
-      case 'formula2':
+      case "formula1":
+      case "formula2":
         this._formula = [];
         return true;
 
@@ -212,9 +215,9 @@ class DataValidationsXform extends BaseXform {
 
   parseClose(name: string): boolean {
     switch (name) {
-      case 'dataValidations':
+      case "dataValidations":
         return false;
-      case 'dataValidation': {
+      case "dataValidation": {
         if (!this._dataValidation.formulae || !this._dataValidation.formulae.length) {
           delete this._dataValidation.formulae;
           delete this._dataValidation.operator;
@@ -222,7 +225,7 @@ class DataValidationsXform extends BaseXform {
         // The four known cases: 1. E4:L9 N4:U9  2.E4 L9  3. N4:U9  4. E4
         const list = this._address.split(/\s+/g) || [];
         list.forEach((addr: string) => {
-          if (addr.includes(':')) {
+          if (addr.includes(":")) {
             const range = new Range(addr);
             range.forEachAddress((address: string) => {
               this.model[address] = this._dataValidation;
@@ -233,18 +236,18 @@ class DataValidationsXform extends BaseXform {
         });
         return true;
       }
-      case 'formula1':
-      case 'formula2': {
-        let formula: any = this._formula.join('');
+      case "formula1":
+      case "formula2": {
+        let formula: any = this._formula.join("");
         switch (this._dataValidation.type) {
-          case 'whole':
-          case 'textLength':
+          case "whole":
+          case "textLength":
             formula = parseInt(formula, 10);
             break;
-          case 'decimal':
+          case "decimal":
             formula = parseFloat(formula);
             break;
-          case 'date':
+          case "date":
             formula = utils.excelToDate(parseFloat(formula));
             break;
           default:

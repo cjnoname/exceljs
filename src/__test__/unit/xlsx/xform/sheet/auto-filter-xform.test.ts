@@ -1,6 +1,5 @@
 import { describe } from "vitest";
 import { testXformHelper } from "../test-xform-helper";
-
 import { AutoFilterXform } from "../../../../../xlsx/xform/sheet/auto-filter-xform.js";
 
 const expectations = [

@@ -3,7 +3,6 @@ import { readFileSync } from "fs";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 import { testXformHelper } from "../test-xform-helper";
-
 import { AppXform } from "../../../../../xlsx/xform/core/app-xform.js";
 
 const __filename = fileURLToPath(import.meta.url);

@@ -1,7 +1,6 @@
-import { CompositeXform } from '../../composite-xform.js';
-
-import { SqrefExtXform } from './sqref-ext-xform.js';
-import { CfRuleExtXform } from './cf-rule-ext-xform.js';
+import { CompositeXform } from "../../composite-xform.js";
+import { SqrefExtXform } from "./sqref-ext-xform.js";
+import { CfRuleExtXform } from "./cf-rule-ext-xform.js";
 
 class ConditionalFormattingExtXform extends CompositeXform {
   sqRef: SqrefExtXform;
@@ -11,13 +10,13 @@ class ConditionalFormattingExtXform extends CompositeXform {
     super();
 
     this.map = {
-      'xm:sqref': (this.sqRef = new SqrefExtXform()),
-      'x14:cfRule': (this.cfRule = new CfRuleExtXform()),
+      "xm:sqref": (this.sqRef = new SqrefExtXform()),
+      "x14:cfRule": (this.cfRule = new CfRuleExtXform())
     };
   }
 
   get tag() {
-    return 'x14:conditionalFormatting';
+    return "x14:conditionalFormatting";
   }
 
   prepare(model) {
@@ -32,7 +31,7 @@ class ConditionalFormattingExtXform extends CompositeXform {
     }
 
     xmlStream.openNode(this.tag, {
-      'xmlns:xm': 'http://schemas.microsoft.com/office/excel/2006/main',
+      "xmlns:xm": "http://schemas.microsoft.com/office/excel/2006/main"
     });
 
     model.rules.filter(CfRuleExtXform.isExt).forEach(rule => this.cfRule.render(xmlStream, rule));
@@ -45,17 +44,17 @@ class ConditionalFormattingExtXform extends CompositeXform {
 
   createNewModel() {
     return {
-      rules: [],
+      rules: []
     };
   }
 
   onParserClose(name, parser) {
     switch (name) {
-      case 'xm:sqref':
+      case "xm:sqref":
         this.model.ref = parser.model;
         break;
 
-      case 'x14:cfRule':
+      case "x14:cfRule":
         this.model.rules.push(parser.model);
         break;
     }

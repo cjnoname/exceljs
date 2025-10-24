@@ -7,7 +7,6 @@ import { Image } from "./image.js";
 import { Table } from "./table.js";
 import { DataValidations } from "./data-validations.js";
 import { Encryptor } from "../utils/encryptor.js";
-
 import { makePivotTable } from "./pivot-table.js";
 import { copyStyle } from "../utils/copy-style.js";
 

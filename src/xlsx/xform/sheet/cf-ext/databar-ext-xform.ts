@@ -1,8 +1,7 @@
-import { BaseXform } from '../../base-xform.js';
-import { CompositeXform } from '../../composite-xform.js';
-
-import { ColorXform } from '../../style/color-xform.js';
-import { CfvoExtXform } from './cfvo-ext-xform.js';
+import { BaseXform } from "../../base-xform.js";
+import { CompositeXform } from "../../composite-xform.js";
+import { ColorXform } from "../../style/color-xform.js";
+import { CfvoExtXform } from "./cfvo-ext-xform.js";
 
 class DatabarExtXform extends CompositeXform {
   cfvoXform: CfvoExtXform;
@@ -15,11 +14,15 @@ class DatabarExtXform extends CompositeXform {
     super();
 
     this.map = {
-      'x14:cfvo': (this.cfvoXform = new CfvoExtXform()),
-      'x14:borderColor': (this.borderColorXform = new ColorXform('x14:borderColor')),
-      'x14:negativeBorderColor': (this.negativeBorderColorXform = new ColorXform('x14:negativeBorderColor')),
-      'x14:negativeFillColor': (this.negativeFillColorXform = new ColorXform('x14:negativeFillColor')),
-      'x14:axisColor': (this.axisColorXform = new ColorXform('x14:axisColor')),
+      "x14:cfvo": (this.cfvoXform = new CfvoExtXform()),
+      "x14:borderColor": (this.borderColorXform = new ColorXform("x14:borderColor")),
+      "x14:negativeBorderColor": (this.negativeBorderColorXform = new ColorXform(
+        "x14:negativeBorderColor"
+      )),
+      "x14:negativeFillColor": (this.negativeFillColorXform = new ColorXform(
+        "x14:negativeFillColor"
+      )),
+      "x14:axisColor": (this.axisColorXform = new ColorXform("x14:axisColor"))
     };
   }
 
@@ -30,7 +33,7 @@ class DatabarExtXform extends CompositeXform {
   }
 
   get tag() {
-    return 'x14:dataBar';
+    return "x14:dataBar";
   }
 
   render(xmlStream, model) {
@@ -39,10 +42,16 @@ class DatabarExtXform extends CompositeXform {
       maxLength: BaseXform.toIntAttribute(model.maxLength, 100, true),
       border: BaseXform.toBoolAttribute(model.border, false),
       gradient: BaseXform.toBoolAttribute(model.gradient, true),
-      negativeBarColorSameAsPositive: BaseXform.toBoolAttribute(model.negativeBarColorSameAsPositive, true),
-      negativeBarBorderColorSameAsPositive: BaseXform.toBoolAttribute(model.negativeBarBorderColorSameAsPositive, true),
-      axisPosition: BaseXform.toAttribute(model.axisPosition, 'auto'),
-      direction: BaseXform.toAttribute(model.direction, 'leftToRight'),
+      negativeBarColorSameAsPositive: BaseXform.toBoolAttribute(
+        model.negativeBarColorSameAsPositive,
+        true
+      ),
+      negativeBarBorderColorSameAsPositive: BaseXform.toBoolAttribute(
+        model.negativeBarBorderColorSameAsPositive,
+        true
+      ),
+      axisPosition: BaseXform.toAttribute(model.axisPosition, "auto"),
+      direction: BaseXform.toAttribute(model.direction, "leftToRight")
     });
 
     model.cfvo.forEach(cfvo => {
@@ -64,20 +73,23 @@ class DatabarExtXform extends CompositeXform {
       maxLength: BaseXform.toIntValue(attributes.maxLength, 100),
       border: BaseXform.toBoolValue(attributes.border, false),
       gradient: BaseXform.toBoolValue(attributes.gradient, true),
-      negativeBarColorSameAsPositive: BaseXform.toBoolValue(attributes.negativeBarColorSameAsPositive, true),
+      negativeBarColorSameAsPositive: BaseXform.toBoolValue(
+        attributes.negativeBarColorSameAsPositive,
+        true
+      ),
       negativeBarBorderColorSameAsPositive: BaseXform.toBoolValue(
         attributes.negativeBarBorderColorSameAsPositive,
         true
       ),
-      axisPosition: BaseXform.toStringValue(attributes.axisPosition, 'auto'),
-      direction: BaseXform.toStringValue(attributes.direction, 'leftToRight'),
+      axisPosition: BaseXform.toStringValue(attributes.axisPosition, "auto"),
+      direction: BaseXform.toStringValue(attributes.direction, "leftToRight")
     };
   }
 
   onParserClose(name, parser) {
-    const [, prop] = name.split(':');
+    const [, prop] = name.split(":");
     switch (prop) {
-      case 'cfvo':
+      case "cfvo":
         this.model.cfvo.push(parser.model);
         break;
 

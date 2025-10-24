@@ -1,13 +1,10 @@
 import { RelType } from "../../xlsx/rel-type.js";
-
 import { colCache } from "../../utils/col-cache.js";
 import { Encryptor } from "../../utils/encryptor.js";
 import { Dimensions } from "../../doc/range.js";
 import { StringBuf } from "../../utils/string-buf.js";
-
 import { Row } from "../../doc/row.js";
 import { Column } from "../../doc/column.js";
-
 import { SheetRelsWriter } from "./sheet-rels-writer.js";
 import { SheetCommentsWriter } from "./sheet-comments-writer.js";
 import { DataValidations } from "../../doc/data-validations.js";

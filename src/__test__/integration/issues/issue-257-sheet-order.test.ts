@@ -1,6 +1,5 @@
 import { describe, it, expect } from "vitest";
 import { Workbook } from "../../../index.js";
-
 import { testDataPath } from "../../utils/test-file-helper.js";
 
 describe("github issues", () => {

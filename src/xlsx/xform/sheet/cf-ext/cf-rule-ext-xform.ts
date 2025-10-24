@@ -1,14 +1,13 @@
-import { v4 } from 'uuid';
-import { BaseXform } from '../../base-xform.js';
-import { CompositeXform } from '../../composite-xform.js';
-
-import { DatabarExtXform } from './databar-ext-xform.js';
-import { IconSetExtXform } from './icon-set-ext-xform.js';
+import { v4 } from "uuid";
+import { BaseXform } from "../../base-xform.js";
+import { CompositeXform } from "../../composite-xform.js";
+import { DatabarExtXform } from "./databar-ext-xform.js";
+import { IconSetExtXform } from "./icon-set-ext-xform.js";
 
 const extIcons = {
-  '3Triangles': true,
-  '3Stars': true,
-  '5Boxes': true,
+  "3Triangles": true,
+  "3Stars": true,
+  "5Boxes": true
 };
 
 class CfRuleExtXform extends CompositeXform {
@@ -19,21 +18,21 @@ class CfRuleExtXform extends CompositeXform {
     super();
 
     this.map = {
-      'x14:dataBar': (this.databarXform = new DatabarExtXform()),
-      'x14:iconSet': (this.iconSetXform = new IconSetExtXform()),
+      "x14:dataBar": (this.databarXform = new DatabarExtXform()),
+      "x14:iconSet": (this.iconSetXform = new IconSetExtXform())
     };
   }
 
   get tag() {
-    return 'x14:cfRule';
+    return "x14:cfRule";
   }
 
   static isExt(rule) {
     // is this rule primitive?
-    if (rule.type === 'dataBar') {
+    if (rule.type === "dataBar") {
       return DatabarExtXform.isExt(rule);
     }
-    if (rule.type === 'iconSet') {
+    if (rule.type === "iconSet") {
       if (rule.custom || extIcons[rule.iconSet]) {
         return true;
       }
@@ -53,10 +52,10 @@ class CfRuleExtXform extends CompositeXform {
     }
 
     switch (model.type) {
-      case 'dataBar':
+      case "dataBar":
         this.renderDataBar(xmlStream, model);
         break;
-      case 'iconSet':
+      case "iconSet":
         this.renderIconSet(xmlStream, model);
         break;
     }
@@ -64,8 +63,8 @@ class CfRuleExtXform extends CompositeXform {
 
   renderDataBar(xmlStream, model) {
     xmlStream.openNode(this.tag, {
-      type: 'dataBar',
-      id: model.x14Id,
+      type: "dataBar",
+      id: model.x14Id
     });
 
     this.databarXform.render(xmlStream, model);
@@ -75,9 +74,9 @@ class CfRuleExtXform extends CompositeXform {
 
   renderIconSet(xmlStream, model) {
     xmlStream.openNode(this.tag, {
-      type: 'iconSet',
+      type: "iconSet",
       priority: model.priority,
-      id: model.x14Id || `{${v4()}}`,
+      id: model.x14Id || `{${v4()}}`
     });
 
     this.iconSetXform.render(xmlStream, model);
@@ -89,7 +88,7 @@ class CfRuleExtXform extends CompositeXform {
     return {
       type: attributes.type,
       x14Id: attributes.id,
-      priority: BaseXform.toIntValue(attributes.priority),
+      priority: BaseXform.toIntValue(attributes.priority)
     };
   }
 

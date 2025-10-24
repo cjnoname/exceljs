@@ -1,11 +1,8 @@
 import { describe, it, expect } from "vitest";
 import fs from "fs";
 import { promisify } from "util";
-
 import { testUtils } from "../../utils/index";
-
 import { Workbook, WorkbookWriter } from "../../../index.js";
-
 import { testFilePath } from "../../utils/test-file-helper.js";
 
 const TEST_XLSX_FILE_NAME = testFilePath("wb-xlsx-writer.test");

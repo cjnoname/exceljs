@@ -1,7 +1,6 @@
-import { BaseXform } from '../base-xform.js';
-import { CellXform } from './cell-xform.js';
-
-import { utils } from '../../../utils/utils.js';
+import { BaseXform } from "../base-xform.js";
+import { CellXform } from "./cell-xform.js";
+import { utils } from "../../../utils/utils.js";
 
 interface RowXformOptions {
   maxItems?: number;
@@ -33,12 +32,12 @@ class RowXform extends BaseXform {
 
     this.maxItems = options && options.maxItems;
     this.map = {
-      c: new CellXform(),
+      c: new CellXform()
     };
   }
 
   get tag(): string {
-    return 'row';
+    return "row";
   }
 
   prepare(model: RowModel, options: any): void {
@@ -53,29 +52,31 @@ class RowXform extends BaseXform {
   }
 
   render(xmlStream: any, model?: RowModel, options?: any): void {
-    if (!model) {return;}
-    xmlStream.openNode('row');
-    xmlStream.addAttribute('r', model.number);
+    if (!model) {
+      return;
+    }
+    xmlStream.openNode("row");
+    xmlStream.addAttribute("r", model.number);
     if (model.height) {
-      xmlStream.addAttribute('ht', model.height);
-      xmlStream.addAttribute('customHeight', '1');
+      xmlStream.addAttribute("ht", model.height);
+      xmlStream.addAttribute("customHeight", "1");
     }
     if (model.hidden) {
-      xmlStream.addAttribute('hidden', '1');
+      xmlStream.addAttribute("hidden", "1");
     }
     if (model.min! > 0 && model.max! > 0 && model.min! <= model.max!) {
-      xmlStream.addAttribute('spans', `${model.min}:${model.max}`);
+      xmlStream.addAttribute("spans", `${model.min}:${model.max}`);
     }
     if (model.styleId) {
-      xmlStream.addAttribute('s', model.styleId);
-      xmlStream.addAttribute('customFormat', '1');
+      xmlStream.addAttribute("s", model.styleId);
+      xmlStream.addAttribute("customFormat", "1");
     }
-    xmlStream.addAttribute('x14ac:dyDescent', '0.25');
+    xmlStream.addAttribute("x14ac:dyDescent", "0.25");
     if (model.outlineLevel) {
-      xmlStream.addAttribute('outlineLevel', model.outlineLevel);
+      xmlStream.addAttribute("outlineLevel", model.outlineLevel);
     }
     if (model.collapsed) {
-      xmlStream.addAttribute('collapsed', '1');
+      xmlStream.addAttribute("collapsed", "1");
     }
 
     const cellXform = this.map.c;
@@ -91,16 +92,16 @@ class RowXform extends BaseXform {
       this.parser.parseOpen(node);
       return true;
     }
-    if (node.name === 'row') {
+    if (node.name === "row") {
       this.numRowsSeen += 1;
       const spans = node.attributes.spans
-        ? node.attributes.spans.split(':').map((span: string) => parseInt(span, 10))
+        ? node.attributes.spans.split(":").map((span: string) => parseInt(span, 10))
         : [undefined, undefined];
       const model: RowModel = (this.model = {
         number: parseInt(node.attributes.r, 10),
         min: spans[0],
         max: spans[1],
-        cells: [],
+        cells: []
       });
       if (node.attributes.s) {
         model.styleId = parseInt(node.attributes.s, 10);

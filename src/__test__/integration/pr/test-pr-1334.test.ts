@@ -1,6 +1,5 @@
 import { describe, it, expect } from "vitest";
 import { Workbook } from "../../../index.js";
-
 import { testFilePath } from "../../utils/test-file-helper.js";
 
 const TEST_XLSX_FILE_NAME = testFilePath("pr-1334.test");

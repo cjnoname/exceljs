@@ -1,5 +1,4 @@
 import { describe, it, expect } from "vitest";
-
 import { TwoCellAnchorXform } from "../../../../../xlsx/xform/drawing/two-cell-anchor-xform.js";
 
 describe("TwoCellAnchorXform", () => {

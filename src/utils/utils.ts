@@ -1,5 +1,9 @@
 import fs from "fs";
 
+export function delay(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 // useful stuff
 const inherits = function <
   T extends new (...args: any[]) => any,

@@ -1,6 +1,5 @@
 import { describe, it, expect } from "vitest";
 import { Workbook } from "../../../index.js";
-
 // this file to contain integration tests created from github issues
 import { testFilePath } from "../../utils/test-file-helper.js";
 

@@ -1,7 +1,6 @@
 import { describe, it, expect } from "vitest";
 import fs from "fs";
 import { promisify } from "util";
-
 import { Workbook } from "../../../index.js";
 
 const IMAGE_FILENAME = `${__dirname}/../data/image.png`;

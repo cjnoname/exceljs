@@ -4,13 +4,10 @@ import { Unzip, UnzipInflate } from "fflate";
 import { PassThrough } from "stream";
 import { ZipWriter } from "../utils/zip-stream.js";
 import { StreamBuf } from "../utils/stream-buf.js";
-
 import { utils } from "../utils/utils.js";
 import { XmlStream } from "../utils/xml-stream.js";
 import { bufferToString } from "../utils/browser-buffer-decode.js";
-
 import { StylesXform } from "./xform/style/styles-xform.js";
-
 import { CoreXform } from "./xform/core/core-xform.js";
 import { SharedStringsXform } from "./xform/strings/shared-strings-xform.js";
 import { RelationshipsXform } from "./xform/core/relationships-xform.js";
@@ -25,7 +22,6 @@ import { PivotCacheDefinitionXform } from "./xform/pivot-table/pivot-cache-defin
 import { PivotTableXform } from "./xform/pivot-table/pivot-table-xform.js";
 import { CommentsXform } from "./xform/comment/comments-xform.js";
 import { VmlNotesXform } from "./xform/comment/vml-notes-xform.js";
-
 import { theme1Xml } from "./xml/theme1.js";
 import { RelType } from "./rel-type.js";
 

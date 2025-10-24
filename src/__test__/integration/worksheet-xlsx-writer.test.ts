@@ -1,6 +1,5 @@
 import { describe, it, expect } from "vitest";
 import { testUtils } from "../utils/index";
-
 import { WorkbookWriter, ValueType } from "../../index.js";
 
 const CONCATENATE_HELLO_WORLD = 'CONCATENATE("Hello", ", ", "World!")';

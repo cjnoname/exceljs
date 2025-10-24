@@ -1,8 +1,7 @@
-import { EventEmitter } from 'events';
-import { parseSax } from '../../utils/parse-sax.js';
-
-import { Enums } from '../../doc/enums.js';
-import { RelType } from '../../xlsx/rel-type.js';
+import { EventEmitter } from "events";
+import { parseSax } from "../../utils/parse-sax.js";
+import { Enums } from "../../doc/enums.js";
+import { RelType } from "../../xlsx/rel-type.js";
 
 interface HyperlinkReaderOptions {
   workbook: any;
@@ -51,10 +50,10 @@ class HyperlinkReader extends EventEmitter {
     let emitHyperlinks = false;
     let hyperlinks: { [key: string]: Hyperlink } | null = null;
     switch (options.hyperlinks) {
-      case 'emit':
+      case "emit":
         emitHyperlinks = true;
         break;
-      case 'cache':
+      case "cache":
         this.hyperlinks = hyperlinks = {};
         break;
       default:
@@ -62,16 +61,16 @@ class HyperlinkReader extends EventEmitter {
     }
 
     if (!emitHyperlinks && !hyperlinks) {
-      this.emit('finished');
+      this.emit("finished");
       return;
     }
 
     try {
       for await (const events of parseSax(iterator)) {
         for (const { eventType, value } of events) {
-          if (eventType === 'opentag') {
+          if (eventType === "opentag") {
             const node = value;
-            if (node.name === 'Relationship') {
+            if (node.name === "Relationship") {
               const rId = node.attributes.Id;
               switch (node.attributes.Type) {
                 case RelType.Hyperlink:
@@ -80,10 +79,10 @@ class HyperlinkReader extends EventEmitter {
                       type: Enums.RelationshipType.Styles,
                       rId,
                       target: node.attributes.Target,
-                      targetMode: node.attributes.TargetMode,
+                      targetMode: node.attributes.TargetMode
                     };
                     if (emitHyperlinks) {
-                      this.emit('hyperlink', relationship);
+                      this.emit("hyperlink", relationship);
                     } else {
                       hyperlinks![relationship.rId] = relationship;
                     }
@@ -97,9 +96,9 @@ class HyperlinkReader extends EventEmitter {
           }
         }
       }
-      this.emit('finished');
+      this.emit("finished");
     } catch (error) {
-      this.emit('error', error);
+      this.emit("error", error);
     }
   }
 }
