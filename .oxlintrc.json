@@ -1,5 +1,6 @@
 {
   "plugins": ["import", "typescript"],
+  "ignorePatterns": ["scripts/**/*", "test/**/*", "dist/**/*"],
   "overrides": [
     {
       "files": ["src/**/*.{ts,tsx}"],

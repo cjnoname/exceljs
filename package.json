@@ -59,6 +59,9 @@
     "README_zh.md"
   ],
   "scripts": {
+    "local": "nodemon src/local.ts",
+    "example": "nodemon example/xxx.ts",
+    "check": "concurrently --raw \"npm run type\" \"npm run lint\",",
     "test": "vitest run && npm run test:browser",
     "test:browser": "rimraf dist && npm run build:browser && vitest run --config vitest.browser.config.ts",
     "test:watch": "vitest",
@@ -138,6 +141,7 @@
     "@vitest/browser": "^4.0.2",
     "@vitest/browser-playwright": "^4.0.2",
     "@vitest/ui": "^4.0.2",
+    "concurrently": "^9.2.1",
     "cross-env": "^10.1.0",
     "eslint": "9.38.0",
     "eslint-config-prettier": "10.1.8",
@@ -149,6 +153,7 @@
     "fast-xml-parser": "^5.3.0",
     "husky": "^9.1.7",
     "lint-staged": "^16.2.6",
+    "nodemon": "^3.1.10",
     "oxlint": "^1.24.0",
     "playwright": "^1.56.1",
     "prettier": "^3.6.2",

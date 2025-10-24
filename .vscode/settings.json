@@ -19,5 +19,7 @@
   "typescript.tsdk": "node_modules/typescript/lib",
   "git.autofetch": "all",
   "git.mergeEditor": false,
+  "debug.javascript.autoAttachFilter": "onlyWithFlag",
+  "colorize.languages": ["typescript"],
   "typescript.preferences.autoImportFileExcludePatterns": ["src/index.ts", "src/index.browser.ts"]
 }
