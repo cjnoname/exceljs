@@ -3,7 +3,6 @@
     "module": "esnext",
     "target": "es2022",
     "lib": ["ESNext", "DOM"],
-    "sourceMap": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "moduleResolution": "bundler",
@@ -13,11 +12,7 @@
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "allowImportingTsExtensions": false,
-    "declaration": true,
-    "declarationMap": true,
-    "emitDeclarationOnly": true,
     "verbatimModuleSyntax": true,
-    "outDir": "./dist/types",
     "types": ["vitest/globals"]
   },
   "exclude": ["node_modules", "**/*.d.ts"]

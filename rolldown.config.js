@@ -3,7 +3,13 @@ import fs from "fs";
 import { visualizer } from "rollup-plugin-visualizer";
 import nodePolyfills from "node-stdlib-browser";
 
-const banner = `/*! ExcelJS ${new Date().toLocaleDateString("en-GB").replace(/\//g, "-")} */`;
+const pkg = JSON.parse(fs.readFileSync("./package.json", "utf-8"));
+const banner = `/*!
+ * ${pkg.name} v${pkg.version}
+ * ${pkg.description}
+ * (c) ${new Date().getFullYear()} ${pkg.author.name}
+ * Released under the ${pkg.license} License
+ */`;
 
 const browserPolyfills = {
   ...nodePolyfills,
@@ -27,6 +33,8 @@ export default defineConfig([
   {
     input: "./src/index.browser.ts",
     external: ["@aws-sdk/client-s3"],
+    platform: "browser",
+    tsconfig: "./tsconfig.json",
     output: {
       dir: "./dist/browser",
       format: "iife",
@@ -62,11 +70,13 @@ export default defineConfig([
   {
     input: "./src/index.browser.ts",
     external: ["@aws-sdk/client-s3"],
+    platform: "browser",
+    tsconfig: "./tsconfig.json",
     output: {
       dir: "./dist/browser",
       format: "iife",
       name: "ExcelJS",
-      sourcemap: true,
+      sourcemap: false,
       banner,
       exports: "named",
       minify: true,

@@ -2,15 +2,12 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "module": "esnext",
-    "target": "es2022",
     "lib": ["ESNext", "DOM"],
     "moduleResolution": "bundler",
     "outDir": "./dist/esm",
     "declaration": true,
-    "declarationMap": true,
     "declarationDir": "./dist/types",
-    "emitDeclarationOnly": false,
-    "sourceMap": true
+    "emitDeclarationOnly": false
   },
   "include": ["src/**/*"],
   "exclude": [
