@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * 运行指定的 example 文件并报告结果
+ * Run specified example files and report results
  */
 import { spawn } from "child_process";
 import path from "path";
@@ -8,65 +8,65 @@ import { fileURLToPath } from "url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-// 要测试的 example 文件列表及说明
+// List of example files to test with descriptions
 interface ExampleTest {
   file: string;
   description: string;
-  outputFiles?: string[]; // 生成的文件路径（相对于项目根目录）
-  args?: string[]; // 传递给脚本的参数
+  outputFiles?: string[]; // Generated file paths (relative to project root)
+  args?: string[]; // Arguments passed to the script
 }
 
 const examples: ExampleTest[] = [
   {
     file: "test-a1.ts",
-    description: "测试 A1 样式单元格引用",
+    description: "Test A1-style cell references",
     outputFiles: []
   },
   {
     file: "test-colour-cell.ts",
-    description: "测试单元格颜色和填充",
+    description: "Test cell colors and fills",
     outputFiles: ["src/examples/data/test-colour-cell.xlsx"],
     args: ["src/examples/data/test-colour-cell.xlsx"]
   },
   {
     file: "test-formula.ts",
-    description: "测试公式功能",
+    description: "Test formula functionality",
     outputFiles: ["src/examples/data/test-formula.xlsx"],
     args: ["src/examples/data/test-formula.xlsx"]
   },
   {
     file: "test-hyperlink.ts",
-    description: "测试超链接功能",
+    description: "Test hyperlink functionality",
     outputFiles: ["src/examples/data/test-hyperlink.xlsx"],
     args: ["src/examples/data/test-hyperlink.xlsx"]
   },
   {
     file: "test-merge-align.ts",
-    description: "测试单元格合并和对齐",
+    description: "Test cell merging and alignment",
     outputFiles: ["src/examples/data/test-merge-align.xlsx"],
     args: ["src/examples/data/test-merge-align.xlsx"]
   },
   {
     file: "testBookOut.ts",
-    description: "测试完整工作簿输出（字体、边框、填充等）",
+    description: "Test full workbook output (fonts, borders, fills, etc.)",
     outputFiles: ["src/examples/data/test.xlsx"],
     args: ["src/examples/data/test.xlsx"]
   },
   {
     file: "test-table.ts",
-    description: "测试 Excel 表格功能",
+    description: "Test Excel table functionality",
     outputFiles: ["src/examples/data/test-table.xlsx"],
     args: ["src/examples/data/test-table.xlsx"]
   },
   {
     file: "test-newline.ts",
-    description: "测试单元格内换行",
+    description: "Test newlines in cells",
     outputFiles: ["src/examples/data/test-newline.xlsx"],
     args: ["src/examples/data/test-newline.xlsx"]
   },
   {
     file: "testTinyBookOut.ts",
-    description: "测试最小工作簿输出",
+    description: "Test minimal workbook output",
     outputFiles: ["src/examples/data/test-tiny.xlsx"],
     args: ["src/examples/data/test-tiny.xlsx"]
   }
@@ -85,7 +85,7 @@ async function runExample(example: ExampleTest): Promise<TestResult> {
   const startTime = Date.now();
   const examplePath = path.join(__dirname, "../src/examples", example.file);
 
-  // 准备命令参数
+  // Prepare command arguments
   const args = ["tsx", examplePath];
   if (example.args) {
     args.push(...example.args);
