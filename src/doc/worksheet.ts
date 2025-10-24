@@ -1,16 +1,15 @@
+import { colCache } from "../utils/col-cache.js";
+import { Range } from "./range.js";
+import { Row } from "./row.js";
+import { Column } from "./column.js";
+import { Enums } from "./enums.js";
+import { Image } from "./image.js";
+import { Table } from "./table.js";
+import { DataValidations } from "./data-validations.js";
+import { Encryptor } from "../utils/encryptor.js";
 
-import { colCache } from '../utils/col-cache.js';
-import { Range } from './range.js';
-import { Row } from './row.js';
-import { Column } from './column.js';
-import { Enums } from './enums.js';
-import { Image } from './image.js';
-import { Table } from './table.js';
-import { DataValidations } from './data-validations.js';
-import { Encryptor } from '../utils/encryptor.js';
-
-import { makePivotTable } from './pivot-table.js';
-import { copyStyle } from '../utils/copy-style.js';
+import { makePivotTable } from "./pivot-table.js";
+import { copyStyle } from "../utils/copy-style.js";
 
 interface WorksheetOptions {
   workbook?: any;
@@ -141,7 +140,7 @@ class Worksheet {
     this._name = options.name || `sheet${this.id}`;
 
     // add a state
-    this.state = options.state || 'visible';
+    this.state = options.state || "visible";
 
     // rows allows access organised by row. Sparse array of arrays indexed by row-1, col
     // Note: _rows is zero based. Must subtract 1 to go from cell.row to index
@@ -166,7 +165,7 @@ class Worksheet {
         defaultRowHeight: 15,
         dyDescent: 55,
         outlineLevelCol: 0,
-        outlineLevelRow: 0,
+        outlineLevelRow: 0
       },
       options.properties
     );
@@ -176,7 +175,7 @@ class Worksheet {
       {},
       {
         margins: { left: 0.7, right: 0.7, top: 0.75, bottom: 0.75, header: 0.3, footer: 0.3 },
-        orientation: 'portrait',
+        orientation: "portrait",
         horizontalDpi: 4294967295,
         verticalDpi: 4294967295,
         fitToPage: !!(
@@ -184,11 +183,11 @@ class Worksheet {
           (options.pageSetup.fitToWidth || options.pageSetup.fitToHeight) &&
           !options.pageSetup.scale
         ),
-        pageOrder: 'downThenOver',
+        pageOrder: "downThenOver",
         blackAndWhite: false,
         draft: false,
-        cellComments: 'None',
-        errors: 'displayed',
+        cellComments: "None",
+        errors: "displayed",
         scale: 100,
         fitToWidth: 1,
         fitToHeight: 1,
@@ -199,7 +198,7 @@ class Worksheet {
         horizontalCentered: false,
         verticalCentered: false,
         rowBreaks: null,
-        colBreaks: null,
+        colBreaks: null
       },
       options.pageSetup
     );
@@ -214,7 +213,7 @@ class Worksheet {
         evenHeader: null,
         evenFooter: null,
         firstHeader: null,
-        firstFooter: null,
+        firstFooter: null
       },
       options.headerFooter
     );
@@ -249,28 +248,34 @@ class Worksheet {
       name = `sheet${this.id}`;
     }
 
-    if (this._name === name) return;
-
-    if (typeof name !== 'string') {
-      throw new Error('The name has to be a string.');
+    if (this._name === name) {
+      return;
     }
 
-    if (name === '') {
+    if (typeof name !== "string") {
+      throw new Error("The name has to be a string.");
+    }
+
+    if (name === "") {
       throw new Error("The name can't be empty.");
     }
 
-    if (name === 'History') {
+    if (name === "History") {
       throw new Error('The name "History" is protected. Please use a different name.');
     }
 
     // Illegal character in worksheet name: asterisk (*), question mark (?),
     // colon (:), forward slash (/ \), or bracket ([])
     if (/[*?:/\\[\]]/.test(name)) {
-      throw new Error(`Worksheet name ${name} cannot include any of the following characters: * ? : \\ / [ ]`);
+      throw new Error(
+        `Worksheet name ${name} cannot include any of the following characters: * ? : \\ / [ ]`
+      );
     }
 
     if (/(^')|('$)/.test(name)) {
-      throw new Error(`The first or last character of worksheet name cannot be a single quotation mark: ${name}`);
+      throw new Error(
+        `The first or last character of worksheet name cannot be a single quotation mark: ${name}`
+      );
     }
 
     if (name && name.length > 31) {
@@ -278,7 +283,11 @@ class Worksheet {
       name = name.substring(0, 31);
     }
 
-    if (this._workbook._worksheets.find((ws: any) => ws && ws.name.toLowerCase() === name.toLowerCase())) {
+    if (
+      this._workbook._worksheets.find(
+        (ws: any) => ws && ws.name.toLowerCase() === name.toLowerCase()
+      )
+    ) {
       throw new Error(`Worksheet name already exists: ${name}`);
     }
 
@@ -354,10 +363,12 @@ class Worksheet {
   // get a single column by col number. If it doesn't exist, create it and any gaps before it
   getColumn(c: string | number): any {
     let colNum: number;
-    if (typeof c === 'string') {
+    if (typeof c === "string") {
       // if it matches a key'd column, return that
       const col = this._keys[c];
-      if (col) return col;
+      if (col) {
+        return col;
+      }
 
       // otherwise, assume letter
       colNum = colCache.l2n(c);
@@ -387,7 +398,7 @@ class Worksheet {
           rowArguments.push(insert[i] || null);
         });
         const row = this.getRow(i + 1);
-        row.splice.apply(row, rowArguments);
+        row.splice(...rowArguments);
       }
     } else {
       // nothing to insert, so just splice all rows
@@ -508,7 +519,9 @@ class Worksheet {
 
   // get multiple rows by row number.
   getRows(start: number, length: number): any[] | undefined {
-    if (length < 1) return undefined;
+    if (length < 1) {
+      return undefined;
+    }
     const rows: any[] = [];
     for (let i = start; i < start + length; i++) {
       rows.push(this.getRow(i));
@@ -516,15 +529,15 @@ class Worksheet {
     return rows;
   }
 
-  addRow(value: any, style: string = 'n'): any {
+  addRow(value: any, style: string = "n"): any {
     const rowNo = this._nextRow;
     const row = this.getRow(rowNo);
     row.values = value;
-    this._setStyleOption(rowNo, style[0] === 'i' ? style : 'n');
+    this._setStyleOption(rowNo, style[0] === "i" ? style : "n");
     return row;
   }
 
-  addRows(value: any[], style: string = 'n'): any[] {
+  addRows(value: any[], style: string = "n"): any[] {
     const rows: any[] = [];
     value.forEach(row => {
       rows.push(this.addRow(row, style));
@@ -532,21 +545,21 @@ class Worksheet {
     return rows;
   }
 
-  insertRow(pos: number, value: any, style: string = 'n'): any {
+  insertRow(pos: number, value: any, style: string = "n"): any {
     this.spliceRows(pos, 0, value);
     this._setStyleOption(pos, style);
     return this.getRow(pos);
   }
 
-  insertRows(pos: number, values: any[], style: string = 'n'): any[] | undefined {
+  insertRows(pos: number, values: any[], style: string = "n"): any[] | undefined {
     this.spliceRows(pos, 0, ...values);
-    if (style !== 'n') {
+    if (style !== "n") {
       // copy over the styles
       for (let i = 0; i < values.length; i++) {
-        if (style[0] === 'o' && this.findRow(values.length + pos + i) !== undefined) {
-          this._copyStyle(values.length + pos + i, pos + i, style[1] === '+');
-        } else if (style[0] === 'i' && this.findRow(pos - 1) !== undefined) {
-          this._copyStyle(pos - 1, pos + i, style[1] === '+');
+        if (style[0] === "o" && this.findRow(values.length + pos + i) !== undefined) {
+          this._copyStyle(values.length + pos + i, pos + i, style[1] === "+");
+        } else if (style[0] === "i" && this.findRow(pos - 1) !== undefined) {
+          this._copyStyle(pos - 1, pos + i, style[1] === "+");
         }
       }
     }
@@ -554,11 +567,11 @@ class Worksheet {
   }
 
   // set row at position to same style as of either pervious row (option 'i') or next row (option 'o')
-  _setStyleOption(pos: number, style: string = 'n'): void {
-    if (style[0] === 'o' && this.findRow(pos + 1) !== undefined) {
-      this._copyStyle(pos + 1, pos, style[1] === '+');
-    } else if (style[0] === 'i' && this.findRow(pos - 1) !== undefined) {
-      this._copyStyle(pos - 1, pos, style[1] === '+');
+  _setStyleOption(pos: number, style: string = "n"): void {
+    if (style[0] === "o" && this.findRow(pos + 1) !== undefined) {
+      this._copyStyle(pos + 1, pos, style[1] === "+");
+    } else if (style[0] === "i" && this.findRow(pos - 1) !== undefined) {
+      this._copyStyle(pos - 1, pos, style[1] === "+");
     }
   }
 
@@ -611,7 +624,7 @@ class Worksheet {
           rDst.values = rSrc.values;
           rDst.style = rSrc.style;
           rDst.height = rSrc.height;
-            rSrc.eachCell({ includeEmpty: true }, (cell: any, colNumber: number) => {
+          rSrc.eachCell({ includeEmpty: true }, (cell: any, colNumber: number) => {
             rDst.getCell(colNumber).style = cell.style;
           });
           this._rows[i - 1] = undefined;
@@ -628,14 +641,16 @@ class Worksheet {
           rDst.values = rSrc.values;
           rDst.style = rSrc.style;
           rDst.height = rSrc.height;
-            rSrc.eachCell({ includeEmpty: true }, (cell: any, colNumber: number) => {
+          rSrc.eachCell({ includeEmpty: true }, (cell: any, colNumber: number) => {
             rDst.getCell(colNumber).style = cell.style;
 
             // remerge cells accounting for insert offset
-            if (cell._value.constructor.name === 'MergeValue') {
+            if (cell._value.constructor.name === "MergeValue") {
               const cellToBeMerged = this.getRow(cell._row._number + nInserts).getCell(colNumber);
               const prevMaster = cell._value._master;
-              const newMaster = this.getRow(prevMaster._row._number + nInserts).getCell(prevMaster._column._number);
+              const newMaster = this.getRow(prevMaster._row._number + nInserts).getCell(
+                prevMaster._column._number
+              );
               cellToBeMerged.merge(newMaster);
             }
           });
@@ -724,7 +739,7 @@ class Worksheet {
     // check cells aren't already merged
     Object.values(this._merges).forEach((merge: Range) => {
       if (merge.intersects(dimensions)) {
-        throw new Error('Cannot merge already merged cells');
+        throw new Error("Cannot merge already merged cells");
       }
     });
 
@@ -790,24 +805,25 @@ class Worksheet {
     range: string,
     formula: string,
     results?: any[][] | any[] | ((row: number, col: number) => any),
-    shareType: string = 'shared'
+    shareType: string = "shared"
   ): void {
     // Define formula for top-left cell and share to rest
     const decoded = colCache.decode(range) as any;
     const { top, left, bottom, right } = decoded;
     const width = right - left + 1;
     const masterAddress = colCache.encodeAddress(top, left);
-    const isShared = shareType === 'shared';
+    const isShared = shareType === "shared";
 
     // work out result accessor
     let getResult: (row: number, col: number) => any;
-    if (typeof results === 'function') {
+    if (typeof results === "function") {
       getResult = results;
     } else if (Array.isArray(results)) {
       if (Array.isArray(results[0])) {
         getResult = (row: number, col: number) => (results as any[][])[row - top][col - left];
       } else {
-        getResult = (row: number, col: number) => (results as any[])[(row - top) * width + (col - left)];
+        getResult = (row: number, col: number) =>
+          (results as any[])[(row - top) * width + (col - left)];
       }
     } else {
       getResult = () => undefined;
@@ -820,14 +836,14 @@ class Worksheet {
             shareType,
             formula,
             ref: range,
-            result: getResult(r, c),
+            result: getResult(r, c)
           };
           first = false;
         } else {
           this.getCell(r, c).value = isShared
             ? {
                 sharedFormula: masterAddress,
-                result: getResult(r, c),
+                result: getResult(r, c)
               }
             : getResult(r, c);
         }
@@ -839,27 +855,27 @@ class Worksheet {
   // Images
   addImage(imageId: number, range: any): void {
     const model = {
-      type: 'image',
+      type: "image",
       imageId: String(imageId),
-      range,
+      range
     };
     this._media.push(new Image(this, model));
   }
 
   getImages(): any[] {
-    return this._media.filter(m => m.type === 'image');
+    return this._media.filter(m => m.type === "image");
   }
 
   addBackgroundImage(imageId: number): void {
     const model = {
-      type: 'background',
-      imageId: String(imageId),
+      type: "background",
+      imageId: String(imageId)
     };
     this._media.push(new Image(this, model));
   }
 
   getBackgroundImageId(): number | undefined {
-    const image = this._media.find(m => m.type === 'background');
+    const image = this._media.find(m => m.type === "background");
     return image && image.imageId;
   }
 
@@ -870,26 +886,29 @@ class Worksheet {
     // perhaps marshal to worker thread or something
     return new Promise(resolve => {
       this.sheetProtection = {
-        sheet: true,
+        sheet: true
       };
-      if (options && 'spinCount' in options) {
+      if (options && "spinCount" in options) {
         // force spinCount to be integer >= 0
-        options.spinCount = Number.isFinite(options.spinCount) ? Math.round(Math.max(0, options.spinCount)) : 100000;
+        options.spinCount = Number.isFinite(options.spinCount)
+          ? Math.round(Math.max(0, options.spinCount))
+          : 100000;
       }
       if (password) {
-        this.sheetProtection.algorithmName = 'SHA-512';
-        this.sheetProtection.saltValue = Encryptor.randomBytes(16).toString('base64');
-        this.sheetProtection.spinCount = options && 'spinCount' in options ? options.spinCount : 100000; // allow user specified spinCount
+        this.sheetProtection.algorithmName = "SHA-512";
+        this.sheetProtection.saltValue = Encryptor.randomBytes(16).toString("base64");
+        this.sheetProtection.spinCount =
+          options && "spinCount" in options ? options.spinCount : 100000; // allow user specified spinCount
         this.sheetProtection.hashValue = Encryptor.convertPasswordToHash(
           password,
-          'SHA512',
+          "SHA512",
           this.sheetProtection.saltValue,
           this.sheetProtection.spinCount
         );
       }
       if (options) {
         this.sheetProtection = Object.assign(this.sheetProtection, options);
-        if (!password && 'spinCount' in options) {
+        if (!password && "spinCount" in options) {
           delete this.sheetProtection.spinCount;
         }
       }
@@ -943,8 +962,10 @@ Please leave feedback at https://github.com/exceljs/exceljs/discussions/2575`
     this.conditionalFormattings.push(cf);
   }
 
-  removeConditionalFormatting(filter: number | ((value: any, index: number, array: any[]) => boolean)): void {
-    if (typeof filter === 'number') {
+  removeConditionalFormatting(
+    filter: number | ((value: any, index: number, array: any[]) => boolean)
+  ): void {
+    if (typeof filter === "number") {
       this.conditionalFormattings.splice(filter, 1);
     } else if (filter instanceof Function) {
       this.conditionalFormattings = this.conditionalFormattings.filter(filter);
@@ -972,7 +993,7 @@ Please leave feedback at https://github.com/exceljs/exceljs/discussions/2575`
       sheetProtection: this.sheetProtection,
       tables: Object.values(this.tables).map(table => table.model),
       pivotTables: this.pivotTables,
-      conditionalFormattings: this.conditionalFormattings,
+      conditionalFormattings: this.conditionalFormattings
     };
 
     // =================================================

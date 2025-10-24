@@ -319,11 +319,11 @@ class StylesXform extends BaseXform {
   getStyleModel(id: number): any {
     // if the style doesn't exist return null
     const style = this.model.styles[id];
-    if (!style) return null;
+    if (!style) {return null;}
 
     // have we built this model before?
     let model = this.index!.model![id];
-    if (model) return model;
+    if (model) {return model;}
 
     // build a new model
     model = this.index!.model![id] = {};
@@ -396,11 +396,11 @@ class StylesXform extends BaseXform {
   _addNumFmtStr(formatCode: string): number {
     // check if default format
     let index = NumFmtXform.getDefaultFmtId(formatCode);
-    if (index !== undefined) return index;
+    if (index !== undefined) {return index;}
 
     // check if already in
     index = (this.index!.numFmt as any)[formatCode];
-    if (index !== undefined) return index;
+    if (index !== undefined) {return index;}
 
     index = (this.index!.numFmt as any)[formatCode] = NUMFMT_BASE + this.model.numFmts.length;
     const xml = this.map.numFmt.toXml({ id: index, formatCode });

@@ -1,6 +1,6 @@
-import { colCache } from '../utils/col-cache.js';
-import { CellMatrix } from '../utils/cell-matrix.js';
-import { Range } from './range.js';
+import { colCache } from "../utils/col-cache.js";
+import { CellMatrix } from "../utils/cell-matrix.js";
+import { Range } from "./range.js";
 
 const rangeRegexp = /[$](\w+)[$](\d+)(:[$](\w+)[$](\d+))?/;
 
@@ -44,7 +44,7 @@ class DefinedNames {
             sheetName: location.sheetName,
             address: colCache.n2l(col) + row,
             row,
-            col,
+            col
           };
 
           matrix.addCellEx(address);
@@ -99,7 +99,7 @@ class DefinedNames {
     let y: number;
 
     // grow vertical - only one col to worry about
-    function vGrow(yy: number, edge: 'top' | 'bottom'): boolean {
+    function vGrow(yy: number, edge: "top" | "bottom"): boolean {
       const c = matrix.findCellAt(sheetName!, yy, cell.col) as Cell | undefined;
       if (!c || !c.mark) {
         return false;
@@ -108,11 +108,11 @@ class DefinedNames {
       c.mark = false;
       return true;
     }
-    for (y = cell.row - 1; vGrow(y, 'top'); y--);
-    for (y = cell.row + 1; vGrow(y, 'bottom'); y++);
+    for (y = cell.row - 1; vGrow(y, "top"); y--) {}
+    for (y = cell.row + 1; vGrow(y, "bottom"); y++) {}
 
     // grow horizontal - ensure all rows can grow
-    function hGrow(xx: number, edge: 'left' | 'right'): boolean {
+    function hGrow(xx: number, edge: "left" | "right"): boolean {
       const cells: Cell[] = [];
       for (y = range.top; y <= range.bottom; y++) {
         const c = matrix.findCellAt(sheetName!, y, xx) as Cell | undefined;
@@ -128,8 +128,8 @@ class DefinedNames {
       }
       return true;
     }
-    for (x = cell.col - 1; hGrow(x, 'left'); x--);
-    for (x = cell.col + 1; hGrow(x, 'right'); x++);
+    for (x = cell.col - 1; hGrow(x, "left"); x--) {}
+    for (x = cell.col + 1; hGrow(x, "right"); x++) {}
 
     return range;
   }
@@ -152,7 +152,7 @@ class DefinedNames {
 
     return {
       name,
-      ranges,
+      ranges
     };
   }
 
@@ -197,7 +197,7 @@ class DefinedNames {
     value.forEach(definedName => {
       const matrix = (matrixMap[definedName.name] = new CellMatrix());
       definedName.ranges.forEach(rangeStr => {
-        if (rangeRegexp.test(rangeStr.split('!').pop() || '')) {
+        if (rangeRegexp.test(rangeStr.split("!").pop() || "")) {
           matrix.addCell(rangeStr);
         }
       });

@@ -38,7 +38,7 @@ const validation = {
     {}
   ),
   vertical(value: string): string | undefined {
-    if (value === 'middle') return 'center';
+    if (value === 'middle') {return 'center';}
     return this.verticalValues[value] ? value : undefined;
   },
   wrapText(value: boolean): boolean | undefined {

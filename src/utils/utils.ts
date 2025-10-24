@@ -1,12 +1,10 @@
-import fs from 'fs';
+import fs from "fs";
 
 // useful stuff
-const inherits = function <T extends new (...args: any[]) => any, S extends new (...args: any[]) => any>(
-  cls: T,
-  superCtor: S,
-  statics?: any,
-  prototype?: any
-): void {
+const inherits = function <
+  T extends new (...args: any[]) => any,
+  S extends new (...args: any[]) => any
+>(cls: T, superCtor: S, statics?: any, prototype?: any): void {
   (cls as any).super_ = superCtor;
 
   if (!prototype) {
@@ -25,8 +23,8 @@ const inherits = function <T extends new (...args: any[]) => any, S extends new 
       value: cls,
       enumerable: false,
       writable: false,
-      configurable: true,
-    },
+      configurable: true
+    }
   };
   if (prototype) {
     Object.keys(prototype).forEach(i => {
@@ -42,6 +40,7 @@ interface PathInfo {
   name: string;
 }
 
+// oxlint-disable-next-line no-control-regex -- Control characters are intentionally matched for XML encoding
 const xmlDecodeRegex = /[<>&'"\x7F\x00-\x08\x0B-\x0C\x0E-\x1F]/;
 const utils = {
   nop(): void {},
@@ -64,14 +63,16 @@ const utils = {
     return 25569 + d.getTime() / (24 * 3600 * 1000) - (date1904 ? 1462 : 0);
   },
   excelToDate(v: number, date1904?: boolean): Date {
-    const millisecondSinceEpoch = Math.round((v - 25569 + (date1904 ? 1462 : 0)) * 24 * 3600 * 1000);
+    const millisecondSinceEpoch = Math.round(
+      (v - 25569 + (date1904 ? 1462 : 0)) * 24 * 3600 * 1000
+    );
     return new Date(millisecondSinceEpoch);
   },
   parsePath(filepath: string): PathInfo {
-    const last = filepath.lastIndexOf('/');
+    const last = filepath.lastIndexOf("/");
     return {
       path: filepath.substring(0, last),
-      name: filepath.substring(last + 1),
+      name: filepath.substring(last + 1)
     };
   },
   getRelsPath(filepath: string): string {
@@ -80,60 +81,68 @@ const utils = {
   },
   xmlEncode(text: string): string {
     const regexResult = xmlDecodeRegex.exec(text);
-    if (!regexResult) return text;
+    if (!regexResult) {
+      return text;
+    }
 
-    let result = '';
-    let escape = '';
+    let result = "";
+    let escape = "";
     let lastIndex = 0;
     let i = regexResult.index;
     for (; i < text.length; i++) {
       const charCode = text.charCodeAt(i);
       switch (charCode) {
         case 34: // "
-          escape = '&quot;';
+          escape = "&quot;";
           break;
         case 38: // &
-          escape = '&amp;';
+          escape = "&amp;";
           break;
         case 39: // '
-          escape = '&apos;';
+          escape = "&apos;";
           break;
         case 60: // <
-          escape = '&lt;';
+          escape = "&lt;";
           break;
         case 62: // >
-          escape = '&gt;';
+          escape = "&gt;";
           break;
         case 127:
-          escape = '';
+          escape = "";
           break;
         default: {
           if (charCode <= 31 && (charCode <= 8 || (charCode >= 11 && charCode !== 13))) {
-            escape = '';
+            escape = "";
             break;
           }
           continue;
         }
       }
-      if (lastIndex !== i) result += text.substring(lastIndex, i);
+      if (lastIndex !== i) {
+        result += text.substring(lastIndex, i);
+      }
       lastIndex = i + 1;
-      if (escape) result += escape;
+      if (escape) {
+        result += escape;
+      }
     }
-    if (lastIndex !== i) return result + text.substring(lastIndex, i);
+    if (lastIndex !== i) {
+      return result + text.substring(lastIndex, i);
+    }
     return result;
   },
   xmlDecode(text: string): string {
     return text.replace(/&([a-z]*);/g, c => {
       switch (c) {
-        case '&lt;':
-          return '<';
-        case '&gt;':
-          return '>';
-        case '&amp;':
-          return '&';
-        case '&apos;':
+        case "&lt;":
+          return "<";
+        case "&gt;":
+          return ">";
+        case "&amp;":
+          return "&";
+        case "&apos;":
           return "'";
-        case '&quot;':
+        case "&quot;":
           return '"';
         default:
           return c;
@@ -151,8 +160,8 @@ const utils = {
     }
 
     // must remove all chars inside quotes and []
-    fmt = fmt.replace(/\[[^\]]*]/g, '');
-    fmt = fmt.replace(/"[^"]*"/g, '');
+    fmt = fmt.replace(/\[[^\]]*]/g, "");
+    fmt = fmt.replace(/"[^"]*"/g, "");
     // then check for date formatting chars
     const result = fmt.match(/[ymdhMsb]+/) !== null;
     return result;
@@ -165,7 +174,7 @@ const utils = {
           resolve(!err);
         });
       });
-    },
+    }
   },
 
   toIsoDateString(dt: Date): string {
@@ -173,11 +182,12 @@ const utils = {
   },
 
   parseBoolean(value: any): boolean {
-    return value === true || value === 'true' || value === 1 || value === '1';
+    return value === true || value === "true" || value === 1 || value === "1";
   },
 
   *range(start: number, stop: number, step: number = 1): Generator<number> {
-    const compareOrder = step > 0 ? (a: number, b: number) => a < b : (a: number, b: number) => a > b;
+    const compareOrder =
+      step > 0 ? (a: number, b: number) => a < b : (a: number, b: number) => a > b;
     for (let value = start; compareOrder(value, stop); value += step) {
       yield value;
     }
@@ -205,7 +215,7 @@ const utils = {
       result[property] = value;
       return result;
     }, {});
-  },
+  }
 };
 
 export { utils };

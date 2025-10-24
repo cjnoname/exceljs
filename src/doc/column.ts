@@ -1,7 +1,7 @@
-import { colCache } from '../utils/col-cache.js';
+import { colCache } from "../utils/col-cache.js";
 
-import { isEqual } from '../utils/under-dash.js';
-import { Enums } from './enums.js';
+import { isEqual } from "../utils/under-dash.js";
+import { Enums } from "./enums.js";
 
 const DEFAULT_COLUMN_WIDTH = 9;
 
@@ -70,7 +70,7 @@ class Column {
       width: this.width,
       style: this.style,
       hidden: this.hidden,
-      outlineLevel: this.outlineLevel,
+      outlineLevel: this.outlineLevel
     };
   }
 
@@ -149,14 +149,16 @@ class Column {
   }
 
   get collapsed(): boolean {
-    return !!(this._outlineLevel && this._outlineLevel >= this._worksheet.properties.outlineLevelCol);
+    return !!(
+      this._outlineLevel && this._outlineLevel >= this._worksheet.properties.outlineLevelCol
+    );
   }
 
   toString(): string {
     return JSON.stringify({
       key: this.key,
       width: this.width,
-      headers: this.headers.length ? this.headers : undefined,
+      headers: this.headers.length ? this.headers : undefined
     });
   }
 
@@ -165,7 +167,7 @@ class Column {
       this.width === other.width &&
       this.hidden === other.hidden &&
       this.outlineLevel === other.outlineLevel &&
-            isEqual(this.style, other.style)
+      isEqual(this.style, other.style)
     );
   }
 
@@ -217,7 +219,7 @@ class Column {
     }
     const colNumber = this.number;
     let offset = 0;
-    if (v.hasOwnProperty('0')) {
+    if (Object.prototype.hasOwnProperty.call(v, "0")) {
       // assume contiguous array, start at row 1
       offset = 1;
     }
@@ -241,7 +243,7 @@ class Column {
   }
 
   set numFmt(value: any) {
-    this._applyStyle('numFmt', value);
+    this._applyStyle("numFmt", value);
   }
 
   get font(): any {
@@ -249,7 +251,7 @@ class Column {
   }
 
   set font(value: any) {
-    this._applyStyle('font', value);
+    this._applyStyle("font", value);
   }
 
   get alignment(): any {
@@ -257,7 +259,7 @@ class Column {
   }
 
   set alignment(value: any) {
-    this._applyStyle('alignment', value);
+    this._applyStyle("alignment", value);
   }
 
   get protection(): any {
@@ -265,7 +267,7 @@ class Column {
   }
 
   set protection(value: any) {
-    this._applyStyle('protection', value);
+    this._applyStyle("protection", value);
   }
 
   get border(): any {
@@ -273,7 +275,7 @@ class Column {
   }
 
   set border(value: any) {
-    this._applyStyle('border', value);
+    this._applyStyle("border", value);
   }
 
   get fill(): any {
@@ -281,7 +283,7 @@ class Column {
   }
 
   set fill(value: any) {
-    this._applyStyle('fill', value);
+    this._applyStyle("fill", value);
   }
 
   // =============================================================================
@@ -306,7 +308,7 @@ class Column {
             isCustomWidth: column.isCustomWidth,
             hidden: column.hidden,
             outlineLevel: column.outlineLevel,
-            collapsed: column.collapsed,
+            collapsed: column.collapsed
           };
           cols.push(col);
         } else {

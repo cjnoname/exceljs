@@ -1,7 +1,7 @@
-import events from 'events';
-import { Zip, ZipPassThrough } from 'fflate';
-import { StreamBuf } from './stream-buf.js';
-import { stringToBuffer } from './browser-buffer-encode.js';
+import events from "events";
+import { Zip, ZipPassThrough } from "fflate";
+import { StreamBuf } from "./stream-buf.js";
+import { stringToBuffer } from "./browser-buffer-encode.js";
 
 interface ZipWriterOptions {
   type?: string;
@@ -32,8 +32,8 @@ class ZipWriter extends events.EventEmitter {
     super();
     this.options = Object.assign(
       {
-        type: 'nodebuffer',
-        compression: 'DEFLATE',
+        type: "nodebuffer",
+        compression: "DEFLATE"
       },
       options
     );
@@ -45,7 +45,7 @@ class ZipWriter extends events.EventEmitter {
     // Create fflate Zip instance for streaming compression
     this.zip = new Zip((err, data, final) => {
       if (err) {
-        this.stream.emit('error', err);
+        this.stream.emit("error", err);
       } else {
         this.stream.write(Buffer.from(data));
         if (final) {
@@ -58,9 +58,9 @@ class ZipWriter extends events.EventEmitter {
   append(data: any, options: AppendOptions): void {
     let buffer: Uint8Array;
 
-    if (options.hasOwnProperty('base64') && options.base64) {
+    if (Object.prototype.hasOwnProperty.call(options, "base64") && options.base64) {
       // Use Buffer.from for efficient base64 decoding
-      const base64Data = typeof data === 'string' ? data : data.toString();
+      const base64Data = typeof data === "string" ? data : data.toString();
       if ((process as any).browser) {
         // Browser: use atob with optimized Uint8Array conversion
         const binaryString = atob(base64Data);
@@ -72,15 +72,15 @@ class ZipWriter extends events.EventEmitter {
         }
       } else {
         // Node.js: use efficient Buffer.from
-        buffer = Buffer.from(base64Data, 'base64');
+        buffer = Buffer.from(base64Data, "base64");
       }
     } else {
-      if (typeof data === 'string') {
+      if (typeof data === "string") {
         // Convert string to Uint8Array
         if ((process as any).browser) {
           buffer = stringToBuffer(data);
         } else {
-          buffer = Buffer.from(data, 'utf8');
+          buffer = Buffer.from(data, "utf8");
         }
       } else if (Buffer.isBuffer(data)) {
         buffer = new Uint8Array(data);
@@ -108,7 +108,7 @@ class ZipWriter extends events.EventEmitter {
     // End the zip stream
     this.zip.end();
 
-    this.emit('finish');
+    this.emit("finish");
   }
 
   // ==========================================================================

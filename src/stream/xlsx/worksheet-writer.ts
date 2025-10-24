@@ -1,48 +1,55 @@
+import { RelType } from "../../xlsx/rel-type.js";
 
-import { RelType } from '../../xlsx/rel-type.js';
+import { colCache } from "../../utils/col-cache.js";
+import { Encryptor } from "../../utils/encryptor.js";
+import { Dimensions } from "../../doc/range.js";
+import { StringBuf } from "../../utils/string-buf.js";
 
-import { colCache } from '../../utils/col-cache.js';
-import { Encryptor } from '../../utils/encryptor.js';
-import { Dimensions } from '../../doc/range.js';
-import { StringBuf } from '../../utils/string-buf.js';
+import { Row } from "../../doc/row.js";
+import { Column } from "../../doc/column.js";
 
-import { Row } from '../../doc/row.js';
-import { Column } from '../../doc/column.js';
-
-import { SheetRelsWriter } from './sheet-rels-writer.js';
-import { SheetCommentsWriter } from './sheet-comments-writer.js';
-import { DataValidations } from '../../doc/data-validations.js';
+import { SheetRelsWriter } from "./sheet-rels-writer.js";
+import { SheetCommentsWriter } from "./sheet-comments-writer.js";
+import { DataValidations } from "../../doc/data-validations.js";
 
 const xmlBuffer = new StringBuf();
 
 // ============================================================================================
 // Xforms
-import { ListXform } from '../../xlsx/xform/list-xform.js';
-import { DataValidationsXform } from '../../xlsx/xform/sheet/data-validations-xform.js';
-import { SheetPropertiesXform } from '../../xlsx/xform/sheet/sheet-properties-xform.js';
-import { SheetFormatPropertiesXform } from '../../xlsx/xform/sheet/sheet-format-properties-xform.js';
-import { ColXform } from '../../xlsx/xform/sheet/col-xform.js';
-import { RowXform } from '../../xlsx/xform/sheet/row-xform.js';
-import { HyperlinkXform } from '../../xlsx/xform/sheet/hyperlink-xform.js';
-import { SheetViewXform } from '../../xlsx/xform/sheet/sheet-view-xform.js';
-import { SheetProtectionXform } from '../../xlsx/xform/sheet/sheet-protection-xform.js';
-import { PageMarginsXform } from '../../xlsx/xform/sheet/page-margins-xform.js';
-import { PageSetupXform } from '../../xlsx/xform/sheet/page-setup-xform.js';
-import { AutoFilterXform } from '../../xlsx/xform/sheet/auto-filter-xform.js';
-import { PictureXform } from '../../xlsx/xform/sheet/picture-xform.js';
-import { ConditionalFormattingsXform } from '../../xlsx/xform/sheet/cf/conditional-formattings-xform.js';
-import { HeaderFooterXform } from '../../xlsx/xform/sheet/header-footer-xform.js';
-import { RowBreaksXform } from '../../xlsx/xform/sheet/row-breaks-xform.js';
+import { ListXform } from "../../xlsx/xform/list-xform.js";
+import { DataValidationsXform } from "../../xlsx/xform/sheet/data-validations-xform.js";
+import { SheetPropertiesXform } from "../../xlsx/xform/sheet/sheet-properties-xform.js";
+import { SheetFormatPropertiesXform } from "../../xlsx/xform/sheet/sheet-format-properties-xform.js";
+import { ColXform } from "../../xlsx/xform/sheet/col-xform.js";
+import { RowXform } from "../../xlsx/xform/sheet/row-xform.js";
+import { HyperlinkXform } from "../../xlsx/xform/sheet/hyperlink-xform.js";
+import { SheetViewXform } from "../../xlsx/xform/sheet/sheet-view-xform.js";
+import { SheetProtectionXform } from "../../xlsx/xform/sheet/sheet-protection-xform.js";
+import { PageMarginsXform } from "../../xlsx/xform/sheet/page-margins-xform.js";
+import { PageSetupXform } from "../../xlsx/xform/sheet/page-setup-xform.js";
+import { AutoFilterXform } from "../../xlsx/xform/sheet/auto-filter-xform.js";
+import { PictureXform } from "../../xlsx/xform/sheet/picture-xform.js";
+import { ConditionalFormattingsXform } from "../../xlsx/xform/sheet/cf/conditional-formattings-xform.js";
+import { HeaderFooterXform } from "../../xlsx/xform/sheet/header-footer-xform.js";
+import { RowBreaksXform } from "../../xlsx/xform/sheet/row-breaks-xform.js";
 
 // since prepare and render are functional, we can use singletons
 const xform: any = {
   dataValidations: new DataValidationsXform(),
   sheetProperties: new SheetPropertiesXform(),
   sheetFormatProperties: new SheetFormatPropertiesXform(),
-  columns: new ListXform({ tag: 'cols', count: false, childXform: new ColXform() } as any),
+  columns: new ListXform({ tag: "cols", count: false, childXform: new ColXform() } as any),
   row: new RowXform(),
-  hyperlinks: new ListXform({ tag: 'hyperlinks', count: false, childXform: new HyperlinkXform() } as any),
-  sheetViews: new ListXform({ tag: 'sheetViews', count: false, childXform: new SheetViewXform() } as any),
+  hyperlinks: new ListXform({
+    tag: "hyperlinks",
+    count: false,
+    childXform: new HyperlinkXform()
+  } as any),
+  sheetViews: new ListXform({
+    tag: "sheetViews",
+    count: false,
+    childXform: new SheetViewXform()
+  } as any),
   sheetProtection: new SheetProtectionXform(),
   pageMargins: new PageMarginsXform(),
   pageSeteup: new PageSetupXform(),
@@ -50,7 +57,7 @@ const xform: any = {
   picture: new PictureXform(),
   conditionalFormattings: new ConditionalFormattingsXform(),
   headerFooter: new HeaderFooterXform(),
-  rowBreaks: new RowBreaksXform(),
+  rowBreaks: new RowBreaksXform()
 };
 
 // ============================================================================================
@@ -109,7 +116,7 @@ class WorksheetWriter {
     this.name = options.name || `Sheet${this.id}`;
 
     // add a state
-    this.state = options.state || 'visible';
+    this.state = options.state || "visible";
 
     // rows are stored here while they need to be worked on.
     // when they are committed, they will be deleted.
@@ -159,7 +166,7 @@ class WorksheetWriter {
         defaultRowHeight: 15,
         dyDescent: 55,
         outlineLevelCol: 0,
-        outlineLevelRow: 0,
+        outlineLevelRow: 0
       },
       options.properties
     );
@@ -174,7 +181,7 @@ class WorksheetWriter {
         evenHeader: null,
         evenFooter: null,
         firstHeader: null,
-        firstFooter: null,
+        firstFooter: null
       },
       options.headerFooter
     );
@@ -184,7 +191,7 @@ class WorksheetWriter {
       {},
       {
         margins: { left: 0.7, right: 0.7, top: 0.75, bottom: 0.75, header: 0.3, footer: 0.3 },
-        orientation: 'portrait',
+        orientation: "portrait",
         horizontalDpi: 4294967295,
         verticalDpi: 4294967295,
         fitToPage: !!(
@@ -192,11 +199,11 @@ class WorksheetWriter {
           (options.pageSetup.fitToWidth || options.pageSetup.fitToHeight) &&
           !options.pageSetup.scale
         ),
-        pageOrder: 'downThenOver',
+        pageOrder: "downThenOver",
         blackAndWhite: false,
         draft: false,
-        cellComments: 'None',
-        errors: 'displayed',
+        cellComments: "None",
+        errors: "displayed",
         scale: 100,
         fitToWidth: 1,
         fitToHeight: 1,
@@ -206,7 +213,7 @@ class WorksheetWriter {
         horizontalCentered: false,
         verticalCentered: false,
         rowBreaks: null,
-        colBreaks: null,
+        colBreaks: null
       },
       options.pageSetup
     );
@@ -253,7 +260,7 @@ class WorksheetWriter {
   // destroy - not a valid operation for a streaming writer
   // even though some streamers might be able to, it's a bad idea.
   destroy(): void {
-    throw new Error('Invalid Operation: destroy');
+    throw new Error("Invalid Operation: destroy");
   }
 
   commit(): void {
@@ -360,10 +367,12 @@ class WorksheetWriter {
   // get a single column by col number. If it doesn't exist, it and any gaps before it
   // are created.
   getColumn(c: string | number): any {
-    if (typeof c === 'string') {
+    if (typeof c === "string") {
       // if it matches a key'd column, return that
       const col = this._keys[c];
-      if (col) return col;
+      if (col) {
+        return col;
+      }
 
       // otherwise, assume letter
       c = colCache.l2n(c);
@@ -439,7 +448,7 @@ class WorksheetWriter {
 
     // may fail if rows have been comitted
     if (index < 0) {
-      throw new Error('Out of bounds: this row has been committed');
+      throw new Error("Out of bounds: this row has been committed");
     }
     let row = this._rows![index];
     if (!row) {
@@ -479,7 +488,7 @@ class WorksheetWriter {
     // check cells aren't already merged
     this._merges.forEach(merge => {
       if (merge.intersects(dimensions)) {
-        throw new Error('Cannot merge already merged cells');
+        throw new Error("Cannot merge already merged cells");
       }
     });
 
@@ -504,7 +513,7 @@ class WorksheetWriter {
   }
 
   removeConditionalFormatting(filter: any): void {
-    if (typeof filter === 'number') {
+    if (typeof filter === "number") {
       this.conditionalFormatting.splice(filter, 1);
     } else if (filter instanceof Function) {
       this.conditionalFormatting = this.conditionalFormatting.filter(filter);
@@ -517,7 +526,7 @@ class WorksheetWriter {
 
   addBackgroundImage(imageId: number): void {
     this._background = {
-      imageId,
+      imageId
     };
   }
 
@@ -532,26 +541,29 @@ class WorksheetWriter {
     // perhaps marshal to worker thread or something
     return new Promise(resolve => {
       this.sheetProtection = {
-        sheet: true,
+        sheet: true
       };
-      if (options && 'spinCount' in options) {
+      if (options && "spinCount" in options) {
         // force spinCount to be integer >= 0
-        options.spinCount = Number.isFinite(options.spinCount) ? Math.round(Math.max(0, options.spinCount)) : 100000;
+        options.spinCount = Number.isFinite(options.spinCount)
+          ? Math.round(Math.max(0, options.spinCount))
+          : 100000;
       }
       if (password) {
-        this.sheetProtection.algorithmName = 'SHA-512';
-        this.sheetProtection.saltValue = Encryptor.randomBytes(16).toString('base64');
-        this.sheetProtection.spinCount = options && 'spinCount' in options ? options.spinCount : 100000; // allow user specified spinCount
+        this.sheetProtection.algorithmName = "SHA-512";
+        this.sheetProtection.saltValue = Encryptor.randomBytes(16).toString("base64");
+        this.sheetProtection.spinCount =
+          options && "spinCount" in options ? options.spinCount : 100000; // allow user specified spinCount
         this.sheetProtection.hashValue = Encryptor.convertPasswordToHash(
           password,
-          'SHA512',
+          "SHA512",
           this.sheetProtection.saltValue,
           this.sheetProtection.spinCount
         );
       }
       if (options) {
         this.sheetProtection = Object.assign(this.sheetProtection, options);
-        if (!password && 'spinCount' in options) {
+        if (!password && "spinCount" in options) {
           delete this.sheetProtection.spinCount;
         }
       }
@@ -578,9 +590,9 @@ class WorksheetWriter {
       pageSetup:
         pageSetup && pageSetup.fitToPage
           ? {
-              fitToPage: pageSetup.fitToPage,
+              fitToPage: pageSetup.fitToPage
             }
-          : undefined,
+          : undefined
     };
 
     xmlBuf.addText(xform.sheetProperties.toXml(sheetPropertiesModel));
@@ -592,7 +604,7 @@ class WorksheetWriter {
           defaultRowHeight: properties.defaultRowHeight,
           dyDescent: properties.dyDescent,
           outlineLevelCol: properties.outlineLevelCol,
-          outlineLevelRow: properties.outlineLevelRow,
+          outlineLevelRow: properties.outlineLevelRow
         }
       : undefined;
     if (properties && properties.defaultColWidth) {
@@ -632,7 +644,7 @@ class WorksheetWriter {
   }
 
   _writeOpenSheetData(): void {
-    this._write('<sheetData>');
+    this._write("<sheetData>");
   }
 
   _writeRow(row: any): void {
@@ -651,7 +663,7 @@ class WorksheetWriter {
         merges: this._merges,
         formulae: this._formulae,
         siFormulae: this._siFormulae,
-        comments: [],
+        comments: []
       };
       xform.row.prepare(model, options);
       this.stream.write(xform.row.toXml(model));
@@ -664,7 +676,7 @@ class WorksheetWriter {
   }
 
   _writeCloseSheetData(): void {
-    this._write('</sheetData>');
+    this._write("</sheetData>");
   }
 
   _writeMergeCells(): void {
@@ -674,7 +686,7 @@ class WorksheetWriter {
       this._merges.forEach(merge => {
         xmlBuffer.addText(`<mergeCell ref="${merge}"/>`);
       });
-      xmlBuffer.addText('</mergeCells>');
+      xmlBuffer.addText("</mergeCells>");
 
       this.stream.write(xmlBuffer);
     }
@@ -686,7 +698,7 @@ class WorksheetWriter {
 
   _writeConditionalFormatting(): void {
     const options = {
-      styles: this._workbook.styles,
+      styles: this._workbook.styles
     };
     xform.conditionalFormattings.prepare(this.conditionalFormatting, options);
     this.stream.write(xform.conditionalFormattings.toXml(this.conditionalFormatting));
@@ -726,12 +738,12 @@ class WorksheetWriter {
         const image = this._workbook.getImage(this._background.imageId);
         const pictureId = this._sheetRelsWriter.addMedia({
           Target: `../media/${image.name}`,
-          Type: RelType.Image,
+          Type: RelType.Image
         });
 
         this._background = {
           ...this._background,
-          rId: pictureId,
+          rId: pictureId
         };
       }
       this.stream.write(xform.picture.toXml({ rId: this._background.rId }));
@@ -753,7 +765,7 @@ class WorksheetWriter {
   }
 
   _writeCloseWorksheet(): void {
-    this._write('</worksheet>');
+    this._write("</worksheet>");
   }
 }
 

@@ -1,4 +1,4 @@
-import { BaseXform } from '../base-xform.js';
+import { BaseXform } from "../base-xform.js";
 
 interface DateXformOptions {
   tag: string;
@@ -27,10 +27,12 @@ class DateXform extends BaseXform {
       options.format ||
       function (dt: Date): string {
         try {
-          if (Number.isNaN(dt.getTime())) return '';
+          if (Number.isNaN(dt.getTime())) {
+            return "";
+          }
           return dt.toISOString();
         } catch {
-          return '';
+          return "";
         }
       };
     this._parse =
@@ -73,7 +75,7 @@ class DateXform extends BaseXform {
 
   parseClose(): boolean {
     if (!this.attr) {
-      this.model = this._parse(this.text.join(''));
+      this.model = this._parse(this.text.join(""));
     }
     return false;
   }

@@ -1,4 +1,4 @@
-import { colCache } from '../utils/col-cache.js';
+import { colCache } from "../utils/col-cache.js";
 
 interface RangeModel {
   top: number;
@@ -26,7 +26,13 @@ class Range {
     this.decode(args);
   }
 
-  setTLBR(t: number | string, l?: number | string, b?: number | string, r?: number | string, s?: string): void {
+  setTLBR(
+    t: number | string,
+    l?: number | string,
+    b?: number | string,
+    r?: number | string,
+    s?: string
+  ): void {
     if (arguments.length < 4) {
       // setTLBR(tl, br, s)
       const tl = colCache.decodeAddress(t as string);
@@ -36,7 +42,7 @@ class Range {
         left: Math.min(tl.col, br.col),
         bottom: Math.max(tl.row, br.row),
         right: Math.max(tl.col, br.col),
-        sheetName: b as string | undefined,
+        sheetName: b as string | undefined
       };
 
       this.setTLBR(tl.row, tl.col, br.row, br.col, s);
@@ -47,7 +53,7 @@ class Range {
         left: Math.min(l as number, r as number),
         bottom: Math.max(t as number, b as number),
         right: Math.max(l as number, r as number),
-        sheetName: s,
+        sheetName: s
       };
     }
   }
@@ -77,7 +83,7 @@ class Range {
             left: value.model.left,
             bottom: value.model.bottom,
             right: value.model.right,
-            sheetName: value.sheetName,
+            sheetName: value.sheetName
           };
         } else if (value instanceof Array) {
           // an arguments array
@@ -89,7 +95,7 @@ class Range {
             left: value.left,
             bottom: value.bottom,
             right: value.right,
-            sheetName: value.sheetName,
+            sheetName: value.sheetName
           };
         } else {
           // [sheetName!]tl:br
@@ -100,7 +106,7 @@ class Range {
               left: tlbr.left,
               bottom: tlbr.bottom,
               right: tlbr.right,
-              sheetName: tlbr.sheetName,
+              sheetName: tlbr.sheetName
             };
           } else {
             this.model = {
@@ -108,7 +114,7 @@ class Range {
               left: tlbr.col,
               bottom: tlbr.row,
               right: tlbr.col,
-              sheetName: tlbr.sheetName,
+              sheetName: tlbr.sheetName
             };
           }
         }
@@ -120,7 +126,7 @@ class Range {
           top: 0,
           left: 0,
           bottom: 0,
-          right: 0,
+          right: 0
         };
         break;
 
@@ -177,14 +183,22 @@ class Range {
       }
       return `'${sheetName}'!`;
     }
-    return '';
+    return "";
   }
 
   expand(top: number, left: number, bottom: number, right: number): void {
-    if (!this.model.top || top < this.top) this.top = top;
-    if (!this.model.left || left < this.left) this.left = left;
-    if (!this.model.bottom || bottom > this.bottom) this.bottom = bottom;
-    if (!this.model.right || right > this.right) this.right = right;
+    if (!this.model.top || top < this.top) {
+      this.top = top;
+    }
+    if (!this.model.left || left < this.left) {
+      this.left = left;
+    }
+    if (!this.model.bottom || bottom > this.bottom) {
+      this.bottom = bottom;
+    }
+    if (!this.model.right || right > this.right) {
+      this.right = right;
+    }
   }
 
   expandRow(row: RowWithDimensions | null | undefined): void {
@@ -242,11 +256,21 @@ class Range {
   }
 
   intersects(other: Range): boolean {
-    if (other.sheetName && this.sheetName && other.sheetName !== this.sheetName) return false;
-    if (other.bottom < this.top) return false;
-    if (other.top > this.bottom) return false;
-    if (other.right < this.left) return false;
-    if (other.left > this.right) return false;
+    if (other.sheetName && this.sheetName && other.sheetName !== this.sheetName) {
+      return false;
+    }
+    if (other.bottom < this.top) {
+      return false;
+    }
+    if (other.top > this.bottom) {
+      return false;
+    }
+    if (other.right < this.left) {
+      return false;
+    }
+    if (other.left > this.right) {
+      return false;
+    }
     return true;
   }
 
@@ -256,9 +280,14 @@ class Range {
   }
 
   containsEx(address: any): boolean {
-    if (address.sheetName && this.sheetName && address.sheetName !== this.sheetName) return false;
+    if (address.sheetName && this.sheetName && address.sheetName !== this.sheetName) {
+      return false;
+    }
     return (
-      address.row >= this.top && address.row <= this.bottom && address.col >= this.left && address.col <= this.right
+      address.row >= this.top &&
+      address.row <= this.bottom &&
+      address.col >= this.left &&
+      address.col <= this.right
     );
   }
 

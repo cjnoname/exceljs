@@ -107,7 +107,7 @@ class CellMatrix {
   }
 
   forEach(callback: (cell: Cell) => void): void {
-    Object.keys(this.sheets).forEach((sheetName) => {
+    Object.keys(this.sheets).forEach(sheetName => {
       this.forEachInSheet(sheetName as string, callback);
     });
   }

@@ -1,32 +1,33 @@
-import fs from 'fs';
-import { Unzip, UnzipFile, UnzipInflate } from 'fflate';
-import { PassThrough } from 'stream';
-import { ZipWriter } from '../utils/zip-stream.js';
-import { StreamBuf } from '../utils/stream-buf.js';
+import fs from "fs";
+import type { UnzipFile } from "fflate";
+import { Unzip, UnzipInflate } from "fflate";
+import { PassThrough } from "stream";
+import { ZipWriter } from "../utils/zip-stream.js";
+import { StreamBuf } from "../utils/stream-buf.js";
 
-import { utils } from '../utils/utils.js';
-import { XmlStream } from '../utils/xml-stream.js';
-import { bufferToString } from '../utils/browser-buffer-decode.js';
+import { utils } from "../utils/utils.js";
+import { XmlStream } from "../utils/xml-stream.js";
+import { bufferToString } from "../utils/browser-buffer-decode.js";
 
-import { StylesXform } from './xform/style/styles-xform.js';
+import { StylesXform } from "./xform/style/styles-xform.js";
 
-import { CoreXform } from './xform/core/core-xform.js';
-import { SharedStringsXform } from './xform/strings/shared-strings-xform.js';
-import { RelationshipsXform } from './xform/core/relationships-xform.js';
-import { ContentTypesXform } from './xform/core/content-types-xform.js';
-import { AppXform } from './xform/core/app-xform.js';
-import { WorkbookXform } from './xform/book/workbook-xform.js';
-import { WorkSheetXform } from './xform/sheet/worksheet-xform.js';
-import { DrawingXform } from './xform/drawing/drawing-xform.js';
-import { TableXform } from './xform/table/table-xform.js';
-import { PivotCacheRecordsXform } from './xform/pivot-table/pivot-cache-records-xform.js';
-import { PivotCacheDefinitionXform } from './xform/pivot-table/pivot-cache-definition-xform.js';
-import { PivotTableXform } from './xform/pivot-table/pivot-table-xform.js';
-import { CommentsXform } from './xform/comment/comments-xform.js';
-import { VmlNotesXform } from './xform/comment/vml-notes-xform.js';
+import { CoreXform } from "./xform/core/core-xform.js";
+import { SharedStringsXform } from "./xform/strings/shared-strings-xform.js";
+import { RelationshipsXform } from "./xform/core/relationships-xform.js";
+import { ContentTypesXform } from "./xform/core/content-types-xform.js";
+import { AppXform } from "./xform/core/app-xform.js";
+import { WorkbookXform } from "./xform/book/workbook-xform.js";
+import { WorkSheetXform } from "./xform/sheet/worksheet-xform.js";
+import { DrawingXform } from "./xform/drawing/drawing-xform.js";
+import { TableXform } from "./xform/table/table-xform.js";
+import { PivotCacheRecordsXform } from "./xform/pivot-table/pivot-cache-records-xform.js";
+import { PivotCacheDefinitionXform } from "./xform/pivot-table/pivot-cache-definition-xform.js";
+import { PivotTableXform } from "./xform/pivot-table/pivot-table-xform.js";
+import { CommentsXform } from "./xform/comment/comments-xform.js";
+import { VmlNotesXform } from "./xform/comment/vml-notes-xform.js";
 
-import { theme1Xml } from './xml/theme1.js';
-import { RelType } from './rel-type.js';
+import { theme1Xml } from "./xml/theme1.js";
+import { RelType } from "./rel-type.js";
 
 function fsReadFileAsync(filename: string, options?: any): Promise<Buffer> {
   return new Promise((resolve, reject) => {
@@ -93,7 +94,7 @@ class XLSX {
     // reconcile drawings with their rels
     const drawingOptions: any = {
       media: model.media,
-      mediaIndex: model.mediaIndex,
+      mediaIndex: model.mediaIndex
     };
     Object.keys(model.drawings).forEach(name => {
       const drawing = model.drawings[name];
@@ -116,7 +117,7 @@ class XLSX {
 
     // reconcile tables with the default styles
     const tableOptions = {
-      styles: model.styles,
+      styles: model.styles
     };
     Object.values(model.tables).forEach((table: any) => {
       tableXform.reconcile(table, tableOptions);
@@ -131,7 +132,7 @@ class XLSX {
       drawings: model.drawings,
       comments: model.comments,
       tables: model.tables,
-      vmlDrawings: model.vmlDrawings,
+      vmlDrawings: model.vmlDrawings
     };
     model.worksheets.forEach((worksheet: any) => {
       worksheet.relationships = model.worksheetRels[worksheet.sheetNo];
@@ -152,7 +153,13 @@ class XLSX {
     delete model.vmlDrawings;
   }
 
-  async _processWorksheetEntry(stream: any, model: any, sheetNo: number, options: any, path: string): Promise<void> {
+  async _processWorksheetEntry(
+    stream: any,
+    model: any,
+    sheetNo: number,
+    options: any,
+    path: string
+  ): Promise<void> {
     const xform = new WorkSheetXform(options);
     const worksheet = await xform.parseStream(stream);
     if (!worksheet) {
@@ -182,7 +189,7 @@ class XLSX {
   }
 
   async _processMediaEntry(stream: any, model: any, filename: string): Promise<void> {
-    const lastDot = filename.lastIndexOf('.');
+    const lastDot = filename.lastIndexOf(".");
     // if we can't determine extension, ignore it
     if (lastDot >= 1) {
       const extension = filename.substr(lastDot + 1);
@@ -191,9 +198,9 @@ class XLSX {
         const streamBuf = new StreamBuf();
 
         const cleanup = () => {
-          stream.removeListener('error', onError);
-          streamBuf.removeListener('error', onError);
-          streamBuf.removeListener('finish', onFinish);
+          stream.removeListener("error", onError);
+          streamBuf.removeListener("error", onError);
+          streamBuf.removeListener("finish", onFinish);
         };
 
         const onFinish = () => {
@@ -201,10 +208,10 @@ class XLSX {
           model.mediaIndex[filename] = model.media.length;
           model.mediaIndex[name] = model.media.length;
           const medium = {
-            type: 'image',
+            type: "image",
             name,
             extension,
-            buffer: streamBuf.toBuffer(),
+            buffer: streamBuf.toBuffer()
           };
           model.media.push(medium);
           resolve();
@@ -215,9 +222,9 @@ class XLSX {
           reject(error);
         };
 
-        streamBuf.once('finish', onFinish);
-        stream.on('error', onError);
-        streamBuf.on('error', onError);
+        streamBuf.once("finish", onFinish);
+        stream.on("error", onError);
+        streamBuf.on("error", onError);
         stream.pipe(streamBuf);
       });
     }
@@ -247,9 +254,9 @@ class XLSX {
       const streamBuf = new StreamBuf();
 
       const cleanup = () => {
-        stream.removeListener('error', onError);
-        streamBuf.removeListener('error', onError);
-        streamBuf.removeListener('finish', onFinish);
+        stream.removeListener("error", onError);
+        streamBuf.removeListener("error", onError);
+        streamBuf.removeListener("finish", onFinish);
       };
 
       const onFinish = () => {
@@ -263,9 +270,9 @@ class XLSX {
         reject(err);
       };
 
-      streamBuf.once('finish', onFinish);
-      stream.on('error', onError);
-      streamBuf.on('error', onError);
+      streamBuf.once("finish", onFinish);
+      stream.on("error", onError);
+      streamBuf.on("error", onError);
       stream.pipe(streamBuf);
     });
   }
@@ -280,9 +287,9 @@ class XLSX {
       let filesStarted = 0;
 
       const cleanup = () => {
-        stream.removeListener('data', onData);
-        stream.removeListener('end', onEnd);
-        stream.removeListener('error', onError);
+        stream.removeListener("data", onData);
+        stream.removeListener("end", onEnd);
+        stream.removeListener("error", onError);
       };
 
       const checkCompletion = () => {
@@ -347,9 +354,9 @@ class XLSX {
         reject(err);
       };
 
-      stream.on('data', onData);
-      stream.on('end', onEnd);
-      stream.on('error', onError);
+      stream.on("data", onData);
+      stream.on("end", onEnd);
+      stream.on("error", onError);
     });
 
     return this.loadFromFiles(allFiles, options);
@@ -361,7 +368,7 @@ class XLSX {
     // Validate input type
     if (
       !data ||
-      (typeof data === 'object' &&
+      (typeof data === "object" &&
         !Buffer.isBuffer(data) &&
         !(data instanceof Uint8Array) &&
         !(data instanceof ArrayBuffer))
@@ -372,7 +379,7 @@ class XLSX {
     }
 
     if (options && options.base64) {
-      buffer = Buffer.from(data.toString(), 'base64');
+      buffer = Buffer.from(data.toString(), "base64");
     } else {
       buffer = data;
     }
@@ -397,20 +404,20 @@ class XLSX {
       drawingRels: {},
       comments: {},
       tables: {},
-      vmlDrawings: {},
+      vmlDrawings: {}
     };
 
     // Convert fflate format to JSZip-like structure for compatibility
     const entries = Object.keys(zipData).map(name => ({
       name,
-      dir: name.endsWith('/'),
-      data: zipData[name],
+      dir: name.endsWith("/"),
+      data: zipData[name]
     }));
 
     for (const entry of entries) {
       if (!entry.dir) {
         let entryName = entry.name;
-        if (entryName[0] === '/') {
+        if (entryName[0] === "/") {
           entryName = entryName.substr(1);
         }
         let stream: any;
@@ -425,7 +432,7 @@ class XLSX {
           // use object mode to avoid buffer-string convention
           stream = new PassThrough({
             readableObjectMode: true,
-            writableObjectMode: true,
+            writableObjectMode: true
           });
           const content = bufferToString(Buffer.from(entry.data));
           stream.end(content);
@@ -438,10 +445,10 @@ class XLSX {
           await this._processWorksheetEntry(stream, model, sheetNo, options, entryName);
         } else {
           switch (entryName) {
-            case '_rels/.rels':
+            case "_rels/.rels":
               model.globalRels = await this.parseRels(stream);
               break;
-            case 'xl/workbook.xml': {
+            case "xl/workbook.xml": {
               const workbook = await this.parseWorkbook(stream);
               model.sheets = workbook.sheets;
               model.definedNames = workbook.definedNames;
@@ -450,27 +457,27 @@ class XLSX {
               model.calcProperties = workbook.calcProperties;
               break;
             }
-            case 'xl/sharedStrings.xml':
+            case "xl/sharedStrings.xml":
               model.sharedStrings = new SharedStringsXform();
               await model.sharedStrings.parseStream(stream);
               break;
-            case 'xl/_rels/workbook.xml.rels':
+            case "xl/_rels/workbook.xml.rels":
               model.workbookRels = await this.parseRels(stream);
               break;
-            case 'docProps/app.xml': {
+            case "docProps/app.xml": {
               const appXform = new AppXform();
               const appProperties = await appXform.parseStream(stream);
               model.company = appProperties.company;
               model.manager = appProperties.manager;
               break;
             }
-            case 'docProps/core.xml': {
+            case "docProps/core.xml": {
               const coreXform = new CoreXform();
               const coreProperties = await coreXform.parseStream(stream);
               Object.assign(model, coreProperties);
               break;
             }
-            case 'xl/styles.xml':
+            case "xl/styles.xml":
               model.styles = new StylesXform();
               await model.styles.parseStream(stream);
               break;
@@ -535,18 +542,18 @@ class XLSX {
   async addContentTypes(zip: any, model: any): Promise<void> {
     const xform = new ContentTypesXform();
     const xml = xform.toXml(model);
-    zip.append(xml, { name: '[Content_Types].xml' });
+    zip.append(xml, { name: "[Content_Types].xml" });
   }
 
   async addApp(zip: any, model: any): Promise<void> {
     const xform = new AppXform();
     const xml = xform.toXml(model);
-    zip.append(xml, { name: 'docProps/app.xml' });
+    zip.append(xml, { name: "docProps/app.xml" });
   }
 
   async addCore(zip: any, model: any): Promise<void> {
     const xform = new CoreXform();
-    zip.append(xform.toXml(model), { name: 'docProps/core.xml' });
+    zip.append(xform.toXml(model), { name: "docProps/core.xml" });
   }
 
   async addThemes(zip: any, model: any): Promise<void> {
@@ -561,24 +568,24 @@ class XLSX {
   async addOfficeRels(zip: any, _model: any): Promise<void> {
     const xform = new RelationshipsXform();
     const xml = xform.toXml([
-      { Id: 'rId1', Type: XLSX.RelType.OfficeDocument, Target: 'xl/workbook.xml' },
-      { Id: 'rId2', Type: XLSX.RelType.CoreProperties, Target: 'docProps/core.xml' },
-      { Id: 'rId3', Type: XLSX.RelType.ExtenderProperties, Target: 'docProps/app.xml' },
+      { Id: "rId1", Type: XLSX.RelType.OfficeDocument, Target: "xl/workbook.xml" },
+      { Id: "rId2", Type: XLSX.RelType.CoreProperties, Target: "docProps/core.xml" },
+      { Id: "rId3", Type: XLSX.RelType.ExtenderProperties, Target: "docProps/app.xml" }
     ]);
-    zip.append(xml, { name: '_rels/.rels' });
+    zip.append(xml, { name: "_rels/.rels" });
   }
 
   async addWorkbookRels(zip: any, model: any): Promise<void> {
     let count = 1;
     const relationships: any[] = [
-      { Id: `rId${count++}`, Type: XLSX.RelType.Styles, Target: 'styles.xml' },
-      { Id: `rId${count++}`, Type: XLSX.RelType.Theme, Target: 'theme/theme1.xml' },
+      { Id: `rId${count++}`, Type: XLSX.RelType.Styles, Target: "styles.xml" },
+      { Id: `rId${count++}`, Type: XLSX.RelType.Theme, Target: "theme/theme1.xml" }
     ];
     if (model.sharedStrings.count) {
       relationships.push({
         Id: `rId${count++}`,
         Type: XLSX.RelType.SharedStrings,
-        Target: 'sharedStrings.xml',
+        Target: "sharedStrings.xml"
       });
     }
     if ((model.pivotTables || []).length) {
@@ -587,7 +594,7 @@ class XLSX {
       relationships.push({
         Id: pivotTable.rId,
         Type: XLSX.RelType.PivotCacheDefinition,
-        Target: 'pivotCache/pivotCacheDefinition1.xml',
+        Target: "pivotCache/pivotCacheDefinition1.xml"
       });
     }
     model.worksheets.forEach((worksheet: any) => {
@@ -595,30 +602,30 @@ class XLSX {
       relationships.push({
         Id: worksheet.rId,
         Type: XLSX.RelType.Worksheet,
-        Target: `worksheets/sheet${worksheet.id}.xml`,
+        Target: `worksheets/sheet${worksheet.id}.xml`
       });
     });
     const xform = new RelationshipsXform();
     const xml = xform.toXml(relationships);
-    zip.append(xml, { name: 'xl/_rels/workbook.xml.rels' });
+    zip.append(xml, { name: "xl/_rels/workbook.xml.rels" });
   }
 
   async addSharedStrings(zip: any, model: any): Promise<void> {
     if (model.sharedStrings && model.sharedStrings.count) {
-      zip.append(model.sharedStrings.xml, { name: 'xl/sharedStrings.xml' });
+      zip.append(model.sharedStrings.xml, { name: "xl/sharedStrings.xml" });
     }
   }
 
   async addStyles(zip: any, model: any): Promise<void> {
     const { xml } = model.styles;
     if (xml) {
-      zip.append(xml, { name: 'xl/styles.xml' });
+      zip.append(xml, { name: "xl/styles.xml" });
     }
   }
 
   async addWorkbook(zip: any, model: any): Promise<void> {
     const xform = new WorkbookXform();
-    zip.append(xform.toXml(model), { name: 'xl/workbook.xml' });
+    zip.append(xform.toXml(model), { name: "xl/workbook.xml" });
   }
 
   async addWorksheets(zip: any, model: any): Promise<void> {
@@ -655,7 +662,7 @@ class XLSX {
   async addMedia(zip: any, model: any): Promise<void> {
     await Promise.all(
       model.media.map(async (medium: any) => {
-        if (medium.type === 'image') {
+        if (medium.type === "image") {
           const filename = `xl/media/${medium.name}.${medium.extension}`;
           if (medium.filename) {
             const data = await fsReadFileAsync(medium.filename);
@@ -666,11 +673,11 @@ class XLSX {
           }
           if (medium.base64) {
             const dataimg64 = medium.base64;
-            const content = dataimg64.substring(dataimg64.indexOf(',') + 1);
+            const content = dataimg64.substring(dataimg64.indexOf(",") + 1);
             return zip.append(content, { name: filename, base64: true });
           }
         }
-        throw new Error('Unsupported media');
+        throw new Error("Unsupported media");
       })
     );
   }
@@ -706,7 +713,9 @@ class XLSX {
   }
 
   addPivotTables(zip: any, model: any): void {
-    if (!model.pivotTables.length) return;
+    if (!model.pivotTables.length) {
+      return;
+    }
 
     const pivotTable = model.pivotTables[0];
 
@@ -717,54 +726,55 @@ class XLSX {
 
     // pivot cache records
     let xml = pivotCacheRecordsXform.toXml(pivotTable);
-    zip.append(xml, { name: 'xl/pivotCache/pivotCacheRecords1.xml' });
+    zip.append(xml, { name: "xl/pivotCache/pivotCacheRecords1.xml" });
 
     // pivot cache definition
     xml = pivotCacheDefinitionXform.toXml(pivotTable);
-    zip.append(xml, { name: 'xl/pivotCache/pivotCacheDefinition1.xml' });
+    zip.append(xml, { name: "xl/pivotCache/pivotCacheDefinition1.xml" });
 
     // pivot cache definition rels
     xml = relsXform.toXml([
       {
-        Id: 'rId1',
+        Id: "rId1",
         Type: XLSX.RelType.PivotCacheRecords,
-        Target: 'pivotCacheRecords1.xml',
-      },
+        Target: "pivotCacheRecords1.xml"
+      }
     ]);
-    zip.append(xml, { name: 'xl/pivotCache/_rels/pivotCacheDefinition1.xml.rels' });
+    zip.append(xml, { name: "xl/pivotCache/_rels/pivotCacheDefinition1.xml.rels" });
 
     // pivot table
     xml = pivotTableXform.toXml(pivotTable);
-    zip.append(xml, { name: 'xl/pivotTables/pivotTable1.xml' });
+    zip.append(xml, { name: "xl/pivotTables/pivotTable1.xml" });
 
     xml = relsXform.toXml([
       {
-        Id: 'rId1',
+        Id: "rId1",
         Type: XLSX.RelType.PivotCacheDefinition,
-        Target: '../pivotCache/pivotCacheDefinition1.xml',
-      },
+        Target: "../pivotCache/pivotCacheDefinition1.xml"
+      }
     ]);
-    zip.append(xml, { name: 'xl/pivotTables/_rels/pivotTable1.xml.rels' });
+    zip.append(xml, { name: "xl/pivotTables/_rels/pivotTable1.xml.rels" });
   }
 
   _finalize(zip: any): Promise<XLSX> {
     return new Promise((resolve, reject) => {
-      zip.on('finish', () => {
+      zip.on("finish", () => {
         resolve(this);
       });
-      zip.on('error', reject);
+      zip.on("error", reject);
       zip.finalize();
     });
   }
 
   prepareModel(model: any, options: any): void {
     // ensure following properties have sane values
-    model.creator = model.creator || 'ExcelJS';
-    model.lastModifiedBy = model.lastModifiedBy || 'ExcelJS';
+    model.creator = model.creator || "ExcelJS";
+    model.lastModifiedBy = model.lastModifiedBy || "ExcelJS";
     model.created = model.created || new Date();
     model.modified = model.modified || new Date();
 
-    model.useSharedStrings = options.useSharedStrings !== undefined ? options.useSharedStrings : true;
+    model.useSharedStrings =
+      options.useSharedStrings !== undefined ? options.useSharedStrings : true;
     model.useStyles = options.useStyles !== undefined ? options.useStyles : true;
 
     // Manage the shared strings
@@ -784,7 +794,7 @@ class XLSX {
       styles: model.styles,
       date1904: model.properties.date1904,
       drawingsCount: 0,
-      media: model.media,
+      media: model.media
     };
     worksheetOptions.drawings = model.drawings = [];
     worksheetOptions.commentRefs = model.commentRefs = [];
@@ -819,9 +829,9 @@ class XLSX {
     await this.addWorkbookRels(zip, model);
     await this.addWorksheets(zip, model);
     await this.addSharedStrings(zip, model); // always after worksheets
-    await this.addDrawings(zip, model);
-    await this.addTables(zip, model);
-    await this.addPivotTables(zip, model);
+    this.addDrawings(zip, model);
+    this.addTables(zip, model);
+    this.addPivotTables(zip, model);
     await Promise.all([this.addThemes(zip, model), this.addStyles(zip, model)]);
     await this.addMedia(zip, model);
     await Promise.all([this.addApp(zip, model), this.addCore(zip, model)]);
@@ -834,8 +844,8 @@ class XLSX {
 
     return new Promise((resolve, reject) => {
       const cleanup = () => {
-        stream.removeListener('finish', onFinish);
-        stream.removeListener('error', onError);
+        stream.removeListener("finish", onFinish);
+        stream.removeListener("error", onError);
       };
 
       const onFinish = () => {
@@ -848,8 +858,8 @@ class XLSX {
         reject(error);
       };
 
-      stream.once('finish', onFinish);
-      stream.on('error', onError);
+      stream.once("finish", onFinish);
+      stream.on("error", onError);
 
       this.write(stream, options)
         .then(() => {

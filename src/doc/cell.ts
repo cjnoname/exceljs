@@ -1,9 +1,9 @@
-import { colCache } from '../utils/col-cache.js';
-import { Enums } from './enums.js';
-import { Note } from './note.js';
+import { colCache } from "../utils/col-cache.js";
+import { Enums } from "./enums.js";
+import { Note } from "./note.js";
 
-import { escapeHtml } from '../utils/under-dash.js';
-import { slideFormula } from '../utils/shared-formula.js';
+import { escapeHtml } from "../utils/under-dash.js";
+import { slideFormula } from "../utils/shared-formula.js";
 
 interface HyperlinkValueData {
   text?: string;
@@ -66,7 +66,7 @@ class Cell {
 
   constructor(row: any, column: any, address: string) {
     if (!row || !column) {
-      throw new Error('A Cell needs a Row');
+      throw new Error("A Cell needs a Row");
     }
 
     this._row = row;
@@ -152,22 +152,34 @@ class Cell {
 
   _mergeStyle(rowStyle: any, colStyle: any, style: any): any {
     const numFmt = (rowStyle && rowStyle.numFmt) || (colStyle && colStyle.numFmt);
-    if (numFmt) style.numFmt = numFmt;
+    if (numFmt) {
+      style.numFmt = numFmt;
+    }
 
     const font = (rowStyle && rowStyle.font) || (colStyle && colStyle.font);
-    if (font) style.font = font;
+    if (font) {
+      style.font = font;
+    }
 
     const alignment = (rowStyle && rowStyle.alignment) || (colStyle && colStyle.alignment);
-    if (alignment) style.alignment = alignment;
+    if (alignment) {
+      style.alignment = alignment;
+    }
 
     const border = (rowStyle && rowStyle.border) || (colStyle && colStyle.border);
-    if (border) style.border = border;
+    if (border) {
+      style.border = border;
+    }
 
     const fill = (rowStyle && rowStyle.fill) || (colStyle && colStyle.fill);
-    if (fill) style.fill = fill;
+    if (fill) {
+      style.fill = fill;
+    }
 
     const protection = (rowStyle && rowStyle.protection) || (colStyle && colStyle.protection);
-    if (protection) style.protection = protection;
+    if (protection) {
+      style.protection = protection;
+    }
 
     return style;
   }
@@ -237,7 +249,9 @@ class Cell {
   }
 
   isMergedTo(master: Cell): boolean {
-    if (this._value.type !== Cell.Types.Merge) return false;
+    if (this._value.type !== Cell.Types.Merge) {
+      return false;
+    }
     return this._value.isMergedTo(master);
   }
 
@@ -300,7 +314,7 @@ class Cell {
     if (this.type === Cell.Types.String) {
       this._value = Value.create(Cell.Types.Hyperlink, this, {
         text: this._value.value,
-        hyperlink,
+        hyperlink
       });
     }
   }
@@ -327,7 +341,7 @@ class Cell {
       sheetName: worksheet.name,
       address: this.address,
       row: this.row,
-      col: this.col,
+      col: this.col
     };
   }
 
@@ -396,7 +410,7 @@ class Cell {
 
     if (value.comment) {
       switch (value.comment.type) {
-        case 'note':
+        case "note":
           this._comment = Note.fromModel(value.comment);
           break;
       }
@@ -419,7 +433,7 @@ class NullValue {
   constructor(cell: Cell) {
     this.model = {
       address: cell.address,
-      type: Cell.Types.Null,
+      type: Cell.Types.Null
     };
   }
 
@@ -448,13 +462,13 @@ class NullValue {
   }
 
   toCsvString(): string {
-    return '';
+    return "";
   }
 
   release(): void {}
 
   toString(): string {
-    return '';
+    return "";
   }
 }
 
@@ -465,7 +479,7 @@ class NumberValue {
     this.model = {
       address: cell.address,
       type: Cell.Types.Number,
-      value,
+      value
     };
   }
 
@@ -511,7 +525,7 @@ class StringValue {
     this.model = {
       address: cell.address,
       type: Cell.Types.String,
-      value,
+      value
     };
   }
 
@@ -557,7 +571,7 @@ class RichTextValue {
     this.model = {
       address: cell.address,
       type: Cell.Types.String,
-      value,
+      value
     };
   }
 
@@ -570,7 +584,7 @@ class RichTextValue {
   }
 
   toString(): string {
-    return this.model.value.richText.map((t: any) => t.text).join('');
+    return this.model.value.richText.map((t: any) => t.text).join("");
   }
 
   get type(): number {
@@ -607,7 +621,7 @@ class DateValue {
     this.model = {
       address: cell.address,
       type: Cell.Types.Date,
-      value,
+      value
     };
   }
 
@@ -654,7 +668,7 @@ class HyperlinkValue {
       address: cell.address,
       type: Cell.Types.Hyperlink,
       text: value ? value.text : undefined,
-      hyperlink: value ? value.hyperlink : undefined,
+      hyperlink: value ? value.hyperlink : undefined
     };
     if (value && value.tooltip) {
       this.model.tooltip = value.tooltip;
@@ -664,7 +678,7 @@ class HyperlinkValue {
   get value(): HyperlinkValueData {
     const v: HyperlinkValueData = {
       text: this.model.text,
-      hyperlink: this.model.hyperlink,
+      hyperlink: this.model.hyperlink
     };
     if (this.model.tooltip) {
       v.tooltip = this.model.tooltip;
@@ -713,13 +727,13 @@ class HyperlinkValue {
   }
 
   toCsvString(): string {
-    return this.model.hyperlink || '';
+    return this.model.hyperlink || "";
   }
 
   release(): void {}
 
   toString(): string {
-    return this.model.text || '';
+    return this.model.text || "";
   }
 }
 
@@ -731,7 +745,7 @@ class MergeValue {
     this.model = {
       address: cell.address,
       type: Cell.Types.Merge,
-      master: master ? master.address : undefined,
+      master: master ? master.address : undefined
     };
     this._master = master as Cell;
     if (master) {
@@ -780,7 +794,7 @@ class MergeValue {
   }
 
   toCsvString(): string {
-    return '';
+    return "";
   }
 
   release(): void {
@@ -807,7 +821,7 @@ class FormulaValue {
       ref: value ? value.ref : undefined,
       formula: value ? value.formula : undefined,
       sharedFormula: value ? value.sharedFormula : undefined,
-      result: value ? value.result : undefined,
+      result: value ? value.result : undefined
     };
   }
 
@@ -819,11 +833,11 @@ class FormulaValue {
         copy[name] = value;
       }
     };
-    cp('formula');
-    cp('result');
-    cp('ref');
-    cp('shareType');
-    cp('sharedFormula');
+    cp("formula");
+    cp("result");
+    cp("ref");
+    cp("shareType");
+    cp("sharedFormula");
     return copy;
   }
 
@@ -845,7 +859,7 @@ class FormulaValue {
       case Cell.Types.Hyperlink:
       case Cell.Types.Formula:
       default:
-        throw new Error('Cannot process that type of result value');
+        throw new Error("Cannot process that type of result value");
     }
   }
 
@@ -853,16 +867,16 @@ class FormulaValue {
     // find all the ranges and cells mentioned in the formula
     const ranges = this.formula.match(/([a-zA-Z0-9]+!)?[A-Z]{1,3}\d{1,4}:[A-Z]{1,3}\d{1,4}/g);
     const cells = this.formula
-      .replace(/([a-zA-Z0-9]+!)?[A-Z]{1,3}\d{1,4}:[A-Z]{1,3}\d{1,4}/g, '')
+      .replace(/([a-zA-Z0-9]+!)?[A-Z]{1,3}\d{1,4}:[A-Z]{1,3}\d{1,4}/g, "")
       .match(/([a-zA-Z0-9]+!)?[A-Z]{1,3}\d{1,4}/g);
     return {
       ranges,
-      cells,
+      cells
     };
   }
 
   get formula(): string {
-    return this.model.formula || this._getTranslatedFormula() || '';
+    return this.model.formula || this._getTranslatedFormula() || "";
   }
 
   set formula(value: string) {
@@ -896,10 +910,10 @@ class FormulaValue {
     if (v === null || v === undefined) {
       return Enums.ValueType.Null;
     }
-    if (v instanceof String || typeof v === 'string') {
+    if (v instanceof String || typeof v === "string") {
       return Enums.ValueType.String;
     }
-    if (typeof v === 'number') {
+    if (typeof v === "number") {
       return Enums.ValueType.Number;
     }
     if (v instanceof Date) {
@@ -927,19 +941,20 @@ class FormulaValue {
     if (!this._translatedFormula && this.model.sharedFormula) {
       const { worksheet } = this.cell;
       const master = worksheet.findCell(this.model.sharedFormula);
-      this._translatedFormula = master && slideFormula(master.formula, master.address, this.model.address);
+      this._translatedFormula =
+        master && slideFormula(master.formula, master.address, this.model.address);
     }
     return this._translatedFormula;
   }
 
   toCsvString(): string {
-    return `${this.model.result || ''}`;
+    return `${this.model.result || ""}`;
   }
 
   release(): void {}
 
   toString(): string {
-    return this.model.result ? this.model.result.toString() : '';
+    return this.model.result ? this.model.result.toString() : "";
   }
 }
 
@@ -950,7 +965,7 @@ class SharedStringValue {
     this.model = {
       address: cell.address,
       type: Cell.Types.SharedString,
-      value,
+      value
     };
   }
 
@@ -996,7 +1011,7 @@ class BooleanValue {
     this.model = {
       address: cell.address,
       type: Cell.Types.Boolean,
-      value,
+      value
     };
   }
 
@@ -1042,7 +1057,7 @@ class ErrorValue {
     this.model = {
       address: cell.address,
       type: Cell.Types.Error,
-      value,
+      value
     };
   }
 
@@ -1089,7 +1104,7 @@ class JSONValue {
       address: cell.address,
       type: Cell.Types.String,
       value: JSON.stringify(value),
-      rawValue: value,
+      rawValue: value
     };
   }
 
@@ -1135,13 +1150,13 @@ const Value = {
     if (value === null || value === undefined) {
       return Cell.Types.Null;
     }
-    if (value instanceof String || typeof value === 'string') {
+    if (value instanceof String || typeof value === "string") {
       return Cell.Types.String;
     }
-    if (typeof value === 'number') {
+    if (typeof value === "number") {
       return Cell.Types.Number;
     }
-    if (typeof value === 'boolean') {
+    if (typeof value === "boolean") {
       return Cell.Types.Boolean;
     }
     if (value instanceof Date) {
@@ -1178,7 +1193,7 @@ const Value = {
     { t: Cell.Types.SharedString, f: SharedStringValue },
     { t: Cell.Types.RichText, f: RichTextValue },
     { t: Cell.Types.Boolean, f: BooleanValue },
-    { t: Cell.Types.Error, f: ErrorValue },
+    { t: Cell.Types.Error, f: ErrorValue }
   ].reduce((p: any[], t: any) => {
     p[t.t] = t.f;
     return p;
@@ -1190,7 +1205,7 @@ const Value = {
       throw new Error(`Could not create Value of type ${type}`);
     }
     return new T(cell, value);
-  },
+  }
 };
 
 export { Cell };

@@ -1,7 +1,7 @@
-import { TextXform } from './text-xform.js';
-import { RichTextXform } from './rich-text-xform.js';
-import { PhoneticTextXform } from './phonetic-text-xform.js';
-import { BaseXform } from '../base-xform.js';
+import { TextXform } from "./text-xform.js";
+import { RichTextXform } from "./rich-text-xform.js";
+import { PhoneticTextXform } from "./phonetic-text-xform.js";
+import { BaseXform } from "../base-xform.js";
 
 // <si>
 //   <r></r><r></r>...
@@ -24,23 +24,28 @@ class SharedStringXform extends BaseXform {
     this.map = {
       r: new RichTextXform(),
       t: new TextXform(),
-      rPh: new PhoneticTextXform(),
+      rPh: new PhoneticTextXform()
     };
   }
 
   get tag(): string {
-    return 'si';
+    return "si";
   }
 
   render(xmlStream: any, model?: SharedStringModel): void {
     xmlStream.openNode(this.tag);
-    if (model && typeof model === 'object' && model.hasOwnProperty('richText') && model.richText) {
+    if (
+      model &&
+      typeof model === "object" &&
+      Object.prototype.hasOwnProperty.call(model, "richText") &&
+      model.richText
+    ) {
       if (model.richText.length) {
         model.richText.forEach(text => {
           this.map.r.render(xmlStream, text);
         });
       } else {
-        this.map.t.render(xmlStream, '');
+        this.map.t.render(xmlStream, "");
       }
     } else if (model !== undefined && model !== null) {
       this.map.t.render(xmlStream, model as string);
@@ -76,7 +81,7 @@ class SharedStringXform extends BaseXform {
     if (this.parser) {
       if (!this.parser.parseClose(name)) {
         switch (name) {
-          case 'r': {
+          case "r": {
             let rt = (this.model as any).richText;
             if (!rt) {
               rt = (this.model as any).richText = [];
@@ -84,7 +89,7 @@ class SharedStringXform extends BaseXform {
             rt.push(this.parser.model);
             break;
           }
-          case 't':
+          case "t":
             this.model = this.parser.model;
             break;
           default:

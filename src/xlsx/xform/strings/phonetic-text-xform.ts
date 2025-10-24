@@ -1,6 +1,6 @@
-import { TextXform } from './text-xform.js';
-import { RichTextXform } from './rich-text-xform.js';
-import { BaseXform } from '../base-xform.js';
+import { TextXform } from "./text-xform.js";
+import { RichTextXform } from "./rich-text-xform.js";
+import { BaseXform } from "../base-xform.js";
 
 // <rPh sb="0" eb="1">
 //   <t>(its pronounciation in KATAKANA)</t>
@@ -22,20 +22,20 @@ class PhoneticTextXform extends BaseXform {
 
     this.map = {
       r: new RichTextXform(),
-      t: new TextXform(),
+      t: new TextXform()
     };
   }
 
   get tag(): string {
-    return 'rPh';
+    return "rPh";
   }
 
   render(xmlStream: any, model: PhoneticTextModel): void {
     xmlStream.openNode(this.tag, {
       sb: model.sb || 0,
-      eb: model.eb || 0,
+      eb: model.eb || 0
     });
-    if (model && model.hasOwnProperty('richText') && model.richText) {
+    if (model && Object.prototype.hasOwnProperty.call(model, "richText") && model.richText) {
       const { r } = this.map;
       model.richText.forEach(text => {
         r.render(xmlStream, text);
@@ -55,7 +55,7 @@ class PhoneticTextXform extends BaseXform {
     if (name === this.tag) {
       this.model = {
         sb: parseInt(node.attributes.sb, 10),
-        eb: parseInt(node.attributes.eb, 10),
+        eb: parseInt(node.attributes.eb, 10)
       };
       return true;
     }
@@ -77,7 +77,7 @@ class PhoneticTextXform extends BaseXform {
     if (this.parser) {
       if (!this.parser.parseClose(name)) {
         switch (name) {
-          case 'r': {
+          case "r": {
             let rt = this.model.richText;
             if (!rt) {
               rt = this.model.richText = [];
@@ -85,7 +85,7 @@ class PhoneticTextXform extends BaseXform {
             rt.push(this.parser.model);
             break;
           }
-          case 't':
+          case "t":
             this.model.text = this.parser.model;
             break;
           default:

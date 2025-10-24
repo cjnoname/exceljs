@@ -1,7 +1,6 @@
-
-import { Enums } from './enums.js';
-import { colCache } from '../utils/col-cache.js';
-import { Cell } from './cell.js';
+import { Enums } from "./enums.js";
+import { colCache } from "../utils/col-cache.js";
+import { Cell } from "./cell.js";
 
 interface CellAddress {
   address: string;
@@ -96,7 +95,7 @@ class Row {
   // get cell by key, letter or column number
   getCell(col: string | number): any {
     let colNum: number;
-    if (typeof col === 'string') {
+    if (typeof col === "string") {
       // is it a key?
       const column = this._worksheet.getColumnKey(col);
       if (column) {
@@ -112,7 +111,7 @@ class Row {
       this.getCellEx({
         address: colCache.encodeAddress(this._number, colNum),
         row: this._number,
-        col: colNum,
+        col: colNum
       })
     );
   }
@@ -197,9 +196,11 @@ class Row {
     const pb: PageBreak = {
       id: this._number,
       max: right,
-      man: 1,
+      man: 1
     };
-    if (left) pb.min = left;
+    if (left) {
+      pb.min = left;
+    }
 
     ws.rowBreaks.push(pb);
   }
@@ -223,7 +224,7 @@ class Row {
       // empty row
     } else if (value instanceof Array) {
       let offset = 0;
-      if (value.hasOwnProperty('0')) {
+      if (Object.prototype.hasOwnProperty.call(value, "0")) {
         // contiguous array - start at column 1
         offset = 1;
       }
@@ -232,7 +233,7 @@ class Row {
           this.getCellEx({
             address: colCache.encodeAddress(this._number, index + offset),
             row: this._number,
-            col: index + offset,
+            col: index + offset
           }).value = item;
         }
       });
@@ -243,7 +244,7 @@ class Row {
           this.getCellEx({
             address: colCache.encodeAddress(this._number, column.number),
             row: this._number,
-            col: column.number,
+            col: column.number
           }).value = value[key];
         }
       });
@@ -284,7 +285,7 @@ class Row {
     return min > 0
       ? {
           min,
-          max,
+          max
         }
       : null;
   }
@@ -306,7 +307,7 @@ class Row {
   }
 
   set numFmt(value: any) {
-    this._applyStyle('numFmt', value);
+    this._applyStyle("numFmt", value);
   }
 
   get font(): any {
@@ -314,7 +315,7 @@ class Row {
   }
 
   set font(value: any) {
-    this._applyStyle('font', value);
+    this._applyStyle("font", value);
   }
 
   get alignment(): any {
@@ -322,7 +323,7 @@ class Row {
   }
 
   set alignment(value: any) {
-    this._applyStyle('alignment', value);
+    this._applyStyle("alignment", value);
   }
 
   get protection(): any {
@@ -330,7 +331,7 @@ class Row {
   }
 
   set protection(value: any) {
-    this._applyStyle('protection', value);
+    this._applyStyle("protection", value);
   }
 
   get border(): any {
@@ -338,7 +339,7 @@ class Row {
   }
 
   set border(value: any) {
-    this._applyStyle('border', value);
+    this._applyStyle("border", value);
   }
 
   get fill(): any {
@@ -346,7 +347,7 @@ class Row {
   }
 
   set fill(value: any) {
-    this._applyStyle('fill', value);
+    this._applyStyle("fill", value);
   }
 
   get hidden(): boolean {
@@ -366,7 +367,9 @@ class Row {
   }
 
   get collapsed(): boolean {
-    return !!(this._outlineLevel && this._outlineLevel >= this._worksheet.properties.outlineLevelRow);
+    return !!(
+      this._outlineLevel && this._outlineLevel >= this._worksheet.properties.outlineLevelRow
+    );
   }
 
   // =========================================================================
@@ -399,14 +402,14 @@ class Row {
           style: this.style,
           hidden: this.hidden,
           outlineLevel: this.outlineLevel,
-          collapsed: this.collapsed,
+          collapsed: this.collapsed
         }
       : null;
   }
 
   set model(value: RowModel) {
     if (value.number !== this._number) {
-      throw new Error('Invalid row number in model');
+      throw new Error("Invalid row number in model");
     }
     this._cells = [];
     let previousAddress: CellAddress | undefined;
@@ -428,7 +431,7 @@ class Row {
               row,
               col,
               address: colCache.encodeAddress(row, col),
-              $col$row: `$${colCache.n2l(col)}$${row}`,
+              $col$row: `$${colCache.n2l(col)}$${row}`
             };
           }
           previousAddress = address;

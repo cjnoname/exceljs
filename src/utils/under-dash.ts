@@ -12,7 +12,7 @@ export function isEqual(a: any, b: any): boolean {
     return false;
   }
   switch (typeof a) {
-    case 'object':
+    case "object":
       if (aArray || bArray) {
         if (aArray && bArray) {
           return (
@@ -38,7 +38,7 @@ export function isEqual(a: any, b: any): boolean {
       }
 
       for (const key of keys) {
-        if (!b.hasOwnProperty(key)) {
+        if (!Object.prototype.hasOwnProperty.call(b, key)) {
           return false;
         }
       }
@@ -56,43 +56,49 @@ export function isEqual(a: any, b: any): boolean {
 
 export function escapeHtml(html: string): string {
   const regexResult = escapeHtmlRegex.exec(html);
-  if (!regexResult) return html;
+  if (!regexResult) {
+    return html;
+  }
 
-  let result = '';
-  let escape = '';
+  let result = "";
+  let escape = "";
   let lastIndex = 0;
   let i = regexResult.index;
   for (; i < html.length; i++) {
     switch (html.charAt(i)) {
       case '"':
-        escape = '&quot;';
+        escape = "&quot;";
         break;
-      case '&':
-        escape = '&amp;';
+      case "&":
+        escape = "&amp;";
         break;
-      case '<':
-        escape = '&lt;';
+      case "<":
+        escape = "&lt;";
         break;
-      case '>':
-        escape = '&gt;';
+      case ">":
+        escape = "&gt;";
         break;
       default:
         continue;
     }
-    if (lastIndex !== i) result += html.substring(lastIndex, i);
+    if (lastIndex !== i) {
+      result += html.substring(lastIndex, i);
+    }
     lastIndex = i + 1;
     result += escape;
   }
-  if (lastIndex !== i) return result + html.substring(lastIndex, i);
+  if (lastIndex !== i) {
+    return result + html.substring(lastIndex, i);
+  }
   return result;
 }
 
 export function isUndefined(val: any): val is undefined {
-  return toString.call(val) === '[object Undefined]';
+  return toString.call(val) === "[object Undefined]";
 }
 
 export function isObject(val: any): val is Record<string, any> {
-  return toString.call(val) === '[object Object]';
+  return toString.call(val) === "[object Object]";
 }
 
 export function deepMerge<T = any>(...args: any[]): T {
@@ -149,7 +155,7 @@ export function cloneDeep(obj: any, preserveUndefined?: boolean): any {
         clone[index] = undefined;
       }
     });
-  } else if (typeof obj === 'object') {
+  } else if (typeof obj === "object") {
     clone = {};
     Object.keys(obj).forEach(name => {
       const value = obj[name];
@@ -166,6 +172,6 @@ export function cloneDeep(obj: any, preserveUndefined?: boolean): any {
 }
 
 export function get<T = any>(obj: any, path: string, defaultValue?: T): T {
-  const keys = path.split('.');
+  const keys = path.split(".");
   return keys.reduce((result, key) => result?.[key], obj) ?? defaultValue;
 }

@@ -26,7 +26,7 @@ function assignBool(definedName: any, attributes: any, name: string, defaultValu
 function optimiseDataValidations(model: any): any[] {
   // Squeeze alike data validations together into rectangular ranges
   // to reduce file size and speed up Excel load time
-  if (!model) return [];
+  if (!model) {return [];}
   const dvList = Object.entries(model).map(([address, dataValidation]: [string, any]) => ({
     address,
     dataValidation,

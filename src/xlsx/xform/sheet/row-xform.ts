@@ -53,7 +53,7 @@ class RowXform extends BaseXform {
   }
 
   render(xmlStream: any, model?: RowModel, options?: any): void {
-    if (!model) return;
+    if (!model) {return;}
     xmlStream.openNode('row');
     xmlStream.addAttribute('r', model.number);
     if (model.height) {

@@ -1,7 +1,7 @@
-import { Worksheet } from './worksheet.js';
-import { DefinedNames } from './defined-names.js';
-import { XLSX } from '../xlsx/xlsx.js';
-import { CSV } from '../csv/csv.js';
+import { Worksheet } from "./worksheet.js";
+import { DefinedNames } from "./defined-names.js";
+import { XLSX } from "../xlsx/xlsx.js";
+import { CSV } from "../csv/csv.js";
 
 interface WorksheetModel {
   id: number;
@@ -79,18 +79,18 @@ class Workbook {
   declare public _csv?: CSV;
 
   constructor() {
-    this.category = '';
-    this.company = '';
+    this.category = "";
+    this.company = "";
     this.created = new Date();
-    this.description = '';
-    this.keywords = '';
-    this.manager = '';
+    this.description = "";
+    this.keywords = "";
+    this.manager = "";
     this.modified = this.created;
     this.properties = {};
     this.calcProperties = {};
     this._worksheets = [];
-    this.subject = '';
-    this.title = '';
+    this.subject = "";
+    this.title = "";
     this.views = [];
     this.media = [];
     this.pivotTables = [];
@@ -98,12 +98,16 @@ class Workbook {
   }
 
   get xlsx(): XLSX {
-    if (!this._xlsx) this._xlsx = new XLSX(this);
+    if (!this._xlsx) {
+      this._xlsx = new XLSX(this);
+    }
     return this._xlsx;
   }
 
   get csv(): CSV {
-    if (!this._csv) this._csv = new CSV(this);
+    if (!this._csv) {
+      this._csv = new CSV(this);
+    }
     return this._csv;
   }
 
@@ -120,12 +124,15 @@ class Workbook {
   addWorksheet(name?: string, options?: AddWorksheetOptions): Worksheet {
     const id = this.nextId;
 
-    const lastOrderNo = this._worksheets.reduce((acc, ws) => ((ws && ws.orderNo) > acc ? ws.orderNo : acc), 0);
+    const lastOrderNo = this._worksheets.reduce(
+      (acc, ws) => ((ws && ws.orderNo) > acc ? ws.orderNo : acc),
+      0
+    );
     const worksheetOptions = Object.assign({}, options, {
       id,
       name,
       orderNo: lastOrderNo + 1,
-      workbook: this,
+      workbook: this
     });
 
     const worksheet = new Worksheet(worksheetOptions);
@@ -149,10 +156,10 @@ class Workbook {
     if (id === undefined) {
       return this._worksheets.find(Boolean);
     }
-    if (typeof id === 'number') {
+    if (typeof id === "number") {
       return this._worksheets[id];
     }
-    if (typeof id === 'string') {
+    if (typeof id === "string") {
       return this._worksheets.find(worksheet => worksheet && worksheet.name === id);
     }
     return undefined;
@@ -184,7 +191,7 @@ class Workbook {
   addImage(image: any): number {
     // TODO:  validation?
     const id = this.media.length;
-    this.media.push(Object.assign({}, image, { type: 'image' }));
+    this.media.push(Object.assign({}, image, { type: "image" }));
     return id;
   }
 
@@ -194,8 +201,8 @@ class Workbook {
 
   get model(): WorkbookModel {
     return {
-      creator: this.creator || 'Unknown',
-      lastModifiedBy: this.lastModifiedBy || 'Unknown',
+      creator: this.creator || "Unknown",
+      lastModifiedBy: this.lastModifiedBy || "Unknown",
       lastPrinted: this.lastPrinted,
       created: this.created,
       modified: this.modified,
@@ -217,7 +224,7 @@ class Workbook {
       themes: this._themes,
       media: this.media,
       pivotTables: this.pivotTables,
-      calcProperties: this.calcProperties,
+      calcProperties: this.calcProperties
     };
   }
 
@@ -249,7 +256,7 @@ class Workbook {
         name,
         orderNo: orderNo !== -1 ? orderNo : undefined,
         state,
-        workbook: this,
+        workbook: this
       }));
       worksheet.model = worksheetModel as any;
     });

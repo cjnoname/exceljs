@@ -1,23 +1,23 @@
-import fs from 'fs';
-import { Zip, ZipPassThrough } from 'fflate';
+import fs from "fs";
+import { Zip, ZipPassThrough } from "fflate";
 
-import { StreamBuf } from '../../utils/stream-buf.js';
+import { StreamBuf } from "../../utils/stream-buf.js";
 
-import { RelType } from '../../xlsx/rel-type.js';
-import { StylesXform } from '../../xlsx/xform/style/styles-xform.js';
-import { SharedStrings } from '../../utils/shared-strings.js';
-import { DefinedNames } from '../../doc/defined-names.js';
+import { RelType } from "../../xlsx/rel-type.js";
+import { StylesXform } from "../../xlsx/xform/style/styles-xform.js";
+import { SharedStrings } from "../../utils/shared-strings.js";
+import { DefinedNames } from "../../doc/defined-names.js";
 
-import { CoreXform } from '../../xlsx/xform/core/core-xform.js';
-import { RelationshipsXform } from '../../xlsx/xform/core/relationships-xform.js';
-import { ContentTypesXform } from '../../xlsx/xform/core/content-types-xform.js';
-import { AppXform } from '../../xlsx/xform/core/app-xform.js';
-import { WorkbookXform } from '../../xlsx/xform/book/workbook-xform.js';
-import { SharedStringsXform } from '../../xlsx/xform/strings/shared-strings-xform.js';
+import { CoreXform } from "../../xlsx/xform/core/core-xform.js";
+import { RelationshipsXform } from "../../xlsx/xform/core/relationships-xform.js";
+import { ContentTypesXform } from "../../xlsx/xform/core/content-types-xform.js";
+import { AppXform } from "../../xlsx/xform/core/app-xform.js";
+import { WorkbookXform } from "../../xlsx/xform/book/workbook-xform.js";
+import { SharedStringsXform } from "../../xlsx/xform/strings/shared-strings-xform.js";
 
-import { WorksheetWriter } from './worksheet-writer.js';
+import { WorksheetWriter } from "./worksheet-writer.js";
 
-import { theme1Xml } from '../../xlsx/xml/theme1.js';
+import { theme1Xml } from "../../xlsx/xml/theme1.js";
 
 interface WorkbookWriterOptions {
   created?: Date;
@@ -54,8 +54,8 @@ class WorkbookWriter {
   constructor(options: WorkbookWriterOptions = {}) {
     this.created = options.created || new Date();
     this.modified = options.modified || this.created;
-    this.creator = options.creator || 'ExcelJS';
-    this.lastModifiedBy = options.lastModifiedBy || 'ExcelJS';
+    this.creator = options.creator || "ExcelJS";
+    this.lastModifiedBy = options.lastModifiedBy || "ExcelJS";
     this.lastPrinted = options.lastPrinted;
 
     // using shared strings creates a smaller xlsx file but may use more memory
@@ -79,7 +79,7 @@ class WorkbookWriter {
     // Create fflate Zip instance
     this.zip = new Zip((err, data, final) => {
       if (err) {
-        this.stream.emit('error', err);
+        this.stream.emit("error", err);
       } else {
         this.stream.write(Buffer.from(data));
         if (final) {
@@ -120,13 +120,13 @@ class WorkbookWriter {
       zipFile.push(chunk);
     };
 
-    stream.on('data', onData);
+    stream.on("data", onData);
 
     // Use once for automatic cleanup and also clean up data listener
-    stream.once('finish', () => {
-      stream.removeListener('data', onData);
+    stream.once("finish", () => {
+      stream.removeListener("data", onData);
       zipFile.push(new Uint8Array(0), true); // Signal end
-      stream.emit('zipped');
+      stream.emit("zipped");
     });
 
     return stream;
@@ -140,10 +140,10 @@ class WorkbookWriter {
     let buffer: Uint8Array;
     if (base64) {
       // Use Buffer.from for efficient base64 decoding
-      const base64Data = typeof data === 'string' ? data : data.toString();
-      buffer = Buffer.from(base64Data, 'base64');
-    } else if (typeof data === 'string') {
-      buffer = Buffer.from(data, 'utf8');
+      const base64Data = typeof data === "string" ? data : data.toString();
+      buffer = Buffer.from(base64Data, "base64");
+    } else if (typeof data === "string") {
+      buffer = Buffer.from(data, "utf8");
     } else {
       buffer = new Uint8Array(data);
     }
@@ -156,7 +156,7 @@ class WorkbookWriter {
       if (!worksheet.committed) {
         return new Promise(resolve => {
           // Use once to automatically clean up listener
-          worksheet.stream.once('zipped', () => {
+          worksheet.stream.once("zipped", () => {
             resolve();
           });
           worksheet.commit();
@@ -183,7 +183,7 @@ class WorkbookWriter {
       this.addCore(),
       this.addSharedStrings(),
       this.addStyles(),
-      this.addWorkbookRels(),
+      this.addWorkbookRels()
     ]);
     await this.addWorkbook();
     return this._finalize();
@@ -202,7 +202,10 @@ class WorkbookWriter {
 
   addImage(image: any): number {
     const id = this.media.length;
-    const medium = Object.assign({}, image, { type: 'image', name: `image${id}.${image.extension}` });
+    const medium = Object.assign({}, image, {
+      type: "image",
+      name: `image${id}.${image.extension}`
+    });
     this.media.push(medium);
     return id;
   }
@@ -215,13 +218,14 @@ class WorkbookWriter {
     // it's possible to add a worksheet with different than default
     // shared string handling
     // in fact, it's even possible to switch it mid-sheet
-    const useSharedStrings = options.useSharedStrings !== undefined ? options.useSharedStrings : this.useSharedStrings;
+    const useSharedStrings =
+      options.useSharedStrings !== undefined ? options.useSharedStrings : this.useSharedStrings;
 
     if (options.tabColor) {
-      console.trace('tabColor option has moved to { properties: tabColor: {...} }');
+      console.trace("tabColor option has moved to { properties: tabColor: {...} }");
       options.properties = Object.assign(
         {
-          tabColor: options.tabColor,
+          tabColor: options.tabColor
         },
         options.properties
       );
@@ -240,7 +244,7 @@ class WorkbookWriter {
       pageSetup: options.pageSetup,
       views: options.views,
       autoFilter: options.autoFilter,
-      headerFooter: options.headerFooter,
+      headerFooter: options.headerFooter
     });
 
     this._worksheets[id] = worksheet;
@@ -251,10 +255,10 @@ class WorkbookWriter {
     if (id === undefined) {
       return this._worksheets.find(() => true);
     }
-    if (typeof id === 'number') {
+    if (typeof id === "number") {
       return this._worksheets[id];
     }
-    if (typeof id === 'string') {
+    if (typeof id === "string") {
       return this._worksheets.find((worksheet: any) => worksheet && worksheet.name === id);
     }
     return undefined;
@@ -262,14 +266,14 @@ class WorkbookWriter {
 
   addStyles(): Promise<void> {
     return new Promise(resolve => {
-      this._addFile(this.styles.xml, 'xl/styles.xml');
+      this._addFile(this.styles.xml, "xl/styles.xml");
       resolve();
     });
   }
 
   addThemes(): Promise<void> {
     return new Promise(resolve => {
-      this._addFile(theme1Xml, 'xl/theme/theme1.xml');
+      this._addFile(theme1Xml, "xl/theme/theme1.xml");
       resolve();
     });
   }
@@ -278,11 +282,11 @@ class WorkbookWriter {
     return new Promise(resolve => {
       const xform = new RelationshipsXform();
       const xml = xform.toXml([
-        { Id: 'rId1', Type: RelType.OfficeDocument, Target: 'xl/workbook.xml' },
-        { Id: 'rId2', Type: RelType.CoreProperties, Target: 'docProps/core.xml' },
-        { Id: 'rId3', Type: RelType.ExtenderProperties, Target: 'docProps/app.xml' },
+        { Id: "rId1", Type: RelType.OfficeDocument, Target: "xl/workbook.xml" },
+        { Id: "rId2", Type: RelType.CoreProperties, Target: "docProps/core.xml" },
+        { Id: "rId3", Type: RelType.ExtenderProperties, Target: "docProps/app.xml" }
       ]);
-      this._addFile(xml, '_rels/.rels');
+      this._addFile(xml, "_rels/.rels");
       resolve();
     });
   }
@@ -293,11 +297,11 @@ class WorkbookWriter {
         worksheets: this._worksheets.filter(Boolean),
         sharedStrings: this.sharedStrings,
         commentRefs: this.commentRefs,
-        media: this.media,
+        media: this.media
       };
       const xform = new ContentTypesXform();
       const xml = xform.toXml(model);
-      this._addFile(xml, '[Content_Types].xml');
+      this._addFile(xml, "[Content_Types].xml");
       resolve();
     });
   }
@@ -305,13 +309,16 @@ class WorkbookWriter {
   addMedia(): Promise<any> {
     return Promise.all(
       this.media.map(async medium => {
-        if (medium.type === 'image') {
+        if (medium.type === "image") {
           const filename = `xl/media/${medium.name}`;
           if (medium.filename) {
             const data = await new Promise<Buffer>((resolve, reject) => {
               fs.readFile(medium.filename, (err, data) => {
-                if (err) reject(err);
-                else resolve(data);
+                if (err) {
+                  reject(err);
+                } else {
+                  resolve(data);
+                }
               });
             });
             this._addFile(data, filename);
@@ -323,12 +330,12 @@ class WorkbookWriter {
           }
           if (medium.base64) {
             const dataimg64 = medium.base64;
-            const content = dataimg64.substring(dataimg64.indexOf(',') + 1);
+            const content = dataimg64.substring(dataimg64.indexOf(",") + 1);
             this._addFile(content, filename, true);
             return Promise.resolve();
           }
         }
-        throw new Error('Unsupported media');
+        throw new Error("Unsupported media");
       })
     );
   }
@@ -336,11 +343,11 @@ class WorkbookWriter {
   addApp(): Promise<void> {
     return new Promise(resolve => {
       const model = {
-        worksheets: this._worksheets.filter(Boolean),
+        worksheets: this._worksheets.filter(Boolean)
       };
       const xform = new AppXform();
       const xml = xform.toXml(model);
-      this._addFile(xml, 'docProps/app.xml');
+      this._addFile(xml, "docProps/app.xml");
       resolve();
     });
   }
@@ -349,7 +356,7 @@ class WorkbookWriter {
     return new Promise(resolve => {
       const coreXform = new CoreXform();
       const xml = coreXform.toXml(this);
-      this._addFile(xml, 'docProps/core.xml');
+      this._addFile(xml, "docProps/core.xml");
       resolve();
     });
   }
@@ -359,7 +366,7 @@ class WorkbookWriter {
       return new Promise(resolve => {
         const sharedStringsXform = new SharedStringsXform();
         const xml = sharedStringsXform.toXml(this.sharedStrings);
-        this._addFile(xml, 'xl/sharedStrings.xml');
+        this._addFile(xml, "xl/sharedStrings.xml");
         resolve();
       });
     }
@@ -369,14 +376,14 @@ class WorkbookWriter {
   addWorkbookRels(): Promise<void> {
     let count = 1;
     const relationships = [
-      { Id: `rId${count++}`, Type: RelType.Styles, Target: 'styles.xml' },
-      { Id: `rId${count++}`, Type: RelType.Theme, Target: 'theme/theme1.xml' },
+      { Id: `rId${count++}`, Type: RelType.Styles, Target: "styles.xml" },
+      { Id: `rId${count++}`, Type: RelType.Theme, Target: "theme/theme1.xml" }
     ];
     if (this.sharedStrings.count) {
       relationships.push({
         Id: `rId${count++}`,
         Type: RelType.SharedStrings,
-        Target: 'sharedStrings.xml',
+        Target: "sharedStrings.xml"
       });
     }
     this._worksheets.forEach(worksheet => {
@@ -385,14 +392,14 @@ class WorkbookWriter {
         relationships.push({
           Id: worksheet.rId,
           Type: RelType.Worksheet,
-          Target: `worksheets/sheet${worksheet.id}.xml`,
+          Target: `worksheets/sheet${worksheet.id}.xml`
         });
       }
     });
     return new Promise(resolve => {
       const xform = new RelationshipsXform();
       const xml = xform.toXml(relationships);
-      this._addFile(xml, 'xl/_rels/workbook.xml.rels');
+      this._addFile(xml, "xl/_rels/workbook.xml.rels");
       resolve();
     });
   }
@@ -403,13 +410,13 @@ class WorkbookWriter {
       definedNames: this._definedNames.model,
       views: this.views,
       properties: {},
-      calcProperties: {},
+      calcProperties: {}
     };
 
     return new Promise(resolve => {
       const xform = new WorkbookXform();
       xform.prepare(model);
-      this._addFile(xform.toXml(model), 'xl/workbook.xml');
+      this._addFile(xform.toXml(model), "xl/workbook.xml");
       resolve();
     });
   }
@@ -417,17 +424,17 @@ class WorkbookWriter {
   _finalize(): Promise<any> {
     return new Promise((resolve, reject) => {
       const onError = (err: Error) => {
-        this.stream.removeListener('finish', onFinish);
+        this.stream.removeListener("finish", onFinish);
         reject(err);
       };
 
       const onFinish = () => {
-        this.stream.removeListener('error', onError);
+        this.stream.removeListener("error", onError);
         resolve(this);
       };
 
-      this.stream.once('error', onError);
-      this.stream.once('finish', onFinish);
+      this.stream.once("error", onError);
+      this.stream.once("finish", onFinish);
 
       // fflate Zip doesn't have 'error' event or 'finalize' method
       // Just end the zip by calling end()
