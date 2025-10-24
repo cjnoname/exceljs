@@ -49,9 +49,13 @@ if ! command -v npm >/dev/null 2>&1 && command -v pnpm >/dev/null 2>&1; then
 fi
 
 echo "▶ Running $PKG_MGR run check ..."
+START_TIME=$(date +%s)
+
 $PKG_MGR run check || {
   echo "\n❌ Pre-push hook: $PKG_MGR run check failed. Fix issues before pushing." >&2
   exit 1
 }
 
-echo "✅ Pre-push hook: checks passed. Proceeding with git push."
+END_TIME=$(date +%s)
+ELAPSED=$((END_TIME - START_TIME))
+echo "✅ Pre-push hook: checks passed in ${ELAPSED}s. Proceeding with git push."
