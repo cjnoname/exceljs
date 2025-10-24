@@ -29,15 +29,7 @@ interface ColumnModel {
 // This includes header rows, widths, key, (style), etc.
 // Worksheet will condense the columns as appropriate during serialization
 class Column {
-  public _worksheet: any;
-  public _number: number;
-  public _header: any;
-  public _key: string | undefined;
-  public width: number | undefined;
-  public _hidden: boolean | undefined;
-  public _outlineLevel: number | undefined;
-  public style: any;
-
+  [key: string]: any;
   constructor(worksheet: any, number: number, defn?: any) {
     this._worksheet = worksheet;
     this._number = number;
