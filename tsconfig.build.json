@@ -4,9 +4,8 @@
   "exclude": [
     "node_modules",
     "**/*.d.ts",
-    "**/*.spec.ts",
     "**/*.test.ts",
-    "spec",
+    "src/__test__",
     "test",
     "vitest.config.ts",
     "vitest.browser.config.ts",

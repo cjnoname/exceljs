@@ -1,39 +1,39 @@
-import { defineConfig } from 'vitest/config';
-import tsconfigPaths from 'vite-tsconfig-paths';
-import { Buffer } from 'buffer';
-import { playwright } from '@vitest/browser-playwright';
+import { defineConfig } from "vitest/config";
+import tsconfigPaths from "vite-tsconfig-paths";
+import { Buffer } from "buffer";
+import { playwright } from "@vitest/browser-playwright";
 
 export default defineConfig({
   plugins: [tsconfigPaths()],
   resolve: {
-    extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
+    extensions: [".ts", ".tsx", ".js", ".jsx", ".json"],
     alias: {
       // Use browser version of the library
-      './exceljs.nodejs': './exceljs.browser',
-      buffer: 'buffer',
-    },
+      "./exceljs.nodejs": "./exceljs.browser",
+      buffer: "buffer"
+    }
   },
   optimizeDeps: {
-    include: ['buffer'],
+    include: ["buffer"]
   },
   define: {
-    global: 'globalThis', // In browser, global equals globalThis
-    'global.Buffer': Buffer,
-    require: '(m => m)', // Simple require polyfill
+    global: "globalThis", // In browser, global equals globalThis
+    "global.Buffer": Buffer,
+    require: "(m => m)" // Simple require polyfill
   },
   test: {
     globals: true,
-    setupFiles: ['./spec/browser/setup.ts'],
+    setupFiles: ["./src/__test__/browser/setup.ts"],
     browser: {
       enabled: true,
       provider: playwright(),
       headless: true,
       instances: [
         {
-          browser: 'chromium',
-        },
-      ],
+          browser: "chromium"
+        }
+      ]
     },
-    include: ['spec/browser/**/*.vitest.spec.ts'],
-  },
+    include: ["src/__test__/browser/**/*.test.ts"]
+  }
 });
