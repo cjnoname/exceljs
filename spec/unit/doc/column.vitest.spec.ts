@@ -1,10 +1,10 @@
 import { describe, it, expect } from 'vitest';
-import { createSheetMock } from '../../utils/vitest-utils.js';
+import { testUtils } from '../../utils/index.js';
 import { Column } from '../../../src/doc/column.js';
 
 describe('Column', () => {
   it('creates by defn', () => {
-    const sheet = createSheetMock();
+    const sheet = testUtils.createSheetMock();
 
     sheet.addColumn(1, {
       header: 'Col 1',
@@ -22,7 +22,7 @@ describe('Column', () => {
   });
 
   it('maintains properties', () => {
-    const sheet = createSheetMock();
+    const sheet = testUtils.createSheetMock();
 
     const column = sheet.addColumn(1);
 
@@ -48,7 +48,7 @@ describe('Column', () => {
   });
 
   it('creates model', () => {
-    const sheet = createSheetMock();
+    const sheet = testUtils.createSheetMock();
 
     sheet.addColumn(1, {
       header: 'Col 1',
@@ -80,7 +80,7 @@ describe('Column', () => {
   });
 
   it('gets column values', () => {
-    const sheet = createSheetMock();
+    const sheet = testUtils.createSheetMock();
     sheet.getCell(1, 1).value = 'a';
     sheet.getCell(2, 1).value = 'b';
     sheet.getCell(4, 1).value = 'd';
@@ -88,7 +88,7 @@ describe('Column', () => {
     expect(sheet.getColumn(1).values).toEqual([, 'a', 'b', , 'd']);
   });
   it('sets column values', () => {
-    const sheet = createSheetMock();
+    const sheet = testUtils.createSheetMock();
 
     sheet.getColumn(1).values = [2, 3, 5, 7, 11];
 
@@ -100,7 +100,7 @@ describe('Column', () => {
     expect(sheet.getCell(6, 1).value).toBe(null);
   });
   it('sets sparse column values', () => {
-    const sheet = createSheetMock();
+    const sheet = testUtils.createSheetMock();
     const values = [];
     values[2] = 2;
     values[3] = 3;
@@ -122,7 +122,7 @@ describe('Column', () => {
     expect(sheet.getCell(12, 1).value).toBe(null);
   });
   it('sets sparse column values', () => {
-    const sheet = createSheetMock();
+    const sheet = testUtils.createSheetMock();
     sheet.getColumn(1).values = [, , 2, 3, , 5, , 7, , , , 11];
 
     expect(sheet.getCell(1, 1).value).toBe(null);
@@ -139,7 +139,7 @@ describe('Column', () => {
     expect(sheet.getCell(12, 1).value).toBe(null);
   });
   it('sets default column width', () => {
-    const sheet = createSheetMock();
+    const sheet = testUtils.createSheetMock();
 
     sheet.addColumn(1, {
       header: 'Col 1',

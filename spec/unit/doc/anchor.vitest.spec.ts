@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-import { createSheetMock } from '../../utils/vitest-utils.js';
+import { testUtils } from '../../utils/index.js';
 import { Anchor } from '../../../src/doc/anchor.js';
 
 describe('Anchor', () => {
@@ -9,11 +9,11 @@ describe('Anchor', () => {
       expect(anchor.colWidth).toBe(640000);
     });
     it('should colWidth equals 640000 when column has not set custom width', () => {
-      const anchor = new Anchor(createSheetMock());
+      const anchor = new Anchor(testUtils.createSheetMock());
       expect(anchor.colWidth).toBe(640000);
     });
     it('should colWidth equals column width', () => {
-      const worksheet = createSheetMock();
+      const worksheet = testUtils.createSheetMock();
       const anchor = new Anchor(worksheet);
       worksheet.addColumn(anchor.nativeCol + 1, {
         width: 10,
@@ -27,11 +27,11 @@ describe('Anchor', () => {
       expect(anchor.rowHeight).toBe(180000);
     });
     it('should rowHeight equals 180000 when row has not set height', () => {
-      const anchor = new Anchor(createSheetMock());
+      const anchor = new Anchor(testUtils.createSheetMock());
       expect(anchor.rowHeight).toBe(180000);
     });
     it('should rowHeight equals row height', () => {
-      const worksheet = createSheetMock();
+      const worksheet = testUtils.createSheetMock();
       worksheet.getRow(1).height = 10;
 
       const anchor = new Anchor(worksheet);
@@ -43,7 +43,7 @@ describe('Anchor', () => {
     let anchor: any;
 
     beforeEach(() => {
-      worksheet = createSheetMock();
+      worksheet = testUtils.createSheetMock();
       worksheet.getColumn(1).width = 20;
       worksheet.getRow(1).height = 20;
 

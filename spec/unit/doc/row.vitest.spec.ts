@@ -1,10 +1,10 @@
-import { describe, it, expect } from 'vitest';
-import { createSheetMock } from '../../utils/vitest-utils.js';
+import { describe, it, expect, beforeEach } from 'vitest';
+import { testUtils } from '../../utils/index.js';
 import { Enums } from '../../../src/doc/enums.js';
 
 describe('Row', () => {
   it('stores cells', () => {
-    const sheet = createSheetMock();
+    const sheet = testUtils.createSheetMock();
     sheet.addColumn(1, { key: 'name' });
 
     const row1 = sheet.getRow(1);
@@ -61,7 +61,7 @@ describe('Row', () => {
   });
 
   it('stores values by whole row', () => {
-    const sheet = createSheetMock();
+    const sheet = testUtils.createSheetMock();
     sheet.addColumn(1, { key: 'id' });
     sheet.addColumn(2, { key: 'name' });
     sheet.addColumn(3, { key: 'dob' });
@@ -104,7 +104,7 @@ describe('Row', () => {
 
   describe('Splice', () => {
     it('remove only', () => {
-      const sheet = createSheetMock();
+      const sheet = testUtils.createSheetMock();
       const row = sheet.getRow(1);
 
       row.getCell(2).value = 2;
@@ -127,7 +127,7 @@ describe('Row', () => {
     });
 
     it('remove to end', () => {
-      const sheet = createSheetMock();
+      const sheet = testUtils.createSheetMock();
       const row = sheet.getRow(1);
 
       row.getCell(1).value = 1;
@@ -146,7 +146,7 @@ describe('Row', () => {
     });
 
     it('remove almost to end', () => {
-      const sheet = createSheetMock();
+      const sheet = testUtils.createSheetMock();
       const row = sheet.getRow(1);
 
       row.getCell(1).value = 1;
@@ -166,7 +166,7 @@ describe('Row', () => {
     });
 
     it('remove past end', () => {
-      const sheet = createSheetMock();
+      const sheet = testUtils.createSheetMock();
       const row = sheet.getRow(1);
 
       row.getCell(1).value = 1;
@@ -188,7 +188,7 @@ describe('Row', () => {
     });
 
     it('remove and insert fewer', () => {
-      const sheet = createSheetMock();
+      const sheet = testUtils.createSheetMock();
       const row = sheet.getRow(1);
       row.values = [1, 2, 3, 4, 5, 6, 7, 8];
       row.splice(4, 3, 'four', 'five');
@@ -196,7 +196,7 @@ describe('Row', () => {
     });
 
     it('remove and insert replacements', () => {
-      const sheet = createSheetMock();
+      const sheet = testUtils.createSheetMock();
       const row = sheet.getRow(1);
       row.values = [1, 2, 3, 4, 5, 6, 7, 8];
       row.splice(4, 3, 'four', 'five', 'six');
@@ -204,7 +204,7 @@ describe('Row', () => {
     });
 
     it('remove and insert more', () => {
-      const sheet = createSheetMock();
+      const sheet = testUtils.createSheetMock();
       const row = sheet.getRow(1);
       row.values = [1, 2, 3, 4, 5, 6, 7, 8];
       row.splice(4, 3, 'four', 'five', 'six', 'six and a half');
@@ -213,7 +213,7 @@ describe('Row', () => {
   });
 
   it('iterates over cells', () => {
-    const sheet = createSheetMock();
+    const sheet = testUtils.createSheetMock();
     const row1 = sheet.getRow(1);
 
     row1.getCell(1).value = 1;
@@ -234,7 +234,7 @@ describe('Row', () => {
   });
 
   it('builds a model', () => {
-    const sheet = createSheetMock();
+    const sheet = testUtils.createSheetMock();
     const row1 = sheet.getRow(1);
     row1.getCell(1).value = 5;
     row1.getCell(2).value = 'Hello, World!';
@@ -293,7 +293,7 @@ describe('Row', () => {
   });
 
   it('builds from model', () => {
-    const sheet = createSheetMock();
+    const sheet = testUtils.createSheetMock();
     const row1 = sheet.getRow(1);
     row1.model = {
       cells: [
@@ -334,7 +334,7 @@ describe('Row', () => {
   });
 
   it('counts cells', () => {
-    const sheet = createSheetMock();
+    const sheet = testUtils.createSheetMock();
     const row1 = sheet.getRow(1);
 
     row1.getCell(1).value = 'one';

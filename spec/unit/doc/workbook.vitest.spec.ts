@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { styles } from '../../utils/vitest-utils.js';
+import { testUtils } from '../../utils/index.js';
 import { Workbook, WorkbookWriter, WorkbookReader } from '../../../src/index.js';
 import { Enums } from '../../../src/doc/enums.js';
 
@@ -220,20 +220,20 @@ describe('Workbook', () => {
       const wb = new Workbook();
       const ws = wb.addWorksheet('blort');
       ws.getCell('A1').value = '1.1';
-      ws.getCell('A1').font = styles.fonts.arialBlackUI14;
+      ws.getCell('A1').font =  testUtils.styles.fonts.arialBlackUI14;
       ws.getCell('B1').value = '1.2';
-      ws.getCell('B1').font = styles.fonts.comicSansUdB16;
+      ws.getCell('B1').font =  testUtils.styles.fonts.comicSansUdB16;
       ws.getCell('C1').value = '1.3';
-      ws.getCell('C1').fill = styles.fills.redDarkVertical;
-      ws.getRow(1).numFmt = styles.numFmts.numFmt1;
+      ws.getCell('C1').fill =  testUtils.styles.fills.redDarkVertical;
+      ws.getRow(1).numFmt =  testUtils.styles.numFmts.numFmt1;
 
       ws.getCell('A2').value = '2.1';
-      ws.getCell('A2').alignment = styles.namedAlignments.topLeft;
+      ws.getCell('A2').alignment =  testUtils.styles.namedAlignments.topLeft;
       ws.getCell('B2').value = '2.2';
-      ws.getCell('B2').alignment = styles.namedAlignments.middleCentre;
+      ws.getCell('B2').alignment =  testUtils.styles.namedAlignments.middleCentre;
       ws.getCell('C2').value = '2.3';
-      ws.getCell('C2').alignment = styles.namedAlignments.bottomRight;
-      ws.getRow(2).numFmt = styles.numFmts.numFmt2;
+      ws.getCell('C2').alignment =  testUtils.styles.namedAlignments.bottomRight;
+      ws.getRow(2).numFmt =  testUtils.styles.numFmts.numFmt2;
 
       ws.duplicateRow(1, 2, true);
       expect(ws.getRow(1).values).toEqual([, '1.1', '1.2', '1.3']);
@@ -242,46 +242,46 @@ describe('Workbook', () => {
       expect(ws.getRow(4).values).toEqual([, '2.1', '2.2', '2.3']);
 
       for (let i = 1; i <= 3; i++) {
-        expect(ws.getCell(`A${i}`).font).toEqual(styles.fonts.arialBlackUI14);
-        expect(ws.getCell(`B${i}`).font).toEqual(styles.fonts.comicSansUdB16);
-        expect(ws.getCell(`C${i}`).fill).toEqual(styles.fills.redDarkVertical);
+        expect(ws.getCell(`A${i}`).font).toEqual( testUtils.styles.fonts.arialBlackUI14);
+        expect(ws.getCell(`B${i}`).font).toEqual( testUtils.styles.fonts.comicSansUdB16);
+        expect(ws.getCell(`C${i}`).fill).toEqual( testUtils.styles.fills.redDarkVertical);
       }
-      expect(ws.getCell('A4').alignment).toEqual(styles.namedAlignments.topLeft);
-      expect(ws.getCell('B4').alignment).toEqual(styles.namedAlignments.middleCentre);
-      expect(ws.getCell('C4').alignment).toEqual(styles.namedAlignments.bottomRight);
+      expect(ws.getCell('A4').alignment).toEqual( testUtils.styles.namedAlignments.topLeft);
+      expect(ws.getCell('B4').alignment).toEqual( testUtils.styles.namedAlignments.middleCentre);
+      expect(ws.getCell('C4').alignment).toEqual( testUtils.styles.namedAlignments.bottomRight);
 
-      expect(ws.getRow(1).numFmt).toBe(styles.numFmts.numFmt1);
-      expect(ws.getRow(2).numFmt).toBe(styles.numFmts.numFmt1);
-      expect(ws.getRow(3).numFmt).toBe(styles.numFmts.numFmt1);
-      expect(ws.getRow(4).numFmt).toBe(styles.numFmts.numFmt2);
+      expect(ws.getRow(1).numFmt).toBe( testUtils.styles.numFmts.numFmt1);
+      expect(ws.getRow(2).numFmt).toBe( testUtils.styles.numFmts.numFmt1);
+      expect(ws.getRow(3).numFmt).toBe( testUtils.styles.numFmts.numFmt1);
+      expect(ws.getRow(4).numFmt).toBe( testUtils.styles.numFmts.numFmt2);
     });
 
     it('overwrites with duplicates', () => {
       const wb = new Workbook();
       const ws = wb.addWorksheet('blort');
       ws.getCell('A1').value = '1.1';
-      ws.getCell('A1').font = styles.fonts.arialBlackUI14;
+      ws.getCell('A1').font =  testUtils.styles.fonts.arialBlackUI14;
       ws.getCell('B1').value = '1.2';
-      ws.getCell('B1').font = styles.fonts.comicSansUdB16;
+      ws.getCell('B1').font =  testUtils.styles.fonts.comicSansUdB16;
       ws.getCell('C1').value = '1.3';
-      ws.getCell('C1').fill = styles.fills.redDarkVertical;
-      ws.getRow(1).numFmt = styles.numFmts.numFmt1;
+      ws.getCell('C1').fill =  testUtils.styles.fills.redDarkVertical;
+      ws.getRow(1).numFmt =  testUtils.styles.numFmts.numFmt1;
 
       ws.getCell('A2').value = '2.1';
-      ws.getCell('A2').alignment = styles.namedAlignments.topLeft;
+      ws.getCell('A2').alignment =  testUtils.styles.namedAlignments.topLeft;
       ws.getCell('B2').value = '2.2';
-      ws.getCell('B2').alignment = styles.namedAlignments.middleCentre;
+      ws.getCell('B2').alignment =  testUtils.styles.namedAlignments.middleCentre;
       ws.getCell('C2').value = '2.3';
-      ws.getCell('C2').alignment = styles.namedAlignments.bottomRight;
-      ws.getRow(2).numFmt = styles.numFmts.numFmt2;
+      ws.getCell('C2').alignment =  testUtils.styles.namedAlignments.bottomRight;
+      ws.getRow(2).numFmt =  testUtils.styles.numFmts.numFmt2;
 
       ws.getCell('A3').value = '3.1';
-      ws.getCell('A3').fill = styles.fills.redGreenDarkTrellis;
+      ws.getCell('A3').fill =  testUtils.styles.fills.redGreenDarkTrellis;
       ws.getCell('B3').value = '3.2';
-      ws.getCell('B3').fill = styles.fills.blueWhiteHGrad;
+      ws.getCell('B3').fill =  testUtils.styles.fills.blueWhiteHGrad;
       ws.getCell('C3').value = '3.3';
-      ws.getCell('C3').fill = styles.fills.rgbPathGrad;
-      ws.getRow(3).font = styles.fonts.broadwayRedOutline20;
+      ws.getCell('C3').fill =  testUtils.styles.fills.rgbPathGrad;
+      ws.getRow(3).font =  testUtils.styles.fonts.broadwayRedOutline20;
 
       ws.duplicateRow(1, 1, false);
       expect(ws.getRow(1).values).toEqual([, '1.1', '1.2', '1.3']);
@@ -289,18 +289,18 @@ describe('Workbook', () => {
       expect(ws.getRow(3).values).toEqual([, '3.1', '3.2', '3.3']);
 
       for (let i = 1; i <= 2; i++) {
-        expect(ws.getCell(`A${i}`).font).toEqual(styles.fonts.arialBlackUI14);
+        expect(ws.getCell(`A${i}`).font).toEqual( testUtils.styles.fonts.arialBlackUI14);
         expect(ws.getCell(`A${i}`).alignment).toBeUndefined();
-        expect(ws.getCell(`B${i}`).font).toEqual(styles.fonts.comicSansUdB16);
+        expect(ws.getCell(`B${i}`).font).toEqual( testUtils.styles.fonts.comicSansUdB16);
         expect(ws.getCell(`B${i}`).alignment).toBeUndefined();
-        expect(ws.getCell(`C${i}`).fill).toEqual(styles.fills.redDarkVertical);
+        expect(ws.getCell(`C${i}`).fill).toEqual( testUtils.styles.fills.redDarkVertical);
         expect(ws.getCell(`C${i}`).alignment).toBeUndefined();
       }
 
-      expect(ws.getRow(1).numFmt).toBe(styles.numFmts.numFmt1);
-      expect(ws.getRow(2).numFmt).toBe(styles.numFmts.numFmt1);
+      expect(ws.getRow(1).numFmt).toBe( testUtils.styles.numFmts.numFmt1);
+      expect(ws.getRow(2).numFmt).toBe( testUtils.styles.numFmts.numFmt1);
       expect(ws.getRow(3).numFmt).toBeUndefined();
-      expect(ws.getRow(3).font).toEqual(styles.fonts.broadwayRedOutline20);
+      expect(ws.getRow(3).font).toEqual( testUtils.styles.fonts.broadwayRedOutline20);
     });
   });
 });

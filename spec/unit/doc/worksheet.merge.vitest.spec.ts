@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { styles } from '../../utils/vitest-utils.js';
+import { testUtils } from '../../utils/index.js';
 import { Workbook, WorkbookWriter, WorkbookReader } from '../../../src/index.js';
 import { Dimensions } from '../../../src/doc/range.js';
 import { Enums } from '../../../src/doc/enums.js';
@@ -140,38 +140,38 @@ describe('Worksheet', () => {
       // initial value
       const B2 = ws.getCell('B2');
       B2.value = 5;
-      B2.style.font = styles.fonts.broadwayRedOutline20;
-      B2.style.border = styles.borders.doubleRed;
-      B2.style.fill = styles.fills.blueWhiteHGrad;
-      B2.style.alignment = styles.namedAlignments.middleCentre;
-      B2.style.numFmt = styles.numFmts.numFmt1;
+      B2.style.font =  testUtils.styles.fonts.broadwayRedOutline20;
+      B2.style.border =  testUtils.styles.borders.doubleRed;
+      B2.style.fill =  testUtils.styles.fills.blueWhiteHGrad;
+      B2.style.alignment =  testUtils.styles.namedAlignments.middleCentre;
+      B2.style.numFmt =  testUtils.styles.numFmts.numFmt1;
 
       // expecting styles to be copied (see worksheet spec)
       ws.mergeCells('B2:C3');
 
-      expect(ws.getCell('B2').font).toEqual(styles.fonts.broadwayRedOutline20);
-      expect(ws.getCell('B2').border).toEqual(styles.borders.doubleRed);
-      expect(ws.getCell('B2').fill).toEqual(styles.fills.blueWhiteHGrad);
-      expect(ws.getCell('B2').alignment).toEqual(styles.namedAlignments.middleCentre);
-      expect(ws.getCell('B2').numFmt).toEqual(styles.numFmts.numFmt1);
+      expect(ws.getCell('B2').font).toEqual( testUtils.styles.fonts.broadwayRedOutline20);
+      expect(ws.getCell('B2').border).toEqual( testUtils.styles.borders.doubleRed);
+      expect(ws.getCell('B2').fill).toEqual( testUtils.styles.fills.blueWhiteHGrad);
+      expect(ws.getCell('B2').alignment).toEqual( testUtils.styles.namedAlignments.middleCentre);
+      expect(ws.getCell('B2').numFmt).toEqual( testUtils.styles.numFmts.numFmt1);
 
-      expect(ws.getCell('B3').font).toEqual(styles.fonts.broadwayRedOutline20);
-      expect(ws.getCell('B3').border).toEqual(styles.borders.doubleRed);
-      expect(ws.getCell('B3').fill).toEqual(styles.fills.blueWhiteHGrad);
-      expect(ws.getCell('B3').alignment).toEqual(styles.namedAlignments.middleCentre);
-      expect(ws.getCell('B3').numFmt).toEqual(styles.numFmts.numFmt1);
+      expect(ws.getCell('B3').font).toEqual( testUtils.styles.fonts.broadwayRedOutline20);
+      expect(ws.getCell('B3').border).toEqual( testUtils.styles.borders.doubleRed);
+      expect(ws.getCell('B3').fill).toEqual( testUtils.styles.fills.blueWhiteHGrad);
+      expect(ws.getCell('B3').alignment).toEqual( testUtils.styles.namedAlignments.middleCentre);
+      expect(ws.getCell('B3').numFmt).toEqual( testUtils.styles.numFmts.numFmt1);
 
-      expect(ws.getCell('C2').font).toEqual(styles.fonts.broadwayRedOutline20);
-      expect(ws.getCell('C2').border).toEqual(styles.borders.doubleRed);
-      expect(ws.getCell('C2').fill).toEqual(styles.fills.blueWhiteHGrad);
-      expect(ws.getCell('C2').alignment).toEqual(styles.namedAlignments.middleCentre);
-      expect(ws.getCell('C2').numFmt).toEqual(styles.numFmts.numFmt1);
+      expect(ws.getCell('C2').font).toEqual( testUtils.styles.fonts.broadwayRedOutline20);
+      expect(ws.getCell('C2').border).toEqual( testUtils.styles.borders.doubleRed);
+      expect(ws.getCell('C2').fill).toEqual( testUtils.styles.fills.blueWhiteHGrad);
+      expect(ws.getCell('C2').alignment).toEqual( testUtils.styles.namedAlignments.middleCentre);
+      expect(ws.getCell('C2').numFmt).toEqual( testUtils.styles.numFmts.numFmt1);
 
-      expect(ws.getCell('C3').font).toEqual(styles.fonts.broadwayRedOutline20);
-      expect(ws.getCell('C3').border).toEqual(styles.borders.doubleRed);
-      expect(ws.getCell('C3').fill).toEqual(styles.fills.blueWhiteHGrad);
-      expect(ws.getCell('C3').alignment).toEqual(styles.namedAlignments.middleCentre);
-      expect(ws.getCell('C3').numFmt).toEqual(styles.numFmts.numFmt1);
+      expect(ws.getCell('C3').font).toEqual( testUtils.styles.fonts.broadwayRedOutline20);
+      expect(ws.getCell('C3').border).toEqual( testUtils.styles.borders.doubleRed);
+      expect(ws.getCell('C3').fill).toEqual( testUtils.styles.fills.blueWhiteHGrad);
+      expect(ws.getCell('C3').alignment).toEqual( testUtils.styles.namedAlignments.middleCentre);
+      expect(ws.getCell('C3').numFmt).toEqual( testUtils.styles.numFmts.numFmt1);
     });
 
     it('preserves merges after row inserts', function () {

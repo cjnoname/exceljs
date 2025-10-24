@@ -14,7 +14,7 @@ import pageSetup from './data/page-setup.json' with { type: 'json' };
 import conditionalFormattingData from './data/conditional-formatting.json' with { type: 'json' };
 import headerFooter from './data/header-footer.json' with { type: 'json' };
 import { expect } from 'vitest';
-import { get } from './under-dash';
+import { get } from '../../src/utils/under-dash';
 
 const testSheets = {
   dataValidations,
@@ -107,52 +107,52 @@ const testUtils = {
 
   checkTestBookReader: testWorkbookReader.checkBook,
 
-  createSheetMock() {
+  createSheetMock(): any {
     return {
-      _keys: {},
-      _cells: {},
-      rows: [],
-      columns: [],
+      _keys: {} as Record<string, any>,
+      _cells: {} as Record<string, any>,
+      rows: [] as any[],
+      columns: [] as any[],
       properties: {
         outlineLevelCol: 0,
         outlineLevelRow: 0,
       },
 
-      addColumn(colNumber, defn) {
+      addColumn(colNumber: number, defn?: any) {
         const newColumn = new Column(this, colNumber, defn);
         this.columns[colNumber - 1] = newColumn;
         return newColumn;
       },
-      getColumn(colNumber) {
-        let column = this.columns[colNumber - 1] || this._keys[colNumber];
+      getColumn(colNumber: number | string) {
+        let column = this.columns[(colNumber as number) - 1] || this._keys[colNumber];
         if (!column) {
-          column = this.columns[colNumber - 1] = new Column(this, colNumber);
+          column = this.columns[(colNumber as number) - 1] = new Column(this, colNumber as number);
         }
         return column;
       },
-      getRow(rowNumber) {
+      getRow(rowNumber: number) {
         let row = this.rows[rowNumber - 1];
         if (!row) {
           row = this.rows[rowNumber - 1] = new Row(this, rowNumber);
         }
         return row;
       },
-      getCell(rowNumber, colNumber) {
+      getCell(rowNumber: number, colNumber: number) {
         return this.getRow(rowNumber).getCell(colNumber);
       },
-      getColumnKey(key) {
+      getColumnKey(key: string) {
         return this._keys[key];
       },
-      setColumnKey(key, value) {
+      setColumnKey(key: string, value: any) {
         this._keys[key] = value;
       },
-      deleteColumnKey(key) {
+      deleteColumnKey(key: string) {
         delete this._keys[key];
       },
-      eachColumnKey(f) {
+      eachColumnKey(f: (column: any, key: string) => void) {
         Object.entries(this._keys).forEach(([key, value]) => f(value, key));
       },
-      eachRow(opt, f) {
+      eachRow(opt: any, f?: (row: any, index: number) => void) {
         if (!f) {
           f = opt;
           opt = {};
@@ -160,12 +160,12 @@ const testUtils = {
         if (opt && opt.includeEmpty) {
           const n = this.rows.length;
           for (let i = 1; i <= n; i++) {
-            f(this.getRow(i), i);
+            f!(this.getRow(i), i);
           }
         } else {
-          this.rows.forEach((r, i) => {
+          this.rows.forEach((r: any, i: number) => {
             if (r) {
-              f(r, i + 1);
+              f!(r, i + 1);
             }
           });
         }
