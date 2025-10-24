@@ -23,15 +23,15 @@ ExcelTS is a modernized fork of [ExcelJS](https://github.com/exceljs/exceljs) wi
 ## Installation
 
 ```shell
-npm install excelts
+npm install @cj-tech-master/excelts
 ```
 
 ```shell
-pnpm add excelts
+pnpm add @cj-tech-master/excelts
 ```
 
 ```shell
-yarn add excelts
+yarn add @cj-tech-master/excelts
 ```
 
 ## Quick Start
@@ -39,7 +39,7 @@ yarn add excelts
 ### Creating a Workbook
 
 ```javascript
-import { Workbook } from "excelts";
+import { Workbook } from "@cj-tech-master/excelts";
 
 const workbook = new Workbook();
 const sheet = workbook.addWorksheet("My Sheet");
@@ -56,7 +56,7 @@ await workbook.xlsx.writeFile("output.xlsx");
 ### Reading a Workbook
 
 ```javascript
-import { Workbook } from "excelts";
+import { Workbook } from "@cj-tech-master/excelts";
 
 const workbook = new Workbook();
 await workbook.xlsx.readFile("input.xlsx");
@@ -119,7 +119,7 @@ ExcelTS supports both Node.js and browser environments:
 
 ```javascript
 // Browser usage
-import { Workbook } from "excelts/browser";
+import { Workbook } from "@cj-tech-master/excelts/browser";
 
 const workbook = new Workbook();
 // ... use workbook API

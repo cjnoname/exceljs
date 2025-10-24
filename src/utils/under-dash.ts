@@ -128,7 +128,12 @@ export function deepMerge<T = any>(...args: any[]): T {
       if (Array.isArray(arg)) {
         arg.forEach((val, index) => assignValue(val, index));
       } else {
-        Object.entries(arg).forEach(([key, val]) => assignValue(val, key));
+        Object.entries(arg).forEach(([key, val]) => {
+          // Prevent prototype pollution
+          if (key !== "__proto__" && key !== "constructor" && key !== "prototype") {
+            assignValue(val, key);
+          }
+        });
       }
     }
   }

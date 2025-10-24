@@ -52,7 +52,7 @@ jobs:
           npm version ${CANARY_VERSION} --no-git-tag-version
 
       - name: Publish canary to npm
-        run: pnpm publish --tag canary --no-git-checks
+        run: pnpm publish --tag canary --no-git-checks --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
@@ -64,7 +64,7 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               commit_sha: context.sha,
-              body: `🚀 Canary version published: \`${{ steps.canary_version.outputs.version }}\`\n\nInstall with: \`npm install excelts@canary\``
+              body: `🚀 Canary version published: \`${{ steps.canary_version.outputs.version }}\`\n\nInstall with: \`npm install @cj-tech-master/excelts@canary\``
             })
 
   # Stable release on tag push
@@ -98,7 +98,7 @@ jobs:
         run: pnpm run build
 
       - name: Publish stable to npm
-        run: pnpm publish --no-git-checks
+        run: pnpm publish --no-git-checks --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 

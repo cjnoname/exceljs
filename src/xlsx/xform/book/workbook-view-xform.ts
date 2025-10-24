@@ -30,13 +30,13 @@ class WorkbookViewXform extends BaseXform {
     if (node.name === 'workbookView') {
       const model: any = (this.model = {});
       const addS = function (name: string, value: string | undefined, dflt: string | undefined): void {
-        const s = value !== undefined ? (model[name] = value) : dflt;
+        const s = value !== undefined ? value : dflt;
         if (s !== undefined) {
           model[name] = s;
         }
       };
       const addN = function (name: string, value: string | undefined, dflt: number | undefined): void {
-        const n = value !== undefined ? (model[name] = parseInt(value, 10)) : dflt;
+        const n = value !== undefined ? parseInt(value, 10) : dflt;
         if (n !== undefined) {
           model[name] = n;
         }

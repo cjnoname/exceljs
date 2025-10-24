@@ -24,8 +24,8 @@ class StreamConverter {
     this.inner = inner;
 
     options = options || {};
-    this.innerEncoding = (options.innerEncoding || 'UTF8').toUpperCase();
-    this.outerEncoding = (options.outerEncoding || 'UTF8').toUpperCase();
+    this.innerEncoding = (options.innerEncoding || "UTF8").toUpperCase();
+    this.outerEncoding = (options.outerEncoding || "UTF8").toUpperCase();
 
     this.innerBOM = options.innerBOM || null;
     this.outerBOM = options.outerBOM || null;
@@ -36,13 +36,13 @@ class StreamConverter {
   convertInwards(data: string | Buffer): Buffer | undefined {
     if (data) {
       let buffer: Buffer;
-      if (typeof data === 'string') {
+      if (typeof data === "string") {
         buffer = Buffer.from(data, this.outerEncoding as BufferEncoding);
       } else {
         buffer = data;
       }
 
-      if (this.innerEncoding !== this.outerEncoding) {
+      if (this.innerEncoding !== this.outerEncoding && jconv) {
         buffer = jconv.convert(buffer, this.outerEncoding, this.innerEncoding);
       }
 
@@ -54,13 +54,13 @@ class StreamConverter {
 
   convertOutwards(data: string | Buffer): Buffer {
     let buffer: Buffer;
-    if (typeof data === 'string') {
+    if (typeof data === "string") {
       buffer = Buffer.from(data, this.innerEncoding as BufferEncoding);
     } else {
       buffer = data;
     }
 
-    if (this.innerEncoding !== this.outerEncoding) {
+    if (this.innerEncoding !== this.outerEncoding && jconv) {
       buffer = jconv.convert(buffer, this.innerEncoding, this.outerEncoding);
     }
     return buffer;
@@ -74,7 +74,11 @@ class StreamConverter {
     this.inner.removeListener(event, handler);
   }
 
-  write(data: string | Buffer, encoding?: BufferEncoding | (() => void), callback?: () => void): void {
+  write(
+    data: string | Buffer,
+    encoding?: BufferEncoding | (() => void),
+    callback?: () => void
+  ): void {
     if (encoding instanceof Function) {
       callback = encoding as () => void;
       encoding = undefined;
@@ -102,7 +106,11 @@ class StreamConverter {
       this.writeStarted = true;
     }
 
-    this.inner.write(this.convertInwards(data), encoding ? this.innerEncoding : undefined, callback);
+    this.inner.write(
+      this.convertInwards(data),
+      encoding ? this.innerEncoding : undefined,
+      callback
+    );
   }
 
   read(): any {
@@ -114,7 +122,7 @@ class StreamConverter {
       innerEncoding: this.outerEncoding,
       outerEncoding: this.innerEncoding,
       innerBOM: this.outerBOM,
-      outerBOM: this.innerBOM,
+      outerBOM: this.innerBOM
     });
 
     this.inner.pipe(reverseConverter, options);
@@ -126,8 +134,8 @@ class StreamConverter {
 
   on(type: string, callback: (...args: any[]) => void): this {
     switch (type) {
-      case 'data':
-        this.inner.on('data', (chunk: Buffer) => {
+      case "data":
+        this.inner.on("data", (chunk: Buffer) => {
           callback(this.convertOutwards(chunk));
         });
         return this;

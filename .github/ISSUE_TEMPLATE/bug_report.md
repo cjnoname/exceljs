@@ -18,7 +18,8 @@ Browser (if applicable): Chrome/Firefox/Safari X.Y.Z
 <!-- The exact steps required to reproduce the issue, ideally with a code example -->
 
 ```javascript
-import { Workbook } from "excelts";
+```typescript
+import { Workbook } from "@cj-tech-master/excelts";
 
 const wb = new Workbook();
 const ws = wb.addWorksheet("XYZ");

@@ -15,7 +15,7 @@ function fixImports(dir) {
 
     if (stat.isDirectory()) {
       fixImports(filePath);
-    } else if (file.endsWith(".js")) {
+    } else if (stat.isFile() && file.endsWith(".js")) {
       let content = fs.readFileSync(filePath, "utf8");
 
       // Remove .js extensions from require() calls

@@ -14,9 +14,9 @@ This project uses a **Canary Release** strategy for continuous delivery.
 **Install canary version:**
 
 ```bash
-npm install excelts@canary
+npm install @cj-tech-master/excelts@canary
 # or specific version
-npm install excelts@0.1.0-canary.20251024120530.abc1234
+npm install @cj-tech-master/excelts@0.1.0-canary.20251024120530.abc1234
 ```
 
 ### 2. **Stable** (Manual, Production)
@@ -29,9 +29,9 @@ npm install excelts@0.1.0-canary.20251024120530.abc1234
 **Install stable version:**
 
 ```bash
-npm install excelts
+npm install @cj-tech-master/excelts
 # or
-npm install excelts@latest
+npm install @cj-tech-master/excelts@latest
 ```
 
 ## 🚀 Release Workflow
@@ -99,19 +99,19 @@ Follows [Semantic Versioning](https://semver.org/):
 ### List all versions on npm
 
 ```bash
-npm view excelts versions
+npm view @cj-tech-master/excelts versions
 ```
 
 ### Check latest canary
 
 ```bash
-npm view excelts@canary version
+npm view @cj-tech-master/excelts@canary version
 ```
 
 ### Check latest stable
 
 ```bash
-npm view excelts@latest version
+npm view @cj-tech-master/excelts@latest version
 ```
 
 ## ⚙️ Setup Requirements

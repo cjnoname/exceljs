@@ -22,7 +22,7 @@ const self = {
     const ws = wb.getWorksheet('conditional-formatting');
     expect(ws).toBeDefined();
     expect(ws.conditionalFormattings).toBeDefined();
-    (ws.conditionalFormattings && ws.conditionalFormattings).forEach(item => {
+    ws.conditionalFormattings?.forEach(item => {
       const type = item.rules && item.rules[0].type;
       const conditionalFormatting = self.getConditionalFormatting(type);
       expect(item).toHaveProperty('ref');

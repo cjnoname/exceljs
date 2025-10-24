@@ -23,15 +23,15 @@ ExcelTS 是 [ExcelJS](https://github.com/exceljs/exceljs) 的现代化版本，�
 ## 安装
 
 ```shell
-npm install excelts
+npm install @cj-tech-master/excelts
 ```
 
 ```shell
-pnpm add excelts
+pnpm add @cj-tech-master/excelts
 ```
 
 ```shell
-yarn add excelts
+yarn add @cj-tech-master/excelts
 ```
 
 ## 快速开始
@@ -39,7 +39,7 @@ yarn add excelts
 ### 创建工作簿
 
 ```javascript
-import { Workbook } from "excelts";
+import { Workbook } from "@cj-tech-master/excelts";
 
 const workbook = new Workbook();
 const sheet = workbook.addWorksheet("我的工作表");
@@ -56,7 +56,7 @@ await workbook.xlsx.writeFile("output.xlsx");
 ### 读取工作簿
 
 ```javascript
-import { Workbook } from "excelts";
+import { Workbook } from "@cj-tech-master/excelts";
 
 const workbook = new Workbook();
 await workbook.xlsx.readFile("input.xlsx");
@@ -119,7 +119,7 @@ ExcelTS 同时支持 Node.js 和浏览器环境：
 
 ```javascript
 // 浏览器使用
-import { Workbook } from "excelts/browser";
+import { Workbook } from "@cj-tech-master/excelts/browser";
 
 const workbook = new Workbook();
 // ... 使用 workbook API

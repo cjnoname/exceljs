@@ -68,7 +68,7 @@ import ExcelJS from "exceljs";
 const workbook = new ExcelJS.Workbook();
 
 // After (ExcelTS)
-import { Workbook } from "excelts";
+import { Workbook } from "@cj-tech-master/excelts";
 const workbook = new Workbook();
 ```
 
@@ -79,7 +79,7 @@ const workbook = new Workbook();
 import ExcelJS from "exceljs";
 
 // After (ExcelTS)
-import { Workbook } from "excelts/browser";
+import { Workbook } from "@cj-tech-master/excelts/browser";
 // Or use IIFE build with <script> tag
 ```
 

@@ -23,6 +23,7 @@ export default defineConfig({
   },
   test: {
     globals: true,
+    testTimeout: 30000,
     setupFiles: ["./src/__test__/browser/setup.ts"],
     browser: {
       enabled: true,

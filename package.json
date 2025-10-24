@@ -1,5 +1,5 @@
 {
-  "name": "excelts",
+  "name": "@cj-tech-master/excelts",
   "version": "0.1.0",
   "description": "TypeScript Excel Workbook Manager - Read and Write xlsx and csv Files.",
   "private": false,
