@@ -1,4 +1,4 @@
-<!-- Thanks for submitting a pull request! Please provide enough information so that others can review your pull request. The two fields below are mandatory. -->
+<!-- Thanks for submitting a pull request! Please provide enough information so that others can review your pull request. -->
 
 ## Summary
 
@@ -8,6 +8,15 @@
 
 <!-- Demonstrate the code is solid. Example: The exact commands you ran and their output, screenshots / videos if the pull request changes UI. -->
 
-## Related to source code (for typings update)
+```bash
+npm run lint
+npm run type
+npm run test
+```
 
-<!-- List with permalink into source code to prove that changes are true -->
+## Checklist
+
+- [ ] Tests pass locally
+- [ ] Code follows project style (ran `npm run lint:fix`)
+- [ ] Added/updated tests for changes
+- [ ] Updated documentation if needed

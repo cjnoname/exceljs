@@ -1,4 +1,4 @@
-name: Asset size
+name: Asset Size
 
 on: [pull_request]
 
@@ -8,12 +8,30 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - uses: chrysanthos/simple-asset-size-reporter@1.0.2
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Use Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build
+        run: pnpm run build
+
+      - name: Compare asset sizes
+        uses: preactjs/compressed-size-action@v2
         with:
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
-          files: '["dist/*.js"]'
-          with-same: "false"
-          build-assets: "npm run install-build"
+          pattern: "./dist/browser/*.js"
+          exclude: "{**/*.map,**/node_modules/**}"

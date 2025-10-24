@@ -1,17 +1,18 @@
 ---
 name: 💬 Questions / Help
-title: '[Q] PLEASE USE DISCUSSIONS'
-label: ':speech_balloon: Question'
-about: https://github.com/exceljs/exceljs/discussions/categories/q-a
+title: "[Q] PLEASE USE DISCUSSIONS"
+label: ":speech_balloon: Question"
+about: https://github.com/cjnoname/exceljs/discussions/categories/q-a
 ---
 
 ## 💬 Questions and Help
 
-Please do not use issues for making a questions, for this purposes much better is GitHub Discussions feature:
-https://github.com/exceljs/exceljs/discussions/categories/q-a
+Please do not use issues for questions. Use GitHub Discussions instead:
+https://github.com/cjnoname/exceljs/discussions/categories/q-a
 
-### How to make a question?
+### How to ask a question?
 
-1. First, try to find it by using search bar - anware what are you looking for was be done before.
-2. Push the `New discussion` button.
-3. Select `Q&A` category.
+1. First, search for existing discussions - your question may have been answered before.
+2. Click the `New discussion` button.
+3. Select the `Q&A` category.
+4. Provide a clear title and detailed description.
