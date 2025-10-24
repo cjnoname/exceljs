@@ -10,8 +10,8 @@ interface SheetPropertiesModel {
 }
 
 class SheetPropertiesXform extends BaseXform {
-  public map: { [key: string]: any };
-  public parser?: any;
+  declare map: { [key: string]: any };
+  declare parser?: any;
 
   constructor() {
     super();

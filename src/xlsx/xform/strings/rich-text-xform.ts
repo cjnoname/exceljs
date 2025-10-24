@@ -19,9 +19,9 @@ interface RichTextModel {
 }
 
 class RichTextXform extends BaseXform {
-  private _textXform?: TextXform;
-  private _fontXform?: FontXform;
-  public parser: any;
+  declare private _textXform?: TextXform;
+  declare private _fontXform?: FontXform;
+  declare parser: any;
 
   constructor(model?: RichTextModel) {
     super();

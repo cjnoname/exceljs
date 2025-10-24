@@ -112,7 +112,7 @@ class Column {
 class Table {
   worksheet: any;
   table: TableModel;
-  private _cache?: CacheState;
+  declare private _cache?: CacheState;
 
   constructor(worksheet: any, table?: TableModel) {
     this.worksheet = worksheet;

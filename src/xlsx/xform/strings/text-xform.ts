@@ -3,7 +3,7 @@ import BaseXform from '../base-xform.js';
 //   <t xml:space="preserve"> is </t>
 
 class TextXform extends BaseXform {
-  private _text: string[];
+  declare private _text: string[];
 
   get tag(): string {
     return 't';

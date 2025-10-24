@@ -1,7 +1,7 @@
 // StringBuilder - a way to keep string memory operations to a minimum
 // while building the strings for the xml files
 class StringBuilder {
-  private _buf: string[];
+  declare private _buf: string[];
 
   constructor() {
     this.reset();

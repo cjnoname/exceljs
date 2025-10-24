@@ -5,10 +5,10 @@ interface LineBufferOptions {
 }
 
 class LineBuffer extends EventEmitter {
-  public encoding?: string;
-  public buffer: string | null;
-  public corked: boolean;
-  public queue: string[];
+  declare encoding?: string;
+  declare buffer: string | null;
+  declare corked: boolean;
+  declare queue: string[];
 
   constructor(options: LineBufferOptions) {
     super();

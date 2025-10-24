@@ -89,9 +89,9 @@ const mergeConditionalFormattings = (model, extModel) => {
 };
 
 class WorkSheetXform extends BaseXform {
-  public ignoreNodes: string[];
-  public parser: any;
-  public preImageId: string | undefined;
+  declare ignoreNodes: string[];
+  declare parser: any;
+  declare preImageId: string | undefined;
   static WORKSHEET_ATTRIBUTES: any;
 
   constructor(options?: any) {

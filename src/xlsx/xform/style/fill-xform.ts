@@ -30,8 +30,8 @@ interface GradientFillModel {
 type FillModel = PatternFillModel | GradientFillModel;
 
 class StopXform extends BaseXform {
-  public map: { color: ColorXform };
-  public parser: any;
+  declare map: { color: ColorXform };
+  declare parser: any;
 
   constructor() {
     super();
@@ -87,8 +87,8 @@ class StopXform extends BaseXform {
 }
 
 class PatternFillXform extends BaseXform {
-  public map: { fgColor: ColorXform; bgColor: ColorXform };
-  public parser: any;
+  declare map: { fgColor: ColorXform; bgColor: ColorXform };
+  declare parser: any;
 
   constructor() {
     super();
@@ -162,8 +162,8 @@ class PatternFillXform extends BaseXform {
 }
 
 class GradientFillXform extends BaseXform {
-  public map: { stop: StopXform };
-  public parser: any;
+  declare map: { stop: StopXform };
+  declare parser: any;
 
   constructor() {
     super();
@@ -280,8 +280,8 @@ class GradientFillXform extends BaseXform {
 
 // Fill encapsulates translation from fill model to/from xlsx
 class FillXform extends BaseXform {
-  public map: { patternFill: PatternFillXform; gradientFill: GradientFillXform };
-  public parser: any;
+  declare map: { patternFill: PatternFillXform; gradientFill: GradientFillXform };
+  declare parser: any;
 
   constructor() {
     super();

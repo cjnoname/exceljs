@@ -41,7 +41,7 @@ function fsReadFileAsync(filename: string, options?: any): Promise<Buffer> {
 }
 
 class XLSX {
-  public workbook: any;
+  declare workbook: any;
 
   constructor(workbook: any) {
     this.workbook = workbook;

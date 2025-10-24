@@ -106,30 +106,31 @@ interface WorksheetModel {
 //  Manage column widths and row heights
 
 class Worksheet {
-  public _workbook: any;
-  public id: number;
-  public orderNo: number;
-  public _name: string;
-  public state: string;
-  public _rows: any[];
-  public _columns: any[] | null;
-  public _keys: { [key: string]: any };
-  public _merges: { [key: string]: Range };
-  public rowBreaks: any[];
-  public properties: any;
-  public pageSetup: PageSetup;
-  public headerFooter: HeaderFooter;
-  public dataValidations: DataValidations;
-  public views: any[];
-  public autoFilter: any;
-  public _media: any[];
-  public sheetProtection: any;
-  public tables: { [key: string]: Table };
-  public pivotTables: any[];
-  public conditionalFormattings: any[];
-  public _headerRowCount?: number;
+  // Type declarations only - no runtime overhead
+  declare _workbook: any;
+  declare id: number;
+  declare orderNo: number;
+  declare _name: string;
+  declare state: string;
+  declare _rows: any[];
+  declare _columns: any[] | null;
+  declare _keys: { [key: string]: any };
+  declare _merges: { [key: string]: Range };
+  declare rowBreaks: any[];
+  declare properties: any;
+  declare pageSetup: PageSetup;
+  declare headerFooter: HeaderFooter;
+  declare dataValidations: DataValidations;
+  declare views: any[];
+  declare autoFilter: any;
+  declare _media: any[];
+  declare sheetProtection: any;
+  declare tables: { [key: string]: Table };
+  declare pivotTables: any[];
+  declare conditionalFormattings: any[];
+  declare _headerRowCount?: number;
 
-  constructor(options?: WorksheetOptions) {
+  constructor(options: WorksheetOptions) {
     options = options || {};
     this._workbook = options.workbook;
 

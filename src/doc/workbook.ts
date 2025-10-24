@@ -52,31 +52,31 @@ interface AddWorksheetOptions {
 //  Manage scaffolding for contained objects to write to/read from
 
 class Workbook {
-  public category: string;
-  public company: string;
-  public created: Date;
-  public description: string;
-  public keywords: string;
-  public manager: string;
-  public modified: Date;
-  public properties: any;
-  public calcProperties: any;
-  public _worksheets: Worksheet[];
-  public subject: string;
-  public title: string;
-  public views: any[];
-  public media: any[];
-  public pivotTables: any[];
-  public _definedNames: DefinedNames;
-  public creator?: string;
-  public lastModifiedBy?: string;
-  public lastPrinted?: Date;
-  public language?: string;
-  public revision?: number;
-  public contentStatus?: string;
-  public _themes?: any;
-  public _xlsx?: XLSX;
-  public _csv?: CSV;
+  declare category: string;
+  declare company: string;
+  declare created: Date;
+  declare description: string;
+  declare keywords: string;
+  declare manager: string;
+  declare modified: Date;
+  declare properties: any;
+  declare calcProperties: any;
+  declare _worksheets: Worksheet[];
+  declare subject: string;
+  declare title: string;
+  declare views: any[];
+  declare media: any[];
+  declare pivotTables: any[];
+  declare _definedNames: DefinedNames;
+  declare creator?: string;
+  declare lastModifiedBy?: string;
+  declare lastPrinted?: Date;
+  declare language?: string;
+  declare revision?: number;
+  declare contentStatus?: string;
+  declare _themes?: any;
+  declare _xlsx?: XLSX;
+  declare _csv?: CSV;
 
   constructor() {
     this.category = '';

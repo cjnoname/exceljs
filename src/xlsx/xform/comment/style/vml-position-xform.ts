@@ -1,8 +1,8 @@
 import BaseXform from '../../base-xform.js';
 
 class VmlPositionXform extends BaseXform {
-  private _model: { tag?: string };
-  public model: { [key: string]: boolean };
+  declare private _model: { tag?: string };
+  declare model: { [key: string]: boolean };
 
   constructor(model?: { tag?: string }) {
     super();

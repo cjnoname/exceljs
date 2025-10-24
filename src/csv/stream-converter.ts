@@ -13,12 +13,12 @@ interface StreamConverterOptions {
 }
 
 class StreamConverter {
-  public inner: any;
-  public innerEncoding: string;
-  public outerEncoding: string;
-  public innerBOM: Buffer | null;
-  public outerBOM: Buffer | null;
-  public writeStarted: boolean;
+  declare inner: any;
+  declare innerEncoding: string;
+  declare outerEncoding: string;
+  declare innerBOM: Buffer | null;
+  declare outerBOM: Buffer | null;
+  declare writeStarted: boolean;
 
   constructor(inner: any, options?: StreamConverterOptions) {
     this.inner = inner;

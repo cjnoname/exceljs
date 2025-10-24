@@ -18,9 +18,9 @@ interface CommentModel {
 }
 
 class CommentXform extends BaseXform {
-  public model: CommentModel;
-  public parser: any;
-  private _richTextXform?: RichTextXform;
+  declare model: CommentModel;
+  declare parser: any;
+  declare private _richTextXform?: RichTextXform;
 
   constructor(model?: CommentModel) {
     super();

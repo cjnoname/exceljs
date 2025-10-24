@@ -3,9 +3,9 @@ import CompositeXform from '../composite-xform.js';
 import ConditionalFormattingsExt from './cf-ext/conditional-formattings-ext-xform.js';
 
 class ExtXform extends CompositeXform {
-  public map!: { [key: string]: any };
-  public model!: any;
-  public conditionalFormattings: ConditionalFormattingsExt;
+  declare map: { [key: string]: any };
+  declare model: any;
+  declare conditionalFormattings: ConditionalFormattingsExt;
 
   constructor() {
     super();
@@ -47,9 +47,9 @@ class ExtXform extends CompositeXform {
 }
 
 class ExtLstXform extends CompositeXform {
-  public map!: { [key: string]: any };
-  public model!: any;
-  public ext: ExtXform;
+  declare map: { [key: string]: any };
+  declare model: any;
+  declare ext: ExtXform;
 
   constructor() {
     super();

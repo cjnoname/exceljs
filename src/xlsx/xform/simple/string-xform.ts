@@ -7,10 +7,10 @@ interface StringXformOptions {
 }
 
 class StringXform extends BaseXform {
-  public tag: string;
-  public attr?: string;
-  public attrs?: any;
-  public text: string[];
+  declare tag: string;
+  declare attr?: string;
+  declare attrs?: any;
+  declare text: string[];
 
   constructor(options: StringXformOptions) {
     super();

@@ -12,7 +12,7 @@ import WorkbookCalcPropertiesXform from './workbook-calc-properties-xform.js';
 import WorkbookPivotCacheXform from './workbook-pivot-cache-xform.js';
 
 class WorkbookXform extends BaseXform {
-  public parser: any;
+  declare parser: any;
 
   constructor() {
     super();

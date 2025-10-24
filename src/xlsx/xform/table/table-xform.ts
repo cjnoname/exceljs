@@ -20,9 +20,9 @@ interface TableModel {
 }
 
 class TableXform extends BaseXform {
-  public map: { [key: string]: any };
-  public parser: any;
-  public model: TableModel;
+  declare map: { [key: string]: any };
+  declare parser: any;
+  declare model: TableModel;
 
   constructor() {
     super();

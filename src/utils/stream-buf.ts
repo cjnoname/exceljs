@@ -6,9 +6,9 @@ import StringBuf from './string-buf.js';
 // =============================================================================
 // data chunks - encapsulating incoming data
 class StringChunk {
-  private _data: string;
-  private _encoding: BufferEncoding;
-  private _buffer?: Buffer;
+  declare private _data: string;
+  declare private _encoding: BufferEncoding;
+  declare private _buffer?: Buffer;
 
   constructor(data: string, encoding: BufferEncoding) {
     this._data = data;
@@ -33,7 +33,7 @@ class StringChunk {
 }
 
 class StringBufChunk {
-  private _data: StringBuf;
+  declare private _data: StringBuf;
 
   constructor(data: StringBuf) {
     this._data = data;
@@ -55,7 +55,7 @@ class StringBufChunk {
 }
 
 class BufferChunk {
-  private _data: Buffer;
+  declare private _data: Buffer;
 
   constructor(data: Buffer) {
     this._data = data;

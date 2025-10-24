@@ -9,9 +9,9 @@ interface ExtModel {
 }
 
 class ExtXform extends BaseXform {
-  public tag: string;
-  public map: { [key: string]: any };
-  public model: ExtModel;
+  declare tag: string;
+  declare map: { [key: string]: any };
+  declare model: ExtModel;
 
   constructor(options: { tag: string }) {
     super();

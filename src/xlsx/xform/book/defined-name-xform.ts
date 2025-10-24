@@ -8,9 +8,9 @@ interface DefinedNameModel {
 }
 
 class DefinedNamesXform extends BaseXform {
-  private _parsedName?: string;
-  private _parsedLocalSheetId?: string;
-  private _parsedText: string[];
+  declare private _parsedName?: string;
+  declare private _parsedLocalSheetId?: string;
+  declare private _parsedText: string[];
 
   constructor() {
     super();

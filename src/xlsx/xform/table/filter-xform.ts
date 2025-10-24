@@ -5,7 +5,7 @@ interface FilterModel {
 }
 
 class FilterXform extends BaseXform {
-  public model: FilterModel;
+  declare model: FilterModel;
 
   constructor() {
     super();

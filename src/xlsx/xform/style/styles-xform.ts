@@ -37,9 +37,9 @@ interface StyleIndex {
 // StylesXform is used to generate and parse the styles.xml file
 // it manages the collections of fonts, number formats, alignments, etc
 class StylesXform extends BaseXform {
-  public index?: StyleIndex;
-  public weakMap?: WeakMap<any, number>;
-  public parser: any;
+  declare index?: StyleIndex;
+  declare weakMap?: WeakMap<any, number>;
+  declare parser: any;
   static Mock: typeof StylesXform;
 
   constructor(initialise?: boolean) {
@@ -491,7 +491,7 @@ class StylesXform extends BaseXform {
 
 // the stylemanager mock acts like StyleManager except that it always returns 0 or {}
 class StylesXformMock extends StylesXform {
-  private _dateStyleId?: number;
+  declare private _dateStyleId?: number;
 
   constructor() {
     super();

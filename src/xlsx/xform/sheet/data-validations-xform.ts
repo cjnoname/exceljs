@@ -96,9 +96,9 @@ function optimiseDataValidations(model: any): any[] {
 }
 
 class DataValidationsXform extends BaseXform {
-  private _address: string;
-  private _dataValidation: any;
-  private _formula: string[];
+  declare private _address: string;
+  declare private _dataValidation: any;
+  declare private _formula: string[];
 
   get tag(): string {
     return 'dataValidations';

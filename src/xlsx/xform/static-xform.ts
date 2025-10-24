@@ -31,8 +31,8 @@ function build(xmlStream: any, model: StaticModel): void {
 }
 
 class StaticXform extends BaseXform {
-  private _model: StaticModel;
-  private _xml?: string;
+  declare private _model: StaticModel;
+  declare private _xml?: string;
 
   constructor(model: StaticModel) {
     super();

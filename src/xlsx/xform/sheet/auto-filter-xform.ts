@@ -2,7 +2,7 @@ import colCache from '../../../utils/col-cache.js';
 import BaseXform from '../base-xform.js';
 
 class AutoFilterXform extends BaseXform {
-  public model: any;
+  declare model: any;
 
   get tag(): string {
     return 'autoFilter';

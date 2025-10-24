@@ -1,7 +1,7 @@
 class SharedStrings {
-  private _values: any[];
-  private _totalRefs: number;
-  private _hash: Record<string, number>;
+  declare private _values: any[];
+  declare private _totalRefs: number;
+  declare private _hash: Record<string, number>;
 
   constructor() {
     this._values = [];

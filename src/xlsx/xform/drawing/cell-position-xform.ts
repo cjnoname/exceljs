@@ -9,10 +9,10 @@ interface PositionModel {
 }
 
 class CellPositionXform extends BaseXform {
-  public tag: string;
-  public map: { [key: string]: IntegerXform };
-  public parser: any;
-  public model: PositionModel;
+  declare tag: string;
+  declare map: { [key: string]: IntegerXform };
+  declare parser: any;
+  declare model: PositionModel;
 
   constructor(options: { tag: string }) {
     super();

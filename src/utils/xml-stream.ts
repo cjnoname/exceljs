@@ -35,9 +35,9 @@ function pushAttributes(xml: string[], attributes?: Attributes): void {
 }
 
 class XmlStream {
-  private _xml: string[];
-  private _stack: string[];
-  private _rollbacks: Rollback[];
+  declare private _xml: string[];
+  declare private _stack: string[];
+  declare private _rollbacks: Rollback[];
   leaf?: boolean;
   open?: boolean;
 

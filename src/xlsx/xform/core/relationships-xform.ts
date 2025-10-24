@@ -3,8 +3,8 @@ import BaseXform from '../base-xform.js';
 import RelationshipXform from './relationship-xform.js';
 
 class RelationshipsXform extends BaseXform {
-  public parser: any;
-  private _values?: any[];
+  declare parser: any;
+  declare private _values?: any[];
 
   constructor() {
     super();

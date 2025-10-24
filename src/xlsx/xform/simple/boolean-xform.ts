@@ -6,8 +6,8 @@ interface BooleanXformOptions {
 }
 
 class BooleanXform extends BaseXform {
-  public tag: string;
-  public attr: string;
+  declare tag: string;
+  declare attr: string;
 
   constructor(options: BooleanXformOptions) {
     super();

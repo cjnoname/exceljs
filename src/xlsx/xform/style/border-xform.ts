@@ -18,10 +18,10 @@ interface BorderModel {
 }
 
 class EdgeXform extends BaseXform {
-  public name: string;
-  public map: { color: ColorXform };
-  public defaultColor: any;
-  public parser: any;
+  declare name: string;
+  declare map: { color: ColorXform };
+  declare defaultColor: any;
+  declare parser: any;
 
   constructor(name: string) {
     super();
@@ -126,10 +126,10 @@ class EdgeXform extends BaseXform {
 
 // Border encapsulates translation from border model to/from xlsx
 class BorderXform extends BaseXform {
-  public map: { [key: string]: EdgeXform };
-  public parser: any;
-  public diagonalUp: boolean | undefined;
-  public diagonalDown: boolean | undefined;
+  declare map: { [key: string]: EdgeXform };
+  declare parser: any;
+  declare diagonalUp: boolean | undefined;
+  declare diagonalDown: boolean | undefined;
 
   constructor() {
     super();

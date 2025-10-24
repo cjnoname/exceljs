@@ -9,7 +9,7 @@ interface ColorModel {
 
 // Color encapsulates translation from color model to/from xlsx
 class ColorXform extends BaseXform {
-  public name: string;
+  declare name: string;
 
   constructor(name?: string) {
     super();

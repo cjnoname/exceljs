@@ -26,10 +26,10 @@ interface SheetViewModel {
 }
 
 class SheetViewXform extends BaseXform {
-  public model: SheetViewModel;
-  private sheetView: any;
-  private pane: any;
-  private selections: any;
+  declare model: SheetViewModel;
+  declare private sheetView: any;
+  declare private pane: any;
+  declare private selections: any;
 
   get tag(): string {
     return 'sheetView';

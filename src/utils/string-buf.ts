@@ -6,10 +6,10 @@ interface StringBufOptions {
 // StringBuf - a way to keep string memory operations to a minimum
 // while building the strings for the xml files
 class StringBuf {
-  private _buf: Buffer;
-  private _encoding: BufferEncoding;
-  private _inPos: number;
-  private _buffer: Buffer | undefined;
+  declare private _buf: Buffer;
+  declare private _encoding: BufferEncoding;
+  declare private _inPos: number;
+  declare private _buffer: Buffer | undefined;
 
   constructor(options?: StringBufOptions) {
     this._buf = Buffer.alloc((options && options.size) || 16384);

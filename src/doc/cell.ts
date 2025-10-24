@@ -56,13 +56,14 @@ interface CellModel {
 class Cell {
   static Types = Enums.ValueType;
 
-  public _row: any;
-  public _column: any;
-  public _address: string;
-  public _value: any;
-  public style: any;
-  public _mergeCount: number;
-  public _comment?: any;
+  // Type declarations only - no runtime overhead
+  declare _row: any;
+  declare _column: any;
+  declare _address: string;
+  declare _value: any;
+  declare style: any;
+  declare _mergeCount: number;
+  declare _comment?: any;
 
   constructor(row: any, column: any, address: string) {
     if (!row || !column) {
@@ -414,7 +415,7 @@ class Cell {
 // Internal Value Types
 
 class NullValue {
-  public model: CellModel;
+  declare model: CellModel;
 
   constructor(cell: Cell) {
     this.model = {
@@ -459,7 +460,7 @@ class NullValue {
 }
 
 class NumberValue {
-  public model: CellModel;
+  declare model: CellModel;
 
   constructor(cell: Cell, value: number) {
     this.model = {
@@ -505,7 +506,7 @@ class NumberValue {
 }
 
 class StringValue {
-  public model: CellModel;
+  declare model: CellModel;
 
   constructor(cell: Cell, value: string) {
     this.model = {
@@ -551,7 +552,7 @@ class StringValue {
 }
 
 class RichTextValue {
-  public model: CellModel;
+  declare model: CellModel;
 
   constructor(cell: Cell, value: any) {
     this.model = {
@@ -601,7 +602,7 @@ class RichTextValue {
 }
 
 class DateValue {
-  public model: CellModel;
+  declare model: CellModel;
 
   constructor(cell: Cell, value: Date) {
     this.model = {
@@ -647,7 +648,7 @@ class DateValue {
 }
 
 class HyperlinkValue {
-  public model: CellModel;
+  declare model: CellModel;
 
   constructor(cell: Cell, value?: HyperlinkValueData) {
     this.model = {
@@ -724,8 +725,8 @@ class HyperlinkValue {
 }
 
 class MergeValue {
-  public model: CellModel;
-  public _master: Cell;
+  declare model: CellModel;
+  declare _master: Cell;
 
   constructor(cell: Cell, master?: Cell) {
     this.model = {
@@ -793,9 +794,9 @@ class MergeValue {
 }
 
 class FormulaValue {
-  public cell: Cell;
-  public model: CellModel;
-  public _translatedFormula?: string;
+  declare cell: Cell;
+  declare model: CellModel;
+  declare _translatedFormula?: string;
 
   constructor(cell: Cell, value?: FormulaValueData) {
     this.cell = cell;
@@ -944,7 +945,7 @@ class FormulaValue {
 }
 
 class SharedStringValue {
-  public model: CellModel;
+  declare model: CellModel;
 
   constructor(cell: Cell, value: any) {
     this.model = {
@@ -990,7 +991,7 @@ class SharedStringValue {
 }
 
 class BooleanValue {
-  public model: CellModel;
+  declare model: CellModel;
 
   constructor(cell: Cell, value: boolean) {
     this.model = {
@@ -1036,7 +1037,7 @@ class BooleanValue {
 }
 
 class ErrorValue {
-  public model: CellModel;
+  declare model: CellModel;
 
   constructor(cell: Cell, value: any) {
     this.model = {
@@ -1082,7 +1083,7 @@ class ErrorValue {
 }
 
 class JSONValue {
-  public model: CellModel;
+  declare model: CellModel;
 
   constructor(cell: Cell, value: any) {
     this.model = {

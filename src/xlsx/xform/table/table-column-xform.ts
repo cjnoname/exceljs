@@ -9,7 +9,7 @@ interface TableColumnModel {
 }
 
 class TableColumnXform extends BaseXform {
-  public model: TableColumnModel;
+  declare model: TableColumnModel;
 
   constructor() {
     super();

@@ -3,9 +3,9 @@ import CNvPrXform from './c-nv-pr-xform.js';
 import CNvPicPrXform from './c-nv-pic-pr-xform.js';
 
 class NvPicPrXform extends BaseXform {
-  public map: { [key: string]: any };
-  public parser: any;
-  public model: any;
+  declare map: { [key: string]: any };
+  declare parser: any;
+  declare model: any;
 
   constructor() {
     super();

@@ -8,7 +8,7 @@ interface CacheDefinitionModel {
 }
 
 class PivotCacheDefinitionXform extends BaseXform {
-  public map: { [key: string]: any };
+  declare map: { [key: string]: any };
 
   constructor() {
     super();

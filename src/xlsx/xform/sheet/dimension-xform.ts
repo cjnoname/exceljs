@@ -1,7 +1,7 @@
 import BaseXform from '../base-xform.js';
 
 class DimensionXform extends BaseXform {
-  public model: any;
+  declare model: any;
 
   get tag(): string {
     return 'dimension';

@@ -15,9 +15,9 @@ interface DrawingModel {
 }
 
 class DrawingXform extends BaseXform {
-  public map: { [key: string]: any };
-  public parser: any;
-  public model: DrawingModel;
+  declare map: { [key: string]: any };
+  declare parser: any;
+  declare model: DrawingModel;
 
   constructor() {
     super();

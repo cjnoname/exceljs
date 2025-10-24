@@ -8,11 +8,11 @@ interface IntegerXformOptions {
 }
 
 class IntegerXform extends BaseXform {
-  public tag: string;
-  public attr?: string;
-  public attrs?: any;
-  public zero?: boolean;
-  public text: string[];
+  declare tag: string;
+  declare attr?: string;
+  declare attrs?: any;
+  declare zero?: boolean;
+  declare text: string[];
 
   constructor(options: IntegerXformOptions) {
     super();

@@ -6,7 +6,7 @@ import BaseXform from './base-xform.js';
 // base class for xforms that are composed of other xforms
 // offers some default implementations
 class CompositeXform extends BaseXform {
-  public parser?: any;
+  declare parser?: any;
 
   createNewModel(_node?: any): any {
     return {};

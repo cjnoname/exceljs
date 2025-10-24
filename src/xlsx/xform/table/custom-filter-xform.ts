@@ -6,7 +6,7 @@ interface CustomFilterModel {
 }
 
 class CustomFilterXform extends BaseXform {
-  public model: CustomFilterModel;
+  declare model: CustomFilterModel;
 
   constructor() {
     super();

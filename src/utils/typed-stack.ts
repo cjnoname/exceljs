@@ -1,6 +1,6 @@
 class TypedStack<T> {
-  private _type: new () => T;
-  private _stack: T[];
+  declare private _type: new () => T;
+  declare private _stack: T[];
 
   constructor(type: new () => T) {
     this._type = type;

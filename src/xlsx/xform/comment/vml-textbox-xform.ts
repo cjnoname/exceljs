@@ -14,7 +14,7 @@ interface TextboxModel {
 }
 
 class VmlTextboxXform extends BaseXform {
-  public model: TextboxModel;
+  declare model: TextboxModel;
 
   constructor() {
     super();

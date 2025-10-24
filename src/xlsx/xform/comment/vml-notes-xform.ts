@@ -9,9 +9,9 @@ interface VmlNotesModel {
 // This class is (currently) single purposed to insert the triangle
 // drawing icons on commented cells
 class VmlNotesXform extends BaseXform {
-  public map: { [key: string]: any };
-  public parser: any;
-  public model: VmlNotesModel;
+  declare map: { [key: string]: any };
+  declare parser: any;
+  declare model: VmlNotesModel;
 
   constructor() {
     super();

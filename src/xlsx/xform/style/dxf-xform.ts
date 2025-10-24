@@ -23,8 +23,8 @@ interface DxfModel {
 
 // Style assists translation from style model to/from xlsx
 class DxfXform extends BaseXform {
-  public map: { [key: string]: any };
-  public parser: any;
+  declare map: { [key: string]: any };
+  declare parser: any;
 
   constructor() {
     super();

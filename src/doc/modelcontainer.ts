@@ -2,7 +2,7 @@ import XLSX from '../xlsx/xlsx.js';
 
 class ModelContainer {
   model: any;
-  private _xlsx?: XLSX;
+  declare private _xlsx?: XLSX;
 
   constructor(model: any) {
     this.model = model;
